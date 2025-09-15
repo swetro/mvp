@@ -1,0 +1,17 @@
+@let challenge = challengeData.value();
+@let participants = participantsData.value()?.items;
+
+@if (challenge) {
+  <h1>{{ challenge.content.title }}</h1>
+  <p>{{ challenge.content.goalDescription }}</p>
+  <p>{{ challenge.numberOfParticipants }} Participantes</p>
+}
+
+@if (participants) {
+  <h2>Participantes</h2>
+  <ul>
+    @for (item of participants; track item) {
+      <li>{{ item.firstName }} {{ item.lastName }}</li>
+    }
+  </ul>
+}
