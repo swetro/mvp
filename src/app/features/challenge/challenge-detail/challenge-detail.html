@@ -8,10 +8,46 @@
 }
 
 @if (participants) {
-  <h2>Participantes</h2>
-  <ul>
-    @for (item of participants; track item) {
-      <li>{{ item.firstName }} {{ item.lastName }}</li>
-    }
-  </ul>
+  <h2>Leaderboard</h2>
+  <table style="width: 100%">
+    <thead style="text-align: left">
+      <tr>
+        <th>Position</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Distance</th>
+        <th>Time</th>
+        <th>Pace</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of participants; track item.id) {
+        <tr>
+          <td>
+            {{ item.position }}
+          </td>
+          <td>
+            <a [routerLink]="['/participants', item.id]"
+              >{{ item.firstName }} {{ item.lastName }}</a
+            >
+          </td>
+          <td>
+            <img
+              [src]="item.countryAlpha2Code | countryFlag"
+              alt="{{ item.countryAlpha3Code }}"
+            />&nbsp;{{ item.countryAlpha3Code }}
+          </td>
+          <td>{{ item.age }}</td>
+          <td>{{ item.gender | gender }}</td>
+          <td>{{ item.totalDistanceInMeters | distance }}</td>
+          <td>{{ item.totalDurationInSeconds | duration }}</td>
+          <td>{{ item.totalAveragePaceInMinutesPerKilometer | pace }}</td>
+          <td><a [routerLink]="['/participants', item.id]">Details</a></td>
+        </tr>
+      }
+    </tbody>
+  </table>
 }

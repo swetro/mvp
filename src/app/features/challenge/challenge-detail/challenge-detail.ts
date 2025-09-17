@@ -1,9 +1,15 @@
-import { Component, effect, inject, resource } from '@angular/core';
+import { Component, inject, resource } from '@angular/core';
 import { ChallengeService } from '../../../shared/services/challenge.service';
+import { RouterLink } from '@angular/router';
+import { CountryFlagPipe } from '../../../shared/pipes/country-flag.pipe';
+import { DistancePipe } from '../../../shared/pipes/distance.pipe';
+import { DurationPipe } from '../../../shared/pipes/duration.pipe';
+import { PacePipe } from '../../../shared/pipes/pace.pipe';
+import { GenderPipe } from '../../../shared/pipes/gender.pipe';
 
 @Component({
   selector: 'app-challenge-detail',
-  imports: [],
+  imports: [RouterLink, CountryFlagPipe, DistancePipe, DurationPipe, PacePipe, GenderPipe],
   templateUrl: './challenge-detail.html',
   styles: ``,
 })
@@ -12,8 +18,8 @@ export class ChallengeDetail {
 
   challengeData = resource({
     params: () => ({
-      leagueSlug: 'rene-valencia-vallejo-league',
-      challengeId: 550,
+      leagueSlug: 'polar-colombia',
+      challengeId: 1130,
     }),
     loader: ({ params }) =>
       this.challengeService.getChallenge(params.leagueSlug, params.challengeId),
@@ -21,12 +27,10 @@ export class ChallengeDetail {
 
   participantsData = resource({
     params: () => ({
-      leagueSlug: 'rene-valencia-vallejo-league',
-      challengeId: 550,
+      leagueSlug: 'polar-colombia',
+      challengeId: 1130,
     }),
     loader: ({ params }) =>
       this.challengeService.getParticipants(params.leagueSlug, params.challengeId),
   });
-
-  constructor() {}
 }
