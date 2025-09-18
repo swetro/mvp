@@ -1,5 +1,6 @@
 @let challenge = challengeData.value();
 @let participants = participantsData.value()?.items;
+@let participantFilters = participantFiltersData.value();
 
 @if (challenge) {
   <h1>{{ challenge.content.title }}</h1>
@@ -7,8 +8,17 @@
   <p>{{ challenge.numberOfParticipants }} Participantes</p>
 }
 
+<h2>Leaderboard</h2>
+@if (participantFilters) {
+  <div>
+    <select id="participantFilter" (change)="onParticipantFilterChange($event)">
+      @for (item of participantFilters; track item.value) {
+        <option [value]="item.value">{{ item.label }}</option>
+      }
+    </select>
+  </div>
+}
 @if (participants) {
-  <h2>Leaderboard</h2>
   <table style="width: 100%">
     <thead style="text-align: left">
       <tr>
