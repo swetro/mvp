@@ -7,10 +7,19 @@ import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { PacePipe } from '../../../shared/pipes/pace.pipe';
 import { GenderPipe } from '../../../shared/pipes/gender.pipe';
 import { DatasetService } from '../../../shared/services/dataset.service';
+import { CompletedChallengePipe } from '../../../shared/pipes/completed-challenge.pipe';
 
 @Component({
   selector: 'app-challenge-detail',
-  imports: [RouterLink, CountryFlagPipe, DistancePipe, DurationPipe, PacePipe, GenderPipe],
+  imports: [
+    RouterLink,
+    CountryFlagPipe,
+    DistancePipe,
+    DurationPipe,
+    PacePipe,
+    GenderPipe,
+    CompletedChallengePipe,
+  ],
   templateUrl: './challenge-detail.html',
   styles: ``,
 })

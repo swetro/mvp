@@ -27,6 +27,7 @@
         <th>Country</th>
         <th>Age</th>
         <th>Gender</th>
+        <th>PositionByGenderAndAgeCategory</th>
         <th>Distance</th>
         <th>Time</th>
         <th>Pace</th>
@@ -40,6 +41,7 @@
             {{ item.position }}
           </td>
           <td>
+            {{ item.isCompleted | completedChallenge }}
             <a [routerLink]="['/participants', item.id]"
               >{{ item.firstName }} {{ item.lastName }}</a
             >
@@ -52,6 +54,7 @@
           </td>
           <td>{{ item.age }}</td>
           <td>{{ item.gender | gender }}</td>
+          <td>{{ item.positionByGenderAndAgeCategory }}</td>
           <td>{{ item.totalDistanceInMeters | distance }}</td>
           <td>{{ item.totalDurationInSeconds | duration }}</td>
           <td>{{ item.totalAveragePaceInMinutesPerKilometer | pace }}</td>
