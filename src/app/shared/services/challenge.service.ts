@@ -23,9 +23,11 @@ export class ChallengeService {
     leagueSlug: string,
     challengeId: number,
     filter: string,
+    search?: string,
   ): Promise<PagedResult<ParticipantDto>> {
     const params = new URLSearchParams();
     if (filter) params.append('filter', filter);
+    if (search) params.append('search', search);
     const query = params.toString() ? `?${params.toString()}` : '';
 
     const response = await fetch(

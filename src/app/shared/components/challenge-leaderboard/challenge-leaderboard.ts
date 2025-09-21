@@ -12,18 +12,26 @@ import { ChallengeParticipantsTable } from '../challenge-participants-table/chal
 export class ChallengeLeaderboard {
   private challengeService = inject(ChallengeService);
   private datasetService = inject(DatasetService);
+  private searchTimer?: number;
   leagueSlug = input.required<string>();
   challengeId = input.required<number>();
   selectedFilter = signal<string>('');
+  searchTerm = signal<string>('');
 
   participantsData = resource({
     params: () => ({
       leagueSlug: this.leagueSlug(),
       challengeId: this.challengeId(),
       filter: this.selectedFilter(),
+      search: this.searchTerm(),
     }),
     loader: ({ params }) =>
-      this.challengeService.getParticipants(params.leagueSlug, params.challengeId, params.filter),
+      this.challengeService.getParticipants(
+        params.leagueSlug,
+        params.challengeId,
+        params.filter,
+        params.search,
+      ),
   });
 
   participantFiltersData = resource({
@@ -34,5 +42,18 @@ export class ChallengeLeaderboard {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
     this.selectedFilter.set(selectedValue);
+  }
+
+  onSearchInput(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    clearTimeout(this.searchTimer);
+    this.searchTimer = window.setTimeout(() => {
+      this.searchTerm.set(value.length > 2 ? value : '');
+    }, 300);
+  }
+
+  onSearchEnter(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchTerm.set(value.length > 2 ? value : '');
   }
 }

@@ -2,12 +2,18 @@
 @let participantFilters = participantFiltersData.value();
 
 @if (participantFilters) {
-  <div>
+  <div style="display: flex; justify-content: space-between; align-items: center">
     <select id="participantFilter" (change)="onFilterChange($event)">
       @for (item of participantFilters; track $index) {
         <option [value]="item.value">{{ item.label }}</option>
       }
     </select>
+    <input
+      type="text"
+      id="participantSearch"
+      (input)="onSearchInput($event)"
+      (keyup.enter)="onSearchEnter($event)"
+    />
   </div>
 }
 @if (participants) {
