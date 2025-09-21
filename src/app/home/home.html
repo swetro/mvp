@@ -1,0 +1,9 @@
+@let challenge = challengeData.value();
+
+@if (challenge) {
+  <h1>{{ challenge.content.title }}</h1>
+  <p>{{ challenge.content.description }}</p>
+  <h3>
+    <a [routerLink]="['results']">Results</a>
+  </h3>
+}

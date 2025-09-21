@@ -12,6 +12,7 @@ export interface ParticipantDto {
   isLeader: boolean;
   isCompleted: boolean;
   position: number;
+  positionByGenderAndAgeCategory: number;
   totalNumberActivities: number;
   totalDurationInSeconds: number;
   totalDistanceInMeters: number;

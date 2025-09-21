@@ -1,22 +1,28 @@
 import { Routes } from '@angular/router';
-import { ChallengeDetail } from './features/challenge/challenge-detail/challenge-detail';
 import { PageNotFound } from './shared/components/page-not-found/page-not-found';
-import { ParticipantDetail } from './features/challenge/participant-detail/participant-detail';
+import { DefaultLayout } from './shared/layouts/default-layout/default-layout';
+import { Home } from './home/home';
+import { ChallengeResult } from './challenge/challenge-result/challenge-result';
 
 export const routes: Routes = [
   {
     path: '',
-    // component: JobPostingLayoutComponent,
+    component: DefaultLayout,
     children: [
       {
         path: '',
-        component: ChallengeDetail,
+        component: Home,
         pathMatch: 'full',
       },
       {
-        path: 'participants/:id',
-        component: ParticipantDetail,
+        path: 'results',
+        component: ChallengeResult,
+        pathMatch: 'full',
       },
+      // {
+      //   path: 'participants/:id',
+      //   component: ParticipantDetail,
+      // },
     ],
   },
   {

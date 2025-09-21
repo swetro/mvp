@@ -10,7 +10,11 @@ import { PagedResult } from '../models/paged-result.dto';
 })
 export class ChallengeService {
   async getChallenge(leagueSlug: string, challengeId: number): Promise<ChallengeDto> {
-    const response = await fetch(`${environment.apiUrl}/challenges/${leagueSlug}/${challengeId}`);
+    const response = await fetch(`${environment.apiUrl}/challenges/${leagueSlug}/${challengeId}`, {
+      headers: {
+        'Accept-Language': 'en',
+      },
+    });
     const result = (await response.json()) as ApiResult;
     return result.data as ChallengeDto;
   }

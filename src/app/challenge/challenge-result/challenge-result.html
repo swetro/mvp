@@ -1,0 +1,15 @@
+@let challenge = challengeData.value();
+
+<h3>
+  <a [routerLink]="['/']">Back</a>
+</h3>
+
+@if (challenge) {
+  <h1>{{ challenge.content.title }}</h1>
+
+  <h2>Leaderboard</h2>
+  <app-challenge-leaderboard
+    [leagueSlug]="this.leagueSlug"
+    [challengeId]="this.challengeId"
+  ></app-challenge-leaderboard>
+}

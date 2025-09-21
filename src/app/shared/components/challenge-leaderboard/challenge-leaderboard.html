@@ -1,0 +1,17 @@
+@let participants = participantsData.value()?.items;
+@let participantFilters = participantFiltersData.value();
+
+@if (participantFilters) {
+  <div>
+    <select id="participantFilter" (change)="onFilterChange($event)">
+      @for (item of participantFilters; track $index) {
+        <option [value]="item.value">{{ item.label }}</option>
+      }
+    </select>
+  </div>
+}
+@if (participants) {
+  <app-challenge-participants-table
+    [participantsData]="participants"
+  ></app-challenge-participants-table>
+}
