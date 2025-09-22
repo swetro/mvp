@@ -1,6 +1,7 @@
 export interface PagedResult<T> {
+  pageNumber: number;
   pageSize: number;
-  nextPageToken: string;
-  hasMoreItems: boolean;
+  totalPages: number;
+  totalCount: number;
   items: T[];
 }

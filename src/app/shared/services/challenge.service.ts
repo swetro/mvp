@@ -22,12 +22,14 @@ export class ChallengeService {
   async getParticipants(
     leagueSlug: string,
     challengeId: number,
-    filter: string,
+    pageNumber: number,
+    filter?: string,
     search?: string,
   ): Promise<PagedResult<ParticipantDto>> {
     const params = new URLSearchParams();
     if (filter) params.append('filter', filter);
     if (search) params.append('search', search);
+    if (pageNumber) params.append('page', pageNumber.toString());
     const query = params.toString() ? `?${params.toString()}` : '';
 
     const response = await fetch(
