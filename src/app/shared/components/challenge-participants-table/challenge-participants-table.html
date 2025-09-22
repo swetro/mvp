@@ -7,9 +7,10 @@
         <th>Position</th>
         <th>Name</th>
         <th>Country</th>
-        <th>Age</th>
         <th>Gender</th>
-        <th>PositionByGenderAndAgeCategory</th>
+        <th>Age</th>
+        <th>Age category</th>
+        <th>Age category position</th>
         <th>Distance</th>
         <th>Time</th>
         <th>Pace</th>
@@ -32,9 +33,10 @@
               alt="{{ item.countryAlpha3Code }}"
             />&nbsp;{{ item.countryAlpha3Code }}
           </td>
-          <td>{{ item.age }}</td>
           <td>{{ item.gender | gender }}</td>
-          <td>{{ item.positionByGenderAndAgeCategory }}</td>
+          <td>{{ item.age }}</td>
+          <td>{{ item.ageCategory }}</td>
+          <td>{{ item.positionByAgeCategory }}</td>
           <td>{{ item.totalDistanceInMeters | distance }}</td>
           <td>{{ item.totalDurationInSeconds | duration }}</td>
           <td>{{ item.totalAveragePaceInMinutesPerKilometer | pace }}</td>

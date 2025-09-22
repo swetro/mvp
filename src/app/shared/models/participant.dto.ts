@@ -5,6 +5,7 @@ export interface ParticipantDto {
   gender: string;
   profilePictureUrl: string;
   age: number;
+  ageCategory: string;
   country: string;
   countryAlpha2Code: string;
   countryAlpha3Code: string;
@@ -12,7 +13,7 @@ export interface ParticipantDto {
   isLeader: boolean;
   isCompleted: boolean;
   position: number;
-  positionByGenderAndAgeCategory: number;
+  positionByAgeCategory: number;
   totalNumberActivities: number;
   totalDurationInSeconds: number;
   totalDistanceInMeters: number;

@@ -3,4 +3,5 @@ export const environment = {
   apiUrl: 'http://localhost:5039/api/v1',
   leagueSlug: 'polar-colombia',
   challengeId: 1130,
+  useDefaultLanguage: true,
 };

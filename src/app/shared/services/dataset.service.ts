@@ -8,7 +8,11 @@ import { ItemListDto } from '../models/item-list.dto';
 })
 export class DatasetService {
   async getParticipantFilters(): Promise<ItemListDto[]> {
-    const response = await fetch(`${environment.apiUrl}/dataset/filter/participants`);
+    const response = await fetch(`${environment.apiUrl}/dataset/filter/participants`, {
+      headers: {
+        'Accept-Language': 'en',
+      },
+    });
     const result = (await response.json()) as ApiResult;
     return result.data as ItemListDto[];
   }

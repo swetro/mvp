@@ -3,4 +3,5 @@ export const environment = {
   apiUrl: 'https://api.example.com',
   leagueSlug: 'polar-colombia',
   challengeId: 1130,
+  useDefaultLanguage: true,
 };

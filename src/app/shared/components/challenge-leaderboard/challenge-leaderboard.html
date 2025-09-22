@@ -1,10 +1,6 @@
 @let participants = participantsData.value()?.items;
 @let participantFilters = participantFiltersData.value();
 
-<p>pageNumber: {{ participantsData.value()?.pageNumber }}</p>
-<p>totalCount: {{ participantsData.value()?.totalCount }}</p>
-<p>totalPages: {{ participantsData.value()?.totalPages }}</p>
-
 @if (participantFilters) {
   <div style="display: flex; justify-content: space-between; align-items: center">
     <select id="participantFilter" (change)="onFilterChange($event)">
