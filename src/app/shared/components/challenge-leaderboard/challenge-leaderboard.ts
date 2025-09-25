@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, resource, signal } from '@angular/core';
+import { Component, inject, input, resource, signal } from '@angular/core';
 import { ChallengeService } from '../../services/challenge.service';
 import { DatasetService } from '../../services/dataset.service';
 import { ChallengeParticipantsTable } from '../challenge-participants-table/challenge-participants-table';
@@ -18,14 +18,6 @@ export class ChallengeLeaderboard {
   selectedFilter = signal<string>('');
   searchTerm = signal<string>('');
   currentPage = signal<number>(1);
-  hasMoreItems = computed(() => {
-    const data = this.participantsData.value();
-    if (data) {
-      return data.totalPages > this.currentPage();
-    }
-
-    return false;
-  });
 
   participantsData = resource({
     params: () => ({
@@ -49,13 +41,14 @@ export class ChallengeLeaderboard {
     loader: () => this.datasetService.getParticipantFilters(),
   });
 
-  onFilterChange(event: Event) {
+  participantFilterChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
     this.selectedFilter.set(selectedValue);
+    this.currentPage.set(1);
   }
 
-  onSearchInput(event: Event) {
+  participantSearchInput(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     clearTimeout(this.searchTimer);
     this.searchTimer = window.setTimeout(() => {
@@ -63,12 +56,20 @@ export class ChallengeLeaderboard {
     }, 300);
   }
 
-  onSearchEnter(event: Event) {
+  participantSearchEnter(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.searchTerm.set(value.length > 2 ? value : '');
   }
 
-  onLoadMoreClick() {
-    this.currentPage.update((x) => x + 1);
+  goNextPage() {
+    this.goToPage(this.currentPage() + 1);
+  }
+
+  goPrevPage() {
+    this.goToPage(this.currentPage() - 1);
+  }
+
+  goToPage(page: number) {
+    this.currentPage.set(page);
   }
 }

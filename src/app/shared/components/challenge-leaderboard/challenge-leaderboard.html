@@ -1,9 +1,9 @@
-@let participants = participantsData.value()?.items;
+@let participants = participantsData.value();
 @let participantFilters = participantFiltersData.value();
 
 @if (participantFilters) {
   <div style="display: flex; justify-content: space-between; align-items: center">
-    <select id="participantFilter" (change)="onFilterChange($event)">
+    <select id="participantFilter" (change)="participantFilterChange($event)">
       @for (item of participantFilters; track $index) {
         <option [value]="item.value">{{ item.label }}</option>
       }
@@ -11,16 +11,28 @@
     <input
       type="text"
       id="participantSearch"
-      (input)="onSearchInput($event)"
-      (keyup.enter)="onSearchEnter($event)"
+      (input)="participantSearchInput($event)"
+      (keyup.enter)="participantSearchEnter($event)"
     />
   </div>
 }
 @if (participants) {
   <app-challenge-participants-table
-    [participantsData]="participants"
+    [participantsData]="participants.items"
   ></app-challenge-participants-table>
-  <button id="participantLoadMore" (click)="onLoadMoreClick()" [disabled]="!this.hasMoreItems()">
-    Load more
-  </button>
+  <div>
+    <span>Page {{ participants.pageNumber }} of {{ participants.totalPages }}</span>
+
+    <button (click)="goToPage(1)" [disabled]="participants.pageNumber === 1"><<</button>
+    <button (click)="goPrevPage()" [disabled]="participants.pageNumber === 1"><</button>
+    <button (click)="goNextPage()" [disabled]="participants.pageNumber === participants.totalPages">
+      >
+    </button>
+    <button
+      (click)="goToPage(participants.totalPages)"
+      [disabled]="participants.pageNumber === participants.totalPages"
+    >
+      >>
+    </button>
+  </div>
 }
