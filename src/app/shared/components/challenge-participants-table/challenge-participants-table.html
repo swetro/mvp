@@ -25,7 +25,7 @@
           </td>
           <td>
             {{ item.isCompleted | completedChallenge }}
-            <a>{{ item.firstName }} {{ item.lastName }}</a>
+            <a [routerLink]="[route(), item.id]">{{ item.firstName }} {{ item.lastName }}</a>
           </td>
           <td>
             <img
@@ -40,7 +40,7 @@
           <td>{{ item.totalDistanceInMeters | distance }}</td>
           <td>{{ item.totalDurationInSeconds | duration }}</td>
           <td>{{ item.totalAveragePaceInMinutesPerKilometer | pace }}</td>
-          <td><a>Details</a></td>
+          <td><a [routerLink]="[route(), item.id]">Details</a></td>
         </tr>
       }
     </tbody>

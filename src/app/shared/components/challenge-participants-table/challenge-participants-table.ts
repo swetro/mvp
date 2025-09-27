@@ -6,6 +6,7 @@ import { DistancePipe } from '../../pipes/distance.pipe';
 import { DurationPipe } from '../../pipes/duration.pipe';
 import { GenderPipe } from '../../pipes/gender.pipe';
 import { PacePipe } from '../../pipes/pace.pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-challenge-participants-table',
@@ -16,10 +17,12 @@ import { PacePipe } from '../../pipes/pace.pipe';
     PacePipe,
     GenderPipe,
     CompletedChallengePipe,
+    RouterLink,
   ],
   templateUrl: './challenge-participants-table.html',
   styles: ``,
 })
 export class ChallengeParticipantsTable {
   participantsData = input.required<ParticipantDto[]>();
+  route = input.required<string>();
 }

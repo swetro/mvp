@@ -3,6 +3,7 @@ import { PageNotFound } from './shared/components/page-not-found/page-not-found'
 import { DefaultLayout } from './shared/layouts/default-layout/default-layout';
 import { Home } from './home/home';
 import { ChallengeResult } from './challenge/challenge-result/challenge-result';
+import { ChallengeParticipant } from './challenge/challenge-participant/challenge-participant';
 
 export const routes: Routes = [
   {
@@ -19,10 +20,11 @@ export const routes: Routes = [
         component: ChallengeResult,
         pathMatch: 'full',
       },
-      // {
-      //   path: 'participants/:id',
-      //   component: ParticipantDetail,
-      // },
+      {
+        path: 'results/:id',
+        component: ChallengeParticipant,
+        pathMatch: 'full',
+      },
     ],
   },
   {
