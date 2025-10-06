@@ -5,16 +5,31 @@
 </h3>
 
 @if (participant) {
-  <h1>
-    {{ participant.isCompleted | completedChallenge }} {{ participant.firstName }}
-    {{ participant.lastName }}
-  </h1>
   <div>
-    <img
-      [src]="participant.countryAlpha2Code | countryFlag"
-      alt="{{ participant.countryAlpha3Code }}"
-    />&nbsp;{{ participant.countryAlpha3Code }} - {{ participant.gender }} -
-    {{ participant.age }}
+    <h1>
+      {{ participant.isCompleted | completedChallenge }} {{ participant.firstName }}
+      {{ participant.lastName }}
+    </h1>
+    <div style="margin-top: 10px; margin-bottom: 10px">
+      <div>Position: {{ participant.position }}</div>
+      <div>Age Category Position: {{ participant.positionByAgeCategory }}</div>
+    </div>
+    <div>
+      <img [src]="participant.countryAlpha2Code | countryFlag" alt="{{ participant.country }}" />
+      &nbsp; {{ participant.country }}
+    </div>
+    <div>{{ participant.gender }} - {{ participant.age }} years</div>
+    <div>Age Category: {{ participant.ageCategory }}</div>
+  </div>
+  <div style="margin-top: 10px; margin-bottom: 10px">
+    <div>Distance: {{ participant.totalDistanceInMeters | distance }}</div>
+    <div>Time: {{ participant.totalDurationInSeconds | duration }}</div>
+    <div>Pace: {{ participant.totalAveragePaceInMinutesPerKilometer | pace }}</div>
+    <div>Elevation Gain: {{ participant.totalElevationGainInMeters | elevation }}</div>
+    <div>Elevation Loss: {{ participant.totalElevationLossInMeters | elevation }}</div>
+    <div>Heart Rate: {{ participant.totalAverageHeartRateInBeatsPerMinute | heartRate }}</div>
+    <div>Calories: {{ participant.totalKilocalories | calories }}</div>
+    <div>Activities: {{ participant.totalNumberActivities }}</div>
   </div>
 
   <app-participant-activities-table

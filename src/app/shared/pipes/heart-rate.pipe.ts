@@ -10,6 +10,6 @@ export class HeartRatePipe implements PipeTransform {
       return '';
     }
 
-    return `${value} bpm`;
+    return `${Math.round(value)} bpm`;
   }
 }

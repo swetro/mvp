@@ -10,6 +10,7 @@ export class CaloriesPipe implements PipeTransform {
       return '';
     }
 
-    return `${Math.round(value)} kcal`;
+    const roundedValue = Math.round(value);
+    return `${roundedValue.toLocaleString()} kcal`;
   }
 }
