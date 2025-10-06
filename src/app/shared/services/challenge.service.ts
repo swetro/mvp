@@ -43,4 +43,21 @@ export class ChallengeService {
     const result = (await response.json()) as ApiResult;
     return result.data as PagedResult<ParticipantDto>;
   }
+
+  async getParticipant(
+    leagueSlug: string,
+    challengeId: number,
+    participantId: string,
+  ): Promise<ParticipantDto> {
+    const response = await fetch(
+      `${environment.apiUrl}/challenges/${leagueSlug}/${challengeId}/participants/${participantId}`,
+      {
+        headers: {
+          'Accept-Language': 'en',
+        },
+      },
+    );
+    const result = (await response.json()) as ApiResult;
+    return result.data as ParticipantDto;
+  }
 }

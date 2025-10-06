@@ -1,1 +1,23 @@
-<p>challenge-participant works!</p>
+@let participant = participantData.value();
+
+<h3>
+  <a [routerLink]="['/results']">Back</a>
+</h3>
+
+@if (participant) {
+  <h1>
+    {{ participant.isCompleted | completedChallenge }} {{ participant.firstName }}
+    {{ participant.lastName }}
+  </h1>
+  <div>
+    <img
+      [src]="participant.countryAlpha2Code | countryFlag"
+      alt="{{ participant.countryAlpha3Code }}"
+    />&nbsp;{{ participant.countryAlpha3Code }} - {{ participant.gender }} -
+    {{ participant.age }}
+  </div>
+
+  <app-participant-activities-table
+    [activitiesData]="participant.activities"
+  ></app-participant-activities-table>
+}

@@ -1,3 +1,5 @@
+import { ActivityDto } from './activity.dto';
+
 export interface ParticipantDto {
   id: string;
   firstName: string;
@@ -28,4 +30,5 @@ export interface ParticipantDto {
   pointsFromChallenges: number;
   totalPoints: number;
   progress: number;
+  activities: ActivityDto[];
 }

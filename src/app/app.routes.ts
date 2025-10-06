@@ -21,9 +21,8 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: 'results/:id',
+        path: 'results/:participantId',
         component: ChallengeParticipant,
-        pathMatch: 'full',
       },
     ],
   },

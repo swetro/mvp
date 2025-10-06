@@ -1,0 +1,47 @@
+@let activities = activitiesData();
+
+@if (activities) {
+  <table style="width: 100%">
+    <thead style="text-align: left">
+      <tr>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Distance</th>
+        <th>Time</th>
+        <th>Pace</th>
+        <th>Elevation Gain</th>
+        <th>Heart Rate</th>
+        <th>Calories</th>
+        <th>Device</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of activities; track item.id) {
+        <tr>
+          <td>
+            {{ item.startTime | date: 'short' }}
+          </td>
+          <td>
+            {{ item.endTime | date: 'short' }}
+          </td>
+          <td>
+            {{ item.distanceInMeters | distance }}
+          </td>
+          <td>
+            {{ item.durationInSeconds | duration }}
+          </td>
+          <td>
+            {{ item.averagePaceInMinutesPerKilometer | pace }}
+          </td>
+          <td>
+            {{ item.totalElevationGainInMeters | elevation }}
+          </td>
+          <td>{{ item.averageHeartRateInBeatsPerMinute | heartRate }}</td>
+          <td>{{ item.activeKilocalories | calories }}</td>
+          <td>{{ item.deviceName }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
