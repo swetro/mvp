@@ -37,9 +37,9 @@
           <td>{{ item.age }}</td>
           <td>{{ item.ageCategory }}</td>
           <td>{{ item.positionByAgeCategory }}</td>
-          <td>{{ item.totalDistanceInMeters | distance }}</td>
-          <td>{{ item.totalDurationInSeconds | duration }}</td>
-          <td>{{ item.totalAveragePaceInMinutesPerKilometer | pace }}</td>
+          <td>{{ item.distanceInMeters | distance }}</td>
+          <td>{{ item.durationInSeconds | duration }}</td>
+          <td>{{ item.averagePaceInMinutesPerKilometer | pace }}</td>
           <td><a [routerLink]="[route(), item.id]">Details</a></td>
         </tr>
       }

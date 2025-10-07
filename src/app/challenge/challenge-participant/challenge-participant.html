@@ -22,14 +22,14 @@
     <div>Age Category: {{ participant.ageCategory }}</div>
   </div>
   <div style="margin-top: 10px; margin-bottom: 10px">
-    <div>Distance: {{ participant.totalDistanceInMeters | distance }}</div>
-    <div>Time: {{ participant.totalDurationInSeconds | duration }}</div>
-    <div>Pace: {{ participant.totalAveragePaceInMinutesPerKilometer | pace }}</div>
-    <div>Elevation Gain: {{ participant.totalElevationGainInMeters | elevation }}</div>
-    <div>Elevation Loss: {{ participant.totalElevationLossInMeters | elevation }}</div>
-    <div>Heart Rate: {{ participant.totalAverageHeartRateInBeatsPerMinute | heartRate }}</div>
-    <div>Calories: {{ participant.totalKilocalories | calories }}</div>
-    <div>Activities: {{ participant.totalNumberActivities }}</div>
+    <div>Distance: {{ participant.distanceInMeters | distance }}</div>
+    <div>Time: {{ participant.durationInSeconds | duration }}</div>
+    <div>Pace: {{ participant.averagePaceInMinutesPerKilometer | pace }}</div>
+    <div>Elevation Gain: {{ participant.elevationGainInMeters | elevation }}</div>
+    <div>Elevation Loss: {{ participant.elevationLossInMeters | elevation }}</div>
+    <div>Heart Rate: {{ participant.averageHeartRateInBeatsPerMinute | heartRate }}</div>
+    <div>Calories: {{ participant.calories | calories }}</div>
+    <div>Activities: {{ participant.numberOfActivities }}</div>
   </div>
 
   <app-participant-activities-table
