@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,12 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('mvp');
+  // protected readonly title = signal('mvp');
+  private translate = inject(TranslateService);
+
+  constructor() {
+    this.translate.addLangs(['es']);
+    this.translate.setFallbackLang('en');
+    this.translate.use('en');
+  }
 }

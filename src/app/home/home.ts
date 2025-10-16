@@ -3,10 +3,11 @@ import { ChallengeService } from '../shared/services/challenge.service';
 import { environment } from '../../environments/environment';
 import { RouterLink } from '@angular/router';
 import { MetaTagsService } from '../shared/services/meta-tags.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './home.html',
   styles: ``,
 })
