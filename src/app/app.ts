@@ -1,6 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +11,32 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './app.css',
 })
 export class App {
-  // protected readonly title = signal('mvp');
   private translate = inject(TranslateService);
+  private platformId = inject(PLATFORM_ID);
+  private availableLanguages = ['en', 'es'];
+  private defaultLanguage = environment.defaultLanguage || 'en';
 
   constructor() {
-    this.translate.addLangs(['es']);
-    this.translate.setFallbackLang('en');
-    this.translate.use('en');
+    this.translate.addLangs(this.availableLanguages);
+    this.translate.setFallbackLang(this.defaultLanguage);
+
+    if (isPlatformBrowser(this.platformId)) {
+      const browserLang = this.getBrowserLanguage();
+      this.translate.use(browserLang);
+    } else {
+      this.translate.use(this.defaultLanguage);
+    }
+  }
+
+  private getBrowserLanguage(): string {
+    const browserLang = this.translate.getBrowserLang();
+
+    if (!browserLang) {
+      return this.defaultLanguage;
+    }
+
+    // ej: 'es-CO' -> 'es'
+    const langCode = browserLang.split('-')[0];
+    return this.availableLanguages.includes(langCode) ? langCode : this.defaultLanguage;
   }
 }

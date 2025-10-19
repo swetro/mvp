@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
+import { environment } from '../../../environments/environment';
 
 export interface PageMetadata {
   title: string;
@@ -9,10 +10,10 @@ export interface PageMetadata {
 }
 
 const defaultMetadata: PageMetadata = {
-  title: 'Swetro',
-  description: 'Swetro - Your Ultimate Coding Challenge Platform',
-  image: '',
-  url: 'https://swetro.com',
+  title: environment.appName,
+  description: environment.appDescription,
+  image: environment.appImageUrl,
+  url: environment.appUrl,
 };
 
 @Injectable({
@@ -31,12 +32,13 @@ export class MetaTagsService {
 
   private generateMetaDefinitions(metadata: PageMetadata): MetaDefinition[] {
     return [
-      { name: 'title', content: metadata.title },
       { name: 'description', content: metadata.description },
       { property: 'og:title', content: metadata.title },
       { property: 'og:description', content: metadata.description },
       { property: 'og:image', content: metadata.image },
       { property: 'og:url', content: metadata.url },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:site_name', content: environment.appName },
     ];
   }
 }

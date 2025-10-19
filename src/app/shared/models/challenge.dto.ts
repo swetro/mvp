@@ -28,4 +28,5 @@ export interface ChallengeContent {
   description: string;
   goalDescription: string;
   ruleList: string[];
+  imageUrl: string;
 }

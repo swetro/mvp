@@ -31,7 +31,7 @@ export class Home {
         this.metaTagsService.updateMetaTags({
           title: challenge.content.title,
           description: challenge.content.description,
-          url: `https://swetro.com/challenges/${challenge.id}`,
+          image: challenge.content.imageUrl,
         });
       }
     });
