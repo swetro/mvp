@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal } from '@angular/core';
 import { ChallengeDto } from '../models/challenge.dto';
 import { environment } from '../../../environments/environment';
 import { ApiResult } from '../models/api-result.dto';
 import { ParticipantDto } from '../models/participant.dto';
 import { PagedResult } from '../models/paged-result.dto';
+import { httpResource, HttpResourceRef } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,23 @@ export class ChallengeService {
     });
     const result = (await response.json()) as ApiResult;
     return result.data as ChallengeDto;
+  }
+
+  getChallengeResource(
+    leagueSlug: Signal<string>,
+    challengeId: Signal<number>,
+  ): HttpResourceRef<ChallengeDto | undefined> {
+    return httpResource<ChallengeDto>(
+      () => ({
+        url: `${environment.apiUrl}/challenges/${leagueSlug()}/${challengeId()}`,
+        headers: {
+          'Accept-Language': 'en',
+        },
+      }),
+      {
+        parse: (raw: unknown) => (raw as ApiResult)?.data as ChallengeDto,
+      },
+    );
   }
 
   async getParticipants(
