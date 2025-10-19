@@ -12,9 +12,6 @@ export class DatasetService {
     return httpResource<ItemListDto[]>(
       () => ({
         url: `${environment.apiUrl}/dataset/filter/participants`,
-        headers: {
-          'Accept-Language': 'en',
-        },
       }),
       {
         parse: (raw: unknown) => (raw as ApiResult)?.data as ItemListDto[],

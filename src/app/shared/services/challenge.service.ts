@@ -17,9 +17,6 @@ export class ChallengeService {
     return httpResource<ChallengeDto>(
       () => ({
         url: `${environment.apiUrl}/challenges/${this.leagueSlug()}/${this.challengeId()}`,
-        headers: {
-          'Accept-Language': 'en',
-        },
       }),
       {
         parse: (raw: unknown) => (raw as ApiResult)?.data as ChallengeDto,
@@ -42,9 +39,6 @@ export class ChallengeService {
 
         return {
           url: `${environment.apiUrl}/challenges/${this.leagueSlug()}/${this.challengeId()}/participants${query}`,
-          headers: {
-            'Accept-Language': 'en',
-          },
         };
       },
       {
@@ -57,9 +51,6 @@ export class ChallengeService {
     return httpResource<ParticipantDto>(
       () => ({
         url: `${environment.apiUrl}/challenges/${this.leagueSlug()}/${this.challengeId()}/participants/${participantId()}`,
-        headers: {
-          'Accept-Language': 'en',
-        },
       }),
       {
         parse: (raw: unknown) => (raw as ApiResult)?.data as ParticipantDto,
