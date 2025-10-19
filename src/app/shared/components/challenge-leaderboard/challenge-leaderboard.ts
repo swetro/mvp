@@ -1,4 +1,4 @@
-import { Component, inject, input, resource, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ChallengeService } from '../../services/challenge.service';
 import { DatasetService } from '../../services/dataset.service';
 import { ChallengeParticipantsTable } from '../challenge-participants-table/challenge-participants-table';
@@ -13,33 +13,17 @@ export class ChallengeLeaderboard {
   private challengeService = inject(ChallengeService);
   private datasetService = inject(DatasetService);
   private searchTimer?: number;
-  leagueSlug = input.required<string>();
-  challengeId = input.required<number>();
   selectedFilter = signal<string>('');
   searchTerm = signal<string>('');
   currentPage = signal<number>(1);
 
-  participantsData = resource({
-    params: () => ({
-      leagueSlug: this.leagueSlug(),
-      challengeId: this.challengeId(),
-      pageNumber: this.currentPage(),
-      filter: this.selectedFilter(),
-      search: this.searchTerm(),
-    }),
-    loader: ({ params }) =>
-      this.challengeService.getParticipants(
-        params.leagueSlug,
-        params.challengeId,
-        params.pageNumber,
-        params.filter,
-        params.search,
-      ),
-  });
+  participantsData = this.challengeService.getParticipants(
+    this.currentPage,
+    this.selectedFilter,
+    this.searchTerm,
+  );
 
-  participantFiltersData = resource({
-    loader: () => this.datasetService.getParticipantFilters(),
-  });
+  participantFiltersData = this.datasetService.getParticipantFilters();
 
   participantFilterChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;

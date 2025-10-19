@@ -1,5 +1,4 @@
-import { Component, inject, input, resource } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { Component, inject, input } from '@angular/core';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { RouterLink } from '@angular/router';
 import { CountryFlagPipe } from '../../shared/pipes/country-flag.pipe';
@@ -31,30 +30,8 @@ import { CaloriesPipe } from '../../shared/pipes/calories.pipe';
 })
 export class ChallengeParticipant {
   private challengeService = inject(ChallengeService);
-  leagueSlug = environment.leagueSlug;
-  challengeId = environment.challengeId;
   participantId = input.required<string>();
 
-  challengeData = resource({
-    params: () => ({
-      leagueSlug: this.leagueSlug,
-      challengeId: this.challengeId,
-    }),
-    loader: ({ params }) =>
-      this.challengeService.getChallenge(params.leagueSlug, params.challengeId),
-  });
-
-  participantData = resource({
-    params: () => ({
-      leagueSlug: this.leagueSlug,
-      challengeId: this.challengeId,
-      participantId: this.participantId(),
-    }),
-    loader: ({ params }) =>
-      this.challengeService.getParticipant(
-        params.leagueSlug,
-        params.challengeId,
-        params.participantId,
-      ),
-  });
+  challengeData = this.challengeService.getChallenge();
+  participantData = this.challengeService.getParticipant(this.participantId);
 }

@@ -1,6 +1,5 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { ChallengeService } from '../shared/services/challenge.service';
-import { environment } from '../../environments/environment';
 import { RouterLink } from '@angular/router';
 import { MetaTagsService } from '../shared/services/meta-tags.service';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -14,10 +13,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class Home {
   private challengeService = inject(ChallengeService);
   private metaTagsService = inject(MetaTagsService);
-  private leagueSlug = signal<string>(environment.leagueSlug);
-  private challengeId = signal<number>(environment.challengeId);
 
-  challengeData = this.challengeService.getChallengeResource(this.leagueSlug, this.challengeId);
+  challengeData = this.challengeService.getChallenge();
 
   constructor() {
     effect(() => {

@@ -1,5 +1,4 @@
-import { Component, inject, resource } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { Component, inject } from '@angular/core';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { RouterLink } from '@angular/router';
 import { ChallengeLeaderboard } from '../../shared/components/challenge-leaderboard/challenge-leaderboard';
@@ -12,15 +11,6 @@ import { ChallengeLeaderboard } from '../../shared/components/challenge-leaderbo
 })
 export class ChallengeResult {
   private challengeService = inject(ChallengeService);
-  leagueSlug = environment.leagueSlug;
-  challengeId = environment.challengeId;
 
-  challengeData = resource({
-    params: () => ({
-      leagueSlug: this.leagueSlug,
-      challengeId: this.challengeId,
-    }),
-    loader: ({ params }) =>
-      this.challengeService.getChallenge(params.leagueSlug, params.challengeId),
-  });
+  challengeData = this.challengeService.getChallenge();
 }
