@@ -7,6 +7,7 @@ import { ElevationPipe } from '../../pipes/elevation.pipe';
 import { HeartRatePipe } from '../../pipes/heart-rate.pipe';
 import { CaloriesPipe } from '../../pipes/calories.pipe';
 import { DatePipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-participant-activities-table',
@@ -18,6 +19,7 @@ import { DatePipe } from '@angular/common';
     HeartRatePipe,
     CaloriesPipe,
     DatePipe,
+    TranslatePipe,
   ],
   templateUrl: './participant-activities-table.html',
   styles: ``,

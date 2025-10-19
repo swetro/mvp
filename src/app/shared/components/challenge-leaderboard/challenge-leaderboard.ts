@@ -2,10 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { ChallengeService } from '../../services/challenge.service';
 import { DatasetService } from '../../services/dataset.service';
 import { ChallengeParticipantsTable } from '../challenge-participants-table/challenge-participants-table';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-challenge-leaderboard',
-  imports: [ChallengeParticipantsTable],
+  imports: [ChallengeParticipantsTable, TranslatePipe],
   templateUrl: './challenge-leaderboard.html',
   styles: ``,
 })

@@ -7,6 +7,7 @@ import { DurationPipe } from '../../pipes/duration.pipe';
 import { GenderPipe } from '../../pipes/gender.pipe';
 import { PacePipe } from '../../pipes/pace.pipe';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-challenge-participants-table',
@@ -18,6 +19,7 @@ import { RouterLink } from '@angular/router';
     GenderPipe,
     CompletedChallengePipe,
     RouterLink,
+    TranslatePipe,
   ],
   templateUrl: './challenge-participants-table.html',
   styles: ``,

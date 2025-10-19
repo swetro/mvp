@@ -1,4 +1,55 @@
 {
+  "ParticipantActivitiesTable": {
+    "calories": "Calories",
+    "device": "Device",
+    "distance": "Distance",
+    "elevationGain": "Elevation",
+    "endDate": "End",
+    "heartRate": "Heart Rate",
+    "pace": "Pace",
+    "startDate": "Start",
+    "time": "Time"
+  },
+  "challengeLeaderboard": {
+    "pageOf": "Page {{currentPage}} of {{totalPages}} "
+  },
+  "challengeParticipant": {
+    "activities": "Activities",
+    "ageCategory": "Age Category",
+    "ageCategoryPosition": "Age Category Position",
+    "calories": "Calories",
+    "completed": "Completed 🏅",
+    "distance": "Distance",
+    "elevationGain": "Elevation Gain",
+    "elevationLoss": "Elevation Loss",
+    "goalProgress": "Progress",
+    "heartRate": "Heart Rate",
+    "inProgress": "In Progress",
+    "linkBack": "Back",
+    "pace": "Pace",
+    "position": "Position",
+    "time": "Time",
+    "title": "Results",
+    "years": "years"
+  },
+  "challengeParticipantsTable": {
+    "age": "Age",
+    "ageCategory": "Age Category",
+    "ageCategoryPosition": "Age Category Position",
+    "country": "Country",
+    "details": "View Details",
+    "distance": "Distance",
+    "gender": "Gender",
+    "name": "Name",
+    "pace": "Pace",
+    "position": "Position",
+    "time": "Time"
+  },
+  "challengeResult": {
+    "linkBack": "Back",
+    "title": "Results",
+    "titleLeaderboard": "Leaderboard"
+  },
   "home": {
     "linkResults": "Results"
   }

@@ -1,12 +1,12 @@
 @let challenge = challengeData.value();
 
 <h3>
-  <a [routerLink]="['/']">Back</a>
+  <a [routerLink]="['/']">{{ 'challengeResult.linkBack' | translate }}</a>
 </h3>
 
 @if (challenge) {
   <h1>{{ challenge.content.title }}</h1>
 
-  <h2>Leaderboard</h2>
+  <h2>{{ 'challengeResult.titleLeaderboard' | translate }}</h2>
   <app-challenge-leaderboard></app-challenge-leaderboard>
 }

@@ -1,5 +1,56 @@
 {
+  "challengeLeaderboard": {
+    "pageOf": "Página {{currentPage}} de {{totalPages}} "
+  },
+  "challengeParticipant": {
+    "activities": "Actividades",
+    "ageCategory": "Categoría de Edad",
+    "ageCategoryPosition": "Posición Categoría de Edad",
+    "calories": "Calorías",
+    "completed": "Completado 🏅",
+    "distance": "Distancia",
+    "elevationGain": "Ganancia de Elevación",
+    "elevationLoss": "Pérdida de Elevación",
+    "goalProgress": "Progreso",
+    "heartRate": "Frecuencia Cardíaca",
+    "inProgress": "En Progreso",
+    "linkBack": "Regresar",
+    "pace": "Ritmo",
+    "position": "Posición",
+    "time": "Tiempo",
+    "title": "Resultados",
+    "years": "años"
+  },
+  "challengeParticipantsTable": {
+    "age": "Edad",
+    "ageCategory": "Categoría de Edad",
+    "ageCategoryPosition": "Posición Categoría de Edad",
+    "country": "País",
+    "details": "Ver Detalles",
+    "distance": "Distancia",
+    "gender": "Género",
+    "name": "Nombre",
+    "pace": "Ritmo",
+    "position": "Posición",
+    "time": "Tiempo"
+  },
+  "challengeResult": {
+    "linkBack": "Regresar",
+    "title": "Resultados",
+    "titleLeaderboard": "Tabla de Clasificación"
+  },
   "home": {
     "linkResults": "Resultados"
+  },
+  "ParticipantActivitiesTable": {
+    "calories": "Calorías",
+    "device": "Dispositivo",
+    "distance": "Distancia",
+    "elevationGain": "Elevación",
+    "endDate": "Fin",
+    "heartRate": "Frecuencia Cardíaca",
+    "pace": "Ritmo",
+    "startDate": "Inicio",
+    "time": "Tiempo"
   }
 }

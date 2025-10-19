@@ -4,16 +4,16 @@
   <table style="width: 100%">
     <thead style="text-align: left">
       <tr>
-        <th>Position</th>
-        <th>Name</th>
-        <th>Country</th>
-        <th>Gender</th>
-        <th>Age</th>
-        <th>Age Category</th>
-        <th>Age Category Position</th>
-        <th>Distance</th>
-        <th>Time</th>
-        <th>Pace</th>
+        <th>{{ 'challengeParticipantsTable.position' | translate }}</th>
+        <th>{{ 'challengeParticipantsTable.name' | translate }}</th>
+        <th>{{ 'challengeParticipantsTable.country' | translate }}</th>
+        <th>{{ 'challengeParticipantsTable.gender' | translate }}</th>
+        <th>{{ 'challengeParticipantsTable.age' | translate }}</th>
+        <th>{{ 'challengeParticipantsTable.ageCategory' | translate }}</th>
+        <th>{{ 'challengeParticipantsTable.ageCategoryPosition' | translate }}</th>
+        <th>{{ 'challengeParticipantsTable.distance' | translate }}</th>
+        <th>{{ 'challengeParticipantsTable.time' | translate }}</th>
+        <th>{{ 'challengeParticipantsTable.pace' | translate }}</th>
         <th></th>
       </tr>
     </thead>
@@ -40,7 +40,11 @@
           <td>{{ item.distanceInMeters | distance }}</td>
           <td>{{ item.durationInSeconds | duration }}</td>
           <td>{{ item.averagePaceInMinutesPerKilometer | pace }}</td>
-          <td><a [routerLink]="[route(), item.id]">Details</a></td>
+          <td>
+            <a [routerLink]="[route(), item.id]">{{
+              'challengeParticipantsTable.details' | translate
+            }}</a>
+          </td>
         </tr>
       }
     </tbody>

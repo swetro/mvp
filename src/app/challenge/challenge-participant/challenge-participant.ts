@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { RouterLink } from '@angular/router';
 import { CountryFlagPipe } from '../../shared/pipes/country-flag.pipe';
@@ -10,6 +10,8 @@ import { PacePipe } from '../../shared/pipes/pace.pipe';
 import { ElevationPipe } from '../../shared/pipes/elevation.pipe';
 import { HeartRatePipe } from '../../shared/pipes/heart-rate.pipe';
 import { CaloriesPipe } from '../../shared/pipes/calories.pipe';
+import { MetaTagsService } from '../../shared/services/meta-tags.service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-challenge-participant',
@@ -24,14 +26,34 @@ import { CaloriesPipe } from '../../shared/pipes/calories.pipe';
     ElevationPipe,
     HeartRatePipe,
     CaloriesPipe,
+    TranslatePipe,
   ],
   templateUrl: './challenge-participant.html',
   styles: ``,
 })
 export class ChallengeParticipant {
   private challengeService = inject(ChallengeService);
+  private metaTagsService = inject(MetaTagsService);
+  private translate = inject(TranslateService);
   participantId = input.required<string>();
 
   challengeData = this.challengeService.getChallenge();
   participantData = this.challengeService.getParticipant(this.participantId);
+
+  constructor() {
+    effect(() => {
+      const challenge = this.challengeData.value();
+      const participant = this.participantData.value();
+      if (challenge && participant) {
+        this.metaTagsService.updateMetaTags({
+          title: `${this.translate.instant('challengeResult.title')}: 
+                  ${participant.firstName} 
+                  ${participant.lastName} - 
+                  ${challenge.content.title}`,
+          description: challenge.content.description,
+          image: challenge.content.imageUrl,
+        });
+      }
+    });
+  }
 }

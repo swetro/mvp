@@ -22,7 +22,10 @@
     [route]="'/results'"
   ></app-challenge-participants-table>
   <div>
-    <span>Page {{ participants.pageNumber }} of {{ participants.totalPages }}</span>
+    <span>{{
+      'challengeLeaderboard.pageOf'
+        | translate: { currentPage: participants.pageNumber, totalPages: participants.totalPages }
+    }}</span>
 
     <button (click)="goToPage(1)" [disabled]="participants.pageNumber === 1"><<</button>
     <button (click)="goPrevPage()" [disabled]="participants.pageNumber === 1"><</button>
