@@ -1,15 +1,4 @@
 {
-  "ParticipantActivitiesTable": {
-    "calories": "Calories",
-    "device": "Device",
-    "distance": "Distance",
-    "elevationGain": "Elevation",
-    "endDate": "End",
-    "heartRate": "Heart Rate",
-    "pace": "Pace",
-    "startDate": "Start",
-    "time": "Time"
-  },
   "challengeLeaderboard": {
     "pageOf": "Page {{currentPage}} of {{totalPages}} "
   },
@@ -52,5 +41,21 @@
   },
   "home": {
     "linkResults": "Results"
+  },
+  "navbar": {
+    "linkHome": "Home",
+    "linkLogin": "Login",
+    "linkRegister": "Register"
+  },
+  "ParticipantActivitiesTable": {
+    "calories": "Calories",
+    "device": "Device",
+    "distance": "Distance",
+    "elevationGain": "Elevation",
+    "endDate": "End",
+    "heartRate": "Heart Rate",
+    "pace": "Pace",
+    "startDate": "Start",
+    "time": "Time"
   }
 }

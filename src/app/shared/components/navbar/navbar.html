@@ -1,0 +1,21 @@
+<nav style="display: flex; justify-content: flex-end">
+  <div>
+    <ul style="list-style: none; display: flex; gap: 0.5rem">
+      <li>
+        <a routerLink="/">
+          {{ 'navbar.linkHome' | translate }}
+        </a>
+      </li>
+      <li>
+        <a routerLink="/account/login">
+          {{ 'navbar.linkLogin' | translate }}
+        </a>
+      </li>
+      <li>
+        <a routerLink="/account/register">
+          {{ 'navbar.linkRegister' | translate }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

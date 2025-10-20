@@ -42,6 +42,11 @@
   "home": {
     "linkResults": "Resultados"
   },
+  "navbar": {
+    "linkHome": "Inicio",
+    "linkLogin": "Iniciar sesión",
+    "linkRegister": "Registrarse"
+  },
   "ParticipantActivitiesTable": {
     "calories": "Calorías",
     "device": "Dispositivo",
