@@ -1,1 +1,62 @@
-<p>verify-otp works!</p>
+<section>
+  @if (otpForm.errors && otpForm.errors['error-message']) {
+    <div>
+      {{ otpForm.errors['error-message'] }}
+    </div>
+  }
+  <form [formGroup]="otpForm" (ngSubmit)="onSubmit($event)" novalidate>
+    <div>
+      <input
+        type="text"
+        name="digit0"
+        formControlName="digit0"
+        maxlength="1"
+        (input)="onInput($event, 0)"
+        (keydown)="onKeyDown($event, 0)"
+        (paste)="onPaste($event)"
+      />
+      <input
+        type="text"
+        name="digit1"
+        formControlName="digit1"
+        maxlength="1"
+        (input)="onInput($event, 1)"
+        (keydown)="onKeyDown($event, 1)"
+      />
+      <input
+        type="text"
+        name="digit2"
+        formControlName="digit2"
+        maxlength="1"
+        (input)="onInput($event, 2)"
+        (keydown)="onKeyDown($event, 2)"
+      />
+      <input
+        type="text"
+        name="digit3"
+        formControlName="digit3"
+        maxlength="1"
+        (input)="onInput($event, 3)"
+        (keydown)="onKeyDown($event, 3)"
+      />
+      <input
+        type="text"
+        name="digit4"
+        formControlName="digit4"
+        maxlength="1"
+        (input)="onInput($event, 4)"
+        (keydown)="onKeyDown($event, 4)"
+      />
+      <input
+        type="text"
+        name="digit5"
+        formControlName="digit5"
+        maxlength="1"
+        (input)="onInput($event, 5)"
+        (keydown)="onKeyDown($event, 5)"
+      />
+    </div>
+
+    <button type="submit" [disabled]="otpForm.invalid">Verify</button>
+  </form>
+</section>

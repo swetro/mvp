@@ -36,7 +36,9 @@ export class Login {
       const loginData = this.loginForm.value;
       this.accountService.login(loginData).subscribe({
         next: () => {
-          this.router.navigate(['/verify-otp']);
+          this.router.navigate(['/account/verify-otp'], {
+            queryParams: { email: loginData.email },
+          });
         },
         error: (error) => {
           this.formValidationService.showErrors(this.loginForm, error);
