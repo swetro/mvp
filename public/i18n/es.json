@@ -39,8 +39,31 @@
     "title": "Resultados",
     "titleLeaderboard": "Tabla de Clasificación"
   },
+  "error": {
+    "400": "Algunos campos contienen errores. Corrígelos e intenta nuevamente.",
+    "401": "Tu sesión ha expirado o no tienes autorización para realizar esta acción.",
+    "403": "No tienes permisos para acceder a este recurso.",
+    "404": "El recurso solicitado no se encuentra disponible.",
+    "500": "Ocurrió un error al procesar la solicitud. Por favor, intenta nuevamente más tarde.",
+    "default": "Ocurrió un error inesperado. Por favor, intenta nuevamente más tarde.",
+    "noInternet": "No hay conexión a internet. Por favor, verifica tu conexión e intenta nuevamente."
+  },
+  "forms": {
+    "validators": {
+      "email": "Correo electrónico no es válido.",
+      "required": "Campo es obligatorio."
+    }
+  },
   "home": {
     "linkResults": "Resultados"
+  },
+  "login": {
+    "linkDontHaveAccount": "¿No tienes una cuenta?",
+    "loginForm": {
+      "email": "Correo electrónico",
+      "login": "Iniciar Sesión"
+    },
+    "title": "Iniciar Sesión"
   },
   "navbar": {
     "linkHome": "Inicio",

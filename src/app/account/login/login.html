@@ -1,1 +1,46 @@
-<p>login works!</p>
+<section>
+  @if (loginForm.errors && loginForm.errors['error-message']) {
+    <div>
+      {{ loginForm.errors['error-message'] }}
+    </div>
+  }
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)" novalidate>
+    <div class="form-group">
+      <div>
+        <label for="email">
+          {{ 'login.loginForm.email' | translate }}
+        </label>
+      </div>
+      <div>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control"
+          autocomplete="email"
+        />
+      </div>
+      @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+        <div>
+          @if (loginForm.get('email')?.errors?.['required']) {
+            <div>{{ 'forms.validators.required' | translate }}</div>
+          }
+          @if (loginForm.get('email')?.errors?.['email']) {
+            <div>{{ 'forms.validators.email' | translate }}</div>
+          }
+          @if (loginForm.get('email')?.errors?.['apiErrors']) {
+            <div>{{ loginForm.get('email')?.errors?.['apiErrors'] }}</div>
+          }
+        </div>
+      }
+    </div>
+
+    <button type="submit">
+      {{ 'login.loginForm.login' | translate }}
+    </button>
+  </form>
+
+  <div>
+    <a routerLink="/account/register">{{ 'login.linkDontHaveAccount' | translate }}</a>
+  </div>
+</section>
