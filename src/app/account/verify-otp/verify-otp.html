@@ -59,4 +59,9 @@
 
     <button type="submit" [disabled]="otpForm.invalid">Verify</button>
   </form>
+
+  <div>
+    <p>Resend OTP in {{ formattedTime() }} seconds</p>
+    <button (click)="resendOtp()" [disabled]="isRunning()">Resend OTP</button>
+  </div>
 </section>

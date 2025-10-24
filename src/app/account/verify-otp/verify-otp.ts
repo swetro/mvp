@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../../core/services/account.service';
@@ -18,8 +18,38 @@ export class VerifyOtp {
   email = input.required<string>();
   otpForm!: FormGroup;
 
+  initialDuration = 60; // seconds
+  remainingTime = signal(this.initialDuration);
+  isRunning = signal(false);
+
+  formattedTime = computed(() => {
+    const minutes = Math.floor(this.remainingTime() / 60);
+    const seconds = this.remainingTime() % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  });
+
   constructor() {
     this.buildForm();
+    this.isRunning.set(true);
+
+    effect(() => {
+      let intervalId: NodeJS.Timeout | string | number | undefined;
+      if (this.isRunning()) {
+        intervalId = setInterval(() => {
+          this.remainingTime.update((current) => {
+            if (current > 0) {
+              return current - 1;
+            } else {
+              this.isRunning.set(false); // Stop the timer when it reaches zero
+              return 0;
+            }
+          });
+        }, 1000);
+      }
+
+      // Cleanup function: This runs when the effect reruns or the component is destroyed
+      return () => clearInterval(intervalId);
+    });
   }
 
   onSubmit(event: Event) {
@@ -75,6 +105,18 @@ export class VerifyOtp {
     if (paste && /^\d{6}$/.test(paste)) {
       this.handlePaste(paste, 0);
     }
+  }
+
+  resendOtp() {
+    this.accountService.resendOtp(this.email()).subscribe({
+      next: () => {
+        this.remainingTime.set(this.initialDuration);
+        this.isRunning.set(true);
+      },
+      error: (error) => {
+        console.error('Error resending OTP:', error);
+      },
+    });
   }
 
   private handlePaste(value: string, startIndex: number) {
