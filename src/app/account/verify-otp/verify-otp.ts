@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AccountService } from '../../core/services/account.service';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 
@@ -15,13 +15,10 @@ export class VerifyOtp {
   private accountService = inject(AccountService);
   private formValidationService = inject(FormValidationService);
   private router = inject(Router);
-  private route = inject(ActivatedRoute);
-
+  email = input.required<string>();
   otpForm!: FormGroup;
-  email!: string;
 
   constructor() {
-    this.email = this.route.snapshot.queryParams['email'];
     this.buildForm();
   }
 
@@ -30,7 +27,7 @@ export class VerifyOtp {
 
     if (this.otpForm.valid) {
       const code = Object.values(this.otpForm.value).join('');
-      this.accountService.verifyOtp({ email: this.email, code }).subscribe({
+      this.accountService.verifyOtp({ email: this.email(), code }).subscribe({
         next: (result) => {
           // Handle successful OTP verification
           console.log('OTP verified successfully:', result);
