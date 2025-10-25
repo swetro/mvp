@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AccountService } from '../../core/services/account.service';
 import { FormValidationService } from '../../shared/services/form-validation.service';
+import { MetaTagsService } from '../../shared/services/meta-tags.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-verify-otp',
@@ -15,12 +17,13 @@ export class VerifyOtp {
   private accountService = inject(AccountService);
   private formValidationService = inject(FormValidationService);
   private router = inject(Router);
+  private metaTagsService = inject(MetaTagsService);
+  private translate = inject(TranslateService);
   email = input.required<string>();
-  otpForm!: FormGroup;
-
   initialDuration = 60; // seconds
   remainingTime = signal(this.initialDuration);
   isRunning = signal(false);
+  otpForm!: FormGroup;
 
   formattedTime = computed(() => {
     const minutes = Math.floor(this.remainingTime() / 60);
@@ -29,6 +32,9 @@ export class VerifyOtp {
   });
 
   constructor() {
+    this.metaTagsService.updateMetaTags({
+      title: `${this.translate.instant('VerifyOtp.title')}`,
+    });
     this.buildForm();
     this.isRunning.set(true);
 

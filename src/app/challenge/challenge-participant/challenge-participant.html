@@ -11,9 +11,9 @@
       {{ participant.lastName }}
     </h1>
     <div style="margin-top: 10px; margin-bottom: 10px">
-      <div>{{ 'challengeParticipant.position' | translate }}: {{ participant.position }}</div>
+      <div>{{ 'participant.position' | translate }}: {{ participant.position }}</div>
       <div>
-        {{ 'challengeParticipant.ageCategoryPosition' | translate }}:
+        {{ 'participant.ageCategoryPosition' | translate }}:
         {{ participant.positionByAgeCategory }}
       </div>
       <div>
@@ -33,38 +33,32 @@
       {{ participant.gender }} - {{ participant.age }}
       {{ 'challengeParticipant.years' | translate }}
     </div>
-    <div>{{ 'challengeParticipant.ageCategory' | translate }}: {{ participant.ageCategory }}</div>
+    <div>{{ 'participant.ageCategory' | translate }}: {{ participant.ageCategory }}</div>
   </div>
   <div style="margin-top: 10px; margin-bottom: 10px">
     <div>
-      {{ 'challengeParticipant.distance' | translate }}:
+      {{ 'activity.distance' | translate }}:
       {{ participant.distanceInMeters | distance }}
     </div>
+    <div>{{ 'participant.time' | translate }}: {{ participant.durationInSeconds | duration }}</div>
     <div>
-      {{ 'challengeParticipant.time' | translate }}: {{ participant.durationInSeconds | duration }}
-    </div>
-    <div>
-      {{ 'challengeParticipant.pace' | translate }}:
+      {{ 'participant.pace' | translate }}:
       {{ participant.averagePaceInMinutesPerKilometer | pace }}
     </div>
     <div>
-      {{ 'challengeParticipant.elevationGain' | translate }}:
+      {{ 'participant.elevationGain' | translate }}:
       {{ participant.elevationGainInMeters | elevation }}
     </div>
     <div>
-      {{ 'challengeParticipant.elevationLoss' | translate }}:
+      {{ 'participant.elevationLoss' | translate }}:
       {{ participant.elevationLossInMeters | elevation }}
     </div>
     <div>
-      {{ 'challengeParticipant.heartRate' | translate }}:
+      {{ 'participant.heartRate' | translate }}:
       {{ participant.averageHeartRateInBeatsPerMinute | heartRate }}
     </div>
-    <div>
-      {{ 'challengeParticipant.calories' | translate }}: {{ participant.calories | calories }}
-    </div>
-    <div>
-      {{ 'challengeParticipant.activities' | translate }}: {{ participant.numberOfActivities }}
-    </div>
+    <div>{{ 'participant.calories' | translate }}: {{ participant.calories | calories }}</div>
+    <div>{{ 'participant.activities' | translate }}: {{ participant.numberOfActivities }}</div>
   </div>
 
   <app-participant-activities-table

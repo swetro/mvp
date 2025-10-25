@@ -1,42 +1,35 @@
 {
+  "activity": {
+    "calories": "Calories",
+    "device": "Device",
+    "distance": "Distance",
+    "elevationGain": "Elevation Gain",
+    "elevationLoss": "Elevation Loss",
+    "endDate": "End",
+    "heartRate": "Heart Rate",
+    "pace": "Pace",
+    "startDate": "Start",
+    "time": "Time"
+  },
   "challengeLeaderboard": {
     "pageOf": "Page {{currentPage}} of {{totalPages}} "
   },
   "challengeParticipant": {
-    "activities": "Activities",
-    "ageCategory": "Age Category",
-    "ageCategoryPosition": "Age Category Position",
-    "calories": "Calories",
     "completed": "Completed 🏅",
-    "distance": "Distance",
-    "elevationGain": "Elevation Gain",
-    "elevationLoss": "Elevation Loss",
+    "description": "{{participantName}}’s performance in {{challengeTitle}}: explore their ranking, age category, and full activity log. See how they progressed through the challenge and compare their results with other participants.",
     "goalProgress": "Progress",
-    "heartRate": "Heart Rate",
     "inProgress": "In Progress",
     "linkBack": "Back",
-    "pace": "Pace",
-    "position": "Position",
-    "time": "Time",
-    "title": "Results",
+    "title": "{{participantName}} Results in {{challengeTitle}}",
     "years": "years"
   },
   "challengeParticipantsTable": {
-    "age": "Age",
-    "ageCategory": "Age Category",
-    "ageCategoryPosition": "Age Category Position",
-    "country": "Country",
-    "details": "View Details",
-    "distance": "Distance",
-    "gender": "Gender",
-    "name": "Name",
-    "pace": "Pace",
-    "position": "Position",
-    "time": "Time"
+    "details": "View Details"
   },
   "challengeResult": {
+    "description": "Official leaderboard of {{challengeTitle}}: discover the challenge leaders and explore full results for every participant — including distance, total time, and pace by age and gender.",
     "linkBack": "Back",
-    "title": "Results",
+    "title": "Results: {{challengeTitle}}",
     "titleLeaderboard": "Leaderboard"
   },
   "error": {
@@ -70,15 +63,23 @@
     "linkLogin": "Login",
     "linkRegister": "Register"
   },
-  "ParticipantActivitiesTable": {
+  "participant": {
+    "activities": "Activities",
+    "age": "Age",
+    "ageCategory": "Age Category",
+    "ageCategoryPosition": "Age Category Position",
     "calories": "Calories",
-    "device": "Device",
+    "country": "Country",
     "distance": "Distance",
-    "elevationGain": "Elevation",
-    "endDate": "End",
-    "heartRate": "Heart Rate",
+    "elevationGain": "Elevation Gain",
+    "elevationLoss": "Elevation Loss",
+    "fullName": "Name",
+    "gender": "Gender",
     "pace": "Pace",
-    "startDate": "Start",
+    "position": "Position",
     "time": "Time"
+  },
+  "VerifyOtp": {
+    "title": "Verify Your Email"
   }
 }

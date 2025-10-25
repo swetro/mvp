@@ -23,8 +23,12 @@ export class ChallengeResult {
       const challenge = this.challengeData.value();
       if (challenge) {
         this.metaTagsService.updateMetaTags({
-          title: `${this.translate.instant('challengeResult.title')}: ${challenge.content.title}`,
-          description: challenge.content.description,
+          title: this.translate.instant('challengeResult.title', {
+            challengeTitle: challenge.content.title,
+          }),
+          description: this.translate.instant('challengeResult.description', {
+            challengeTitle: challenge.content.title,
+          }),
           image: challenge.content.imageUrl,
         });
       }

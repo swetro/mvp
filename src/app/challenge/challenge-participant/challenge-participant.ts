@@ -45,12 +45,16 @@ export class ChallengeParticipant {
       const challenge = this.challengeData.value();
       const participant = this.participantData.value();
       if (challenge && participant) {
+        const participantName = `${participant.firstName} ${participant.lastName}`;
         this.metaTagsService.updateMetaTags({
-          title: `${this.translate.instant('challengeResult.title')}: 
-                  ${participant.firstName} 
-                  ${participant.lastName} - 
-                  ${challenge.content.title}`,
-          description: challenge.content.description,
+          title: this.translate.instant('challengeParticipant.title', {
+            participantName: participantName,
+            challengeTitle: challenge.content.title,
+          }),
+          description: this.translate.instant('challengeParticipant.description', {
+            participantName: participantName,
+            challengeTitle: challenge.content.title,
+          }),
           image: challenge.content.imageUrl,
         });
       }

@@ -1,42 +1,35 @@
 {
+  "activity": {
+    "calories": "Calorías",
+    "device": "Dispositivo",
+    "distance": "Distancia",
+    "elevationGain": "Ganancia de Elevación",
+    "elevationLoss": "Pérdida de Elevación",
+    "endDate": "Fin",
+    "heartRate": "Frecuencia Cardíaca",
+    "pace": "Ritmo",
+    "startDate": "Inicio",
+    "time": "Tiempo"
+  },
   "challengeLeaderboard": {
     "pageOf": "Página {{currentPage}} de {{totalPages}} "
   },
   "challengeParticipant": {
-    "activities": "Actividades",
-    "ageCategory": "Categoría de Edad",
-    "ageCategoryPosition": "Posición Categoría de Edad",
-    "calories": "Calorías",
     "completed": "Completado 🏅",
-    "distance": "Distancia",
-    "elevationGain": "Ganancia de Elevación",
-    "elevationLoss": "Pérdida de Elevación",
+    "description": "Desempeño de {{participantName}} en {{challengeTitle}}: consulta su posición, categoría y todas sus actividades registradas. Descubre cómo avanzó en el reto y compáralo con otros participantes de su categoría.",
     "goalProgress": "Progreso",
-    "heartRate": "Frecuencia Cardíaca",
     "inProgress": "En Progreso",
     "linkBack": "Regresar",
-    "pace": "Ritmo",
-    "position": "Posición",
-    "time": "Tiempo",
-    "title": "Resultados",
+    "title": "Resultados de {{participantName}} en {{challengeTitle}}",
     "years": "años"
   },
   "challengeParticipantsTable": {
-    "age": "Edad",
-    "ageCategory": "Categoría de Edad",
-    "ageCategoryPosition": "Posición Categoría de Edad",
-    "country": "País",
-    "details": "Ver Detalles",
-    "distance": "Distancia",
-    "gender": "Género",
-    "name": "Nombre",
-    "pace": "Ritmo",
-    "position": "Posición",
-    "time": "Tiempo"
+    "details": "Ver Detalles"
   },
   "challengeResult": {
+    "description": "Clasificación oficial de {{challengeTitle}}: descubre quiénes lideran el desafío y consulta los resultados completos de todos los participantes — con sus distancias, tiempos acumulados y ritmos por edad y género.",
     "linkBack": "Regresar",
-    "title": "Resultados",
+    "title": "Resultados: {{challengeTitle}}",
     "titleLeaderboard": "Tabla de Clasificación"
   },
   "error": {
@@ -70,15 +63,24 @@
     "linkLogin": "Iniciar sesión",
     "linkRegister": "Registrarse"
   },
-  "ParticipantActivitiesTable": {
+  "participant": {
+    "activities": "Actividades",
+    "age": "Edad",
+    "ageCategory": "Categoría de Edad",
+    "ageCategoryPosition": "Posición Categoría de Edad",
+    "country": "País",
     "calories": "Calorías",
-    "device": "Dispositivo",
     "distance": "Distancia",
-    "elevationGain": "Elevación",
-    "endDate": "Fin",
+    "elevationGain": "Ganancia de Elevación",
+    "elevationLoss": "Pérdida de Elevación",
+    "fullname": "Nombre",
+    "gender": "Género",
     "heartRate": "Frecuencia Cardíaca",
     "pace": "Ritmo",
-    "startDate": "Inicio",
+    "position": "Posición",
     "time": "Tiempo"
+  },
+  "VerifyOtp": {
+    "title": "Verifica tu correo electrónico"
   }
 }
