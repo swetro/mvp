@@ -1,0 +1,48 @@
+<section>
+  <h1>{{ 'signIn.body.title' | translate }}</h1>
+  @if (signInForm.errors && signInForm.errors['error-message']) {
+    <div>
+      {{ signInForm.errors['error-message'] }}
+    </div>
+  }
+  <form [formGroup]="signInForm" (ngSubmit)="onSubmit($event)" novalidate>
+    <div class="form-group">
+      <div>
+        <label for="email">
+          {{ 'signIn.form.email' | translate }}
+        </label>
+      </div>
+      <div>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control"
+          autocomplete="email"
+        />
+      </div>
+      @if (signInForm.get('email')?.invalid && signInForm.get('email')?.touched) {
+        <div>
+          @if (signInForm.get('email')?.errors?.['required']) {
+            <div>{{ 'forms.validators.required' | translate }}</div>
+          }
+          @if (signInForm.get('email')?.errors?.['email']) {
+            <div>{{ 'forms.validators.email' | translate }}</div>
+          }
+          @if (signInForm.get('email')?.errors?.['apiErrors']) {
+            <div>{{ signInForm.get('email')?.errors?.['apiErrors'] }}</div>
+          }
+        </div>
+      }
+    </div>
+
+    <button type="submit" [disabled]="signInForm.invalid">
+      {{ 'signIn.form.next' | translate }}
+    </button>
+  </form>
+
+  <div>
+    {{ 'signIn.body.dontHaveAccount' | translate }}
+    <a routerLink="/account/sign-up">{{ 'signIn.linkSignUp' | translate }}</a>
+  </div>
+</section>

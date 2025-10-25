@@ -21,6 +21,7 @@ export class App {
     this.translate.setFallbackLang(this.defaultLanguage);
 
     if (isPlatformBrowser(this.platformId)) {
+      // const browserLang = this.defaultLanguage;
       const browserLang = this.getBrowserLanguage();
       this.translate.use(browserLang);
     } else {

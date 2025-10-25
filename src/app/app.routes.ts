@@ -4,7 +4,7 @@ import { DefaultLayout } from './shared/layouts/default-layout/default-layout';
 import { Home } from './home/home';
 import { ChallengeResult } from './challenge/challenge-result/challenge-result';
 import { ChallengeParticipant } from './challenge/challenge-participant/challenge-participant';
-import { Login } from './account/login/login';
+import { SignIn } from './account/sign-in/sign-in';
 import { Register } from './account/register/register';
 import { VerifyOtp } from './account/verify-otp/verify-otp';
 
@@ -35,15 +35,15 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'login',
+        redirectTo: 'sign-in',
         pathMatch: 'full',
       },
       {
-        path: 'login',
-        component: Login,
+        path: 'sign-in',
+        component: SignIn,
       },
       {
-        path: 'register',
+        path: 'sign-up',
         component: Register,
       },
       {

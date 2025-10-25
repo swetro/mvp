@@ -8,51 +8,49 @@ import { AccountService } from '../../core/services/account.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-sign-in',
   imports: [RouterLink, ReactiveFormsModule, TranslatePipe],
-  templateUrl: './login.html',
+  templateUrl: './sign-in.html',
   styles: ``,
 })
-export class Login {
+export class SignIn {
   private fb = inject(FormBuilder);
   private readonly formValidationService = inject(FormValidationService);
   private accountService = inject(AccountService);
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
   private readonly router = inject(Router);
-  loginForm!: FormGroup;
+  signInForm!: FormGroup;
 
   constructor() {
     this.buildForm();
     this.metaTagsService.updateMetaTags({
-      title: `${this.translate.instant('login.title')}`,
+      title: this.translate.instant('signIn.title'),
+      description: this.translate.instant('signIn.description'),
     });
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
 
-    if (this.loginForm.valid) {
-      const loginData = this.loginForm.value;
-      this.accountService.login(loginData).subscribe({
+    if (this.signInForm.valid) {
+      const formData = this.signInForm.value;
+      this.accountService.login(formData).subscribe({
         next: () => {
           this.router.navigate(['/account/verify-otp'], {
-            queryParams: { email: loginData.email },
+            queryParams: { email: formData.email },
           });
         },
         error: (error) => {
-          this.formValidationService.showErrors(this.loginForm, error);
+          this.formValidationService.showErrors(this.signInForm, error);
         },
       });
     }
   }
 
   private buildForm(): void {
-    this.loginForm = this.fb.group(
-      {
-        email: ['', [Validators.required, Validators.email]],
-      },
-      { updateOn: 'blur' },
-    );
+    this.signInForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+    });
   }
 }

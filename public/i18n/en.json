@@ -43,25 +43,17 @@
   },
   "forms": {
     "validators": {
-      "email": "Email is not valid.",
-      "required": "Field is required."
+      "email": "Invalid email.",
+      "required": "Required field."
     }
   },
   "home": {
     "linkResults": "Results"
   },
-  "login": {
-    "linkDontHaveAccount": "Don't have an account?",
-    "loginForm": {
-      "email": "Email",
-      "login": "Login"
-    },
-    "title": "Login"
-  },
   "navbar": {
     "linkHome": "Home",
-    "linkLogin": "Login",
-    "linkRegister": "Register"
+    "linkSignIn": "Sign In",
+    "linkSignUp": "Sign Up"
   },
   "participant": {
     "activities": "Activities",
@@ -79,7 +71,30 @@
     "position": "Position",
     "time": "Time"
   },
-  "VerifyOtp": {
-    "title": "Verify Your Email"
+  "signIn": {
+    "body": {
+      "title": "Log in with your email",
+      "dontHaveAccount": "Don't have an account?"
+    },
+    "description": "Securely log in to your account to keep participating, track your progress, and stay connected with your community.",
+    "linkSignUp": "Sign Up",
+    "form": {
+      "email": "Email",
+      "next": "Next"
+    },
+    "title": "Sign In | Access your account"
+  },
+  "verifyOtp": {
+    "body": {
+      "title": "Verification Code",
+      "description": "Enter the verification code we sent to {{emailAddress}}."
+    },
+    "form": {
+      "resend": "Resend Code",
+      "resendIn": "Resend in {{remainingTime}}",
+      "verify": "Verify"
+    },
+    "title": "Verification Code | Access your account",
+    "description": "Securely log in to your account to keep participating, track your progress, and stay connected with your community."
   }
 }

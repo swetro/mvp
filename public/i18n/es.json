@@ -43,25 +43,17 @@
   },
   "forms": {
     "validators": {
-      "email": "Correo electrónico no es válido.",
-      "required": "Campo es obligatorio."
+      "email": "Correo electrónico no válido.",
+      "required": "Campo obligatorio."
     }
   },
   "home": {
     "linkResults": "Resultados"
   },
-  "login": {
-    "linkDontHaveAccount": "¿No tienes una cuenta?",
-    "loginForm": {
-      "email": "Correo electrónico",
-      "login": "Iniciar Sesión"
-    },
-    "title": "Iniciar Sesión"
-  },
   "navbar": {
     "linkHome": "Inicio",
-    "linkLogin": "Iniciar sesión",
-    "linkRegister": "Registrarse"
+    "linkSignIn": "Iniciar sesión",
+    "linkSignUp": "Registrarse"
   },
   "participant": {
     "activities": "Actividades",
@@ -80,7 +72,30 @@
     "position": "Posición",
     "time": "Tiempo"
   },
-  "VerifyOtp": {
-    "title": "Verifica tu correo electrónico"
+  "signIn": {
+    "body": {
+      "title": "Inicia sesión con tu correo electrónico",
+      "dontHaveAccount": "¿No tienes una cuenta?"
+    },
+    "description": "Accede de forma segura a tu cuenta para continuar participando, seguir tu progreso y mantenerte conectado con tu comunidad.",
+    "linkSignUp": "Regístrate",
+    "form": {
+      "email": "Correo electrónico",
+      "next": "Siguiente"
+    },
+    "title": "Iniciar sesión | Accede a tu cuenta"
+  },
+  "verifyOtp": {
+    "body": {
+      "title": "Verificación de código",
+      "description": "Ingresa el código de verificación que enviamos a {{emailAddress}}."
+    },
+    "form": {
+      "resend": "Reenviar código",
+      "resendIn": "Reenviar en {{remainingTime}}",
+      "verify": "Verificar"
+    },
+    "description": "Accede de forma segura a tu cuenta para continuar participando, seguir tu progreso y mantenerte conectado con tu comunidad.",
+    "title": "Verificación de código | Acceso a tu cuenta"
   }
 }

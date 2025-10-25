@@ -1,18 +1,18 @@
-import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, signal, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../../core/services/account.service';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-verify-otp',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TranslatePipe],
   templateUrl: './verify-otp.html',
   styles: ``,
 })
-export class VerifyOtp {
+export class VerifyOtp implements OnInit {
   private fb = inject(FormBuilder);
   private accountService = inject(AccountService);
   private formValidationService = inject(FormValidationService);
@@ -20,7 +20,7 @@ export class VerifyOtp {
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
   email = input.required<string>();
-  initialDuration = 60; // seconds
+  initialDuration = 6; // seconds
   remainingTime = signal(this.initialDuration);
   isRunning = signal(false);
   otpForm!: FormGroup;
@@ -31,9 +31,16 @@ export class VerifyOtp {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   });
 
+  ngOnInit() {
+    if (!this.email()) {
+      this.router.navigate(['/account/sign-in']);
+    }
+  }
+
   constructor() {
     this.metaTagsService.updateMetaTags({
-      title: `${this.translate.instant('VerifyOtp.title')}`,
+      title: this.translate.instant('verifyOtp.title'),
+      description: this.translate.instant('verifyOtp.description'),
     });
     this.buildForm();
     this.isRunning.set(true);
@@ -64,9 +71,7 @@ export class VerifyOtp {
     if (this.otpForm.valid) {
       const code = Object.values(this.otpForm.value).join('');
       this.accountService.verifyOtp({ email: this.email(), code }).subscribe({
-        next: (result) => {
-          // Handle successful OTP verification
-          console.log('OTP verified successfully:', result);
+        next: () => {
           this.router.navigate(['/']);
         },
         error: (error) => {
@@ -74,6 +79,19 @@ export class VerifyOtp {
         },
       });
     }
+  }
+
+  resendOtp() {
+    this.accountService.resendOtp(this.email()).subscribe({
+      next: () => {
+        this.otpForm.reset();
+        this.remainingTime.set(this.initialDuration);
+        this.isRunning.set(true);
+      },
+      error: (error) => {
+        this.formValidationService.showErrors(this.otpForm, error);
+      },
+    });
   }
 
   onInput(event: Event, index: number) {
@@ -111,18 +129,6 @@ export class VerifyOtp {
     if (paste && /^\d{6}$/.test(paste)) {
       this.handlePaste(paste, 0);
     }
-  }
-
-  resendOtp() {
-    this.accountService.resendOtp(this.email()).subscribe({
-      next: () => {
-        this.remainingTime.set(this.initialDuration);
-        this.isRunning.set(true);
-      },
-      error: (error) => {
-        console.error('Error resending OTP:', error);
-      },
-    });
   }
 
   private handlePaste(value: string, startIndex: number) {

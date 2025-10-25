@@ -1,4 +1,7 @@
+@let emailData = email();
 <section>
+  <h1>{{ 'verifyOtp.body.title' | translate }}</h1>
+  <p>{{ 'verifyOtp.body.description' | translate: { emailAddress: emailData } }}</p>
   @if (otpForm.errors && otpForm.errors['error-message']) {
     <div>
       {{ otpForm.errors['error-message'] }}
@@ -57,12 +60,18 @@
       />
     </div>
 
-    <button type="submit" [disabled]="otpForm.invalid">Verify</button>
+    <button type="submit" [disabled]="otpForm.invalid">
+      {{ 'verifyOtp.form.verify' | translate }}
+    </button>
   </form>
 
   <div>
     <button (click)="resendOtp()" [disabled]="isRunning()">
-      {{ isRunning() ? 'Resend code in ' + formattedTime() : 'Resend OTP' }}
+      {{
+        isRunning()
+          ? ('verifyOtp.form.resendIn' | translate: { remainingTime: formattedTime() })
+          : ('verifyOtp.form.resend' | translate)
+      }}
     </button>
   </div>
 </section>
