@@ -1,0 +1,102 @@
+<section>
+  <h1>{{ 'signUp.body.title' | translate }}</h1>
+  @if (signUpForm.errors && signUpForm.errors['error-message']) {
+    <div>
+      {{ signUpForm.errors['error-message'] }}
+    </div>
+  }
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit($event)" novalidate>
+    <div class="form-group">
+      <div>
+        <label for="firstName">
+          {{ 'signUp.form.firstName' | translate }}
+        </label>
+      </div>
+      <div>
+        <input
+          type="text"
+          id="firstName"
+          formControlName="firstName"
+          class="form-control"
+          autocomplete="given-name"
+        />
+      </div>
+      @if (signUpForm.get('firstName')?.invalid && signUpForm.get('firstName')?.touched) {
+        <div>
+          @if (signUpForm.get('firstName')?.errors?.['required']) {
+            <div>{{ 'forms.validators.required' | translate }}</div>
+          }
+          @if (signUpForm.get('firstName')?.errors?.['apiErrors']) {
+            <div>{{ signUpForm.get('firstName')?.errors?.['apiErrors'] }}</div>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <div>
+        <label for="lastName">
+          {{ 'signUp.form.lastName' | translate }}
+        </label>
+      </div>
+      <div>
+        <input
+          type="text"
+          id="lastName"
+          formControlName="lastName"
+          class="form-control"
+          autocomplete="family-name"
+        />
+      </div>
+      @if (signUpForm.get('lastName')?.invalid && signUpForm.get('lastName')?.touched) {
+        <div>
+          @if (signUpForm.get('lastName')?.errors?.['required']) {
+            <div>{{ 'forms.validators.required' | translate }}</div>
+          }
+          @if (signUpForm.get('lastName')?.errors?.['apiErrors']) {
+            <div>{{ signUpForm.get('lastName')?.errors?.['apiErrors'] }}</div>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <div>
+        <label for="email">
+          {{ 'signUp.form.email' | translate }}
+        </label>
+      </div>
+      <div>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control"
+          autocomplete="email"
+        />
+      </div>
+      @if (signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched) {
+        <div>
+          @if (signUpForm.get('email')?.errors?.['required']) {
+            <div>{{ 'forms.validators.required' | translate }}</div>
+          }
+          @if (signUpForm.get('email')?.errors?.['email']) {
+            <div>{{ 'forms.validators.email' | translate }}</div>
+          }
+          @if (signUpForm.get('email')?.errors?.['apiErrors']) {
+            <div>{{ signUpForm.get('email')?.errors?.['apiErrors'] }}</div>
+          }
+        </div>
+      }
+    </div>
+
+    <button type="submit" [disabled]="signUpForm.invalid">
+      {{ 'signUp.form.next' | translate }}
+    </button>
+  </form>
+
+  <div>
+    {{ 'signUp.body.haveAccount' | translate }}
+    <a routerLink="/account/sign-in">{{ 'signUp.linkSignIn' | translate }}</a>
+  </div>
+</section>

@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginDto } from '../models/account/login.dto';
+import { SignInDto } from '../models/account/sign-in.dto';
+import { SignUpDto } from '../models/account/sign-up.dto';
 import { VerifyOtpDto } from '../models/account/verify-otp.dto';
 import { environment } from '../../../environments/environment';
 import { AuthenticationResultDto } from '../models/account/authentication-result.dto';
@@ -12,8 +13,16 @@ import { Observable } from 'rxjs';
 export class AccountService {
   private http = inject(HttpClient);
 
-  login(login: LoginDto): Observable<void> {
-    return this.http.post<void>(`${environment.apiUrl}/account/login`, login);
+  resendOtp(email: string): Observable<void> {
+    return this.http.post<void>(`${environment.apiUrl}/account/resend-otp`, { email });
+  }
+
+  signIn(signIn: SignInDto): Observable<void> {
+    return this.http.post<void>(`${environment.apiUrl}/account/login`, signIn);
+  }
+
+  signUp(signUp: SignUpDto): Observable<void> {
+    return this.http.post<void>(`${environment.apiUrl}/account/register`, signUp);
   }
 
   verifyOtp(verifyOtp: VerifyOtpDto): Observable<AuthenticationResultDto> {
@@ -21,9 +30,5 @@ export class AccountService {
       `${environment.apiUrl}/account/verify-otp`,
       verifyOtp,
     );
-  }
-
-  resendOtp(email: string): Observable<void> {
-    return this.http.post<void>(`${environment.apiUrl}/account/resend-otp`, { email });
   }
 }

@@ -8,48 +8,50 @@ import { AccountService } from '../../core/services/account.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sign-in',
+  selector: 'app-sign-up',
   imports: [RouterLink, ReactiveFormsModule, TranslatePipe],
-  templateUrl: './sign-in.html',
+  templateUrl: './sign-up.html',
   styles: ``,
 })
-export class SignIn {
+export class SignUp {
   private fb = inject(FormBuilder);
   private readonly formValidationService = inject(FormValidationService);
   private accountService = inject(AccountService);
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
   private readonly router = inject(Router);
-  signInForm!: FormGroup;
+  signUpForm!: FormGroup;
 
   constructor() {
     this.buildForm();
     this.metaTagsService.updateMetaTags({
-      title: this.translate.instant('signIn.title'),
-      description: this.translate.instant('signIn.description'),
+      title: this.translate.instant('signUp.title'),
+      description: this.translate.instant('signUp.description'),
     });
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
 
-    if (this.signInForm.valid) {
-      const formData = this.signInForm.value;
-      this.accountService.signIn(formData).subscribe({
+    if (this.signUpForm.valid) {
+      const formData = this.signUpForm.value;
+      this.accountService.signUp(formData).subscribe({
         next: () => {
           this.router.navigate(['/account/verify-otp'], {
             queryParams: { email: formData.email },
           });
         },
         error: (error) => {
-          this.formValidationService.showErrors(this.signInForm, error);
+          this.formValidationService.showErrors(this.signUpForm, error);
         },
       });
     }
   }
 
   private buildForm(): void {
-    this.signInForm = this.fb.group({
+    this.signUpForm = this.fb.group({
+      firstName: ['', [Validators.required, Validators.maxLength(30)]],
+      lastName: ['', [Validators.required, Validators.maxLength(30)]],
       email: ['', [Validators.required, Validators.email]],
     });
   }

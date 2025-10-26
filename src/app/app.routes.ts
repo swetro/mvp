@@ -5,7 +5,7 @@ import { Home } from './home/home';
 import { ChallengeResult } from './challenge/challenge-result/challenge-result';
 import { ChallengeParticipant } from './challenge/challenge-participant/challenge-participant';
 import { SignIn } from './account/sign-in/sign-in';
-import { Register } from './account/register/register';
+import { SignUp } from './account/sign-up/sign-up';
 import { VerifyOtp } from './account/verify-otp/verify-otp';
 
 export const routes: Routes = [
@@ -44,7 +44,7 @@ export const routes: Routes = [
       },
       {
         path: 'sign-up',
-        component: Register,
+        component: SignUp,
       },
       {
         path: 'verify-otp',

@@ -84,6 +84,21 @@
     },
     "title": "Sign In | Access your account"
   },
+  "signUp": {
+    "body": {
+      "title": "Create your account",
+      "haveAccount": "Already have an account?"
+    },
+    "description": "Join our community by creating an account. Participate in challenges, track your progress, and connect with others.",
+    "linkSignIn": "Sign In",
+    "form": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "next": "Next"
+    },
+    "title": "Sign Up | Create your account"
+  },
   "verifyOtp": {
     "body": {
       "title": "Verification Code",

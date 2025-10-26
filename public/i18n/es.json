@@ -85,6 +85,21 @@
     },
     "title": "Iniciar sesión | Accede a tu cuenta"
   },
+  "SignUp": {
+    "body": {
+      "title": "Crea tu cuenta",
+      "haveAccount": "¿Ya tienes una cuenta?"
+    },
+    "description": "Regístrate para participar en desafíos, seguir tu progreso y mantenerte conectado con tu comunidad.",
+    "form": {
+      "email": "Correo electrónico",
+      "firstName": "Nombre",
+      "lastName": "Apellidos",
+      "next": "Siguiente"
+    },
+    "linkSignIn": "Iniciar sesión",
+    "title": "Registrarse | Crea tu cuenta"
+  },
   "verifyOtp": {
     "body": {
       "title": "Verificación de código",
