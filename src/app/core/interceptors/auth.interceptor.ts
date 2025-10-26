@@ -1,10 +1,9 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
-export const languageInterceptor: HttpInterceptorFn = (req, next) => {
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const modifiedReq = req.clone({
-    setHeaders: {
-      'Accept-Language': 'en',
-    },
+    withCredentials: true,
   });
+
   return next(modifiedReq);
 };
