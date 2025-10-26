@@ -44,6 +44,7 @@
   "forms": {
     "validators": {
       "email": "Correo electrónico no válido.",
+      "maxLength": "Máximo {{maxLength}} caracteres.",
       "required": "Campo obligatorio."
     }
   },

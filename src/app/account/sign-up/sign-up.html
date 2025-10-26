@@ -26,6 +26,9 @@
           @if (signUpForm.get('firstName')?.errors?.['required']) {
             <div>{{ 'forms.validators.required' | translate }}</div>
           }
+          @if (signUpForm.get('firstName')?.errors?.['maxlength']) {
+            <div>{{ 'forms.validators.maxLength' | translate: { maxLength: 30 } }}</div>
+          }
           @if (signUpForm.get('firstName')?.errors?.['apiErrors']) {
             <div>{{ signUpForm.get('firstName')?.errors?.['apiErrors'] }}</div>
           }
@@ -52,6 +55,9 @@
         <div>
           @if (signUpForm.get('lastName')?.errors?.['required']) {
             <div>{{ 'forms.validators.required' | translate }}</div>
+          }
+          @if (signUpForm.get('lastName')?.errors?.['maxlength']) {
+            <div>{{ 'forms.validators.maxLength' | translate: { maxLength: 30 } }}</div>
           }
           @if (signUpForm.get('lastName')?.errors?.['apiErrors']) {
             <div>{{ signUpForm.get('lastName')?.errors?.['apiErrors'] }}</div>

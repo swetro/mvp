@@ -44,6 +44,7 @@
   "forms": {
     "validators": {
       "email": "Invalid email.",
+      "maxLength": "Maximum {{maxLength}} characters.",
       "required": "Required field."
     }
   },
