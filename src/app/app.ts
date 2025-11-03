@@ -11,7 +11,7 @@ import { environment } from '../environments/environment';
 })
 export class App {
   private translate = inject(TranslateService);
-  private availableLanguages = ['en', 'es'];
+  private availableLanguages = environment.supportedLanguages;
   private defaultLanguage = environment.defaultLanguage;
 
   constructor() {

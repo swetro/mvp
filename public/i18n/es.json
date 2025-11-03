@@ -86,7 +86,7 @@
     },
     "title": "Iniciar sesión | Accede a tu cuenta"
   },
-  "SignUp": {
+  "signUp": {
     "body": {
       "title": "Crea tu cuenta",
       "haveAccount": "¿Ya tienes una cuenta?"

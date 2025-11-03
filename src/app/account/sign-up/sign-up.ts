@@ -6,6 +6,7 @@ import { FormValidationService } from '../../shared/services/form-validation.ser
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { AccountService } from '../../core/services/account.service';
 import { Router } from '@angular/router';
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,9 +19,11 @@ export class SignUp {
   private readonly formValidationService = inject(FormValidationService);
   private accountService = inject(AccountService);
   private metaTagsService = inject(MetaTagsService);
+  private languageService = inject(LanguageService);
   private translate = inject(TranslateService);
   private readonly router = inject(Router);
   signUpForm!: FormGroup;
+  currentLanguage = this.languageService.getCurrentLanguage();
 
   constructor() {
     this.buildForm();
@@ -37,7 +40,7 @@ export class SignUp {
       const formData = this.signUpForm.value;
       this.accountService.signUp(formData).subscribe({
         next: () => {
-          this.router.navigate(['/account/verify-otp'], {
+          this.router.navigate(['/', this.currentLanguage, 'account', 'verify-otp'], {
             queryParams: { email: formData.email },
           });
         },

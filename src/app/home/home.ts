@@ -3,6 +3,7 @@ import { ChallengeService } from '../shared/services/challenge.service';
 import { RouterLink } from '@angular/router';
 import { MetaTagsService } from '../shared/services/meta-tags.service';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageService } from '../core/services/language.service';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +14,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class Home {
   private challengeService = inject(ChallengeService);
   private metaTagsService = inject(MetaTagsService);
+  private languageService = inject(LanguageService);
 
   challengeData = this.challengeService.getChallenge();
+  currentLanguage = this.languageService.getCurrentLanguage();
 
   constructor() {
     effect(() => {

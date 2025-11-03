@@ -103,6 +103,8 @@
 
   <div>
     {{ 'signUp.body.haveAccount' | translate }}
-    <a routerLink="/account/sign-in">{{ 'signUp.linkSignIn' | translate }}</a>
+    <a [routerLink]="['/', currentLanguage, 'account', 'sign-in']">{{
+      'signUp.linkSignIn' | translate
+    }}</a>
   </div>
 </section>

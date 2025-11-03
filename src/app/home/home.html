@@ -4,6 +4,6 @@
   <h1>{{ challenge.content.title }}</h1>
   <p>{{ challenge.content.description }}</p>
   <h3>
-    <a [routerLink]="['results']">{{ 'home.linkResults' | translate }}</a>
+    <a [routerLink]="['/', currentLanguage, 'results']">{{ 'home.linkResults' | translate }}</a>
   </h3>
 }
