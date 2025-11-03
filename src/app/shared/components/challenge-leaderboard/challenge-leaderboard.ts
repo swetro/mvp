@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ChallengeService } from '../../services/challenge.service';
 import { DatasetService } from '../../services/dataset.service';
+import { LanguageService } from '../../../core/services/language.service';
 import { ChallengeParticipantsTable } from '../challenge-participants-table/challenge-participants-table';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -13,6 +14,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class ChallengeLeaderboard {
   private challengeService = inject(ChallengeService);
   private datasetService = inject(DatasetService);
+  private languageService = inject(LanguageService);
   private searchTimer?: number;
   selectedFilter = signal<string>('');
   searchTerm = signal<string>('');
@@ -25,6 +27,7 @@ export class ChallengeLeaderboard {
   );
 
   participantFiltersData = this.datasetService.getParticipantFilters();
+  currentLanguage = this.languageService.getCurrentLanguage();
 
   participantFilterChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;

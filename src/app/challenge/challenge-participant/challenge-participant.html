@@ -1,7 +1,9 @@
 @let participant = participantData.value();
 
 <h3>
-  <a [routerLink]="['/results']">{{ 'challengeParticipant.linkBack' | translate }}</a>
+  <a [routerLink]="['/', currentLanguage, 'results']">{{
+    'challengeParticipant.linkBack' | translate
+  }}</a>
 </h3>
 
 @if (participant) {

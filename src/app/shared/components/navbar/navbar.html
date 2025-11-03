@@ -2,17 +2,17 @@
   <div>
     <ul style="list-style: none; display: flex; gap: 0.5rem">
       <li>
-        <a [routerLink]="['']" routerLinkActive="active">
+        <a [routerLink]="['/', currentLanguage]" routerLinkActive="active">
           {{ 'navbar.linkHome' | translate }}
         </a>
       </li>
       <li>
-        <a [routerLink]="['account', 'sign-in']" routerLinkActive="active">
+        <a [routerLink]="['/', currentLanguage, 'account', 'sign-in']" routerLinkActive="active">
           {{ 'navbar.linkSignIn' | translate }}
         </a>
       </li>
       <li>
-        <a [routerLink]="['account', 'sign-up']" routerLinkActive="active">
+        <a [routerLink]="['/', currentLanguage, 'account', 'sign-up']" routerLinkActive="active">
           {{ 'navbar.linkSignUp' | translate }}
         </a>
       </li>

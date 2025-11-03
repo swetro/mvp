@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageService } from '../../../core/services/language.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,4 +9,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   templateUrl: './navbar.html',
   styles: ``,
 })
-export class Navbar {}
+export class Navbar {
+  private languageService = inject(LanguageService);
+  currentLanguage = this.languageService.getCurrentLanguage();
+}

@@ -12,6 +12,7 @@ import { HeartRatePipe } from '../../shared/pipes/heart-rate.pipe';
 import { CaloriesPipe } from '../../shared/pipes/calories.pipe';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-challenge-participant',
@@ -35,10 +36,12 @@ export class ChallengeParticipant {
   private challengeService = inject(ChallengeService);
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
+  private languageService = inject(LanguageService);
   participantId = input.required<string>();
 
   challengeData = this.challengeService.getChallenge();
   participantData = this.challengeService.getParticipant(this.participantId);
+  currentLanguage = this.languageService.getCurrentLanguage();
 
   constructor() {
     effect(() => {

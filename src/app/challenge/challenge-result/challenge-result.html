@@ -1,7 +1,7 @@
 @let challenge = challengeData.value();
 
 <h3>
-  <a [routerLink]="['']">{{ 'challengeResult.linkBack' | translate }}</a>
+  <a [routerLink]="['/', currentLanguage]">{{ 'challengeResult.linkBack' | translate }}</a>
 </h3>
 
 @if (challenge) {
