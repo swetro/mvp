@@ -7,7 +7,6 @@ export const languageGuard: CanActivateFn = (route, state) => {
   const languageService = inject(LanguageService);
 
   const langParam = route.params['lang'];
-  console.log('languageGuard activated for langParam:', langParam);
 
   // If the first segment is a supported language, set language and allow navigation
   if (languageService.isSupportedLanguage(langParam)) {
@@ -17,9 +16,9 @@ export const languageGuard: CanActivateFn = (route, state) => {
 
   // If no language prefix, redirect to detected language
   const detectedLang = languageService.getBrowserLanguage();
-  console.log('No valid langParam, redirecting to detected language:', detectedLang);
 
-  const newUrl = `/${detectedLang}${state.url}`;
+  const urlWithoutLang = state.url.replace(/^\/[^/]+/, '');
+  const newUrl = `/${detectedLang}${urlWithoutLang}`;
 
   router.navigate([newUrl], { replaceUrl: true });
   return false;
