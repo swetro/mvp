@@ -1,5 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
@@ -12,32 +11,14 @@ import { environment } from '../environments/environment';
 })
 export class App {
   private translate = inject(TranslateService);
-  private platformId = inject(PLATFORM_ID);
   private availableLanguages = ['en', 'es'];
-  private defaultLanguage = environment.defaultLanguage || 'en';
+  private defaultLanguage = environment.defaultLanguage;
 
   constructor() {
     this.translate.addLangs(this.availableLanguages);
     this.translate.setFallbackLang(this.defaultLanguage);
 
-    if (isPlatformBrowser(this.platformId)) {
-      // const browserLang = this.defaultLanguage;
-      const browserLang = this.getBrowserLanguage();
-      this.translate.use(browserLang);
-    } else {
-      this.translate.use(this.defaultLanguage);
-    }
-  }
-
-  private getBrowserLanguage(): string {
-    const browserLang = this.translate.getBrowserLang();
-
-    if (!browserLang) {
-      return this.defaultLanguage;
-    }
-
-    // ej: 'es-CO' -> 'es'
-    const langCode = browserLang.split('-')[0];
-    return this.availableLanguages.includes(langCode) ? langCode : this.defaultLanguage;
+    // Language will be set dynamically based on route in the guard
+    // No need to set initial language here as it will be handled by routing
   }
 }

@@ -7,53 +7,35 @@ import { ChallengeParticipant } from './challenge/challenge-participant/challeng
 import { SignIn } from './account/sign-in/sign-in';
 import { SignUp } from './account/sign-up/sign-up';
 import { VerifyOtp } from './account/verify-otp/verify-otp';
+import { languageGuard } from './core/guards/language.guard';
+
+const mainRoutes: Routes = [
+  { path: '', component: Home },
+  { path: 'results', component: ChallengeResult, pathMatch: 'full' },
+  { path: 'results/:participantId', component: ChallengeParticipant },
+  {
+    path: 'account',
+    children: [
+      { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+      { path: 'sign-in', component: SignIn },
+      { path: 'sign-up', component: SignUp },
+      { path: 'verify-otp', component: VerifyOtp },
+    ],
+  },
+];
 
 export const routes: Routes = [
   {
     path: '',
+    canActivate: [languageGuard], // 2) canMatch en vez de canActivate
     component: DefaultLayout,
-    children: [
-      {
-        path: '',
-        component: Home,
-        pathMatch: 'full',
-      },
-      {
-        path: 'results',
-        component: ChallengeResult,
-        pathMatch: 'full',
-      },
-      {
-        path: 'results/:participantId',
-        component: ChallengeParticipant,
-      },
-    ],
+    children: mainRoutes,
   },
   {
-    path: 'account',
+    path: ':lang',
+    canActivate: [languageGuard],
     component: DefaultLayout,
-    children: [
-      {
-        path: '',
-        redirectTo: 'sign-in',
-        pathMatch: 'full',
-      },
-      {
-        path: 'sign-in',
-        component: SignIn,
-      },
-      {
-        path: 'sign-up',
-        component: SignUp,
-      },
-      {
-        path: 'verify-otp',
-        component: VerifyOtp,
-      },
-    ],
+    children: mainRoutes,
   },
-  {
-    path: '**',
-    component: PageNotFound,
-  },
+  { path: '**', component: PageNotFound },
 ];
