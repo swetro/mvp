@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { LanguageService } from '../services/language.service';
 
-export const languageGuard: CanActivateFn = (route, state) => {
+export const langGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const languageService = inject(LanguageService);
 

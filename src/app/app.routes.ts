@@ -7,12 +7,13 @@ import { ChallengeParticipant } from './challenge/challenge-participant/challeng
 import { SignIn } from './account/sign-in/sign-in';
 import { SignUp } from './account/sign-up/sign-up';
 import { VerifyOtp } from './account/verify-otp/verify-otp';
-import { languageGuard } from './core/guards/language.guard';
+import { langGuard } from './core/guards/lang.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 const mainRoutes: Routes = [
   { path: '', component: Home },
   { path: 'results', component: ChallengeResult, pathMatch: 'full' },
-  { path: 'results/:participantId', component: ChallengeParticipant },
+  { path: 'results/:participantId', component: ChallengeParticipant, canActivate: [authGuard] },
   {
     path: 'account',
     children: [
@@ -27,13 +28,13 @@ const mainRoutes: Routes = [
 export const routes: Routes = [
   {
     path: '',
-    canActivate: [languageGuard], // 2) canMatch en vez de canActivate
+    canActivate: [langGuard], // 2) canMatch en vez de canActivate
     component: DefaultLayout,
     children: mainRoutes,
   },
   {
     path: ':lang',
-    canActivate: [languageGuard],
+    canActivate: [langGuard],
     component: DefaultLayout,
     children: mainRoutes,
   },
