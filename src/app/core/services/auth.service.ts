@@ -1,6 +1,8 @@
-import { HttpClient, httpResource, HttpResourceRef } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -8,21 +10,20 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   private http = inject(HttpClient);
 
-  isAuthenticated(): HttpResourceRef<boolean> {
-    return httpResource<boolean>(
-      () => ({
-        url: `${environment.apiUrl}/auth/session`,
+  isAuthenticated = signal<boolean>(false);
+
+  checkAuthentication(): Observable<boolean> {
+    return this.http.get(`${environment.apiUrl}/auth/session`).pipe(
+      map(() => true),
+      tap((isAuth) => this.isAuthenticated.set(isAuth)),
+      catchError(() => {
+        this.isAuthenticated.set(false);
+        return of(false);
       }),
-      {
-        defaultValue: false,
-        parse: (raw: unknown) => {
-          // Since httpResource handles the HTTP request internally, we can't directly check the status
-          // But we can assume that if the request succeeds, it's authenticated
-          // However, to check status, we might need to use a different method
-          // For now, return true if raw is not null or undefined, assuming success
-          return raw !== null && raw !== undefined;
-        },
-      },
     );
+  }
+
+  logout(): void {
+    this.isAuthenticated.set(false);
   }
 }
