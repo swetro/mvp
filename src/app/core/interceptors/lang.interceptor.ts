@@ -2,7 +2,7 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { DOCUMENT, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
-export const langInterceptor: HttpInterceptorFn = (req, next) => {
+export const LangInterceptor: HttpInterceptorFn = (req, next) => {
   const document = inject(DOCUMENT);
   const supportedLangs = environment.supportedLanguages || ['en'];
   const defaultLanguage = environment.defaultLanguage || 'en';
