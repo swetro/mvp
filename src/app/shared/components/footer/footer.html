@@ -1,0 +1,8 @@
+<footer style="text-align: center; padding: 1rem; background-color: #f8f9fa; margin-top: auto">
+  <p>&copy; {{ currentYear }}. All rights reserved.</p>
+  <ul style="list-style: none; display: flex; justify-content: center; gap: 1rem; padding: 0">
+    <li><a [routerLink]="['/', currentLanguage, 'privacy-policy']">Privacy Policy</a></li>
+    <li><a [routerLink]="['/', currentLanguage, 'terms']">Terms and Conditions</a></li>
+    <li><a [routerLink]="['/', currentLanguage, 'cookies']">Cookie Policy</a></li>
+  </ul>
+</footer>
