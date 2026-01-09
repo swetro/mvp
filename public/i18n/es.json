@@ -73,6 +73,14 @@
     "position": "Posición",
     "time": "Tiempo"
   },
+  "pageNotFound": {
+    "body": {
+      "title": "404 | Página no encontrada"
+    },
+    "description": "La página que estás buscando no se encuentra disponible.",
+    "linkHome": "Regresar al inicio",
+    "title": "404 | Página no encontrada"
+  },
   "signIn": {
     "body": {
       "title": "Inicia sesión con tu correo electrónico",

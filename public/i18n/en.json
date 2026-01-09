@@ -72,6 +72,14 @@
     "position": "Position",
     "time": "Time"
   },
+  "pageNotFound": {
+    "body": {
+      "title": "404 | Page not found"
+    },
+    "description": "The page you are looking for is not available.",
+    "linkHome": "Back to home",
+    "title": "404 | Page not found"
+  },
   "signIn": {
     "body": {
       "title": "Log in with your email",

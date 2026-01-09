@@ -36,7 +36,7 @@ export const routes: Routes = [
     path: ':lang',
     canActivate: [langGuard],
     component: DefaultLayout,
-    children: mainRoutes,
+    children: [...mainRoutes, { path: '**', component: PageNotFound }],
   },
   { path: '**', component: PageNotFound },
 ];

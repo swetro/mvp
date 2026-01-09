@@ -1,1 +1,4 @@
-<p>page-not-found works!</p>
+<section>
+  <h1>{{ 'pageNotFound.body.title' | translate }}</h1>
+  <a [routerLink]="['/', currentLanguage]">{{ 'pageNotFound.linkHome' | translate }}</a>
+</section>
