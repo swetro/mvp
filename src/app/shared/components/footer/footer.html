@@ -1,8 +1,16 @@
-<footer style="text-align: center; padding: 1rem; background-color: #f8f9fa; margin-top: auto">
-  <p>&copy; {{ currentYear }}. All rights reserved.</p>
-  <ul style="list-style: none; display: flex; justify-content: center; gap: 1rem; padding: 0">
-    <li><a [routerLink]="['/', currentLanguage, 'privacy-policy']">Privacy Policy</a></li>
-    <li><a [routerLink]="['/', currentLanguage, 'terms']">Terms and Conditions</a></li>
-    <li><a [routerLink]="['/', currentLanguage, 'cookies']">Cookie Policy</a></li>
-  </ul>
+<footer class="border-t border-gray-200 bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <p class="text-xs text-gray-500">&copy; {{ currentYear }}. All rights reserved.</p>
+      <div class="flex flex-wrap items-center gap-4 text-xs text-gray-500">
+        <a [routerLink]="['/', currentLanguage, 'privacy-policy']">{{
+          'footer.linkPrivacyPolicy' | translate
+        }}</a>
+        <a [routerLink]="['/', currentLanguage, 'terms']">{{ 'footer.linkTerms' | translate }}</a>
+        <a [routerLink]="['/', currentLanguage, 'cookies']">{{
+          'footer.linkCookies' | translate
+        }}</a>
+      </div>
+    </div>
+  </div>
 </footer>

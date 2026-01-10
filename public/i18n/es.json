@@ -41,6 +41,11 @@
     "default": "Ocurrió un error inesperado. Por favor, intenta nuevamente más tarde.",
     "noInternet": "No hay conexión a internet. Por favor, verifica tu conexión e intenta nuevamente."
   },
+  "footer": {
+    "linkCookies": "Política de Cookies",
+    "linkPrivacyPolicy": "Política de Privacidad",
+    "linkTerms": "Términos y Condiciones"
+  },
   "forms": {
     "validators": {
       "email": "Correo electrónico no válido.",
