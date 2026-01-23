@@ -1,193 +1,22 @@
 @let challenge = challengeData.value();
 
 @if (challenge) {
-  <section class="py-16 sm:py-20 lg:py-24">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
-        <div class="space-y-6">
-          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-            {{ challenge.content.title }}
-          </h1>
-          <p class="text-base sm:text-lg text-gray-600">
-            {{ challenge.content.description }}
-          </p>
-          <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
-            <a
-              href="#cta"
-              class="inline-flex items-center justify-center rounded-md bg-gray-900 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 transition"
-            >
-              Lorem ipsum
-            </a>
-            <a
-              href="#about"
-              class="inline-flex items-center justify-center rounded-md border border-gray-300 px-5 py-3 text-sm font-medium text-gray-900 hover:bg-gray-50 transition"
-            >
-              Ver más
-            </a>
-          </div>
-        </div>
-        <div class="rounded-xl border border-dashed border-gray-200 p-6 sm:p-8 lg:p-10">
-          <div class="space-y-4 text-sm text-gray-600">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent euismod, nisl vel
-              consectetur consequat, nisl nunc consectetur nisi, euismod aliquam nisl nunc eget
-              lorem.
-            </p>
-            <p>
-              Integer vel lorem sit amet nulla pharetra porta. Maecenas condimentum lorem ut nisi
-              pulvinar, et tristique mi consequat. Donec a lorem id ipsum blandit hendrerit.
-            </p>
-            <p>
-              Curabitur in sapien sagittis, feugiat eros non, gravida massa. Cras sodales dui nec
-              urna laoreet, eget placerat sem mollis.
-            </p>
-          </div>
-        </div>
+  <div class="mx-auto max-w-2xl py-16 sm:py-24 lg:py-32">
+    <div class="text-center">
+      <h1 class="text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
+        {{ challenge.content.title }}
+      </h1>
+      <p class="mt-8 text-lg font-medium text-pretty text-slate-500 sm:text-xl/8">
+        {{ challenge.content.description }}
+      </p>
+      <div class="mt-10 flex items-center justify-center gap-x-6">
+        <a
+          href="#"
+          class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >Get started</a
+        >
+        <a href="#" class="text-sm/6 font-semibold">Learn more <span aria-hidden="true">→</span></a>
       </div>
     </div>
-  </section>
-
-  <!-- Features -->
-  <section id="features" class="border-t border-gray-100 bg-gray-50 py-14 sm:py-16 lg:py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="max-w-2xl">
-        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">
-          Lorem ipsum dolor sit amet.
-        </h2>
-        <p class="mt-3 text-sm sm:text-base text-gray-600">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at augue ut justo aliquet
-          vehicula. Sed elementum, risus nec lacinia hendrerit, orci lorem luctus justo, at cursus
-          nunc massa sed neque.
-        </p>
-      </div>
-
-      <div class="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <article class="rounded-lg bg-white p-6 shadow-sm ring-1 ring-gray-100">
-          <h3 class="text-base font-semibold">Lorem ipsum</h3>
-          <p class="mt-2 text-sm text-gray-600">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc in convallis
-            dictum, purus sapien.
-          </p>
-        </article>
-
-        <article class="rounded-lg bg-white p-6 shadow-sm ring-1 ring-gray-100">
-          <h3 class="text-base font-semibold">Dolor sit amet</h3>
-          <p class="mt-2 text-sm text-gray-600">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc in convallis
-            dictum, purus sapien.
-          </p>
-        </article>
-
-        <article class="rounded-lg bg-white p-6 shadow-sm ring-1 ring-gray-100">
-          <h3 class="text-base font-semibold">Consectetur adipiscing</h3>
-          <p class="mt-2 text-sm text-gray-600">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc in convallis
-            dictum, purus sapien.
-          </p>
-        </article>
-
-        <article class="rounded-lg bg-white p-6 shadow-sm ring-1 ring-gray-100">
-          <h3 class="text-base font-semibold">Elit sed do</h3>
-          <p class="mt-2 text-sm text-gray-600">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc in convallis
-            dictum, purus sapien.
-          </p>
-        </article>
-
-        <article class="rounded-lg bg-white p-6 shadow-sm ring-1 ring-gray-100">
-          <h3 class="text-base font-semibold">Eiusmod tempor</h3>
-          <p class="mt-2 text-sm text-gray-600">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc in convallis
-            dictum, purus sapien.
-          </p>
-        </article>
-
-        <article class="rounded-lg bg-white p-6 shadow-sm ring-1 ring-gray-100">
-          <h3 class="text-base font-semibold">Incididunt ut labore</h3>
-          <p class="mt-2 text-sm text-gray-600">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc in convallis
-            dictum, purus sapien.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Sección de contenido -->
-  <section id="about" class="py-14 sm:py-16 lg:py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid gap-10 lg:grid-cols-2 lg:items-start">
-        <div class="space-y-4">
-          <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">
-            Lorem ipsum dolor sit amet consectetur.
-          </h2>
-          <p class="text-sm sm:text-base text-gray-600">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam congue, odio a tempor
-            ullamcorper, felis libero iaculis mauris, ac feugiat lorem ligula sed elit. Integer a
-            augue semper, tincidunt ante at, ullamcorper lorem.
-          </p>
-          <p class="text-sm sm:text-base text-gray-600">
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-            Sed ac congue orci, eget vulputate mi. Maecenas id urna quis enim pellentesque auctor
-            non nec lectus.
-          </p>
-        </div>
-
-        <div class="space-y-4 text-sm text-gray-600">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam feugiat metus non odio
-            accumsan, id vehicula lectus pretium. Donec ullamcorper ipsum nec mauris vulputate, ut
-            dapibus ante euismod.
-          </p>
-          <p>
-            Aliquam porttitor, justo vitae dignissim varius, dui ligula ultricies orci, eget
-            elementum risus urna quis arcu. Integer tempor ligula sit amet vehicula sagittis. Cras
-            tristique sed arcu id varius.
-          </p>
-          <p>
-            Suspendisse at purus ut magna pharetra iaculis. Curabitur sit amet leo ac metus tempor
-            tempor ut sed magna. Integer in enim at orci imperdiet fermentum.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing / CTA simple -->
-  <section id="pricing" class="border-t border-gray-100 bg-gray-50 py-14 sm:py-16 lg:py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="max-w-2xl mx-auto text-center">
-        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">
-          Lorem ipsum dolor sit amet.
-        </h2>
-        <p class="mt-3 text-sm sm:text-base text-gray-600">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula, justo non
-          vehicula sollicitudin, ligula nisl aliquet lorem, vitae pharetra purus lectus sit amet
-          arcu.
-        </p>
-      </div>
-
-      <div class="mt-10 max-w-md mx-auto">
-        <div class="rounded-xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
-          <p class="text-sm font-medium text-gray-500">Plan genérico</p>
-          <div class="mt-4 flex items-baseline gap-1">
-            <span class="text-3xl font-bold tracking-tight"> $99 </span>
-            <span class="text-sm text-gray-500"> / mes </span>
-          </div>
-          <ul class="mt-6 space-y-2 text-sm text-gray-600">
-            <li>Lorem ipsum dolor sit amet.</li>
-            <li>Consectetur adipiscing elit sed.</li>
-            <li>Do eiusmod tempor incididunt.</li>
-          </ul>
-          <a
-            id="cta"
-            href="#"
-            class="mt-8 inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-gray-800 transition"
-          >
-            Call to action
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 }

@@ -1,21 +1,11 @@
-<nav style="display: flex; justify-content: flex-end">
-  <div>
-    <ul style="list-style: none; display: flex; gap: 0.5rem">
-      <li>
-        <a [routerLink]="['/', currentLanguage]" routerLinkActive="active">
-          {{ 'navbar.linkHome' | translate }}
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/', currentLanguage, 'account', 'sign-in']" routerLinkActive="active">
-          {{ 'navbar.linkSignIn' | translate }}
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/', currentLanguage, 'account', 'sign-up']" routerLinkActive="active">
-          {{ 'navbar.linkSignUp' | translate }}
-        </a>
-      </li>
-    </ul>
-  </div>
+<nav class="flex items-center justify-end gap-x-2">
+  <a [routerLink]="['/', currentLanguage]">
+    {{ 'navbar.linkHome' | translate }}
+  </a>
+  <a [routerLink]="['/', currentLanguage, 'account', 'sign-in']">
+    {{ 'navbar.linkSignIn' | translate }}
+  </a>
+  <a [routerLink]="['/', currentLanguage, 'account', 'sign-up']">
+    {{ 'navbar.linkSignUp' | translate }}
+  </a>
 </nav>

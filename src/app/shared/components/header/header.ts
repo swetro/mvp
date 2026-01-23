@@ -1,15 +1,10 @@
-import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
-import { LanguageService } from '../../../core/services/language.service';
+import { Component } from '@angular/core';
+import { Navbar } from '../navbar/navbar';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, TranslatePipe],
+  imports: [Navbar],
   templateUrl: './header.html',
   styles: ``,
 })
-export class Header {
-  private languageService = inject(LanguageService);
-  currentLanguage = this.languageService.getCurrentLanguage();
-}
+export class Header {}
