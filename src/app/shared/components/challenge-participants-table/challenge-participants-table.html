@@ -1,46 +1,50 @@
 @let participants = participantsData();
 
 @if (participants) {
-  <table style="width: 100%">
-    <thead style="text-align: left">
+  <table class="min-w-full divide-y divide-slate-200 text-sm">
+    <thead class="bg-slate-200 text-left">
       <tr>
-        <th>{{ 'participant.position' | translate }}</th>
-        <th>{{ 'participant.fullname' | translate }}</th>
-        <th>{{ 'participant.country' | translate }}</th>
-        <th>{{ 'participant.gender' | translate }}</th>
-        <th>{{ 'participant.age' | translate }}</th>
-        <th>{{ 'participant.ageCategory' | translate }}</th>
-        <th>{{ 'participant.ageCategoryPosition' | translate }}</th>
-        <th>{{ 'participant.distance' | translate }}</th>
-        <th>{{ 'participant.time' | translate }}</th>
-        <th>{{ 'participant.pace' | translate }}</th>
-        <th></th>
+        <th scope="col" class="py-2 pl-3">{{ 'participant.position' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'participant.fullname' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'participant.country' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'participant.gender' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'participant.age' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'participant.ageCategory' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'participant.ageCategoryPosition' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'participant.distance' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'participant.time' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'participant.pace' | translate }}</th>
+        <th scope="col" class="py-2 pr-3"></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="divide-y divide-slate-100 bg-white">
       @for (item of participants; track item.id) {
-        <tr>
-          <td>
+        <tr class="hover:bg-slate-200 transition-colors even:bg-slate-100/80">
+          <td class="whitespace-nowrap py-1.5 pl-3">
             {{ item.position }}
           </td>
-          <td>
+          <td class="whitespace-nowrap py-1.5">
             {{ item.isCompleted | completedChallenge }}
             <a [routerLink]="[route(), item.id]">{{ item.firstName }} {{ item.lastName }}</a>
           </td>
-          <td>
-            <img
-              [src]="item.countryAlpha2Code | countryFlag"
-              alt="{{ item.countryAlpha3Code }}"
-            />&nbsp;{{ item.countryAlpha3Code }}
+          <td class="whitespace-nowrap py-1.5">
+            <div class="flex items-center gap-2">
+              <img
+                [src]="item.countryAlpha2Code | countryFlag"
+                alt="{{ item.countryAlpha3Code }}"
+              />{{ item.countryAlpha3Code }}
+            </div>
           </td>
-          <td>{{ item.gender | gender }}</td>
-          <td>{{ item.age }}</td>
-          <td>{{ item.ageCategory }}</td>
-          <td>{{ item.positionByAgeCategory }}</td>
-          <td>{{ item.distanceInMeters | distance }}</td>
-          <td>{{ item.durationInSeconds | duration }}</td>
-          <td>{{ item.averagePaceInMinutesPerKilometer | pace }}</td>
-          <td>
+          <td class="whitespace-nowrap py-1.5">{{ item.gender | gender }}</td>
+          <td class="whitespace-nowrap py-1.5">{{ item.age }}</td>
+          <td class="whitespace-nowrap py-1.5">{{ item.ageCategory }}</td>
+          <td class="whitespace-nowrap py-1.5">{{ item.positionByAgeCategory }}</td>
+          <td class="whitespace-nowrap py-1.5">{{ item.distanceInMeters | distance }}</td>
+          <td class="whitespace-nowrap py-1.5">{{ item.durationInSeconds | duration }}</td>
+          <td class="whitespace-nowrap py-1.5">
+            {{ item.averagePaceInMinutesPerKilometer | pace }}
+          </td>
+          <td class="whitespace-nowrap pr-3">
             <a [routerLink]="[route(), item.id]">{{
               'challengeParticipantsTable.details' | translate
             }}</a>
