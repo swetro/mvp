@@ -57,7 +57,16 @@
     "linkSignUp": "Registrarse"
   },
   "home": {
-    "linkResults": "Ver resultados"
+    "body": {
+      "description1": "El reto que premia la disciplina y castiga las excusas.",
+      "description2": "5K diarios por 10 días.",
+      "description3": "Fallas un día… estás muerto.",
+      "title": "Camina o Muere"
+    },
+    "description": "El desafío que premia la disciplina y castiga las excusas.",
+    "linkLeaderboard": "Tabla de Clasificación",
+    "linkRegister": "Regístrate Ahora",
+    "title": "Camina o Muere by Cine Colombia & Polar"
   },
   "participant": {
     "activities": "Actividades",

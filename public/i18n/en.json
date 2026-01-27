@@ -57,7 +57,16 @@
     "linkSignUp": "Sign Up"
   },
   "home": {
-    "linkResults": "View results"
+    "body": {
+      "description1": "The challenge that rewards discipline and punishes excuses.",
+      "description2": "Run 5K a day for 10 days.",
+      "description3": "Miss one day… and you're dead.",
+      "title": "The Long Walk"
+    },
+    "description": "The challenge that rewards discipline and punishes excuses.",
+    "linkLeaderboard": "Leaderboard",
+    "linkRegister": "Register Now",
+    "title": "The Long Walk by Cine Colombia & Polar"
   },
   "participant": {
     "activities": "Activities",

@@ -1,20 +1,27 @@
-@let challenge = challengeData.value();
-
-@if (challenge) {
-  <div class="mx-auto max-w-2xl py-16 sm:py-24 lg:py-32">
-    <div class="text-center">
-      <h1>
-        {{ challenge.content.title }}
-      </h1>
-      <p class="mt-8">
-        {{ challenge.content.description }}
-      </p>
-      <div class="mt-10 flex items-center justify-center gap-x-6">
-        <a [routerLink]="['/', currentLanguage, 'results']" class="btn-primary">{{
-          'home.linkResults' | translate
-        }}</a>
-        <a href="#" class="btn-ghost">Learn more <span aria-hidden="true">→</span></a>
-      </div>
+<div class="mx-auto max-w-2xl py-16 sm:py-24 lg:py-32">
+  <div class="text-center">
+    <h1>
+      {{ 'home.body.title' | translate }}
+    </h1>
+    <h3 class="mt-8">
+      {{ 'home.body.description1' | translate }}
+    </h3>
+    <h3 class="mt-8">
+      {{ 'home.body.description2' | translate }}
+    </h3>
+    <h3 class="mt-8">
+      {{ 'home.body.description3' | translate }}
+    </h3>
+    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-x-6">
+      <a
+        [routerLink]="['/', currentLanguage, 'account', 'sign-up']"
+        class="btn-primary w-full sm:w-auto"
+      >
+        {{ 'home.linkRegister' | translate }}
+      </a>
+      <a [routerLink]="['/', currentLanguage, 'results']" class="btn-ghost w-full sm:w-auto">
+        {{ 'home.linkLeaderboard' | translate }}
+      </a>
     </div>
   </div>
-}
+</div>
