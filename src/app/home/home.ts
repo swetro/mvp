@@ -1,11 +1,13 @@
 import { Component, effect, inject } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { ChallengeService } from '../shared/services/challenge.service';
 import { MetaTagsService } from '../shared/services/meta-tags.service';
 import { LanguageService } from '../core/services/language.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [TranslateModule, RouterLink],
   templateUrl: './home.html',
   styles: ``,
 })

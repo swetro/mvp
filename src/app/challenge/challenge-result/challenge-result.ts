@@ -1,6 +1,5 @@
 import { Component, effect, inject } from '@angular/core';
 import { ChallengeService } from '../../shared/services/challenge.service';
-import { RouterLink } from '@angular/router';
 import { ChallengeLeaderboard } from '../../shared/components/challenge-leaderboard/challenge-leaderboard';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -8,7 +7,7 @@ import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-challenge-result',
-  imports: [RouterLink, ChallengeLeaderboard, TranslatePipe],
+  imports: [ChallengeLeaderboard, TranslatePipe],
   templateUrl: './challenge-result.html',
   styles: ``,
 })

@@ -28,7 +28,6 @@
   },
   "challengeResult": {
     "description": "Official leaderboard of {{challengeTitle}}: discover the challenge leaders and explore full results for every participant — including distance, total time, and pace by age and gender.",
-    "linkBack": "Back",
     "title": "Results: {{challengeTitle}}",
     "titleLeaderboard": "Leaderboard"
   },
@@ -53,13 +52,12 @@
       "required": "Required field."
     }
   },
-  "home": {
-    "linkResults": "Results"
-  },
-  "navbar": {
-    "linkHome": "Home",
+  "header": {
     "linkSignIn": "Sign In",
     "linkSignUp": "Sign Up"
+  },
+  "home": {
+    "linkResults": "View results"
   },
   "participant": {
     "activities": "Activities",

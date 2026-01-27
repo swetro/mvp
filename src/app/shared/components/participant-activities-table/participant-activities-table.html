@@ -1,44 +1,50 @@
 @let activities = activitiesData();
 
 @if (activities) {
-  <table style="width: 100%">
-    <thead style="text-align: left">
+  <table class="min-w-full divide-y divide-slate-200 text-sm">
+    <thead class="bg-slate-200 text-left">
       <tr>
-        <th>{{ 'activity.startDate' | translate }}</th>
-        <th>{{ 'activity.endDate' | translate }}</th>
-        <th>{{ 'activity.distance' | translate }}</th>
-        <th>{{ 'activity.time' | translate }}</th>
-        <th>{{ 'activity.pace' | translate }}</th>
-        <th>{{ 'activity.elevationGain' | translate }}</th>
-        <th>{{ 'activity.heartRate' | translate }}</th>
-        <th>{{ 'activity.calories' | translate }}</th>
-        <th>{{ 'activity.device' | translate }}</th>
+        <th scope="col" class="py-2 pl-3">{{ 'activity.startDate' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'activity.endDate' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'activity.distance' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'activity.time' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'activity.pace' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'activity.elevationGain' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'activity.heartRate' | translate }}</th>
+        <th scope="col" class="py-2">{{ 'activity.calories' | translate }}</th>
+        <th scope="col" class="py-2 pr-3">{{ 'activity.device' | translate }}</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="divide-y divide-slate-100 bg-white">
       @for (item of activities; track item.id) {
-        <tr>
-          <td>
+        <tr class="hover:bg-slate-200 transition-colors even:bg-slate-100/80">
+          <td class="whitespace-nowrap py-1.5 pl-3">
             {{ item.startTime | date: 'short' }}
           </td>
-          <td>
+          <td class="whitespace-nowrap py-1.5">
             {{ item.endTime | date: 'short' }}
           </td>
-          <td>
+          <td class="whitespace-nowrap py-1.5">
             {{ item.distanceInMeters | distance }}
           </td>
-          <td>
+          <td class="whitespace-nowrap py-1.5">
             {{ item.durationInSeconds | duration }}
           </td>
-          <td>
+          <td class="whitespace-nowrap py-1.5">
             {{ item.averagePaceInMinutesPerKilometer | pace }}
           </td>
-          <td>
+          <td class="whitespace-nowrap py-1.5">
             {{ item.totalElevationGainInMeters | elevation }}
           </td>
-          <td>{{ item.averageHeartRateInBeatsPerMinute | heartRate }}</td>
-          <td>{{ item.activeKilocalories | calories }}</td>
-          <td>{{ item.deviceName }}</td>
+          <td class="whitespace-nowrap py-1.5">
+            {{ item.averageHeartRateInBeatsPerMinute | heartRate }}
+          </td>
+          <td class="whitespace-nowrap py-1.5">
+            {{ item.activeKilocalories | calories }}
+          </td>
+          <td class="whitespace-nowrap py-1.5 pr-3">
+            {{ item.deviceName }}
+          </td>
         </tr>
       }
     </tbody>

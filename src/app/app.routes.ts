@@ -8,7 +8,6 @@ import { SignIn } from './account/sign-in/sign-in';
 import { SignUp } from './account/sign-up/sign-up';
 import { VerifyOtp } from './account/verify-otp/verify-otp';
 import { langGuard } from './core/guards/lang.guard';
-import { authGuard } from './core/guards/auth.guard';
 import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
 import { TermsAndConditions } from './pages/terms-and-conditions/terms-and-conditions';
 import { CookiePolicy } from './pages/cookie-policy/cookie-policy';
@@ -16,7 +15,8 @@ import { CookiePolicy } from './pages/cookie-policy/cookie-policy';
 const mainRoutes: Routes = [
   { path: '', component: Home },
   { path: 'results', component: ChallengeResult, pathMatch: 'full' },
-  { path: 'results/:participantId', component: ChallengeParticipant, canActivate: [authGuard] },
+  // { path: 'results/:participantId', component: ChallengeParticipant, canActivate: [authGuard] },
+  { path: 'results/:participantId', component: ChallengeParticipant },
   {
     path: 'account',
     children: [

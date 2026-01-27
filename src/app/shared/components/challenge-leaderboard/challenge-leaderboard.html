@@ -2,8 +2,12 @@
 @let participantFilters = participantFiltersData.value();
 
 @if (participantFilters) {
-  <div style="display: flex; justify-content: space-between; align-items: center">
-    <select id="participantFilter" (change)="participantFilterChange($event)">
+  <div class="flex justify-between items-center pb-3">
+    <select
+      id="participantFilter"
+      (change)="participantFilterChange($event)"
+      class="rounded-md border-0 py-2 pl-3 pr-10 text-slate-900 ring-1 ring-inset ring-slate-300 sm:text-sm sm:leading-6 transition-all cursor-pointer"
+    >
       @for (item of participantFilters; track $index) {
         <option [value]="item.value">{{ item.label }}</option>
       }
@@ -13,6 +17,7 @@
       id="participantSearch"
       (input)="participantSearchInput($event)"
       (keyup.enter)="participantSearchEnter($event)"
+      class="rounded-md border-0 py-1 px-2 text-slate-900 ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-1 sm:text-sm sm:leading-6 transition-all"
     />
   </div>
 }
@@ -22,19 +27,36 @@
     [route]="`/${currentLanguage}/results`"
   ></app-challenge-participants-table>
   <div>
-    <span>{{
+    <span class="text-sm text-slate-700">{{
       'challengeLeaderboard.pageOf'
         | translate: { currentPage: participants.pageNumber, totalPages: participants.totalPages }
     }}</span>
 
-    <button (click)="goToPage(1)" [disabled]="participants.pageNumber === 1"><<</button>
-    <button (click)="goPrevPage()" [disabled]="participants.pageNumber === 1"><</button>
-    <button (click)="goNextPage()" [disabled]="participants.pageNumber === participants.totalPages">
+    <button
+      (click)="goToPage(1)"
+      [disabled]="participants.pageNumber === 1"
+      class="text-sm text-slate-700 pl-1 pr-1 cursor-pointer"
+    >
+      <<
+    </button>
+    <button
+      (click)="goPrevPage()"
+      [disabled]="participants.pageNumber === 1"
+      class="text-sm text-slate-700 pl-1 pr-1 cursor-pointer"
+    >
+      <
+    </button>
+    <button
+      (click)="goNextPage()"
+      [disabled]="participants.pageNumber === participants.totalPages"
+      class="text-sm text-slate-700 pl-1 pr-1 cursor-pointer"
+    >
       >
     </button>
     <button
       (click)="goToPage(participants.totalPages)"
       [disabled]="participants.pageNumber === participants.totalPages"
+      class="text-sm text-slate-700 pl-1 pr-1 cursor-pointer"
     >
       >>
     </button>

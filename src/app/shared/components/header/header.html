@@ -1,3 +1,71 @@
-<header class="w-full">
-  <app-navbar></app-navbar>
+<header class="top-0 z-50">
+  <div class="flex items-center justify-between h-16 md:h-20">
+    <!-- Logo -->
+    <div class="shrink-0">
+      <a [routerLink]="['/', currentLanguage]" class="flex items-center">
+        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">S</span>
+        </div>
+        <span class="ml-3 text-xl font-bold text-slate-900 hidden sm:block"> OpenSwetro </span>
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-4">
+      <a [routerLink]="['/', currentLanguage, 'account', 'sign-in']" class="btn-ghost"
+        >{{ 'header.linkSignIn' | translate }}
+      </a>
+      <a [routerLink]="['/', currentLanguage, 'account', 'sign-up']" class="btn-primary">{{
+        'header.linkSignUp' | translate
+      }}</a>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button
+      id="mobile-menu-button"
+      class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+      aria-label="Toggle menu"
+    >
+      <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"
+        />
+      </svg>
+      <svg
+        id="close-icon"
+        class="w-6 h-6 hidden"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu">
+    <nav class="flex flex-col gap-2">
+      <a
+        [routerLink]="['/', currentLanguage, 'account', 'sign-in']"
+        class="px-4 py-3 text-slate-700 hover:bg-slate-50 rounded-lg font-medium transition-colors"
+      >
+        {{ 'header.linkSignIn' | translate }}
+      </a>
+      <a
+        [routerLink]="['/', currentLanguage, 'account', 'sign-up']"
+        class="px-4 py-3 bg-blue-600 text-white hover:bg-blue-700 rounded-lg font-semibold text-center transition-colors"
+      >
+        {{ 'header.linkSignUp' | translate }}
+      </a>
+    </nav>
+  </div>
 </header>

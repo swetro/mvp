@@ -3,10 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <base href="/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
   </head>
-  <body class="min-h-screen bg-white font-sans text-slate-900 antialiased">
+  <body class="min-h-screen flex flex-col">
     <app-root></app-root>
+    <script>
+      const menuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+
+      menuButton.addEventListener('click', () => {
+        // Toggle la clase 'open' en lugar de 'hidden'
+        mobileMenu.classList.toggle('open');
+        menuIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+      });
+    </script>
   </body>
 </html>

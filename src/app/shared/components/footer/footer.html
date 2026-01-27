@@ -1,12 +1,23 @@
-<footer class="w-full">
-  <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
-    <div>&copy; {{ currentYear }}. All rights reserved.</div>
-    <div class="flex gap-x-2">
-      <a [routerLink]="['/', currentLanguage, 'privacy-policy']">{{
-        'footer.linkPrivacyPolicy' | translate
-      }}</a>
-      <a [routerLink]="['/', currentLanguage, 'terms']">{{ 'footer.linkTerms' | translate }}</a>
-      <a [routerLink]="['/', currentLanguage, 'cookies']">{{ 'footer.linkCookies' | translate }}</a>
+<footer class="border-t border-slate-200">
+  <div class="py-6">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <!-- Copyright - Left in desktop, bottom and center in mobile -->
+      <div class="text-slate-600 text-sm order-2 md:order-1 text-center md:text-left">
+        &copy; {{ currentYear }}. All rights reserved.
+      </div>
+
+      <!-- Links - Right in desktop, top in mobile -->
+      <nav class="flex flex-col md:flex-row md:flex-wrap text-sm gap-3 md:gap-6 order-1 md:order-2">
+        <a [routerLink]="['/', currentLanguage, 'privacy-policy']">
+          {{ 'footer.linkPrivacyPolicy' | translate }}
+        </a>
+        <a [routerLink]="['/', currentLanguage, 'terms']">
+          {{ 'footer.linkTerms' | translate }}
+        </a>
+        <a [routerLink]="['/', currentLanguage, 'cookies']">
+          {{ 'footer.linkCookies' | translate }}
+        </a>
+      </nav>
     </div>
   </div>
 </footer>
