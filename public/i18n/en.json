@@ -12,7 +12,9 @@
     "time": "Time"
   },
   "challengeLeaderboard": {
-    "pageOf": "Page {{currentPage}} of {{totalPages}} "
+    "pageOf": "Page {{currentPage}} of {{totalPages}} ",
+    "searchPlaceholder": "Search participant...",
+    "swipeHint": "← Swipe to view more columns →"
   },
   "challengeParticipant": {
     "completed": "Completed 🏅",

@@ -2,23 +2,27 @@
 @let participantFilters = participantFiltersData.value();
 
 @if (participantFilters) {
-  <div class="flex justify-between items-center pb-3">
-    <select
-      id="participantFilter"
-      (change)="participantFilterChange($event)"
-      class="rounded-md border-0 py-2 pl-3 pr-10 text-slate-900 ring-1 ring-inset ring-slate-300 sm:text-sm sm:leading-6 transition-all cursor-pointer"
-    >
-      @for (item of participantFilters; track $index) {
-        <option [value]="item.value">{{ item.label }}</option>
-      }
-    </select>
-    <input
-      type="text"
-      id="participantSearch"
-      (input)="participantSearchInput($event)"
-      (keyup.enter)="participantSearchEnter($event)"
-      class="rounded-md border-0 py-1 px-2 text-slate-900 ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-1 sm:text-sm sm:leading-6 transition-all"
-    />
+  <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2 pb-2">
+    <!-- Select filter -->
+    <div class="w-full md:w-80">
+      <select id="participantFilter" (change)="participantFilterChange($event)" class="form-select">
+        @for (item of participantFilters; track $index) {
+          <option [value]="item.value">{{ item.label }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Search input -->
+    <div class="w-full md:w-80">
+      <input
+        type="text"
+        id="participantSearch"
+        (input)="participantSearchInput($event)"
+        (keyup.enter)="participantSearchEnter($event)"
+        class="form-input"
+        placeholder="{{ 'challengeLeaderboard.searchPlaceholder' | translate }}"
+      />
+    </div>
   </div>
 }
 @if (participants) {

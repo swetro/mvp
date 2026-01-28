@@ -1,10 +1,12 @@
 @let challenge = challengeData.value();
 
 @if (challenge) {
-  <h2>{{ 'challengeResult.titleLeaderboard' | translate }}</h2>
-  <h3 class="text-gray-600">{{ challenge.content.title }}</h3>
+  <section>
+    <h2>{{ 'challengeResult.titleLeaderboard' | translate }}</h2>
+    <h3 class="text-gray-600">{{ challenge.content.title }}</h3>
 
-  <div class="mt-10">
-    <app-challenge-leaderboard></app-challenge-leaderboard>
-  </div>
+    <div class="mt-10 mb-20">
+      <app-challenge-leaderboard></app-challenge-leaderboard>
+    </div>
+  </section>
 }

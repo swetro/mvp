@@ -12,7 +12,9 @@
     "time": "Tiempo"
   },
   "challengeLeaderboard": {
-    "pageOf": "Página {{currentPage}} de {{totalPages}} "
+    "pageOf": "Página {{currentPage}} de {{totalPages}} ",
+    "searchPlaceholder": "Buscar participante...",
+    "swipeHint": "← Desliza para ver más columnas →"
   },
   "challengeParticipant": {
     "completed": "Completado 🏅",
@@ -71,8 +73,8 @@
   "participant": {
     "activities": "Actividades",
     "age": "Edad",
-    "ageCategory": "Categoría de Edad",
-    "ageCategoryPosition": "Posición Categoría de Edad",
+    "ageCategory": "Categoría Edad",
+    "ageCategoryPosition": "Posición Cat. Edad",
     "country": "País",
     "calories": "Calorías",
     "distance": "Distancia",
