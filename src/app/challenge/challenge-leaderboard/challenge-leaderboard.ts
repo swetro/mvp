@@ -1,33 +1,53 @@
-import { Component, inject, signal } from '@angular/core';
-import { ChallengeService } from '../../services/challenge.service';
-import { DatasetService } from '../../services/dataset.service';
-import { LanguageService } from '../../../core/services/language.service';
-import { ChallengeParticipantsTable } from '../challenge-participants-table/challenge-participants-table';
-import { TranslatePipe } from '@ngx-translate/core';
+import { Component, effect, inject, signal } from '@angular/core';
+import { ChallengeService } from '../../shared/services/challenge.service';
+import { MetaTagsService } from '../../shared/services/meta-tags.service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../core/services/language.service';
+import { DatasetService } from '../../shared/services/dataset.service';
+import { ChallengeParticipantsTable } from '../../shared/components/challenge-participants-table/challenge-participants-table';
 
 @Component({
   selector: 'app-challenge-leaderboard',
-  imports: [ChallengeParticipantsTable, TranslatePipe],
+  imports: [TranslatePipe, ChallengeParticipantsTable],
   templateUrl: './challenge-leaderboard.html',
   styles: ``,
 })
 export class ChallengeLeaderboard {
   private challengeService = inject(ChallengeService);
-  private datasetService = inject(DatasetService);
+  private metaTagsService = inject(MetaTagsService);
+  private translate = inject(TranslateService);
   private languageService = inject(LanguageService);
+  private datasetService = inject(DatasetService);
   private searchTimer?: number;
   selectedFilter = signal<string>('');
   searchTerm = signal<string>('');
   currentPage = signal<number>(1);
 
+  currentLanguage = this.languageService.getCurrentLanguage();
+  challengeData = this.challengeService.getChallenge();
   participantsData = this.challengeService.getParticipants(
     this.currentPage,
     this.selectedFilter,
     this.searchTerm,
   );
-
   participantFiltersData = this.datasetService.getParticipantFilters();
-  currentLanguage = this.languageService.getCurrentLanguage();
+
+  constructor() {
+    effect(() => {
+      const challenge = this.challengeData.value();
+      if (challenge) {
+        this.metaTagsService.updateMetaTags({
+          title: this.translate.instant('challengeLeaderboard.title', {
+            challengeTitle: challenge.content.title,
+          }),
+          description: this.translate.instant('challengeLeaderboard.description', {
+            challengeTitle: challenge.content.title,
+          }),
+          image: challenge.content.imageUrl,
+        });
+      }
+    });
+  }
 
   participantFilterChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;

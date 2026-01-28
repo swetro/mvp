@@ -1,0 +1,83 @@
+@let challenge = challengeData.value();
+@let participants = participantsData.value();
+@let participantFilters = participantFiltersData.value();
+
+@if (challenge) {
+  <section>
+    <h2>{{ 'challengeLeaderboard.body.title' | translate }}</h2>
+    <h3 class="text-gray-600">{{ challenge.content.title }}</h3>
+
+    <div class="mt-10 mb-20">
+      @if (participantFilters) {
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2 pb-2">
+          <!-- Select filter -->
+          <div class="w-full md:w-80">
+            <select
+              id="participantFilter"
+              (change)="participantFilterChange($event)"
+              class="form-select"
+            >
+              @for (item of participantFilters; track $index) {
+                <option [value]="item.value">{{ item.label }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Search input -->
+          <div class="w-full md:w-80">
+            <input
+              type="text"
+              id="participantSearch"
+              (input)="participantSearchInput($event)"
+              (keyup.enter)="participantSearchEnter($event)"
+              class="form-input"
+              placeholder="{{ 'challengeLeaderboard.searchPlaceholder' | translate }}"
+            />
+          </div>
+        </div>
+      }
+      @if (participants) {
+        <app-challenge-participants-table
+          [participantsData]="participants.items"
+          [route]="`/${currentLanguage}/leaderboard`"
+        ></app-challenge-participants-table>
+        <div>
+          <span class="text-sm text-slate-700">{{
+            'challengeLeaderboard.pageOf'
+              | translate
+                : { currentPage: participants.pageNumber, totalPages: participants.totalPages }
+          }}</span>
+
+          <button
+            (click)="goToPage(1)"
+            [disabled]="participants.pageNumber === 1"
+            class="text-sm text-slate-700 pl-1 pr-1 cursor-pointer"
+          >
+            <<
+          </button>
+          <button
+            (click)="goPrevPage()"
+            [disabled]="participants.pageNumber === 1"
+            class="text-sm text-slate-700 pl-1 pr-1 cursor-pointer"
+          >
+            <
+          </button>
+          <button
+            (click)="goNextPage()"
+            [disabled]="participants.pageNumber === participants.totalPages"
+            class="text-sm text-slate-700 pl-1 pr-1 cursor-pointer"
+          >
+            >
+          </button>
+          <button
+            (click)="goToPage(participants.totalPages)"
+            [disabled]="participants.pageNumber === participants.totalPages"
+            class="text-sm text-slate-700 pl-1 pr-1 cursor-pointer"
+          >
+            >>
+          </button>
+        </div>
+      }
+    </div>
+  </section>
+}

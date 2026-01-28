@@ -12,9 +12,14 @@
     "time": "Tiempo"
   },
   "challengeLeaderboard": {
+    "body": {
+      "title": "Tabla de Clasificación"
+    },
+    "description": "Clasificación oficial de {{challengeTitle}}: descubre quiénes lideran el desafío y consulta los resultados completos de todos los participantes — con sus distancias, tiempos acumulados y ritmos por edad y género.",
     "pageOf": "Página {{currentPage}} de {{totalPages}} ",
     "searchPlaceholder": "Buscar participante...",
-    "swipeHint": "← Desliza para ver más columnas →"
+    "swipeHint": "← Desliza para ver más columnas →",
+    "title": "Resultados: {{challengeTitle}}"
   },
   "challengeParticipant": {
     "completed": "Completado 🏅",
@@ -27,11 +32,6 @@
   },
   "challengeParticipantsTable": {
     "details": "Ver Detalles"
-  },
-  "challengeResult": {
-    "description": "Clasificación oficial de {{challengeTitle}}: descubre quiénes lideran el desafío y consulta los resultados completos de todos los participantes — con sus distancias, tiempos acumulados y ritmos por edad y género.",
-    "title": "Resultados: {{challengeTitle}}",
-    "titleLeaderboard": "Tabla de Clasificación"
   },
   "error": {
     "400": "Algunos campos contienen errores. Corrígelos e intenta nuevamente.",

@@ -12,9 +12,14 @@
     "time": "Time"
   },
   "challengeLeaderboard": {
+    "body": {
+      "title": "Leaderboard"
+    },
+    "description": "Official leaderboard of {{challengeTitle}}: discover the challenge leaders and explore full results for every participant — including distance, total time, and pace by age and gender.",
     "pageOf": "Page {{currentPage}} of {{totalPages}} ",
     "searchPlaceholder": "Search participant...",
-    "swipeHint": "← Swipe to view more columns →"
+    "swipeHint": "← Swipe to view more columns →",
+    "title": "Results: {{challengeTitle}}"
   },
   "challengeParticipant": {
     "completed": "Completed 🏅",
@@ -27,11 +32,6 @@
   },
   "challengeParticipantsTable": {
     "details": "View Details"
-  },
-  "challengeResult": {
-    "description": "Official leaderboard of {{challengeTitle}}: discover the challenge leaders and explore full results for every participant — including distance, total time, and pace by age and gender.",
-    "title": "Results: {{challengeTitle}}",
-    "titleLeaderboard": "Leaderboard"
   },
   "error": {
     "400": "Some fields contain errors. Please correct them and try again.",
