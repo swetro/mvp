@@ -39,7 +39,7 @@
       @if (participants) {
         <app-challenge-participants-table
           [participantsData]="participants.items"
-          [route]="`/${currentLanguage}/leaderboard`"
+          [route]="`/${currentLanguage}/leaderboard/${slug()}`"
         ></app-challenge-participants-table>
         <div>
           <span class="text-sm text-slate-700">{{

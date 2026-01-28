@@ -14,9 +14,8 @@ import { CookiePolicy } from './pages/cookie-policy/cookie-policy';
 
 const mainRoutes: Routes = [
   { path: '', component: Home },
-  { path: 'leaderboard', component: ChallengeLeaderboard, pathMatch: 'full' },
-  // { path: 'leaderboard/:participantId', component: ChallengeParticipant, canActivate: [authGuard] },
-  { path: 'leaderboard/:participantId', component: ChallengeParticipant },
+  { path: 'leaderboard/:slug', component: ChallengeLeaderboard, pathMatch: 'full' },
+  { path: 'leaderboard/:slug/:participantId', component: ChallengeParticipant },
   {
     path: 'account',
     children: [

@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -19,13 +19,15 @@ export class ChallengeLeaderboard {
   private languageService = inject(LanguageService);
   private datasetService = inject(DatasetService);
   private searchTimer?: number;
+  slug = input.required<string>();
   selectedFilter = signal<string>('');
   searchTerm = signal<string>('');
   currentPage = signal<number>(1);
 
   currentLanguage = this.languageService.getCurrentLanguage();
-  challengeData = this.challengeService.getChallenge();
+  challengeData = this.challengeService.getChallenge(this.slug);
   participantsData = this.challengeService.getParticipants(
+    this.slug,
     this.currentPage,
     this.selectedFilter,
     this.searchTerm,

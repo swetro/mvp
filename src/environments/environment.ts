@@ -1,8 +1,12 @@
 export const environment = {
   production: true,
   apiUrl: 'https://api.example.com',
-  leagueSlug: 'polar-colombia',
-  challengeId: 1130,
+  challenges: {
+    'the-long-walk': {
+      leagueSlug: 'polar-colombia',
+      challengeId: 1130,
+    },
+  } as Record<string, { leagueSlug: string; challengeId: number }>,
   appName: 'OpenSwetro',
   appDescription: 'OpenSwetro - Your Ultimate Coding Challenge Platform',
   appImageUrl:

@@ -1,4 +1,4 @@
-import { Injectable, Signal, signal } from '@angular/core';
+import { Injectable, Signal } from '@angular/core';
 import { ChallengeDto } from '../models/challenge.dto';
 import { environment } from '../../../environments/environment';
 import { ApiResult } from '../models/api-result.dto';
@@ -10,14 +10,22 @@ import { httpResource, HttpResourceRef } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ChallengeService {
-  private leagueSlug = signal<string>(environment.leagueSlug);
-  private challengeId = signal<number>(environment.challengeId);
+  private getChallengeConfig(slug: string): { leagueSlug: string; challengeId: number } {
+    const config = environment.challenges[slug];
+    if (!config) {
+      return { leagueSlug: '', challengeId: 0 };
+    }
+    return config;
+  }
 
-  getChallenge(): HttpResourceRef<ChallengeDto | undefined> {
+  getChallenge(slug: Signal<string>): HttpResourceRef<ChallengeDto | undefined> {
     return httpResource<ChallengeDto>(
-      () => ({
-        url: `${environment.apiUrl}/challenges/${this.leagueSlug()}/${this.challengeId()}`,
-      }),
+      () => {
+        const { leagueSlug, challengeId } = this.getChallengeConfig(slug());
+        return {
+          url: `${environment.apiUrl}/challenges/${leagueSlug}/${challengeId}`,
+        };
+      },
       {
         parse: (raw: unknown) => (raw as ApiResult)?.data as ChallengeDto,
       },
@@ -25,12 +33,14 @@ export class ChallengeService {
   }
 
   getParticipants(
+    slug: Signal<string>,
     pageNumber: Signal<number>,
     filter?: Signal<string>,
     search?: Signal<string>,
   ): HttpResourceRef<PagedResult<ParticipantDto> | undefined> {
     return httpResource<PagedResult<ParticipantDto>>(
       () => {
+        const { leagueSlug, challengeId } = this.getChallengeConfig(slug());
         const params = new URLSearchParams();
         if (filter?.()) params.append('filter', filter());
         if (search?.()) params.append('search', search());
@@ -38,7 +48,7 @@ export class ChallengeService {
         const query = params.toString() ? `?${params.toString()}` : '';
 
         return {
-          url: `${environment.apiUrl}/challenges/${this.leagueSlug()}/${this.challengeId()}/participants${query}`,
+          url: `${environment.apiUrl}/challenges/${leagueSlug}/${challengeId}/participants${query}`,
         };
       },
       {
@@ -47,11 +57,17 @@ export class ChallengeService {
     );
   }
 
-  getParticipant(participantId: Signal<string>): HttpResourceRef<ParticipantDto | undefined> {
+  getParticipant(
+    slug: Signal<string>,
+    participantId: Signal<string>,
+  ): HttpResourceRef<ParticipantDto | undefined> {
     return httpResource<ParticipantDto>(
-      () => ({
-        url: `${environment.apiUrl}/challenges/${this.leagueSlug()}/${this.challengeId()}/participants/${participantId()}`,
-      }),
+      () => {
+        const { leagueSlug, challengeId } = this.getChallengeConfig(slug());
+        return {
+          url: `${environment.apiUrl}/challenges/${leagueSlug}/${challengeId}/participants/${participantId()}`,
+        };
+      },
       {
         parse: (raw: unknown) => (raw as ApiResult)?.data as ParticipantDto,
       },

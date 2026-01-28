@@ -37,10 +37,11 @@ export class ChallengeParticipant {
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
   private languageService = inject(LanguageService);
+  slug = input.required<string>();
   participantId = input.required<string>();
 
-  challengeData = this.challengeService.getChallenge();
-  participantData = this.challengeService.getParticipant(this.participantId);
+  challengeData = this.challengeService.getChallenge(this.slug);
+  participantData = this.challengeService.getParticipant(this.slug, this.participantId);
   currentLanguage = this.languageService.getCurrentLanguage();
 
   constructor() {
