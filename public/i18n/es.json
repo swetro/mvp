@@ -16,7 +16,6 @@
       "title": "Tabla de Clasificación"
     },
     "description": "Clasificación oficial de {{challengeTitle}}: descubre quiénes lideran el desafío y consulta los resultados completos de todos los participantes — con sus distancias, tiempos acumulados y ritmos por edad y género.",
-    "pageOf": "Página {{currentPage}} de {{totalPages}} ",
     "searchPlaceholder": "Buscar participante...",
     "swipeHint": "← Desliza para ver más columnas →",
     "title": "Resultados: {{challengeTitle}}"
@@ -122,6 +121,21 @@
     },
     "linkSignIn": "Iniciar sesión",
     "title": "Registrarse | Crea tu cuenta"
+  },
+  "table": {
+    "noResults": {
+      "title": "No se encontraron resultados",
+      "description": "Intenta ajustar los filtros o realiza una nueva búsqueda."
+    },
+    "pagination": {
+      "button": {
+        "first": "Primera",
+        "last": "Ultima",
+        "next": "Siguiente",
+        "prev": "Anterior"
+      }
+    },
+    "showing": "Mostrando {{from}} - {{to}} de {{total}} registros"
   },
   "verifyOtp": {
     "body": {

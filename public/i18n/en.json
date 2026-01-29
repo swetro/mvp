@@ -16,7 +16,6 @@
       "title": "Leaderboard"
     },
     "description": "Official leaderboard of {{challengeTitle}}: discover the challenge leaders and explore full results for every participant — including distance, total time, and pace by age and gender.",
-    "pageOf": "Page {{currentPage}} of {{totalPages}} ",
     "searchPlaceholder": "Search participant...",
     "swipeHint": "← Swipe to view more columns →",
     "title": "Results: {{challengeTitle}}"
@@ -121,6 +120,21 @@
       "next": "Next"
     },
     "title": "Sign Up | Create your account"
+  },
+  "table": {
+    "noResults": {
+      "title": "No results found",
+      "description": "Try adjusting your filters or perform a new search."
+    },
+    "pagination": {
+      "button": {
+        "first": "First",
+        "last": "Last",
+        "next": "Next",
+        "prev": "Previous"
+      }
+    },
+    "showing": "Showing {{from}} - {{to}} of {{total}} records"
   },
   "verifyOtp": {
     "body": {

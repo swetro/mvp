@@ -11,6 +11,9 @@ import { httpResource, HttpResourceRef } from '@angular/common/http';
 })
 export class ChallengeService {
   private getChallengeConfig(slug: string): { leagueSlug: string; challengeId: number } {
+    if (!slug) {
+      return { leagueSlug: '', challengeId: 0 };
+    }
     const config = environment.challenges[slug];
     if (!config) {
       return { leagueSlug: '', challengeId: 0 };

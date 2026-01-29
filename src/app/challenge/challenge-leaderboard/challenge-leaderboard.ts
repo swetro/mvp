@@ -71,15 +71,31 @@ export class ChallengeLeaderboard {
     this.searchTerm.set(value.length > 2 ? value : '');
   }
 
-  goNextPage() {
+  goNextPage(event: Event) {
+    event.preventDefault();
     this.goToPage(this.currentPage() + 1);
   }
 
-  goPrevPage() {
+  goPrevPage(event: Event) {
+    event.preventDefault();
     this.goToPage(this.currentPage() - 1);
   }
 
-  goToPage(page: number) {
+  goToPage(page: number, event?: Event) {
+    if (event) event.preventDefault();
     this.currentPage.set(page);
+  }
+
+  getPaginationText(pageNumber: number, pageSize: number, totalCount: number) {
+    if (!totalCount) return '';
+
+    const start = (pageNumber - 1) * pageSize + 1;
+    const end = Math.min(pageNumber * pageSize, totalCount);
+
+    return this.translate.instant('table.showing', {
+      from: start,
+      to: end,
+      total: totalCount,
+    });
   }
 }

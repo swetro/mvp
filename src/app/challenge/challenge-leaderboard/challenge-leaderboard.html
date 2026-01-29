@@ -5,7 +5,7 @@
 @if (challenge) {
   <section>
     <h2>{{ 'challengeLeaderboard.body.title' | translate }}</h2>
-    <h3 class="text-gray-600">{{ challenge.content.title }}</h3>
+    <h3 class="text-slate-600">{{ challenge.content.title }}</h3>
 
     <div class="mt-10 mb-20">
       @if (participantFilters) {
@@ -37,46 +37,131 @@
         </div>
       }
       @if (participants) {
-        <app-challenge-participants-table
-          [participantsData]="participants.items"
-          [route]="`/${currentLanguage}/leaderboard/${slug()}`"
-        ></app-challenge-participants-table>
-        <div>
-          <span class="text-sm text-slate-700">{{
-            'challengeLeaderboard.pageOf'
-              | translate
-                : { currentPage: participants.pageNumber, totalPages: participants.totalPages }
-          }}</span>
+        @if (participants.items.length > 0) {
+          <app-challenge-participants-table
+            [participantsData]="participants.items"
+            [route]="`/${currentLanguage}/leaderboard/${slug()}`"
+          ></app-challenge-participants-table>
+          <div
+            class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200 pt-4"
+          >
+            <div class="text-sm text-slate-600">
+              {{
+                getPaginationText(
+                  participants.pageNumber,
+                  participants.pageSize,
+                  participants.totalCount
+                )
+              }}
+            </div>
 
-          <button
-            (click)="goToPage(1)"
-            [disabled]="participants.pageNumber === 1"
-            class="text-sm text-slate-700 pl-1 pr-1 cursor-pointer"
-          >
-            <<
-          </button>
-          <button
-            (click)="goPrevPage()"
-            [disabled]="participants.pageNumber === 1"
-            class="text-sm text-slate-700 pl-1 pr-1 cursor-pointer"
-          >
-            <
-          </button>
-          <button
-            (click)="goNextPage()"
-            [disabled]="participants.pageNumber === participants.totalPages"
-            class="text-sm text-slate-700 pl-1 pr-1 cursor-pointer"
-          >
+            <nav class="flex items-center gap-2" aria-label="Pagination">
+              <button
+                type="button"
+                (click)="goToPage(1, $event)"
+                [disabled]="participants.pageNumber === 1"
+                class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg border border-slate-300 bg-white text-slate-900 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+                aria-label="First page"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+                  />
+                </svg>
+                <span class="ml-1 hidden sm:inline">{{
+                  'table.pagination.button.first' | translate
+                }}</span>
+              </button>
+
+              <button
+                type="button"
+                (click)="goPrevPage($event)"
+                [disabled]="participants.pageNumber === 1"
+                class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+                aria-label="Previous page"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+                <span class="ml-1 hidden sm:inline">{{
+                  'table.pagination.button.prev' | translate
+                }}</span>
+              </button>
+
+              <button
+                type="button"
+                (click)="goNextPage($event)"
+                [disabled]="participants.pageNumber === participants.totalPages"
+                class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+                aria-label="Next page"
+              >
+                <span class="mr-1 hidden sm:inline">{{
+                  'table.pagination.button.next' | translate
+                }}</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                (click)="goToPage(participants.totalPages, $event)"
+                [disabled]="participants.pageNumber === participants.totalPages"
+                class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+                aria-label="Last page"
+              >
+                <span class="mr-1 hidden sm:inline">{{
+                  'table.pagination.button.last' | translate
+                }}</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 5l7 7-7 7M5 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </nav>
+          </div>
+        } @else {
+          <div class="text-center py-12 rounded-lg border border-slate-300">
+            <svg
+              class="mx-auto h-16 w-16 text-slate-400 mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-          </button>
-          <button
-            (click)="goToPage(participants.totalPages)"
-            [disabled]="participants.pageNumber === participants.totalPages"
-            class="text-sm text-slate-700 pl-1 pr-1 cursor-pointer"
-          >
-            >>
-          </button>
-        </div>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+
+            <h4 class="font-semibold mb-2">
+              {{ 'table.noResults.title' | translate }}
+            </h4>
+
+            <p class="text-slate-600 mb-6 max-w-md mx-auto">
+              {{ 'table.noResults.description' | translate }}
+            </p>
+          </div>
+        }
       }
     </div>
   </section>
