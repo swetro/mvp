@@ -14,6 +14,7 @@
           <div class="w-full md:w-80">
             <select
               id="participantFilter"
+              [value]="selectedFilter()"
               (change)="participantFilterChange($event)"
               class="form-select"
             >
@@ -28,6 +29,7 @@
             <input
               type="text"
               id="participantSearch"
+              [value]="searchTerm()"
               (input)="participantSearchInput($event)"
               (keyup.enter)="participantSearchEnter($event)"
               class="form-input"

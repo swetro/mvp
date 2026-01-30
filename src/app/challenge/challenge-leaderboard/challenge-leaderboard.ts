@@ -1,10 +1,12 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, effect, inject, input, signal, OnDestroy } from '@angular/core';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../core/services/language.service';
 import { DatasetService } from '../../shared/services/dataset.service';
 import { ChallengeParticipantsTable } from '../../shared/components/challenge-participants-table/challenge-participants-table';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-challenge-leaderboard',
@@ -12,15 +14,18 @@ import { ChallengeParticipantsTable } from '../../shared/components/challenge-pa
   templateUrl: './challenge-leaderboard.html',
   styles: ``,
 })
-export class ChallengeLeaderboard {
+export class ChallengeLeaderboard implements OnDestroy {
   private challengeService = inject(ChallengeService);
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
   private languageService = inject(LanguageService);
   private datasetService = inject(DatasetService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private searchTimer?: number;
+
   slug = input.required<string>();
-  selectedFilter = signal<string>('');
+  selectedFilter = signal<string>('overall');
   searchTerm = signal<string>('');
   currentPage = signal<number>(1);
 
@@ -35,6 +40,15 @@ export class ChallengeLeaderboard {
   participantFiltersData = this.datasetService.getParticipantFilters();
 
   constructor() {
+    this.route.queryParams.pipe(takeUntilDestroyed()).subscribe((params) => {
+      this.selectedFilter.set(params['filter'] || 'overall');
+      this.searchTerm.set(params['search'] || '');
+      if (params['page']) {
+        const page = Number(params['page']);
+        if (!isNaN(page) && page > 0) this.currentPage.set(page);
+      }
+    });
+
     effect(() => {
       const challenge = this.challengeData.value();
       if (challenge) {
@@ -49,12 +63,36 @@ export class ChallengeLeaderboard {
         });
       }
     });
+
+    effect(() => {
+      const filter = this.selectedFilter();
+      const search = this.searchTerm();
+      const page = this.currentPage();
+
+      const queryParams: Params = {
+        filter: filter || null,
+        search: search || null,
+        page: page > 1 ? page : null,
+      };
+
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams,
+        queryParamsHandling: 'merge',
+        replaceUrl: true,
+      });
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.searchTimer) {
+      clearTimeout(this.searchTimer);
+    }
   }
 
   participantFilterChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
-    const selectedValue = selectElement.value;
-    this.selectedFilter.set(selectedValue);
+    this.selectedFilter.set(selectElement.value);
     this.currentPage.set(1);
   }
 
@@ -63,12 +101,15 @@ export class ChallengeLeaderboard {
     clearTimeout(this.searchTimer);
     this.searchTimer = window.setTimeout(() => {
       this.searchTerm.set(value.length > 2 ? value : '');
+      this.currentPage.set(1);
     }, 300);
   }
 
   participantSearchEnter(event: Event) {
     const value = (event.target as HTMLInputElement).value;
+    clearTimeout(this.searchTimer);
     this.searchTerm.set(value.length > 2 ? value : '');
+    this.currentPage.set(1);
   }
 
   goNextPage(event: Event) {
@@ -78,12 +119,16 @@ export class ChallengeLeaderboard {
 
   goPrevPage(event: Event) {
     event.preventDefault();
-    this.goToPage(this.currentPage() - 1);
+    if (this.currentPage() > 1) {
+      this.goToPage(this.currentPage() - 1);
+    }
   }
 
   goToPage(page: number, event?: Event) {
     if (event) event.preventDefault();
-    this.currentPage.set(page);
+    if (page > 0) {
+      this.currentPage.set(page);
+    }
   }
 
   getPaginationText(pageNumber: number, pageSize: number, totalCount: number) {

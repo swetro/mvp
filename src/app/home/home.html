@@ -21,6 +21,7 @@
       </a>
       <a
         [routerLink]="['/', currentLanguage, 'leaderboard', 'the-long-walk']"
+        [queryParams]="{ filter: 'overall' }"
         class="btn-ghost w-full sm:w-auto"
       >
         {{ 'home.linkLeaderboard' | translate }}
