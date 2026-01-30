@@ -29,7 +29,9 @@
               </td>
               <td class="whitespace-nowrap py-1.5 px-3">
                 {{ item.isCompleted | completedChallenge }}
-                <a [routerLink]="[route(), item.id]">{{ item.firstName }} {{ item.lastName }}</a>
+                <a [routerLink]="[route(), item.id]" queryParamsHandling="preserve"
+                  >{{ item.firstName }} {{ item.lastName }}</a
+                >
               </td>
               <td class="whitespace-nowrap py-1.5 px-3">
                 <div class="flex items-center gap-2">
@@ -49,7 +51,7 @@
                 {{ item.averagePaceInMinutesPerKilometer | pace }}
               </td>
               <td class="whitespace-nowrap pr-3 pl-3">
-                <a [routerLink]="[route(), item.id]">{{
+                <a [routerLink]="[route(), item.id]" queryParamsHandling="preserve">{{
                   'challengeParticipantsTable.details' | translate
                 }}</a>
               </td>

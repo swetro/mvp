@@ -14,12 +14,13 @@
           <div class="w-full md:w-80">
             <select
               id="participantFilter"
-              [value]="selectedFilter()"
               (change)="participantFilterChange($event)"
               class="form-select"
             >
               @for (item of participantFilters; track $index) {
-                <option [value]="item.value">{{ item.label }}</option>
+                <option [value]="item.value" [selected]="item.value === selectedFilter()">
+                  {{ item.label }}
+                </option>
               }
             </select>
           </div>

@@ -1,19 +1,17 @@
 @let participant = participantData.value();
 
-<h3>
-  <a [routerLink]="['/', currentLanguage, 'leaderboard', slug()]">{{
+<section>
+  <a [routerLink]="['/', currentLanguage, 'leaderboard', slug()]" queryParamsHandling="preserve">{{
     'challengeParticipant.linkBack' | translate
   }}</a>
-</h3>
 
-@if (participant) {
-  <section>
+  @if (participant) {
     <div class="mt-10 mb-20">
       <div>
-        <h1>
+        <h2>
           {{ participant.isCompleted | completedChallenge }} {{ participant.firstName }}
           {{ participant.lastName }}
-        </h1>
+        </h2>
         <div style="margin-top: 10px; margin-bottom: 10px">
           <div>{{ 'participant.position' | translate }}: {{ participant.position }}</div>
           <div>
@@ -96,5 +94,5 @@
         </div>
       }
     </div>
-  </section>
-}
+  }
+</section>
