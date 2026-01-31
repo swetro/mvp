@@ -55,7 +55,8 @@
   },
   "header": {
     "linkSignIn": "Iniciar sesión",
-    "linkSignUp": "Registrarse"
+    "linkSignUp": "Registrarse",
+    "linkSignOut": "Cerrar sesión"
   },
   "home": {
     "body": {

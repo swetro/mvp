@@ -6,6 +6,7 @@ import { VerifyOtpDto } from '../models/account/verify-otp.dto';
 import { environment } from '../../../environments/environment';
 import { AuthenticationResultDto } from '../models/account/authentication-result.dto';
 import { Observable } from 'rxjs';
+import { UserProfileDto } from '../models/account/user-profile.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -30,5 +31,9 @@ export class AccountService {
       `${environment.apiUrl}/account/verify-otp`,
       verifyOtp,
     );
+  }
+
+  getProfile(): Observable<UserProfileDto> {
+    return this.http.get<UserProfileDto>(`${environment.apiUrl}/account/profile`);
   }
 }

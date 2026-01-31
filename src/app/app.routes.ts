@@ -11,11 +11,16 @@ import { langGuard } from './core/guards/lang.guard';
 import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
 import { TermsAndConditions } from './pages/terms-and-conditions/terms-and-conditions';
 import { CookiePolicy } from './pages/cookie-policy/cookie-policy';
+import { authGuard } from './core/guards/auth.guard';
 
 const mainRoutes: Routes = [
   { path: '', component: Home },
   { path: 'leaderboard/:slug', component: ChallengeLeaderboard, pathMatch: 'full' },
-  { path: 'leaderboard/:slug/:participantId', component: ChallengeParticipant },
+  {
+    path: 'leaderboard/:slug/:participantId',
+    component: ChallengeParticipant,
+    canActivate: [authGuard],
+  },
   {
     path: 'account',
     children: [
