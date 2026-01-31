@@ -38,9 +38,10 @@
 
   .btn-primary {
     @apply bg-blue-600 hover:bg-blue-700 active:bg-blue-800
-           text-white font-semibold px-6 py-3 rounded-lg
+           text-white font-semibold px-6 py-2 rounded-lg
            transition-colors duration-200
-           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+           disabled:bg-slate-300 disabled:text-slate-500 disabled:hover:bg-slate-300;
   }
   
   .btn-secondary {
@@ -76,6 +77,10 @@
   
   .form-error {
     @apply mt-2 text-sm text-red-600;
+  }
+  
+  .form-error-message {
+    @apply pt-2 pb-3 text-red-600 font-semibold;
   }
   
   .form-help {

@@ -96,13 +96,13 @@
   },
   "signIn": {
     "body": {
-      "title": "Log in with your email",
+      "title": "Log in",
       "dontHaveAccount": "Don't have an account?"
     },
     "description": "Securely log in to your account to keep participating, track your progress, and stay connected with your community.",
     "linkSignUp": "Sign Up",
     "form": {
-      "email": "Email",
+      "email": "Email:",
       "next": "Next"
     },
     "title": "Sign In | Access your account"
@@ -115,9 +115,9 @@
     "description": "Join our community by creating an account. Participate in challenges, track your progress, and connect with others.",
     "linkSignIn": "Sign In",
     "form": {
-      "firstName": "First Name",
-      "lastName": "Last Name",
-      "email": "Email",
+      "firstName": "First Name:",
+      "lastName": "Last Name:",
+      "email": "Email:",
       "next": "Next"
     },
     "title": "Sign Up | Create your account"

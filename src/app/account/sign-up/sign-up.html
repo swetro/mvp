@@ -1,32 +1,33 @@
 <section class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight">
-      {{ 'signUp.body.title' | translate }}
-    </h2>
-  </div>
+  <h2 class="text-center">
+    {{ 'signUp.body.title' | translate }}
+  </h2>
 
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+  <div class="mt-10 mb-20 sm:mx-auto sm:w-full sm:max-w-sm">
     @if (signUpForm.errors && signUpForm.errors['error-message']) {
-      <div>
+      <div class="form-error-message">
         {{ signUpForm.errors['error-message'] }}
       </div>
     }
     <form [formGroup]="signUpForm" (ngSubmit)="onSubmit($event)" novalidate class="space-y-6">
       <div>
-        <label for="firstName" class="block text-sm/6 font-medium">
+        <label for="firstName" class="form-label">
           {{ 'signUp.form.firstName' | translate }}
         </label>
-        <div class="mt-2">
-          <input
-            type="text"
-            id="firstName"
-            formControlName="firstName"
-            autocomplete="firstName"
-            class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-          />
-        </div>
+
+        <input
+          type="text"
+          id="firstName"
+          formControlName="firstName"
+          autocomplete="firstName"
+          class="form-input"
+          [class.form-input-error]="
+            signUpForm.get('firstName')?.invalid && signUpForm.get('firstName')?.touched
+          "
+        />
+
         @if (signUpForm.get('firstName')?.invalid && signUpForm.get('firstName')?.touched) {
-          <div class="mt-2 text-sm text-red-600">
+          <div class="form-error">
             @if (signUpForm.get('firstName')?.errors?.['required']) {
               <div>{{ 'forms.validators.required' | translate }}</div>
             }
@@ -41,20 +42,23 @@
       </div>
 
       <div>
-        <label for="lastName" class="block text-sm/6 font-medium">
+        <label for="lastName" class="form-label">
           {{ 'signUp.form.lastName' | translate }}
         </label>
-        <div class="mt-2">
-          <input
-            type="text"
-            id="lastName"
-            formControlName="lastName"
-            autocomplete="lastName"
-            class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-          />
-        </div>
+
+        <input
+          type="text"
+          id="lastName"
+          formControlName="lastName"
+          autocomplete="lastName"
+          class="form-input"
+          [class.form-input-error]="
+            signUpForm.get('lastName')?.invalid && signUpForm.get('lastName')?.touched
+          "
+        />
+
         @if (signUpForm.get('lastName')?.invalid && signUpForm.get('lastName')?.touched) {
-          <div class="mt-2 text-sm text-red-600">
+          <div class="form-error">
             @if (signUpForm.get('lastName')?.errors?.['required']) {
               <div>{{ 'forms.validators.required' | translate }}</div>
             }
@@ -69,20 +73,23 @@
       </div>
 
       <div>
-        <label for="email" class="block text-sm/6 font-medium">
+        <label for="email" class="form-label">
           {{ 'signUp.form.email' | translate }}
         </label>
-        <div class="mt-2">
-          <input
-            type="email"
-            id="email"
-            formControlName="email"
-            autocomplete="email"
-            class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-          />
-        </div>
+
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          autocomplete="email"
+          class="form-input"
+          [class.form-input-error]="
+            signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched
+          "
+        />
+
         @if (signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched) {
-          <div class="mt-2 text-sm text-red-600">
+          <div class="form-error">
             @if (signUpForm.get('email')?.errors?.['required']) {
               <div>{{ 'forms.validators.required' | translate }}</div>
             }
@@ -97,23 +104,17 @@
       </div>
 
       <div>
-        <button
-          type="submit"
-          [disabled]="signUpForm.invalid"
-          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
+        <button type="submit" [disabled]="signUpForm.invalid" class="btn-primary w-full">
           {{ 'signUp.form.next' | translate }}
         </button>
       </div>
     </form>
 
-    <p class="mt-10 text-center text-sm/6">
+    <p class="mt-10 text-center text-sm">
       {{ 'signUp.body.haveAccount' | translate }}
-      <a
-        [routerLink]="['/', currentLanguage, 'account', 'sign-in']"
-        class="font-semibold text-indigo-600 hover:text-indigo-500"
-        >{{ 'signUp.linkSignIn' | translate }}</a
-      >
+      <a [routerLink]="['/', currentLanguage, 'account', 'sign-in']" class="font-semibold">{{
+        'signUp.linkSignIn' | translate
+      }}</a>
     </p>
   </div>
 </section>

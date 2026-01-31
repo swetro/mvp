@@ -15,14 +15,14 @@
     <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-x-6">
       <a
         [routerLink]="['/', currentLanguage, 'account', 'sign-up']"
-        class="btn-primary w-full sm:w-auto"
+        class="btn-primary py-3 w-full sm:w-auto"
       >
         {{ 'home.linkRegister' | translate }}
       </a>
       <a
         [routerLink]="['/', currentLanguage, 'leaderboard', 'the-long-walk']"
         [queryParams]="{ filter: 'overall' }"
-        class="btn-ghost w-full sm:w-auto"
+        class="btn-ghost py-3 w-full sm:w-auto"
       >
         {{ 'home.linkLeaderboard' | translate }}
       </a>
