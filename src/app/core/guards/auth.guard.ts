@@ -9,7 +9,12 @@ export const authGuard: CanActivateFn = (route, state): Observable<boolean | Url
   const authService = inject(AuthService);
   const languageService = inject(LanguageService);
   const router = inject(Router);
-  const currentLanguage = languageService.getCurrentLanguage();
+  // Intenta obtener el idioma de la URL primero
+  const urlSegments = state.url.split('/');
+  const langFromUrl = urlSegments[1];
+  const currentLanguage = languageService.isSupportedLanguage(langFromUrl)
+    ? langFromUrl
+    : languageService.getCurrentLanguage();
 
   return authService.checkAuthentication().pipe(
     map((isAuthenticated) => {
@@ -27,18 +32,4 @@ export const authGuard: CanActivateFn = (route, state): Observable<boolean | Url
       return of(router.createUrlTree(['/', currentLanguage, 'account', 'sign-in']));
     }),
   );
-
-  // return authService.isAuthenticated().pipe(
-  //   map((isAuthenticated) => {
-  //     if (isAuthenticated) {
-  //       return true;
-  //     }
-
-  //     return router.createUrlTree(['/', currentLanguage, 'account', 'sign-in'], {
-  //       queryParams: {
-  //         returnUrl: state.url,
-  //       },
-  //     });
-  //   }),
-  // );
 };
