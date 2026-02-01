@@ -12,6 +12,9 @@ import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
 import { TermsAndConditions } from './pages/terms-and-conditions/terms-and-conditions';
 import { CookiePolicy } from './pages/cookie-policy/cookie-policy';
 import { authGuard } from './core/guards/auth.guard';
+import { Activities } from './profile/activities/activities';
+import { Devices } from './profile/devices/devices';
+import { EditProfile } from './profile/edit-profile/edit-profile';
 
 const mainRoutes: Routes = [
   { path: '', component: Home },
@@ -19,7 +22,6 @@ const mainRoutes: Routes = [
   {
     path: 'leaderboard/:slug/:participantId',
     component: ChallengeParticipant,
-    canActivate: [authGuard],
   },
   {
     path: 'account',
@@ -28,6 +30,16 @@ const mainRoutes: Routes = [
       { path: 'sign-in', component: SignIn },
       { path: 'sign-up', component: SignUp },
       { path: 'verify-otp', component: VerifyOtp },
+    ],
+  },
+  {
+    path: 'profile',
+    canActivate: [authGuard],
+    children: [
+      { path: '', redirectTo: 'edit', pathMatch: 'full' },
+      { path: 'edit', component: EditProfile },
+      { path: 'activities', component: Activities },
+      { path: 'devices', component: Devices },
     ],
   },
   { path: 'privacy-policy', component: PrivacyPolicy },
