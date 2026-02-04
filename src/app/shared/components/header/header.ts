@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LanguageService } from '../../../core/services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../../core/services/auth.service';
@@ -13,6 +13,7 @@ import { AuthService } from '../../../core/services/auth.service';
 export class Header {
   private languageService = inject(LanguageService);
   private authService = inject(AuthService);
+  private router = inject(Router);
   currentLanguage = this.languageService.getCurrentLanguage();
 
   isAuthenticated = this.authService.isAuthenticated;
@@ -20,5 +21,6 @@ export class Header {
 
   logout() {
     this.authService.logout();
+    this.router.navigate([`/${this.currentLanguage}`]);
   }
 }

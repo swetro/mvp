@@ -1,4 +1,4 @@
-import { Component, effect, inject, input } from '@angular/core';
+import { Component, computed, effect, inject, input } from '@angular/core';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { RouterLink } from '@angular/router';
 import { CountryFlagPipe } from '../../shared/pipes/country-flag.pipe';
@@ -10,7 +10,7 @@ import { PacePipe } from '../../shared/pipes/pace.pipe';
 import { ElevationPipe } from '../../shared/pipes/elevation.pipe';
 import { HeartRatePipe } from '../../shared/pipes/heart-rate.pipe';
 import { CaloriesPipe } from '../../shared/pipes/calories.pipe';
-import { MetaTagsService } from '../../shared/services/meta-tags.service';
+import { MetaTagsService, PageMetadata } from '../../shared/services/meta-tags.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../core/services/language.service';
 
@@ -40,27 +40,35 @@ export class ChallengeParticipant {
   slug = input.required<string>();
   participantId = input.required<string>();
 
+  currentLanguage = this.languageService.getCurrentLanguage();
   challengeData = this.challengeService.getChallenge(this.slug);
   participantData = this.challengeService.getParticipant(this.slug, this.participantId);
-  currentLanguage = this.languageService.getCurrentLanguage();
+  pageMetadata = computed<Partial<PageMetadata> | null>(() => {
+    const challenge = this.challengeData.value();
+    const participant = this.participantData.value();
+
+    if (!challenge || !participant) return null;
+
+    const participantName = `${participant.firstName} ${participant.lastName}`;
+
+    return {
+      title: this.translate.instant('challengeParticipant.title', {
+        participantName,
+        challengeTitle: challenge.content.title,
+      }),
+      description: this.translate.instant('challengeParticipant.description', {
+        participantName,
+        challengeTitle: challenge.content.title,
+      }),
+      image: challenge.content.imageUrl,
+    };
+  });
 
   constructor() {
     effect(() => {
-      const challenge = this.challengeData.value();
-      const participant = this.participantData.value();
-      if (challenge && participant) {
-        const participantName = `${participant.firstName} ${participant.lastName}`;
-        this.metaTagsService.updateMetaTags({
-          title: this.translate.instant('challengeParticipant.title', {
-            participantName: participantName,
-            challengeTitle: challenge.content.title,
-          }),
-          description: this.translate.instant('challengeParticipant.description', {
-            participantName: participantName,
-            challengeTitle: challenge.content.title,
-          }),
-          image: challenge.content.imageUrl,
-        });
+      const metadata = this.pageMetadata();
+      if (metadata) {
+        this.metaTagsService.updateMetaTags(metadata);
       }
     });
   }

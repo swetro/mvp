@@ -1,6 +1,22 @@
+import { DeviceDto } from './device.dto';
+
 export interface UserProfileDto {
-  id: string;
   firstName: string;
   lastName: string;
-  profileImageUrl?: string; // The URL of the photo de perfil
+  profilePictureUrl: string;
+  email: string;
+  phoneNumber: string;
+  gender: string;
+  age: number;
+  birthDate: Date;
+  country: string;
+  countryCode: string;
+  state: string;
+  stateCode: string;
+  city: string;
+  instagramAccount: string;
+  defaultLanguageCode: string;
+  isComplete: boolean;
+  hasSynchronizedDevices: boolean;
+  devices: DeviceDto[];
 }
