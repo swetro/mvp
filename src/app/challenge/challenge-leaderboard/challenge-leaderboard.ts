@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, signal, OnDestroy } from '@angular/core';
+import { Component, effect, inject, input, signal, OnDestroy, computed } from '@angular/core';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -38,6 +38,20 @@ export class ChallengeLeaderboard implements OnDestroy {
     this.searchTerm,
   );
   participantFiltersData = this.datasetService.getParticipantFilters();
+  pageMetadata = computed(() => {
+    const challenge = this.challengeData.value();
+    if (!challenge) return null;
+
+    return {
+      title: this.translate.instant('challengeLeaderboard.title', {
+        title: challenge.content.title,
+      }),
+      description: this.translate.instant('challengeLeaderboard.description', {
+        challengeTitle: challenge.content.title,
+      }),
+      image: challenge.content.imageUrl,
+    };
+  });
 
   constructor() {
     this.route.queryParams.pipe(takeUntilDestroyed()).subscribe((params) => {
@@ -50,18 +64,8 @@ export class ChallengeLeaderboard implements OnDestroy {
     });
 
     effect(() => {
-      const challenge = this.challengeData.value();
-      if (challenge) {
-        this.metaTagsService.updateMetaTags({
-          title: this.translate.instant('challengeLeaderboard.title', {
-            challengeTitle: challenge.content.title,
-          }),
-          description: this.translate.instant('challengeLeaderboard.description', {
-            challengeTitle: challenge.content.title,
-          }),
-          image: challenge.content.imageUrl,
-        });
-      }
+      const meta = this.pageMetadata();
+      if (meta) this.metaTagsService.updateMetaTags(meta);
     });
 
     effect(() => {

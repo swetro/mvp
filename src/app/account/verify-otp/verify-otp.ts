@@ -2,9 +2,12 @@ import { Component, computed, effect, inject, input, signal, OnInit } from '@ang
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../../core/services/account.service';
+import { AuthService } from '../../core/services/auth.service';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { switchMap } from 'rxjs';
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-verify-otp',
@@ -15,15 +18,19 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 export class VerifyOtp implements OnInit {
   private fb = inject(FormBuilder);
   private accountService = inject(AccountService);
+  private authService = inject(AuthService);
+  private languageService = inject(LanguageService);
   private formValidationService = inject(FormValidationService);
   private router = inject(Router);
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
+
   email = input.required<string>();
   initialDuration = 6; // seconds
   remainingTime = signal(this.initialDuration);
   isRunning = signal(false);
   otpForm!: FormGroup;
+  currentLanguage = this.languageService.getCurrentLanguage();
 
   formattedTime = computed(() => {
     const minutes = Math.floor(this.remainingTime() / 60);
@@ -65,19 +72,42 @@ export class VerifyOtp implements OnInit {
     });
   }
 
+  // onSubmit(event: Event) {
+  //   event.preventDefault();
+
+  //   if (this.otpForm.valid) {
+  //     const code = Object.values(this.otpForm.value).join('');
+  //     this.accountService.verifyOtp({ email: this.email(), code }).subscribe({
+  //       next: () => {
+  //         this.authService.checkAuthentication().subscribe(() => {
+  //           this.router.navigate(['/']);
+  //         });
+  //       },
+  //       error: (error) => {
+  //         this.formValidationService.showErrors(this.otpForm, error);
+  //       },
+  //     });
+  //   }
+  // }
+
   onSubmit(event: Event) {
     event.preventDefault();
 
     if (this.otpForm.valid) {
-      const code = Object.values(this.otpForm.value).join('');
-      this.accountService.verifyOtp({ email: this.email(), code }).subscribe({
-        next: () => {
-          this.router.navigate(['/']);
-        },
-        error: (error) => {
-          this.formValidationService.showErrors(this.otpForm, error);
-        },
-      });
+      const otp = Object.values(this.otpForm.value).join('');
+      const verifyOtpDto = { email: this.email(), code: otp };
+
+      this.accountService
+        .verifyOtp(verifyOtpDto)
+        .pipe(switchMap(() => this.authService.checkAuthentication()))
+        .subscribe({
+          next: () => {
+            this.router.navigate(['/', this.currentLanguage, 'profile']);
+          },
+          error: (error) => {
+            this.formValidationService.showErrors(this.otpForm, error);
+          },
+        });
     }
   }
 
