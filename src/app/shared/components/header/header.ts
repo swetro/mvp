@@ -20,7 +20,8 @@ export class Header {
   currentUser = this.authService.currentUser;
 
   logout() {
-    this.authService.logout();
-    this.router.navigate([`/${this.currentLanguage}`]);
+    this.authService.logout().subscribe(() => {
+      this.router.navigate([`/${this.currentLanguage}`]);
+    });
   }
 }

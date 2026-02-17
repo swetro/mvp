@@ -21,7 +21,7 @@ export const authGuard: CanActivateFn = (route, state): Observable<boolean | Url
       if (isAuthenticated) {
         return true;
       } else {
-        return router.createUrlTree(['/', currentLanguage, 'account', 'sign-in'], {
+        return router.createUrlTree(['/', currentLanguage, 'auth', 'sign-in'], {
           queryParams: {
             returnUrl: state.url,
           },
@@ -29,7 +29,7 @@ export const authGuard: CanActivateFn = (route, state): Observable<boolean | Url
       }
     }),
     catchError(() => {
-      return of(router.createUrlTree(['/', currentLanguage, 'account', 'sign-in']));
+      return of(router.createUrlTree(['/', currentLanguage, 'auth', 'sign-in']));
     }),
   );
 };

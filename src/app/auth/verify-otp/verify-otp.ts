@@ -1,7 +1,6 @@
 import { Component, computed, effect, inject, input, signal, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService } from '../../core/services/account.service';
 import { AuthService } from '../../core/services/auth.service';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
@@ -17,7 +16,6 @@ import { LanguageService } from '../../core/services/language.service';
 })
 export class VerifyOtp implements OnInit {
   private fb = inject(FormBuilder);
-  private accountService = inject(AccountService);
   private authService = inject(AuthService);
   private languageService = inject(LanguageService);
   private formValidationService = inject(FormValidationService);
@@ -40,7 +38,7 @@ export class VerifyOtp implements OnInit {
 
   ngOnInit() {
     if (!this.email()) {
-      this.router.navigate(['/account/sign-in']);
+      this.router.navigate(['/', this.currentLanguage, 'auth', 'sign-in']);
     }
   }
 
@@ -97,12 +95,12 @@ export class VerifyOtp implements OnInit {
       const otp = Object.values(this.otpForm.value).join('');
       const verifyOtpDto = { email: this.email(), code: otp };
 
-      this.accountService
+      this.authService
         .verifyOtp(verifyOtpDto)
         .pipe(switchMap(() => this.authService.checkAuthentication()))
         .subscribe({
           next: () => {
-            this.router.navigate(['/', this.currentLanguage, 'profile']);
+            this.router.navigate(['/', this.currentLanguage, 'account', 'profile']);
           },
           error: (error) => {
             this.formValidationService.showErrors(this.otpForm, error);
@@ -112,7 +110,7 @@ export class VerifyOtp implements OnInit {
   }
 
   resendOtp() {
-    this.accountService.resendOtp(this.email()).subscribe({
+    this.authService.resendOtp(this.email()).subscribe({
       next: () => {
         this.otpForm.reset();
         this.remainingTime.set(this.initialDuration);

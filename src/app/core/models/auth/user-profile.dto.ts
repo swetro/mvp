@@ -1,4 +1,4 @@
-import { DeviceDto } from './device.dto';
+import { DeviceDto } from '../profile/device.dto';
 
 export interface UserProfileDto {
   firstName: string;

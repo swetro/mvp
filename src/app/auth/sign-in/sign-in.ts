@@ -4,9 +4,9 @@ import { RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
-import { AccountService } from '../../core/services/account.service';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../core/services/language.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -17,7 +17,7 @@ import { LanguageService } from '../../core/services/language.service';
 export class SignIn {
   private fb = inject(FormBuilder);
   private readonly formValidationService = inject(FormValidationService);
-  private accountService = inject(AccountService);
+  private authService = inject(AuthService);
   private metaTagsService = inject(MetaTagsService);
   private languageService = inject(LanguageService);
   private translate = inject(TranslateService);
@@ -38,9 +38,9 @@ export class SignIn {
 
     if (this.signInForm.valid) {
       const formData = this.signInForm.value;
-      this.accountService.signIn(formData).subscribe({
+      this.authService.signIn(formData).subscribe({
         next: () => {
-          this.router.navigate(['/', this.currentLanguage, 'account', 'verify-otp'], {
+          this.router.navigate(['/', this.currentLanguage, 'auth', 'verify-otp'], {
             queryParams: { email: formData.email },
           });
         },

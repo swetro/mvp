@@ -1,30 +1,22 @@
-import { Injectable, Signal } from '@angular/core';
+import { inject, Injectable, Signal } from '@angular/core';
 import { ChallengeDto } from '../models/challenge.dto';
 import { environment } from '../../../environments/environment';
 import { ApiResult } from '../models/api-result.dto';
 import { ParticipantDto } from '../models/participant.dto';
 import { PagedResult } from '../models/paged-result.dto';
 import { httpResource, HttpResourceRef } from '@angular/common/http';
+import { ChallengeConfigService } from './challenge-config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChallengeService {
-  private getChallengeConfig(slug: string): { leagueSlug: string; challengeId: number } {
-    if (!slug) {
-      return { leagueSlug: '', challengeId: 0 };
-    }
-    const config = environment.challenges[slug];
-    if (!config) {
-      return { leagueSlug: '', challengeId: 0 };
-    }
-    return config;
-  }
+  private readonly challengeConfigService = inject(ChallengeConfigService);
 
   getChallenge(slug: Signal<string>): HttpResourceRef<ChallengeDto | undefined> {
     return httpResource<ChallengeDto>(
       () => {
-        const { leagueSlug, challengeId } = this.getChallengeConfig(slug());
+        const { leagueSlug, challengeId } = this.challengeConfigService.getChallengeConfig(slug());
         return {
           url: `${environment.apiUrl}/challenges/${leagueSlug}/${challengeId}`,
         };
@@ -43,7 +35,7 @@ export class ChallengeService {
   ): HttpResourceRef<PagedResult<ParticipantDto> | undefined> {
     return httpResource<PagedResult<ParticipantDto>>(
       () => {
-        const { leagueSlug, challengeId } = this.getChallengeConfig(slug());
+        const { leagueSlug, challengeId } = this.challengeConfigService.getChallengeConfig(slug());
         const params = new URLSearchParams();
         if (filter?.()) params.append('filter', filter());
         if (search?.()) params.append('search', search());
@@ -66,7 +58,7 @@ export class ChallengeService {
   ): HttpResourceRef<ParticipantDto | undefined> {
     return httpResource<ParticipantDto>(
       () => {
-        const { leagueSlug, challengeId } = this.getChallengeConfig(slug());
+        const { leagueSlug, challengeId } = this.challengeConfigService.getChallengeConfig(slug());
         return {
           url: `${environment.apiUrl}/challenges/${leagueSlug}/${challengeId}/participants/${participantId()}`,
         };

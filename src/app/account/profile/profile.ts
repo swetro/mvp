@@ -1,14 +1,14 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { JsonPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-edit-profile',
+  selector: 'app-profile',
   imports: [JsonPipe],
-  templateUrl: './edit-profile.html',
+  templateUrl: './profile.html',
   styles: ``,
 })
-export class EditProfile {
+export class Profile {
   private authService = inject(AuthService);
   currentUser = this.authService.currentUser;
 }

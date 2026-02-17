@@ -4,6 +4,10 @@ import { environment } from '../../../environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AccountService } from './account.service';
+import { SignInDto } from '../models/auth/sign-in.dto';
+import { SignUpDto } from '../models/auth/sign-up.dto';
+import { VerifyOtpDto } from '../models/auth/verify-otp.dto';
+import { AuthenticationResultDto } from '../models/auth/authentication-result.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +37,33 @@ export class AuthService {
     );
   }
 
-  logout(): void {
-    this.isAuthenticated.set(false);
+  logout(): Observable<void> {
+    return this.http.post<void>(`${environment.apiUrl}/auth/logout`, {}).pipe(
+      tap(() => this.isAuthenticated.set(false)),
+      catchError(() => {
+        // Even if the logout request fails, clear the local state
+        this.isAuthenticated.set(false);
+        return of(undefined);
+      }),
+    );
+  }
+
+  resendOtp(email: string): Observable<void> {
+    return this.http.post<void>(`${environment.apiUrl}/auth/resend-otp`, { email });
+  }
+
+  signIn(signIn: SignInDto): Observable<void> {
+    return this.http.post<void>(`${environment.apiUrl}/auth/login`, signIn);
+  }
+
+  signUp(signUp: SignUpDto): Observable<void> {
+    return this.http.post<void>(`${environment.apiUrl}/auth/register`, signUp);
+  }
+
+  verifyOtp(verifyOtp: VerifyOtpDto): Observable<AuthenticationResultDto> {
+    return this.http.post<AuthenticationResultDto>(
+      `${environment.apiUrl}/auth/verify-otp`,
+      verifyOtp,
+    );
   }
 }

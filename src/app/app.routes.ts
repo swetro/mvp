@@ -4,17 +4,17 @@ import { DefaultLayout } from './shared/layouts/default-layout/default-layout';
 import { Home } from './home/home';
 import { ChallengeLeaderboard } from './challenge/challenge-leaderboard/challenge-leaderboard';
 import { ChallengeParticipant } from './challenge/challenge-participant/challenge-participant';
-import { SignIn } from './account/sign-in/sign-in';
-import { SignUp } from './account/sign-up/sign-up';
-import { VerifyOtp } from './account/verify-otp/verify-otp';
+import { SignIn } from './auth/sign-in/sign-in';
+import { SignUp } from './auth/sign-up/sign-up';
+import { VerifyOtp } from './auth/verify-otp/verify-otp';
 import { langGuard } from './core/guards/lang.guard';
 import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
 import { TermsAndConditions } from './pages/terms-and-conditions/terms-and-conditions';
 import { CookiePolicy } from './pages/cookie-policy/cookie-policy';
 import { authGuard } from './core/guards/auth.guard';
-import { Activities } from './profile/activities/activities';
-import { Devices } from './profile/devices/devices';
-import { EditProfile } from './profile/edit-profile/edit-profile';
+import { Activities } from './account/activities/activities';
+import { Devices } from './account/devices/devices';
+import { Profile } from './account/profile/profile';
 
 const mainRoutes: Routes = [
   { path: '', component: Home },
@@ -24,7 +24,7 @@ const mainRoutes: Routes = [
     component: ChallengeParticipant,
   },
   {
-    path: 'account',
+    path: 'auth',
     children: [
       { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
       { path: 'sign-in', component: SignIn },
@@ -33,11 +33,11 @@ const mainRoutes: Routes = [
     ],
   },
   {
-    path: 'profile',
+    path: 'account',
     canActivate: [authGuard],
     children: [
-      { path: '', redirectTo: 'edit', pathMatch: 'full' },
-      { path: 'edit', component: EditProfile },
+      { path: '', redirectTo: 'profile', pathMatch: 'full' },
+      { path: 'profile', component: Profile },
       { path: 'activities', component: Activities },
       { path: 'devices', component: Devices },
     ],
