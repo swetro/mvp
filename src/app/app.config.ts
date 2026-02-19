@@ -1,6 +1,8 @@
 import {
   ApplicationConfig,
   ErrorHandler,
+  inject,
+  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
@@ -13,6 +15,7 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LangInterceptor } from './core/interceptors/lang.interceptor';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { GlobalErrorHandler } from './global-error-handler';
+import { AuthService } from './core/services/auth.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,5 +36,9 @@ export const appConfig: ApplicationConfig = {
       provide: ErrorHandler,
       useClass: GlobalErrorHandler,
     },
+    provideAppInitializer(() => {
+      const authService = inject(AuthService);
+      return authService.checkAuthentication();
+    }),
   ],
 };
