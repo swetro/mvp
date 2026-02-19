@@ -9,16 +9,76 @@
   <body class="min-h-screen flex flex-col">
     <app-root></app-root>
     <script>
+      // Mobile Menu Toggle
       const menuButton = document.getElementById('mobile-menu-button');
       const mobileMenu = document.getElementById('mobile-menu');
       const menuIcon = document.getElementById('menu-icon');
       const closeIcon = document.getElementById('close-icon');
 
-      menuButton.addEventListener('click', () => {
-        // Toggle la clase 'open' en lugar de 'hidden'
-        mobileMenu.classList.toggle('open');
-        menuIcon.classList.toggle('hidden');
-        closeIcon.classList.toggle('hidden');
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          mobileMenu.classList.toggle('open');
+          if (menuIcon) menuIcon.classList.toggle('hidden');
+          if (closeIcon) closeIcon.classList.toggle('hidden');
+        });
+      }
+
+      // User Dropdown Menu Toggle (Desktop)
+      const userMenuButton = document.getElementById('user-menu-button');
+      const userDropdown = document.getElementById('user-dropdown');
+      const userMenuIcon = document.getElementById('user-menu-icon');
+
+      if (userMenuButton && userDropdown) {
+        userMenuButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          userDropdown.classList.toggle('open');
+
+          // Rotate icon
+          if (userMenuIcon) {
+            if (userDropdown.classList.contains('open')) {
+              userMenuIcon.style.transform = 'rotate(180deg)';
+            } else {
+              userMenuIcon.style.transform = 'rotate(0deg)';
+            }
+          }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!userMenuButton.contains(e.target) && !userDropdown.contains(e.target)) {
+            userDropdown.classList.remove('open');
+            if (userMenuIcon) {
+              userMenuIcon.style.transform = 'rotate(0deg)';
+            }
+          }
+        });
+
+        // Prevent dropdown from closing when clicking inside it
+        userDropdown.addEventListener('click', (e) => {
+          // Allow links and buttons to work normally
+          if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+            userDropdown.classList.remove('open');
+            if (userMenuIcon) {
+              userMenuIcon.style.transform = 'rotate(0deg)';
+            }
+          }
+        });
+      }
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (
+          mobileMenu &&
+          menuButton &&
+          !mobileMenu.contains(e.target) &&
+          !menuButton.contains(e.target) &&
+          mobileMenu.classList.contains('open')
+        ) {
+          mobileMenu.classList.remove('open');
+          if (menuIcon) menuIcon.classList.remove('hidden');
+          if (closeIcon) closeIcon.classList.add('hidden');
+        }
       });
     </script>
   </body>

@@ -3,10 +3,11 @@ import { Router, RouterLink } from '@angular/router';
 import { LanguageService } from '../../../core/services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../../core/services/auth.service';
+import { NameInitialsPipe } from '../../pipes/name-initials.pipe';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, TranslatePipe],
+  imports: [RouterLink, TranslatePipe, NameInitialsPipe],
   templateUrl: './header.html',
   styles: ``,
 })

@@ -1,3 +1,6 @@
+@let user = currentUser();
+@let userIsAuthenticated = isAuthenticated();
+
 <header class="top-0 z-50">
   <div class="flex items-center justify-between h-16 md:h-20">
     <!-- Logo -->
@@ -10,10 +13,10 @@
       </a>
     </div>
 
-    <!-- Desktop and Mobile Navigation -->
+    <!-- Desktop Navigation -->
     <nav class="hidden md:flex items-center gap-4">
       <!-- Unauthenticated user -->
-      @if (!isAuthenticated()) {
+      @if (!userIsAuthenticated) {
         <a [routerLink]="['/', currentLanguage, 'auth', 'sign-in']" class="btn-ghost">{{
           'header.linkSignIn' | translate
         }}</a>
@@ -22,8 +25,60 @@
         }}</a>
       }
       <!-- Authenticated user -->
-      @if (isAuthenticated()) {
-        <button (click)="logout()" class="btn-ghost">{{ 'header.linkSignOut' | translate }}</button>
+      @if (userIsAuthenticated) {
+        <div class="relative">
+          <button
+            id="user-menu-button"
+            class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors"
+            aria-label="User menu"
+          >
+            <div class="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center shrink-0">
+              <span class="text-white font-semibold text-sm">{{
+                user?.firstName + ' ' + user?.lastName | nameInitials
+              }}</span>
+            </div>
+            <span class="text-slate-900 font-medium">{{ user?.firstName }}</span>
+            <svg
+              class="w-4 h-4 text-slate-600 transition-transform"
+              id="user-menu-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div id="user-dropdown" class="user-dropdown">
+            <nav class="py-2">
+              <a [routerLink]="['/', currentLanguage]" class="dropdown-item">
+                {{ 'header.linkChallenges' | translate }}</a
+              >
+              <a
+                [routerLink]="['/', currentLanguage, 'account', 'activities']"
+                class="dropdown-item"
+              >
+                {{ 'header.linkActivities' | translate }}</a
+              >
+              <a [routerLink]="['/', currentLanguage, 'account', 'devices']" class="dropdown-item">
+                {{ 'header.linkDevices' | translate }}</a
+              >
+              <a [routerLink]="['/', currentLanguage, 'account', 'profile']" class="dropdown-item">
+                {{ 'header.linkProfile' | translate }}</a
+              >
+              <hr class="my-2 border-slate-200" />
+              <button (click)="logout()" class="dropdown-item text-left w-full">
+                {{ 'header.linkSignOut' | translate }}
+              </button>
+            </nav>
+          </div>
+        </div>
       }
     </nav>
 
@@ -62,7 +117,7 @@
   <div id="mobile-menu" class="mobile-menu">
     <nav class="flex flex-col gap-2">
       <!-- Unauthenticated user -->
-      @if (!isAuthenticated()) {
+      @if (!userIsAuthenticated) {
         <a
           [routerLink]="['/', currentLanguage, 'auth', 'sign-in']"
           class="px-4 py-3 text-slate-700 hover:bg-slate-50 rounded-lg font-medium transition-colors"
@@ -77,8 +132,21 @@
         </a>
       }
       <!-- Authenticated user -->
-      @if (isAuthenticated()) {
-        <button (click)="logout()" class="btn-ghost text-left">
+      @if (userIsAuthenticated) {
+        <a [routerLink]="['/', currentLanguage]" class="mobile-menu-item">
+          {{ 'header.linkChallenges' | translate }}
+        </a>
+        <a [routerLink]="['/', currentLanguage, 'account', 'activities']" class="mobile-menu-item">
+          {{ 'header.linkActivities' | translate }}
+        </a>
+        <a [routerLink]="['/', currentLanguage, 'account', 'devices']" class="mobile-menu-item">
+          {{ 'header.linkDevices' | translate }}
+        </a>
+        <a [routerLink]="['/', currentLanguage, 'account', 'profile']" class="mobile-menu-item">
+          {{ 'header.linkProfile' | translate }}
+        </a>
+        <hr class="my-2 border-slate-200" />
+        <button (click)="logout()" class="mobile-menu-item text-left">
           {{ 'header.linkSignOut' | translate }}
         </button>
       }

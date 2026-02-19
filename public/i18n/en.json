@@ -54,9 +54,13 @@
     }
   },
   "header": {
+    "linkActivities": "Activities",
+    "linkChallenges": "Challenges",
+    "linkDevices": "Devices",
+    "linkProfile": "Profile",
     "linkSignIn": "Sign In",
-    "linkSignUp": "Sign Up",
-    "linkSignOut": "Sign Out"
+    "linkSignOut": "Sign Out",
+    "linkSignUp": "Sign Up"
   },
   "home": {
     "body": {
