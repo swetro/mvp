@@ -40,8 +40,14 @@
       </div>
 
       <div>
-        <button type="submit" class="btn-primary w-full" [disabled]="signInForm.invalid">
-          {{ 'signIn.form.next' | translate }}
+        <button
+          type="submit"
+          class="btn-primary w-full"
+          [disabled]="signInForm.invalid || isLoading()"
+        >
+          {{
+            isLoading() ? ('signIn.form.submitting' | translate) : ('signIn.form.next' | translate)
+          }}
         </button>
       </div>
     </form>

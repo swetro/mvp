@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -23,6 +23,7 @@ export class SignUp {
   private translate = inject(TranslateService);
   private readonly router = inject(Router);
   signUpForm!: FormGroup;
+  isLoading = signal(false);
   currentLanguage = this.languageService.getCurrentLanguage();
 
   constructor() {
@@ -36,16 +37,19 @@ export class SignUp {
   onSubmit(event: Event) {
     event.preventDefault();
 
-    if (this.signUpForm.valid) {
+    if (this.signUpForm.valid && !this.isLoading()) {
+      this.isLoading.set(true);
       const formData = this.signUpForm.value;
       this.authService.signUp(formData).subscribe({
         next: () => {
           this.router.navigate(['/', this.currentLanguage, 'auth', 'verify-otp'], {
             queryParams: { email: formData.email },
           });
+          this.isLoading.set(false);
         },
         error: (error) => {
           this.formValidationService.showErrors(this.signUpForm, error);
+          this.isLoading.set(false);
         },
       });
     }

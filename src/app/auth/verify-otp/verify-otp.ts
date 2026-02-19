@@ -27,6 +27,7 @@ export class VerifyOtp implements OnInit {
   initialDuration = 6; // seconds
   remainingTime = signal(this.initialDuration);
   isRunning = signal(false);
+  isLoading = signal(false);
   otpForm!: FormGroup;
   currentLanguage = this.languageService.getCurrentLanguage();
 
@@ -91,7 +92,8 @@ export class VerifyOtp implements OnInit {
   onSubmit(event: Event) {
     event.preventDefault();
 
-    if (this.otpForm.valid) {
+    if (this.otpForm.valid && !this.isLoading()) {
+      this.isLoading.set(true);
       const otp = Object.values(this.otpForm.value).join('');
       const verifyOtpDto = { email: this.email(), code: otp };
 
@@ -101,23 +103,30 @@ export class VerifyOtp implements OnInit {
         .subscribe({
           next: () => {
             this.router.navigate(['/', this.currentLanguage, 'account', 'profile']);
+            this.isLoading.set(false);
           },
           error: (error) => {
             this.formValidationService.showErrors(this.otpForm, error);
+            this.isLoading.set(false);
           },
         });
     }
   }
 
   resendOtp() {
+    if (this.isLoading()) return;
+
+    this.isLoading.set(true);
     this.authService.resendOtp(this.email()).subscribe({
       next: () => {
         this.otpForm.reset();
         this.remainingTime.set(this.initialDuration);
         this.isRunning.set(true);
+        this.isLoading.set(false);
       },
       error: (error) => {
         this.formValidationService.showErrors(this.otpForm, error);
+        this.isLoading.set(false);
       },
     });
   }

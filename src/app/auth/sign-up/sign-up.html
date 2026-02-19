@@ -104,8 +104,14 @@
       </div>
 
       <div>
-        <button type="submit" [disabled]="signUpForm.invalid" class="btn-primary w-full">
-          {{ 'signUp.form.next' | translate }}
+        <button
+          type="submit"
+          [disabled]="signUpForm.invalid || isLoading()"
+          class="btn-primary w-full"
+        >
+          {{
+            isLoading() ? ('signUp.form.submitting' | translate) : ('signUp.form.next' | translate)
+          }}
         </button>
       </div>
     </form>

@@ -85,8 +85,16 @@
         />
       </div>
       <div>
-        <button type="submit" [disabled]="otpForm.invalid" class="btn-primary w-full">
-          {{ 'verifyOtp.form.verify' | translate }}
+        <button
+          type="submit"
+          [disabled]="otpForm.invalid || isLoading()"
+          class="btn-primary w-full"
+        >
+          {{
+            isLoading()
+              ? ('verifyOtp.form.verifying' | translate)
+              : ('verifyOtp.form.verify' | translate)
+          }}
         </button>
       </div>
     </form>
@@ -94,7 +102,7 @@
     <p class="mt-10 text-center text-sm">
       <button
         (click)="resendOtp()"
-        [disabled]="isRunning()"
+        [disabled]="isRunning() || isLoading()"
         class="text-blue-600 no-underline hover:underline hover:text-blue-700 cursor-pointer"
       >
         {{

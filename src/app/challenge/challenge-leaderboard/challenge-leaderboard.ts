@@ -44,7 +44,7 @@ export class ChallengeLeaderboard implements OnDestroy {
 
     return {
       title: this.translate.instant('challengeLeaderboard.title', {
-        title: challenge.content.title,
+        challengeTitle: challenge.content.title,
       }),
       description: this.translate.instant('challengeLeaderboard.description', {
         challengeTitle: challenge.content.title,

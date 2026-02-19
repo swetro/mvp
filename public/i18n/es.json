@@ -104,7 +104,8 @@
     "linkSignUp": "Regístrate",
     "form": {
       "email": "Correo electrónico:",
-      "next": "Siguiente"
+      "next": "Siguiente",
+      "submitting": "Enviando..."
     },
     "title": "Iniciar sesión | Accede a tu cuenta"
   },
@@ -118,7 +119,8 @@
       "email": "Correo electrónico:",
       "firstName": "Nombre:",
       "lastName": "Apellidos:",
-      "next": "Siguiente"
+      "next": "Siguiente",
+      "submitting": "Enviando..."
     },
     "linkSignIn": "Iniciar sesión",
     "title": "Registrarse | Crea tu cuenta"
@@ -146,7 +148,8 @@
     "form": {
       "resend": "Reenviar código",
       "resendIn": "Reenviar en {{remainingTime}}",
-      "verify": "Verificar"
+      "verify": "Verificar",
+      "verifying": "Verificando..."
     },
     "description": "Accede de forma segura a tu cuenta para continuar participando, seguir tu progreso y mantenerte conectado con tu comunidad.",
     "title": "Verificación de código | Acceso a tu cuenta"

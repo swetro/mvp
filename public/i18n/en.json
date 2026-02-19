@@ -103,7 +103,8 @@
     "linkSignUp": "Sign Up",
     "form": {
       "email": "Email:",
-      "next": "Next"
+      "next": "Next",
+      "submitting": "Submitting..."
     },
     "title": "Sign In | Access your account"
   },
@@ -118,7 +119,8 @@
       "firstName": "First Name:",
       "lastName": "Last Name:",
       "email": "Email:",
-      "next": "Next"
+      "next": "Next",
+      "submitting": "Submitting..."
     },
     "title": "Sign Up | Create your account"
   },
@@ -145,7 +147,8 @@
     "form": {
       "resend": "Resend Code",
       "resendIn": "Resend in {{remainingTime}}",
-      "verify": "Verify"
+      "verify": "Verify",
+      "verifying": "Verifying..."
     },
     "title": "Verification Code | Access your account",
     "description": "Securely log in to your account to keep participating, track your progress, and stay connected with your community."
