@@ -2,7 +2,7 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { DeviceService } from '../../shared/services/device.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
-import { DeviceBrand } from '../../shared/Enums/device-brand.enum';
+import { DeviceBrand } from '../../shared/enums/device-brand.enum';
 
 @Component({
   selector: 'app-devices',
@@ -19,7 +19,7 @@ export class Devices {
   currentUser = this.authService.currentUser;
   DeviceBrand = DeviceBrand;
 
-  providerUrlData = this.deviceService.getDeviceProviderUrl(this.selectedBrand, this.currentSlug);
+  providerUrlData = this.deviceService.addDeviceStep1(this.selectedBrand, this.currentSlug);
 
   hasDeviceConnected(brand: DeviceBrand) {
     return this.currentUser()?.devices?.some((d) => d.brand === brand) ?? false;

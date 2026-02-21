@@ -1,4 +1,4 @@
-import { DeviceBrand } from '../../../shared/Enums/device-brand.enum';
+import { DeviceBrand } from '../../../shared/enums/device-brand.enum';
 
 export interface DeviceDto {
   brand: DeviceBrand;

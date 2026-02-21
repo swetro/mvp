@@ -15,6 +15,7 @@ import { authGuard } from './core/guards/auth.guard';
 import { Activities } from './account/activities/activities';
 import { Devices } from './account/devices/devices';
 import { Profile } from './account/profile/profile';
+import { OauthCallback } from './auth/oauth-callback/oauth-callback';
 
 const mainRoutes: Routes = [
   { path: '', component: Home },
@@ -30,6 +31,7 @@ const mainRoutes: Routes = [
       { path: 'sign-in', component: SignIn },
       { path: 'sign-up', component: SignUp },
       { path: 'verify-otp', component: VerifyOtp },
+      { path: 'oauth-callback/:provider', component: OauthCallback },
     ],
   },
   {

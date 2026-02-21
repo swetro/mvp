@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, httpResource, HttpResourceRef } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { UserProfileDto } from '../models/auth/user-profile.dto';
+import { UserProfileDto } from '../models/account/user-profile.dto';
 import { ApiResult } from '../../shared/models/api-result.dto';
 
 @Injectable({
