@@ -6,12 +6,15 @@ import { DeviceBrand } from '../enums/device-brand.enum';
 import { ChallengeConfigService } from './challenge-config.service';
 import { AddDeviceStep2Dto } from '../models/device/add-device-step-2.dto';
 import { AddDeviceResultDto } from '../models/device/add-device-result.dto';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DeviceService {
   private readonly challengeConfigService = inject(ChallengeConfigService);
+  private http = inject(HttpClient);
 
   addDeviceStep1(
     brand: Signal<DeviceBrand | null>,
@@ -54,5 +57,9 @@ export class DeviceService {
         parse: (raw: unknown) => (raw as ApiResult)?.data as AddDeviceResultDto,
       },
     );
+  }
+
+  removeDevice(brand: DeviceBrand): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/devices/${brand.toLowerCase()}`);
   }
 }

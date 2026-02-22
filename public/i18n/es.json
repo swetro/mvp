@@ -32,6 +32,18 @@
   "challengeParticipantsTable": {
     "details": "Ver Detalles"
   },
+  "devices": {
+    "body": {
+      "title": "Dispositivos",
+      "description": "Vincula tu dispositivo favorito para registrar tus entrenamientos de forma automática"
+    },
+    "btnConnect": "Conectar",
+    "btnConnecting": "Conectando...",
+    "btnDisconnect": "Desconectar",
+    "btnDisconnecting": "Desconectando...",
+    "description": "Vincula tu dispositivo favorito para registrar tus entrenamientos de forma automática",
+    "title": "Dispositivos"
+  },
   "error": {
     "400": "Algunos campos contienen errores. Corrígelos e intenta nuevamente.",
     "401": "Tu sesión ha expirado o no tienes autorización para realizar esta acción.",

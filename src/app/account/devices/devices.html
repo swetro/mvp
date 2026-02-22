@@ -1,67 +1,51 @@
-<!-- <button (click)="getGarminUrl()" class="btn-primary" [disabled]="garminUrlData.isLoading()">
-  @if (garminUrlData.isLoading()) {
-    <span class="flex items-center gap-2">
-      <svg
-        class="animate-spin h-4 w-4 text-white"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle
-          class="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          stroke-width="4"
-        ></circle>
-        <path
-          class="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-        ></path>
-      </svg>
-      Conectando...
-    </span>
-  } @else {
-    Conectar
-  }
-</button> -->
+<section>
+  <h2>{{ 'devices.body.title' | translate }}</h2>
+  <h3 class="text-slate-600">{{ 'devices.body.description' | translate }}</h3>
 
-<!-- <button
-  (click)="getGarminUrl()"
-  class="btn-primary"
-  [disabled]="garminUrlData.isLoading() || hasGarmin()"
->
-  @if (garminUrlData.isLoading()) {
-    <span>Conectando...</span>
-  } @else if (hasGarmin()) {
-    <span>Conectado</span>
-  } @else {
-    Conectar
-  }
-</button> -->
-
-<button
-  (click)="connect(DeviceBrand.Garmin)"
-  class="btn-primary"
-  [disabled]="providerUrlData.isLoading() || hasDeviceConnected(DeviceBrand.Garmin)"
->
-  @if (providerUrlData.isLoading() && selectedBrand() === DeviceBrand.Garmin) {
-    <span>Conectando Garmin...</span>
-  } @else {
-    {{ hasDeviceConnected(DeviceBrand.Garmin) ? 'Garmin Conectado' : 'Conectar Garmin' }}
-  }
-</button>
-
-<button
-  (click)="connect(DeviceBrand.Polar)"
-  class="btn-primary"
-  [disabled]="providerUrlData.isLoading() || hasDeviceConnected(DeviceBrand.Polar)"
->
-  @if (providerUrlData.isLoading() && selectedBrand() === DeviceBrand.Polar) {
-    <span>Conectando Polar...</span>
-  } @else {
-    {{ hasDeviceConnected(DeviceBrand.Polar) ? 'Polar Conectado' : 'Conectar Polar' }}
-  }
-</button>
+  <div class="mt-10 mb-20">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      @for (d of devices; track d.brand) {
+        <article>
+          <div class="flex flex-col gap-4">
+            <div
+              class="w-full h-[150px] flex items-center justify-center p-m bg-white border border-slate-300 rounded-lg"
+            >
+              <img
+                class="max-w-[120px]"
+                [src]="d.logoSrc"
+                [alt]="d.label + ' logo'"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            @if (hasDeviceConnected(d.brand)) {
+              <button
+                (click)="disconnect(d.brand)"
+                class="btn-danger"
+                [disabled]="providerUrlData.isLoading() || isDisconnecting()"
+              >
+                @if (isDisconnecting()) {
+                  {{ 'devices.btnDisconnecting' | translate }}
+                } @else {
+                  {{ 'devices.btnDisconnect' | translate }}
+                }
+              </button>
+            } @else {
+              <button
+                (click)="connect(d.brand)"
+                class="btn-primary"
+                [disabled]="providerUrlData.isLoading()"
+              >
+                @if (providerUrlData.isLoading() && selectedBrand() === d.brand) {
+                  <span>{{ 'devices.btnConnecting' | translate }}</span>
+                } @else {
+                  {{ 'devices.btnConnect' | translate }}
+                }
+              </button>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

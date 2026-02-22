@@ -53,6 +53,18 @@
       "required": "Required field."
     }
   },
+  "devices": {
+    "body": {
+      "title": "Devices",
+      "description": "Link your favorite device to automatically record your workouts."
+    },
+    "btnConnect": "Connect",
+    "btnConnecting": "Connecting...",
+    "btnDisconnect": "Disconnect",
+    "btnDisconnecting": "Disconnecting...",
+    "description": "Link your favorite device to automatically record your workouts.",
+    "title": "Devices"
+  },
   "header": {
     "linkActivities": "Activities",
     "linkChallenges": "Challenges",

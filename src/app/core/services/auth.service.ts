@@ -48,6 +48,10 @@ export class AuthService {
     );
   }
 
+  refreshUserProfile() {
+    this.userProfileData.reload();
+  }
+
   resendOtp(email: string): Observable<void> {
     return this.http.post<void>(`${environment.apiUrl}/auth/resend-otp`, { email });
   }
