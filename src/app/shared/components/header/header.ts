@@ -20,8 +20,35 @@ export class Header {
   isAuthenticated = this.authService.isAuthenticated;
   currentUser = this.authService.currentUser;
 
+  isMobileMenuOpen = false;
+  isUserMenuOpen = false;
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    if (this.isMobileMenuOpen) {
+      this.isUserMenuOpen = false;
+    }
+  }
+
+  closeMobileMenu() {
+    this.isMobileMenuOpen = false;
+  }
+
+  toggleUserMenu() {
+    this.isUserMenuOpen = !this.isUserMenuOpen;
+    if (this.isUserMenuOpen) {
+      this.isMobileMenuOpen = false;
+    }
+  }
+
+  closeUserMenu() {
+    this.isUserMenuOpen = false;
+  }
+
   logout() {
     this.authService.logout().subscribe(() => {
+      this.isMobileMenuOpen = false;
+      this.isUserMenuOpen = false;
       this.router.navigate([`/${this.currentLanguage}`]);
     });
   }

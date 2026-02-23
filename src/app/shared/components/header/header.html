@@ -31,6 +31,7 @@
             id="user-menu-button"
             class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors"
             aria-label="User menu"
+            (click)="toggleUserMenu()"
           >
             <div class="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center shrink-0">
               <span class="text-white font-semibold text-sm">{{
@@ -55,21 +56,34 @@
           </button>
 
           <!-- Dropdown Menu -->
-          <div id="user-dropdown" class="user-dropdown">
+          <div id="user-dropdown" class="user-dropdown" [class.open]="isUserMenuOpen">
             <nav class="py-2">
-              <a [routerLink]="['/', currentLanguage]" class="dropdown-item">
+              <a
+                [routerLink]="['/', currentLanguage]"
+                class="dropdown-item"
+                (click)="closeUserMenu()"
+              >
                 {{ 'header.linkChallenges' | translate }}</a
               >
               <a
                 [routerLink]="['/', currentLanguage, 'account', 'activities']"
                 class="dropdown-item"
+                (click)="closeUserMenu()"
               >
                 {{ 'header.linkActivities' | translate }}</a
               >
-              <a [routerLink]="['/', currentLanguage, 'account', 'devices']" class="dropdown-item">
+              <a
+                [routerLink]="['/', currentLanguage, 'account', 'devices']"
+                class="dropdown-item"
+                (click)="closeUserMenu()"
+              >
                 {{ 'header.linkDevices' | translate }}</a
               >
-              <a [routerLink]="['/', currentLanguage, 'account', 'profile']" class="dropdown-item">
+              <a
+                [routerLink]="['/', currentLanguage, 'account', 'profile']"
+                class="dropdown-item"
+                (click)="closeUserMenu()"
+              >
                 {{ 'header.linkProfile' | translate }}</a
               >
               <hr class="my-2 border-slate-200" />
@@ -87,8 +101,16 @@
       id="mobile-menu-button"
       class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
       aria-label="Toggle menu"
+      (click)="toggleMobileMenu()"
     >
-      <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg
+        id="menu-icon"
+        class="w-6 h-6"
+        [class.hidden]="isMobileMenuOpen"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -98,7 +120,8 @@
       </svg>
       <svg
         id="close-icon"
-        class="w-6 h-6 hidden"
+        class="w-6 h-6"
+        [class.hidden]="!isMobileMenuOpen"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -114,35 +137,53 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="mobile-menu">
+  <div id="mobile-menu" class="mobile-menu" [class.open]="isMobileMenuOpen">
     <nav class="flex flex-col gap-2">
       <!-- Unauthenticated user -->
       @if (!userIsAuthenticated) {
         <a
           [routerLink]="['/', currentLanguage, 'auth', 'sign-in']"
           class="px-4 py-3 text-slate-700 hover:bg-slate-50 rounded-lg font-medium transition-colors"
+          (click)="closeMobileMenu()"
         >
           {{ 'header.linkSignIn' | translate }}
         </a>
         <a
           [routerLink]="['/', currentLanguage, 'auth', 'sign-up']"
           class="px-4 py-3 bg-blue-600 text-white hover:bg-blue-700 rounded-lg font-semibold text-center transition-colors"
+          (click)="closeMobileMenu()"
         >
           {{ 'header.linkSignUp' | translate }}
         </a>
       }
       <!-- Authenticated user -->
       @if (userIsAuthenticated) {
-        <a [routerLink]="['/', currentLanguage]" class="mobile-menu-item">
+        <a
+          [routerLink]="['/', currentLanguage]"
+          class="mobile-menu-item"
+          (click)="closeMobileMenu()"
+        >
           {{ 'header.linkChallenges' | translate }}
         </a>
-        <a [routerLink]="['/', currentLanguage, 'account', 'activities']" class="mobile-menu-item">
+        <a
+          [routerLink]="['/', currentLanguage, 'account', 'activities']"
+          class="mobile-menu-item"
+          (click)="closeMobileMenu()"
+        >
           {{ 'header.linkActivities' | translate }}
         </a>
-        <a [routerLink]="['/', currentLanguage, 'account', 'devices']" class="mobile-menu-item">
+        <a
+          [routerLink]="['/', currentLanguage, 'account', 'devices']"
+          class="mobile-menu-item"
+          (click)="closeMobileMenu()"
+        >
           {{ 'header.linkDevices' | translate }}
         </a>
-        <a [routerLink]="['/', currentLanguage, 'account', 'profile']" class="mobile-menu-item">
+        <a
+          [routerLink]="['/', currentLanguage, 'account', 'profile']"
+          class="mobile-menu-item"
+          (click)="closeMobileMenu()"
+        >
           {{ 'header.linkProfile' | translate }}
         </a>
         <hr class="my-2 border-slate-200" />
