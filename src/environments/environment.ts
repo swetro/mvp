@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.example.com',
+  apiUrl: 'https://aca-services-openswetro.grayhill-df08ba08.eastus2.azurecontainerapps.io/api/v1',
   challenges: {
     'the-long-walk': {
       leagueSlug: 'polar-colombia',
