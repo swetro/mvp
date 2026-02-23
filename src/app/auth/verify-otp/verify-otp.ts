@@ -5,7 +5,6 @@ import { AuthService } from '../../core/services/auth.service';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { switchMap } from 'rxjs';
 import { LanguageService } from '../../core/services/language.service';
 
 @Component({
@@ -71,24 +70,6 @@ export class VerifyOtp implements OnInit {
     });
   }
 
-  // onSubmit(event: Event) {
-  //   event.preventDefault();
-
-  //   if (this.otpForm.valid) {
-  //     const code = Object.values(this.otpForm.value).join('');
-  //     this.accountService.verifyOtp({ email: this.email(), code }).subscribe({
-  //       next: () => {
-  //         this.authService.checkAuthentication().subscribe(() => {
-  //           this.router.navigate(['/']);
-  //         });
-  //       },
-  //       error: (error) => {
-  //         this.formValidationService.showErrors(this.otpForm, error);
-  //       },
-  //     });
-  //   }
-  // }
-
   onSubmit(event: Event) {
     event.preventDefault();
 
@@ -97,19 +78,17 @@ export class VerifyOtp implements OnInit {
       const otp = Object.values(this.otpForm.value).join('');
       const verifyOtpDto = { email: this.email(), code: otp };
 
-      this.authService
-        .verifyOtp(verifyOtpDto)
-        .pipe(switchMap(() => this.authService.checkAuthentication()))
-        .subscribe({
-          next: () => {
-            this.router.navigate(['/', this.currentLanguage, 'account', 'profile']);
-            this.isLoading.set(false);
-          },
-          error: (error) => {
-            this.formValidationService.showErrors(this.otpForm, error);
-            this.isLoading.set(false);
-          },
-        });
+      this.authService.verifyOtp(verifyOtpDto).subscribe({
+        next: () => {
+          this.authService.refreshUserProfile();
+          this.router.navigate(['/', this.currentLanguage, 'account', 'profile']);
+          this.isLoading.set(false);
+        },
+        error: (error) => {
+          this.formValidationService.showErrors(this.otpForm, error);
+          this.isLoading.set(false);
+        },
+      });
     }
   }
 
