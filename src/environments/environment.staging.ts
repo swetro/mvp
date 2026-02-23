@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://dev.api.example.com',
+  apiUrl: '/api/v1',
   leagueSlug: 'polar-colombia',
   challengeId: 1130,
   appName: 'OpenSwetro',
