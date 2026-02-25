@@ -1,1 +1,5 @@
 <p>activities works!</p>
+@let weeklyActivities = weeklyActivitiesData.value();
+@if (weeklyActivities) {
+  <p>{{ weeklyActivities | json }}</p>
+}

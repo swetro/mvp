@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { ActivityDto } from '../../models/activity.dto';
+import { ActivityDto } from '../../models/activity/activity.dto';
 import { DistancePipe } from '../../pipes/distance.pipe';
 import { DurationPipe } from '../../pipes/duration.pipe';
 import { PacePipe } from '../../pipes/pace.pipe';

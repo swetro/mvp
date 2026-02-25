@@ -1,4 +1,4 @@
-import { ActivityDto } from './activity.dto';
+import { ActivityDto } from './activity/activity.dto';
 
 export interface ParticipantDto {
   id: string;
