@@ -1,4 +1,12 @@
 {
+  "activities": {
+    "body": {
+      "title": "Activities",
+      "description": "Activities"
+    },
+    "title": "Activities",
+    "description": "Activities"
+  },
   "activity": {
     "calories": "Calories",
     "device": "Device",

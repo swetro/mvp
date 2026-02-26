@@ -4,23 +4,20 @@
   <div class="grid grid-cols-1 gap-4">
     @for (item of activities; track item.id) {
       <article>
-        <div class="w-full flex flex-col gap-4 py-4 bg-white rounded-lg">
-          <!-- Header Section -->
-          <div class="flex justify-between items-start ml-4">
-            <div class="h-[30px] flex flex-row gap-2 items-center">
-              <div class="flex items-center gap-[2px]">
-                <div
-                  class="w-[30px] h-[30px] flex items-center gap-2 absolute rounded-[4px]"
-                  [style.background-color]="getActivityTypeColor(item.type)"
-                >
-                  <img
-                    class="w-full h-full"
-                    [src]="getActivityTypeIcon(item.type)"
-                    alt="Activity type"
-                  />
-                </div>
+        <div class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden">
+          <!-- Header Section with full-width background -->
+          <div class="bg-slate-200 px-4 py-4">
+            <div class="flex items-center gap-3">
+              <div
+                class="w-[30px] h-[30px] flex items-center justify-center rounded-[4px] shrink-0"
+              >
+                <img
+                  class="w-full h-full"
+                  [src]="getActivityTypeIcon(item.type)"
+                  alt="Activity type"
+                />
               </div>
-              <div class="flex flex-col ml-8 mt-1">
+              <div class="flex flex-col">
                 <p class="text-base font-bold leading-5">
                   {{ item.name }}
                 </p>
@@ -29,8 +26,11 @@
             </div>
           </div>
 
-          <!-- Stats Grid - Responsive: 2 cols mobile, 3 cols tablet, 4 cols desktop, 6 cols large screens -->
-          <div class="flex flex-col gap-2 ml-4 mr-3">
+          <!-- Divider (subtle visual separation) -->
+          <!-- <div class="h-px bg-linear-to-r from-gray-200 via-gray-100 to-transparent"></div> -->
+
+          <!-- Stats Grid -->
+          <div class="px-4 py-4">
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
               <!-- Duration -->
               <div class="flex flex-col gap-1">
@@ -45,7 +45,7 @@
                 </p>
               </div>
 
-              @if (item.type !== 'Other') {
+              @if (item.type !== activityTypeEnum.Other) {
                 <!-- Distance -->
                 <div class="flex flex-col gap-1">
                   <div class="flex flex-row items-center gap-1">
@@ -82,9 +82,9 @@
                   </div>
                   <p class="text-sm text-slate-600 leading-5">
                     {{
-                      (item.type === 'Running' ||
-                      item.type === 'TreadmillRunning' ||
-                      item.type === 'Walking'
+                      (item.type === activityTypeEnum.Running ||
+                      item.type === activityTypeEnum.TreadmillRunning ||
+                      item.type === activityTypeEnum.Walking
                         ? 'activity.pace'
                         : 'activity.speed'
                       ) | translate
@@ -126,13 +126,11 @@
 
             <!-- Device Info -->
             @if (item.deviceName) {
-              <div class="gap-3 mt-3 items-start w-fit">
-                <div class="flex flex-row gap-1 items-center">
-                  <img [src]="deviceIcon" alt="Device" class="w-[16px] h-[16px]" />
-                  <p class="text-sm text-slate-600 leading-4 overflow-ellipsis opacity-50">
-                    {{ item.deviceName }}
-                  </p>
-                </div>
+              <div class="flex flex-row gap-1 items-center mt-3 pt-3 border-t border-gray-100">
+                <img [src]="deviceIcon" alt="Device" class="w-[16px] h-[16px]" />
+                <p class="text-sm text-slate-600 leading-4 overflow-ellipsis opacity-50">
+                  {{ item.deviceName }}
+                </p>
               </div>
             }
           </div>

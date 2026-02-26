@@ -8,9 +8,11 @@ import { HeartRatePipe } from '../../pipes/heart-rate.pipe';
 import { CaloriesPipe } from '../../pipes/calories.pipe';
 import { DatePipe } from '@angular/common';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ACTIVITY_TYPE_ICONS } from '../../constants/activity-type-icons';
+import { ActivityType } from '../../enums/activity-type.enum';
 
 @Component({
-  selector: 'app-activities-table',
+  selector: 'app-activities-list',
   imports: [
     DistancePipe,
     DurationPipe,
@@ -21,12 +23,15 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
     DatePipe,
     TranslatePipe,
   ],
-  templateUrl: './activities-table.html',
+  templateUrl: './activities-list.html',
   styles: ``,
 })
-export class ActivitiesTable {
+export class ActivitiesList {
   activitiesData = input.required<ActivityDto[]>();
   translateService = inject(TranslateService);
+
+  activityTypeIcons = ACTIVITY_TYPE_ICONS;
+  activityTypeEnum = ActivityType;
 
   // Icon paths
   durationIcon = './images/activity/duration.svg';
@@ -37,56 +42,16 @@ export class ActivitiesTable {
   caloriesIcon = './images/activity/calories.svg';
   deviceIcon = './images/activity/device.svg';
 
-  private activityTypes: Record<string, ActivityType> = {
-    Running: {
-      color: '#10b981', // green
-      icon: './images/run.svg',
-      newIcon: './images/run.svg',
-    },
-    Cycling: {
-      color: '#3b82f6', // blue
-      icon: './images/run.svg',
-      newIcon: './images/run.svg',
-    },
-    Walking: {
-      color: '#f59e0b', // amber
-      icon: './images/run.svg',
-      newIcon: './images/run.svg',
-    },
-    Swimming: {
-      color: '#06b6d4', // cyan
-      icon: './images/run.svg',
-      newIcon: './images/run.svg',
-    },
-    TreadmillRunning: {
-      color: '#8b5cf6', // purple
-      icon: './images/run.svg',
-      newIcon: './images/run.svg',
-    },
-    Other: {
-      color: '#6b7280', // gray
-      icon: './images/run.svg',
-      newIcon: './images/run.svg',
-    },
-  };
-
   get dateFormat(): string {
     const lang = this.translateService.getCurrentLang();
     return lang === 'es' ? 'dd MMM yyyy, HH:mm' : 'MMM dd yyyy, h:mm a';
   }
 
-  getActivityTypeColor(type: string): string {
-    return this.activityTypes[type]?.color || this.activityTypes['Other'].color;
-  }
-
-  getActivityTypeIcon(type: string): string {
-    return this.activityTypes[type]?.newIcon || this.activityTypes['Other'].newIcon;
+  getActivityTypeIcon(type: ActivityType): string {
+    return (
+      this.activityTypeIcons.find((icon) => icon.type === type)?.src ||
+      this.activityTypeIcons.find((icon) => icon.type === ActivityType.Other)?.src ||
+      ''
+    );
   }
 }
-
-interface ActivityType {
-  color: string;
-  icon: string;
-  newIcon: string;
-}
-//7 Feb 2026 10:03:26 AM

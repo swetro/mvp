@@ -5,11 +5,11 @@ import { LanguageService } from '../../core/services/language.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivitiesTable } from '../../shared/components/activities-table/activities-table';
+import { ActivitiesList } from '../../shared/components/activities-list/activities-list';
 
 @Component({
   selector: 'app-activities',
-  imports: [ActivitiesTable, TranslatePipe],
+  imports: [ActivitiesList, TranslatePipe],
   templateUrl: './activities.html',
   styles: ``,
 })

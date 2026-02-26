@@ -1,10 +1,12 @@
 @let weeklyActivities = weeklyActivitiesData.value();
 
 <section>
+  <h2>{{ 'activities.body.title' | translate }}</h2>
+  <h3 class="text-slate-600">{{ 'activities.body.description' | translate }}</h3>
   @if (weeklyActivities) {
     <div class="mt-10 mb-20">
       @if (weeklyActivities.length > 0) {
-        <app-activities-table [activitiesData]="weeklyActivities"></app-activities-table>
+        <app-activities-list [activitiesData]="weeklyActivities"></app-activities-list>
       } @else {
         <!-- <div class="text-center py-12 rounded-lg border border-slate-300">
           <svg

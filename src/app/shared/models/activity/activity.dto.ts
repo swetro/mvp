@@ -1,6 +1,8 @@
+import { ActivityType } from '../../enums/activity-type.enum';
+
 export interface ActivityDto {
   id: string;
-  type: string;
+  type: ActivityType;
   name: string;
   startTime: Date;
   endTime: Date;
