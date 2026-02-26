@@ -1,0 +1,143 @@
+@let activities = activitiesData();
+
+@if (activities) {
+  <div class="grid grid-cols-1 gap-4">
+    @for (item of activities; track item.id) {
+      <article>
+        <div class="w-full flex flex-col gap-4 py-4 bg-white rounded-lg">
+          <!-- Header Section -->
+          <div class="flex justify-between items-start ml-4">
+            <div class="h-[30px] flex flex-row gap-2 items-center">
+              <div class="flex items-center gap-[2px]">
+                <div
+                  class="w-[30px] h-[30px] flex items-center gap-2 absolute rounded-[4px]"
+                  [style.background-color]="getActivityTypeColor(item.type)"
+                >
+                  <img
+                    class="w-full h-full"
+                    [src]="getActivityTypeIcon(item.type)"
+                    alt="Activity type"
+                  />
+                </div>
+              </div>
+              <div class="flex flex-col ml-8 mt-1">
+                <p class="text-base font-bold leading-5">
+                  {{ item.name }}
+                </p>
+                <p class="text-sm">{{ item.startTime | date: dateFormat }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Grid - Responsive: 2 cols mobile, 3 cols tablet, 4 cols desktop, 6 cols large screens -->
+          <div class="flex flex-col gap-2 ml-4 mr-3">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+              <!-- Duration -->
+              <div class="flex flex-col gap-1">
+                <div class="flex flex-row items-center gap-1">
+                  <img [src]="durationIcon" alt="Duration" class="w-[18px] h-[18px]" />
+                  <p class="text-base font-bold leading-5">
+                    {{ item.durationInSeconds | duration }}
+                  </p>
+                </div>
+                <p class="text-sm text-slate-600 leading-5">
+                  {{ 'activity.time' | translate }}
+                </p>
+              </div>
+
+              @if (item.type !== 'Other') {
+                <!-- Distance -->
+                <div class="flex flex-col gap-1">
+                  <div class="flex flex-row items-center gap-1">
+                    <img [src]="distanceIcon" alt="Distance" class="w-[18px] h-[18px]" />
+                    <p class="text-base font-bold leading-5">
+                      {{ item.distanceInMeters | distance }}
+                    </p>
+                  </div>
+                  <p class="text-sm text-slate-600 leading-5">
+                    {{ 'activity.distance' | translate }}
+                  </p>
+                </div>
+
+                <!-- Elevation -->
+                <div class="flex flex-col gap-1">
+                  <div class="flex flex-row items-center gap-1">
+                    <img [src]="elevationIcon" alt="Elevation" class="w-[18px] h-[18px]" />
+                    <p class="text-base font-bold leading-5">
+                      {{ item.totalElevationGainInMeters | elevation }}
+                    </p>
+                  </div>
+                  <p class="text-sm text-slate-600 leading-5">
+                    {{ 'activity.elevationGain' | translate }}
+                  </p>
+                </div>
+
+                <!-- Pace/Speed -->
+                <div class="flex flex-col gap-1">
+                  <div class="flex flex-row items-center gap-1">
+                    <img [src]="paceIcon" alt="Pace" class="w-[18px] h-[18px]" />
+                    <p class="text-base font-bold leading-5">
+                      {{ item.averagePaceInMinutesPerKilometer | pace }}
+                    </p>
+                  </div>
+                  <p class="text-sm text-slate-600 leading-5">
+                    {{
+                      (item.type === 'Running' ||
+                      item.type === 'TreadmillRunning' ||
+                      item.type === 'Walking'
+                        ? 'activity.pace'
+                        : 'activity.speed'
+                      ) | translate
+                    }}
+                  </p>
+                </div>
+              }
+
+              <!-- Heart Rate -->
+              @if (item.averageHeartRateInBeatsPerMinute) {
+                <div class="flex flex-col gap-1">
+                  <div class="flex flex-row items-center gap-1">
+                    <img [src]="heartRateIcon" alt="Heart Rate" class="w-[18px] h-[18px]" />
+                    <p class="text-base font-bold leading-5">
+                      {{ item.averageHeartRateInBeatsPerMinute | heartRate }}
+                    </p>
+                  </div>
+                  <p class="text-sm text-slate-600 leading-5">
+                    {{ 'activity.heartRate' | translate }}
+                  </p>
+                </div>
+              }
+
+              <!-- Calories -->
+              @if (item.activeKilocalories) {
+                <div class="flex flex-col gap-1">
+                  <div class="flex flex-row items-center gap-1">
+                    <img [src]="caloriesIcon" alt="Calories" class="w-[18px] h-[18px]" />
+                    <p class="text-base font-bold leading-5">
+                      {{ item.activeKilocalories | calories }}
+                    </p>
+                  </div>
+                  <p class="text-sm text-slate-600 leading-5">
+                    {{ 'activity.calories' | translate }}
+                  </p>
+                </div>
+              }
+            </div>
+
+            <!-- Device Info -->
+            @if (item.deviceName) {
+              <div class="gap-3 mt-3 items-start w-fit">
+                <div class="flex flex-row gap-1 items-center">
+                  <img [src]="deviceIcon" alt="Device" class="w-[16px] h-[16px]" />
+                  <p class="text-sm text-slate-600 leading-4 overflow-ellipsis opacity-50">
+                    {{ item.deviceName }}
+                  </p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+}

@@ -1,15 +1,15 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { ActivityService } from '../../shared/services/activity.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../core/services/language.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { JsonPipe } from '@angular/common';
+import { ActivitiesTable } from '../../shared/components/activities-table/activities-table';
 
 @Component({
   selector: 'app-activities',
-  imports: [JsonPipe],
+  imports: [ActivitiesTable, TranslatePipe],
   templateUrl: './activities.html',
   styles: ``,
 })
@@ -34,6 +34,10 @@ export class Activities {
     this.route.queryParams.pipe(takeUntilDestroyed()).subscribe((params) => {
       this.year.set(params['year'] || 0);
       this.weekOfYear.set(params['weekOfYear'] || 0);
+    });
+
+    effect(() => {
+      console.log(this.weeklyActivitiesData.value());
     });
 
     effect(() => {

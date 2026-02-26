@@ -9,7 +9,9 @@
     "heartRate": "Heart Rate",
     "pace": "Pace",
     "startDate": "Start",
-    "time": "Time"
+    "time": "Time",
+    "type": "Type",
+    "name": "Name"
   },
   "challengeLeaderboard": {
     "body": {

@@ -9,7 +9,9 @@
     "heartRate": "Frecuencia Cardíaca",
     "pace": "Ritmo",
     "startDate": "Inicio",
-    "time": "Tiempo"
+    "time": "Tiempo",
+    "type": "Tipo",
+    "name": "Nombre"
   },
   "challengeLeaderboard": {
     "body": {
