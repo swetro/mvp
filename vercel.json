@@ -1,8 +1,20 @@
 {
+  "version": 2,
+  "public": true,
+  "name": "mvp",
   "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api"
+    },
     {
       "source": "/api/:path*",
       "destination": "https://aca-services-openswetro.grayhill-df08ba08.eastus2.azurecontainerapps.io/api/:path*"
     }
-  ]
+  ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "dist/mvp/**"
+    }
+  }
 }
