@@ -17,6 +17,12 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { serverInterceptor } from './core/interceptors/server.interceptor';
 import { GlobalErrorHandler } from './global-error-handler';
 import { AuthService } from './core/services/auth.service';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import localeEn from '@angular/common/locales/en';
+
+registerLocaleData(localeEs);
+registerLocaleData(localeEn);
 
 export const appConfig: ApplicationConfig = {
   providers: [
