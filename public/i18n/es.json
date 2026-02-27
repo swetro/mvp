@@ -2,10 +2,10 @@
   "activities": {
     "body": {
       "title": "Actividades",
-      "description": "Actividades"
+      "description": "Consulta todas las actividades que hemos recibido desde tu dispositivo vinculado."
     },
     "title": "Actividades",
-    "description": "Actividades"
+    "description": "Consulta todas las actividades que hemos recibido desde tu dispositivo vinculado."
   },
   "activity": {
     "calories": "Calorías",

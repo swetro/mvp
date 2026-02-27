@@ -2,10 +2,10 @@
   "activities": {
     "body": {
       "title": "Activities",
-      "description": "Activities"
+      "description": "View all the activities we’ve received from your linked device."
     },
     "title": "Activities",
-    "description": "Activities"
+    "description": "View all the activities we’ve received from your linked device."
   },
   "activity": {
     "calories": "Calories",
