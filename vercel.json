@@ -1,12 +1,28 @@
 {
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/api/:path*",
-      "destination": "https://aca-services-openswetro.grayhill-df08ba08.eastus2.azurecontainerapps.io/api/:path*"
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://aca-services-openswetro.grayhill-df08ba08.eastus2.azurecontainerapps.io/api/$1"
     },
     {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
+      "src": "/assets/(.*)",
+      "dest": "/dist/mvp/browser/assets/$1"
+    },
+    {
+      "src": "/(.*\\.js|.*\\.css|.*\\.ico|.*\\.png|.*\\.jpg|.*\\.svg|.*\\.woff2|.*\\.woff|.*\\.ttf|.*\\.json)",
+      "dest": "/dist/mvp/browser/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.js"
     }
   ]
 }
+
