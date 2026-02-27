@@ -3,6 +3,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://aca-services-openswetro.grayhill-df08ba08.eastus2.azurecontainerapps.io/api/:path*"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
     }
   ]
 }
