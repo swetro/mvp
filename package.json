@@ -5,14 +5,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "vercel-build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:mvp": "node dist/mvp/server/server.mjs",
     "lint": "ng lint",
     "format": "prettier --write ."
   },
-
   "prettier": {
     "printWidth": 100,
     "singleQuote": true,
