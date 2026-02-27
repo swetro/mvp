@@ -5,7 +5,8 @@
       "description": "View all the activities we’ve received from your linked device."
     },
     "title": "Activities",
-    "description": "View all the activities we’ve received from your linked device."
+    "description": "View all the activities we’ve received from your linked device.",
+    "week": "Week"
   },
   "activity": {
     "calories": "Calories",

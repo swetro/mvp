@@ -1,10 +1,14 @@
-@let weeklyActivities = weeklyActivitiesData.value();
+<!-- @let weeklyActivities = weeklyActivitiesData.value(); -->
 
 <section>
   <h2>{{ 'activities.body.title' | translate }}</h2>
   <h3 class="text-slate-600 font-normal">{{ 'activities.body.description' | translate }}</h3>
 
-  @if (weeklyActivities) {
+  @if (weeklyActivitiesData.isLoading()) {
+    <div class="flex justify-center py-20">
+      <app-spinner></app-spinner>
+    </div>
+  } @else if (weeklyActivitiesData.value(); as weeklyActivities) {
     <div class="mt-10 mb-20">
       @if (weeklyActivities.length > 0) {
         <app-activities-list [activitiesData]="weeklyActivities"></app-activities-list>
@@ -35,6 +39,7 @@
             <button
               type="button"
               (click)="nextWeek()"
+              [disabled]="isCurrentWeek()"
               class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-50 transition-colors"
               aria-label="Next Week"
             >
@@ -53,7 +58,7 @@
           </nav>
         </div>
       } @else {
-        <!-- <div class="text-center py-12 rounded-lg border border-slate-300">
+        <div class="text-center py-12 rounded-lg border border-slate-300">
           <svg
             class="mx-auto h-16 w-16 text-slate-400 mb-4"
             fill="none"
@@ -71,7 +76,7 @@
           <p class="mt-1 text-sm text-slate-500">
             {{ 'challengeParticipant.noActivities' | translate }}
           </p>
-        </div> -->
+        </div>
       }
     </div>
   }
