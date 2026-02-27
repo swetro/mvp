@@ -1,4 +1,2 @@
-export default async (req, res) => {
-  const { reqHandler } = await import('../dist/mvp/server/server.mjs');
-  return reqHandler(req, res);
-};
+export default import('../dist/mvp/server/server.mjs')
+  .then(module => module.app());
