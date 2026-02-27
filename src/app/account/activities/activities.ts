@@ -44,7 +44,12 @@ export class Activities {
     const fmt = (d: Date) =>
       d.toLocaleDateString(this.currentLanguage, { day: '2-digit', month: 'short' });
 
-    return `Semana ${String(w).padStart(2, '0')} · ${y} (${fmt(start)} – ${fmt(end)})`;
+    return `${this.translate.instant('activities.week')} ${String(w).padStart(2, '0')} · ${y} (${fmt(start)} – ${fmt(end)})`;
+  });
+
+  isCurrentWeek = computed(() => {
+    const now = this.getISOWeekYearAndWeek(new Date());
+    return this.year() === now.year && this.weekOfYear() === now.week;
   });
 
   constructor() {

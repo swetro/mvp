@@ -5,7 +5,8 @@
       "description": "Consulta todas las actividades que hemos recibido desde tu dispositivo vinculado."
     },
     "title": "Actividades",
-    "description": "Consulta todas las actividades que hemos recibido desde tu dispositivo vinculado."
+    "description": "Consulta todas las actividades que hemos recibido desde tu dispositivo vinculado.",
+    "week": "Semana"
   },
   "activity": {
     "calories": "Calorías",
