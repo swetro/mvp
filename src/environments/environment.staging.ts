@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://aca-services-openswetro.grayhill-df08ba08.eastus2.azurecontainerapps.io/api/v1',
+  apiUrl: '/api/v1',
   leagueSlug: 'polar-colombia',
   challengeId: 1130,
   appName: 'OpenSwetro',
