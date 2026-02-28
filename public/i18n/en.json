@@ -6,6 +6,7 @@
     },
     "title": "Activities",
     "description": "View all the activities we’ve received from your linked device.",
+    "noActivities": "We haven’t received any activities this week.",
     "week": "Week"
   },
   "activity": {
@@ -120,6 +121,19 @@
     "description": "The page you are looking for is not available.",
     "linkHome": "Back to home",
     "title": "404 | Page not found"
+  },
+  "shared": {
+    "noDataView": {
+      "title": "No results found"
+    },
+    "pagination": {
+      "button": {
+        "first": "First",
+        "last": "Last",
+        "next": "Next",
+        "prev": "Previous"
+      }
+    }
   },
   "signIn": {
     "body": {

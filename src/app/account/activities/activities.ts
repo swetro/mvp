@@ -7,10 +7,11 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivitiesList } from '../../shared/components/activities-list/activities-list';
 import { Spinner } from '../../shared/components/spinner/spinner';
+import { NoDataView } from '../../shared/components/no-data-view/no-data-view';
 
 @Component({
   selector: 'app-activities',
-  imports: [ActivitiesList, TranslatePipe, Spinner],
+  imports: [ActivitiesList, TranslatePipe, Spinner, NoDataView],
   templateUrl: './activities.html',
   styles: ``,
 })
@@ -50,7 +51,9 @@ export class Activities {
 
   isCurrentWeek = computed(() => {
     const now = this.getISOWeekYearAndWeek(new Date());
-    return this.year() === now.year && this.weekOfYear() === now.week;
+    const currentYear = this.year();
+    const currentWeek = this.weekOfYear();
+    return currentYear > now.year || (currentYear === now.year && currentWeek >= now.week);
   });
 
   constructor() {
