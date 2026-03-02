@@ -87,16 +87,17 @@ export class EditProfile {
         defaultLanguageCode: formData.defaultLanguageCode,
       };
 
-      this.accountService.updateProfile(payload).subscribe({
-        next: () => {
-          this.authService.refreshUserProfile();
-          this.isLoading.set(false);
-        },
-        error: (error) => {
-          this.formValidationService.showErrors(this.profileForm, error);
-          this.isLoading.set(false);
-        },
-      });
+      console.log(payload);
+      // this.accountService.updateProfile(payload).subscribe({
+      //   next: () => {
+      //     this.authService.refreshUserProfile();
+      //     this.isLoading.set(false);
+      //   },
+      //   error: (error) => {
+      //     this.formValidationService.showErrors(this.profileForm, error);
+      //     this.isLoading.set(false);
+      //   },
+      // });
     }
   }
 
