@@ -56,6 +56,32 @@
     "description": "Vincula tu dispositivo favorito para registrar tus entrenamientos de forma automática",
     "title": "Dispositivos"
   },
+  "editProfile": {
+    "body": {
+      "title": "Perfil",
+      "description": "Gestiona la información de tu perfil."
+    },
+    "form": {
+      "birthDate": "Fecha de nacimiento:",
+      "countryCode": "País:",
+      "defaultLanguageCode": "Idioma preferido:",
+      "day": "Día",
+      "firstName": "Nombre:",
+      "gender": "Género:",
+      "invalidDate": "La fecha ingresada no es válida",
+      "lastName": "Apellidos:",
+      "month": "Mes",
+      "selectCountry": "Selecciona tu país",
+      "selectDay": "Día",
+      "selectGender": "Selecciona tu género",
+      "selectLanguage": "Selecciona tu idioma",
+      "selectMonth": "Mes",
+      "selectYear": "Año",
+      "update": "Actualizar Perfil",
+      "updating": "Actualizando...",
+      "year": "Año"
+    }
+  },
   "error": {
     "400": "Algunos campos contienen errores. Corrígelos e intenta nuevamente.",
     "401": "Tu sesión ha expirado o no tienes autorización para realizar esta acción.",

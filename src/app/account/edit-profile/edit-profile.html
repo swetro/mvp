@@ -1,0 +1,297 @@
+@let editProfileDataset = editProfileDatasetData.value();
+
+<section class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <h2 class="text-center">
+    {{ 'editProfile.body.title' | translate }}
+  </h2>
+
+  <div class="mt-10 mb-20 sm:mx-auto sm:w-full sm:max-w-sm">
+    @if (profileForm.errors && profileForm.errors['error-message']) {
+      <div class="form-error-message">
+        {{ profileForm.errors['error-message'] }}
+      </div>
+    }
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit($event)" novalidate class="space-y-6">
+      <div>
+        <label for="firstName" class="form-label">
+          {{ 'editProfile.form.firstName' | translate }}
+        </label>
+
+        <input
+          type="text"
+          id="firstName"
+          formControlName="firstName"
+          autocomplete="firstName"
+          class="form-input"
+          [class.form-input-error]="
+            profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched
+          "
+        />
+
+        @if (profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched) {
+          <div class="form-error">
+            @if (profileForm.get('firstName')?.errors?.['required']) {
+              <div>{{ 'forms.validators.required' | translate }}</div>
+            }
+            @if (profileForm.get('firstName')?.errors?.['maxlength']) {
+              <div>{{ 'forms.validators.maxLength' | translate: { maxLength: 30 } }}</div>
+            }
+            @if (profileForm.get('firstName')?.errors?.['apiErrors']) {
+              <div>{{ profileForm.get('firstName')?.errors?.['apiErrors'] }}</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <label for="lastName" class="form-label">
+          {{ 'editProfile.form.lastName' | translate }}
+        </label>
+
+        <input
+          type="text"
+          id="lastName"
+          formControlName="lastName"
+          autocomplete="lastName"
+          class="form-input"
+          [class.form-input-error]="
+            profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched
+          "
+        />
+
+        @if (profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched) {
+          <div class="form-error">
+            @if (profileForm.get('lastName')?.errors?.['required']) {
+              <div>{{ 'forms.validators.required' | translate }}</div>
+            }
+            @if (profileForm.get('lastName')?.errors?.['maxlength']) {
+              <div>{{ 'forms.validators.maxLength' | translate: { maxLength: 30 } }}</div>
+            }
+            @if (profileForm.get('lastName')?.errors?.['apiErrors']) {
+              <div>{{ profileForm.get('lastName')?.errors?.['apiErrors'] }}</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <label for="countryCode" class="form-label">
+          {{ 'editProfile.form.countryCode' | translate }}
+        </label>
+
+        <select
+          id="countryCode"
+          formControlName="countryCode"
+          class="form-select"
+          [class.form-input-error]="
+            profileForm.get('countryCode')?.invalid && profileForm.get('countryCode')?.touched
+          "
+        >
+          <option value="">{{ 'editProfile.form.selectCountry' | translate }}</option>
+          @for (country of editProfileDataset?.countries; track country.value) {
+            <option [value]="country.value">{{ country.label }}</option>
+          }
+        </select>
+
+        @if (profileForm.get('countryCode')?.invalid && profileForm.get('countryCode')?.touched) {
+          <div class="form-error">
+            @if (profileForm.get('countryCode')?.errors?.['required']) {
+              <div>{{ 'forms.validators.required' | translate }}</div>
+            }
+            @if (profileForm.get('countryCode')?.errors?.['apiErrors']) {
+              <div>{{ profileForm.get('countryCode')?.errors?.['apiErrors'] }}</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <label for="gender" class="form-label">
+          {{ 'editProfile.form.gender' | translate }}
+        </label>
+
+        <select
+          id="gender"
+          formControlName="gender"
+          class="form-select"
+          [class.form-input-error]="
+            profileForm.get('gender')?.invalid && profileForm.get('gender')?.touched
+          "
+        >
+          <option value="">{{ 'editProfile.form.selectGender' | translate }}</option>
+          @for (gender of editProfileDataset?.genders; track gender.value) {
+            <option [value]="gender.value">{{ gender.label }}</option>
+          }
+        </select>
+
+        @if (profileForm.get('gender')?.invalid && profileForm.get('gender')?.touched) {
+          <div class="form-error">
+            @if (profileForm.get('gender')?.errors?.['required']) {
+              <div>{{ 'forms.validators.required' | translate }}</div>
+            }
+            @if (profileForm.get('gender')?.errors?.['apiErrors']) {
+              <div>{{ profileForm.get('gender')?.errors?.['apiErrors'] }}</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <div class="form-label">
+          {{ 'editProfile.form.birthDate' | translate }}
+        </div>
+
+        <div class="grid grid-cols-3 gap-4">
+          <div>
+            <label for="birthDay" class="sr-only">{{ 'editProfile.form.day' | translate }}</label>
+            <select
+              id="birthDay"
+              formControlName="birthDay"
+              class="form-select"
+              [class.form-input-error]="
+                (profileForm.get('birthDay')?.invalid && profileForm.get('birthDay')?.touched) ||
+                (profileForm.errors?.['invalidDate'] &&
+                  profileForm.get('birthDay')?.touched &&
+                  profileForm.get('birthMonth')?.touched &&
+                  profileForm.get('birthYear')?.touched) ||
+                profileForm.get('birthDate')?.errors?.['apiErrors']
+              "
+            >
+              <option value="">{{ 'editProfile.form.selectDay' | translate }}</option>
+              @for (day of days; track day.value) {
+                <option [value]="day.value">{{ day.label }}</option>
+              }
+            </select>
+          </div>
+
+          <div>
+            <label for="birthMonth" class="sr-only">{{
+              'editProfile.form.month' | translate
+            }}</label>
+            <select
+              id="birthMonth"
+              formControlName="birthMonth"
+              class="form-select"
+              [class.form-input-error]="
+                (profileForm.get('birthMonth')?.invalid &&
+                  profileForm.get('birthMonth')?.touched) ||
+                (profileForm.errors?.['invalidDate'] &&
+                  profileForm.get('birthDay')?.touched &&
+                  profileForm.get('birthMonth')?.touched &&
+                  profileForm.get('birthYear')?.touched) ||
+                profileForm.get('birthDate')?.errors?.['apiErrors']
+              "
+            >
+              <option value="">{{ 'editProfile.form.selectMonth' | translate }}</option>
+              @for (month of editProfileDataset?.months; track month.value) {
+                <option [value]="month.value">{{ month.label }}</option>
+              }
+            </select>
+          </div>
+
+          <div>
+            <label for="birthYear" class="sr-only">{{ 'editProfile.form.year' | translate }}</label>
+            <select
+              id="birthYear"
+              formControlName="birthYear"
+              class="form-select"
+              [class.form-input-error]="
+                (profileForm.get('birthYear')?.invalid && profileForm.get('birthYear')?.touched) ||
+                (profileForm.errors?.['invalidDate'] &&
+                  profileForm.get('birthDay')?.touched &&
+                  profileForm.get('birthMonth')?.touched &&
+                  profileForm.get('birthYear')?.touched) ||
+                profileForm.get('birthDate')?.errors?.['apiErrors']
+              "
+            >
+              <option value="">{{ 'editProfile.form.selectYear' | translate }}</option>
+              @for (year of editProfileDataset?.years; track year.value) {
+                <option [value]="year.value">{{ year.label }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        @if (
+          (profileForm.get('birthDay')?.invalid && profileForm.get('birthDay')?.touched) ||
+          (profileForm.get('birthMonth')?.invalid && profileForm.get('birthMonth')?.touched) ||
+          (profileForm.get('birthYear')?.invalid && profileForm.get('birthYear')?.touched)
+        ) {
+          <div class="form-error">
+            @if (
+              profileForm.get('birthDay')?.errors?.['required'] ||
+              profileForm.get('birthMonth')?.errors?.['required'] ||
+              profileForm.get('birthYear')?.errors?.['required']
+            ) {
+              <div>{{ 'forms.validators.required' | translate }}</div>
+            }
+          </div>
+        }
+        @if (
+          profileForm.hasError('invalidDate') &&
+          (profileForm.get('birthDay')?.touched ||
+            profileForm.get('birthMonth')?.touched ||
+            profileForm.get('birthYear')?.touched)
+        ) {
+          <div class="form-error">
+            <div>{{ 'editProfile.form.invalidDate' | translate }}</div>
+          </div>
+        }
+        @if (profileForm.get('birthDate')?.errors?.['apiErrors']) {
+          <div class="form-error">
+            <div>{{ profileForm.get('birthDate')?.errors?.['apiErrors'] }}</div>
+          </div>
+        }
+      </div>
+
+      <div>
+        <label for="defaultLanguageCode" class="form-label">
+          {{ 'editProfile.form.defaultLanguageCode' | translate }}
+        </label>
+
+        <select
+          id="defaultLanguageCode"
+          formControlName="defaultLanguageCode"
+          class="form-select"
+          [class.form-input-error]="
+            profileForm.get('defaultLanguageCode')?.invalid &&
+            profileForm.get('defaultLanguageCode')?.touched
+          "
+        >
+          <option value="">{{ 'editProfile.form.selectLanguage' | translate }}</option>
+          @for (language of editProfileDataset?.languages; track language.value) {
+            <option [value]="language.value">{{ language.label }}</option>
+          }
+        </select>
+
+        @if (
+          profileForm.get('defaultLanguageCode')?.invalid &&
+          profileForm.get('defaultLanguageCode')?.touched
+        ) {
+          <div class="form-error">
+            @if (profileForm.get('defaultLanguageCode')?.errors?.['required']) {
+              <div>{{ 'forms.validators.required' | translate }}</div>
+            }
+            @if (profileForm.get('defaultLanguageCode')?.errors?.['apiErrors']) {
+              <div>{{ profileForm.get('defaultLanguageCode')?.errors?.['apiErrors'] }}</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          [disabled]="profileForm.invalid || isLoading()"
+          class="btn-primary w-full"
+        >
+          {{
+            isLoading()
+              ? ('editProfile.form.updating' | translate)
+              : ('editProfile.form.update' | translate)
+          }}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

@@ -4,12 +4,24 @@ import { ApiResult } from '../models/api-result.dto';
 import { ItemListDto } from '../models/item-list.dto';
 import { HttpResourceRef, httpResource } from '@angular/common/http';
 import { LanguageService } from '../../core/services/language.service';
+import { EditProfileDatasetDto } from '../models/dataset/edit-profile-dataset.dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DatasetService {
   private languageService = inject(LanguageService);
+
+  getEditProfileDataset(): HttpResourceRef<EditProfileDatasetDto | undefined> {
+    return httpResource<EditProfileDatasetDto>(
+      () => ({
+        url: `${environment.apiUrl}/dataset/edit-profile/${this.languageService.getCurrentLanguage()}`,
+      }),
+      {
+        parse: (raw: unknown) => (raw as ApiResult)?.data as EditProfileDatasetDto,
+      },
+    );
+  }
 
   getParticipantFilters(): HttpResourceRef<ItemListDto[] | undefined> {
     return httpResource<ItemListDto[]>(

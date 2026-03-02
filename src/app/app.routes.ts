@@ -14,7 +14,7 @@ import { CookiePolicy } from './pages/cookie-policy/cookie-policy';
 import { authGuard } from './core/guards/auth.guard';
 import { Activities } from './account/activities/activities';
 import { Devices } from './account/devices/devices';
-import { Profile } from './account/profile/profile';
+import { EditProfile } from './account/edit-profile/edit-profile';
 import { OauthCallback } from './auth/oauth-callback/oauth-callback';
 
 const mainRoutes: Routes = [
@@ -39,7 +39,7 @@ const mainRoutes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
-      { path: 'profile', component: Profile },
+      { path: 'profile', component: EditProfile },
       { path: 'activities', component: Activities },
       { path: 'devices', component: Devices },
     ],

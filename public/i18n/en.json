@@ -44,6 +44,33 @@
   "challengeParticipantsTable": {
     "details": "View Details"
   },
+  "editProfile": {
+    "body": {
+      "title": "Profile",
+      "description": "Manage your profile information."
+    },
+    "form": {
+      "birthDate": "Date of Birth:",
+      "countryCode": "Country:",
+      "defaultLanguageCode": "Preferred language:",
+      "day": "Day",
+      "email": "Email:",
+      "firstName": "First Name:",
+      "gender": "Gender:",
+      "invalidDate": "The entered date is invalid",
+      "lastName": "Last Name:",
+      "month": "Month",
+      "selectCountry": "Select Country",
+      "selectDay": "Day",
+      "selectGender": "Select Gender",
+      "selectLanguage": "Select your language",
+      "selectMonth": "Month",
+      "selectYear": "Year",
+      "update": "Update Profile",
+      "updating": "Updating...",
+      "year": "Year"
+    }
+  },
   "error": {
     "400": "Some fields contain errors. Please correct them and try again.",
     "401": "Your session has expired or you are not authorized to perform this action.",

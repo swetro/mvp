@@ -8,7 +8,7 @@ export interface UserProfileDto {
   phoneNumber: string;
   gender: string;
   age: number;
-  birthDate: Date;
+  birthDate: string;
   country: string;
   countryCode: string;
   state: string;
