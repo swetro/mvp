@@ -46,8 +46,8 @@
   },
   "editProfile": {
     "body": {
-      "title": "Profile",
-      "description": "Manage your profile information."
+      "title": "Edit profile",
+      "description": "Update your profile information."
     },
     "form": {
       "birthDate": "Date of Birth:",
@@ -60,14 +60,14 @@
       "invalidDate": "The entered date is invalid",
       "lastName": "Last Name:",
       "month": "Month",
-      "selectCountry": "Select Country",
+      "saveChanges": "Save Changes",
+      "savingChanges": "Saving Changes...",
+      "selectCountry": "Select",
       "selectDay": "Day",
-      "selectGender": "Select Gender",
-      "selectLanguage": "Select your language",
+      "selectGender": "Select",
+      "selectLanguage": "Select",
       "selectMonth": "Month",
       "selectYear": "Year",
-      "update": "Update Profile",
-      "updating": "Updating...",
       "year": "Year"
     }
   },

@@ -30,7 +30,7 @@ export class EditProfile {
   private datasetService = inject(DatasetService);
 
   currentUser = this.authService.currentUser;
-  profileForm!: FormGroup;
+  editProfileForm!: FormGroup;
   isLoading = signal(false);
 
   days = Array.from({ length: 31 }, (_, i) => {
@@ -58,14 +58,14 @@ export class EditProfile {
         const month = Number(monthPart).toString();
         const day = Number(dayPart).toString();
 
-        this.profileForm.patchValue({
+        this.editProfileForm.patchValue({
           firstName: user.firstName,
           lastName: user.lastName,
-          countryCode: user.countryCode,
-          gender: user.gender,
           birthDay: day,
           birthMonth: month,
           birthYear: year,
+          gender: user.gender,
+          countryCode: user.countryCode,
           defaultLanguageCode: user.defaultLanguageCode,
         });
       }
@@ -75,43 +75,42 @@ export class EditProfile {
   onSubmit(event: Event) {
     event.preventDefault();
 
-    if (this.profileForm.valid && !this.isLoading()) {
+    if (this.editProfileForm.valid && !this.isLoading()) {
       this.isLoading.set(true);
-      const formData = this.profileForm.getRawValue();
+      const formData = this.editProfileForm.getRawValue();
       const payload = {
         firstName: formData.firstName,
         lastName: formData.lastName,
-        countryCode: formData.countryCode,
-        gender: formData.gender,
         birthDate: `${formData.birthYear}-${formData.birthMonth}-${formData.birthDay}T00:00:00`,
+        gender: formData.gender,
+        countryCode: formData.countryCode,
         defaultLanguageCode: formData.defaultLanguageCode,
       };
 
-      console.log(payload);
-      // this.accountService.updateProfile(payload).subscribe({
-      //   next: () => {
-      //     this.authService.refreshUserProfile();
-      //     this.isLoading.set(false);
-      //   },
-      //   error: (error) => {
-      //     this.formValidationService.showErrors(this.profileForm, error);
-      //     this.isLoading.set(false);
-      //   },
-      // });
+      this.accountService.updateProfile(payload).subscribe({
+        next: () => {
+          this.authService.refreshUserProfile();
+          this.isLoading.set(false);
+        },
+        error: (error) => {
+          this.formValidationService.showErrors(this.editProfileForm, error);
+          this.isLoading.set(false);
+        },
+      });
     }
   }
 
   private buildForm(): void {
-    this.profileForm = this.fb.group(
+    this.editProfileForm = this.fb.group(
       {
         firstName: ['', [Validators.required, Validators.maxLength(30)]],
         lastName: ['', [Validators.required, Validators.maxLength(30)]],
-        countryCode: ['', [Validators.required]],
-        gender: ['', [Validators.required]],
         birthDay: ['', [Validators.required]],
         birthMonth: ['', [Validators.required]],
         birthYear: ['', [Validators.required]],
         birthDate: [''], // Hidden field for generic apiErrors,
+        gender: ['', [Validators.required]],
+        countryCode: ['', [Validators.required]],
         defaultLanguageCode: ['', [Validators.required]],
       },
       { validators: this.dateValidator },

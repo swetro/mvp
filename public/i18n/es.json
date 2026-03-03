@@ -58,8 +58,8 @@
   },
   "editProfile": {
     "body": {
-      "title": "Perfil",
-      "description": "Gestiona la información de tu perfil."
+      "title": "Editar perfil",
+      "description": "Actualiza la información de tu perfil."
     },
     "form": {
       "birthDate": "Fecha de nacimiento:",
@@ -71,14 +71,14 @@
       "invalidDate": "La fecha ingresada no es válida",
       "lastName": "Apellidos:",
       "month": "Mes",
-      "selectCountry": "Selecciona tu país",
+      "saveChanges": "Guardar Cambios",
+      "savingChanges": "Guardando Cambios...",
+      "selectCountry": "Seleccionar",
       "selectDay": "Día",
-      "selectGender": "Selecciona tu género",
-      "selectLanguage": "Selecciona tu idioma",
+      "selectGender": "Seleccionar",
+      "selectLanguage": "Seleccionar",
       "selectMonth": "Mes",
       "selectYear": "Año",
-      "update": "Actualizar Perfil",
-      "updating": "Actualizando...",
       "year": "Año"
     }
   },
