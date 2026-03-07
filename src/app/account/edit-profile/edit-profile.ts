@@ -131,8 +131,8 @@ export class EditProfile {
         defaultLanguageCode: formData.defaultLanguageCode,
       };
 
-      // payload.weightInKilograms = 1345;
-      payload.gender = '';
+      payload.weightInKilograms = 1345;
+      payload.heightInCentimeters = 1230;
 
       this.accountService.updateProfile(payload).subscribe({
         next: () => {
@@ -156,7 +156,9 @@ export class EditProfile {
         birthDay: ['', [Validators.required]],
         birthMonth: ['', [Validators.required]],
         birthYear: ['', [Validators.required]],
-        birthDate: [''], // Hidden field for generic apiErrors,
+        birthDate: [''], // Hidden field for generic apiErrors
+        weightInKilograms: [''], // Hidden field for API errors
+        heightInCentimeters: [''], // Hidden field for API errors
         gender: ['', [Validators.required]],
         countryCode: ['', [Validators.required]],
         defaultLanguageCode: ['', [Validators.required]],
@@ -171,6 +173,12 @@ export class EditProfile {
     );
   }
 
+  private readonly hiddenControlMap: Record<string, string> = {
+    weightKg: 'weightInKilograms',
+    weightLbs: 'weightInKilograms',
+    heightCm: 'heightInCentimeters',
+  };
+
   onIntegerInput(event: Event, controlName: string): void {
     const input = event.target as HTMLInputElement;
     if (input.value.includes('.')) {
@@ -179,6 +187,14 @@ export class EditProfile {
       input.value = newValue !== null ? newValue.toString() : '';
       this.editProfileForm.get(controlName)!.setValue(newValue, { emitEvent: false });
     }
+    const hiddenControl = this.hiddenControlMap[controlName];
+    if (hiddenControl) {
+      this.editProfileForm.get(hiddenControl)!.setErrors(null);
+    }
+  }
+
+  clearApiError(controlName: string): void {
+    this.editProfileForm.get(controlName)!.setErrors(null);
   }
 
   onMeasurementSystemChange(event: Event): void {
