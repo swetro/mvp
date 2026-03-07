@@ -1,3 +1,4 @@
+import { MeasurementSystem } from '../../../shared/enums/measurement-system.enum';
 import { DeviceDto } from './device.dto';
 
 export interface UserProfileDto {
@@ -9,12 +10,11 @@ export interface UserProfileDto {
   gender: string;
   age: number;
   birthDate: string;
+  measurementSystem: MeasurementSystem;
+  heightInCentimeters: number;
+  weightInKilograms: number;
   country: string;
   countryCode: string;
-  state: string;
-  stateCode: string;
-  city: string;
-  instagramAccount: string;
   defaultLanguageCode: string;
   isComplete: boolean;
   hasSynchronizedDevices: boolean;

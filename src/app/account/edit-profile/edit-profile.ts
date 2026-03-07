@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -13,6 +13,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { DatasetService } from '../../shared/services/dataset.service';
+import { MeasurementSystem } from '../../shared/enums/measurement-system.enum';
 
 @Component({
   selector: 'app-edit-profile',
@@ -28,10 +29,12 @@ export class EditProfile {
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
   private datasetService = inject(DatasetService);
-
   currentUser = this.authService.currentUser;
   editProfileForm!: FormGroup;
   isLoading = signal(false);
+  measurementSystem = signal('');
+  isMetric = computed(() => this.measurementSystem() === MeasurementSystem.MetricSystem);
+  isImperial = computed(() => this.measurementSystem() === MeasurementSystem.ImperialSystem);
 
   days = Array.from({ length: 31 }, (_, i) => {
     const dayNumber = i + 1;
@@ -44,6 +47,7 @@ export class EditProfile {
 
   constructor() {
     this.buildForm();
+
     this.metaTagsService.updateMetaTags({
       title: this.translate.instant('editProfile.body.title'),
       description: this.translate.instant('editProfile.body.description'),
@@ -52,22 +56,43 @@ export class EditProfile {
     effect(() => {
       const user = this.currentUser();
       if (user) {
-        const datePart = user.birthDate ? user.birthDate.split('T')[0] : '';
-        const [year, monthPart, dayPart] = datePart.split('-');
+        const [year, monthPart, dayPart] = user.birthDate
+          ? user.birthDate.split('T')[0].split('-')
+          : ['', '', ''];
 
-        const month = Number(monthPart).toString();
-        const day = Number(dayPart).toString();
+        const month = monthPart ? Number(monthPart).toString() : '';
+        const day = dayPart ? Number(dayPart).toString() : '';
 
-        this.editProfileForm.patchValue({
-          firstName: user.firstName,
-          lastName: user.lastName,
-          birthDay: day,
-          birthMonth: month,
-          birthYear: year,
-          gender: user.gender,
-          countryCode: user.countryCode,
-          defaultLanguageCode: user.defaultLanguageCode,
-        });
+        this.editProfileForm.patchValue(
+          {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            birthDay: day,
+            birthMonth: month,
+            birthYear: year ?? '',
+            gender: user.gender ?? '',
+            measurementSystem: user.measurementSystem ?? '',
+            countryCode: user.countryCode ?? '',
+            defaultLanguageCode: user.defaultLanguageCode ?? '',
+          },
+          { emitEvent: false },
+        );
+
+        this.measurementSystem.set(user.measurementSystem ?? '');
+        this.updateHeightWeightValidators(user.measurementSystem ?? '');
+
+        if (user.measurementSystem === MeasurementSystem.ImperialSystem) {
+          const imperial = EditProfile.metricToImperial(
+            user.weightInKilograms ?? 0,
+            user.heightInCentimeters ?? 0,
+          );
+          this.editProfileForm.patchValue(imperial, { emitEvent: false });
+        } else {
+          this.editProfileForm.patchValue(
+            { heightCm: user.heightInCentimeters, weightKg: user.weightInKilograms },
+            { emitEvent: false },
+          );
+        }
       }
     });
   }
@@ -78,14 +103,36 @@ export class EditProfile {
     if (this.editProfileForm.valid && !this.isLoading()) {
       this.isLoading.set(true);
       const formData = this.editProfileForm.getRawValue();
+      let weightInKilograms: number | undefined;
+      let heightInCentimeters: number | undefined;
+
+      if (formData.measurementSystem === MeasurementSystem.MetricSystem) {
+        weightInKilograms = formData.weightKg ?? undefined;
+        heightInCentimeters = formData.heightCm ?? undefined;
+      } else {
+        const metric = EditProfile.imperialToMetric(
+          parseFloat(formData.weightLbs),
+          parseInt(formData.heightFeet, 10),
+          parseInt(formData.heightInches, 10),
+        );
+        weightInKilograms = metric.weightKg ?? undefined;
+        heightInCentimeters = metric.heightCm ?? undefined;
+      }
+
       const payload = {
         firstName: formData.firstName,
         lastName: formData.lastName,
-        birthDate: `${formData.birthYear}-${formData.birthMonth}-${formData.birthDay}T00:00:00`,
+        birthDate: `${formData.birthYear}-${String(formData.birthMonth).padStart(2, '0')}-${String(formData.birthDay).padStart(2, '0')}T00:00:00`,
         gender: formData.gender,
+        measurementSystem: formData.measurementSystem,
+        weightInKilograms,
+        heightInCentimeters,
         countryCode: formData.countryCode,
         defaultLanguageCode: formData.defaultLanguageCode,
       };
+
+      // payload.weightInKilograms = 1345;
+      payload.gender = '';
 
       this.accountService.updateProfile(payload).subscribe({
         next: () => {
@@ -93,6 +140,7 @@ export class EditProfile {
           this.isLoading.set(false);
         },
         error: (error) => {
+          console.log(error);
           this.formValidationService.showErrors(this.editProfileForm, error);
           this.isLoading.set(false);
         },
@@ -112,9 +160,93 @@ export class EditProfile {
         gender: ['', [Validators.required]],
         countryCode: ['', [Validators.required]],
         defaultLanguageCode: ['', [Validators.required]],
+        measurementSystem: ['', [Validators.required]],
+        heightCm: [null],
+        heightFeet: [''],
+        heightInches: [''],
+        weightKg: [null],
+        weightLbs: [null],
       },
       { validators: this.dateValidator },
     );
+  }
+
+  onIntegerInput(event: Event, controlName: string): void {
+    const input = event.target as HTMLInputElement;
+    if (input.value.includes('.')) {
+      const integer = Math.trunc(parseFloat(input.value));
+      const newValue = isNaN(integer) ? null : integer;
+      input.value = newValue !== null ? newValue.toString() : '';
+      this.editProfileForm.get(controlName)!.setValue(newValue, { emitEvent: false });
+    }
+  }
+
+  onMeasurementSystemChange(event: Event): void {
+    const newSystem = (event.target as HTMLSelectElement).value as MeasurementSystem;
+    this.measurementSystem.set(newSystem);
+    this.updateHeightWeightValidators(newSystem);
+    this.convertMeasurements(newSystem);
+  }
+
+  private updateHeightWeightValidators(system: MeasurementSystem | string): void {
+    const metricControls = ['heightCm', 'weightKg'];
+    const imperialControls = ['heightFeet', 'heightInches', 'weightLbs'];
+
+    const toRequired =
+      system === MeasurementSystem.MetricSystem ? metricControls : imperialControls;
+    const toClear = system === MeasurementSystem.MetricSystem ? imperialControls : metricControls;
+
+    toRequired.forEach((name) => {
+      const control = this.editProfileForm.get(name)!;
+      control.setValidators(Validators.required);
+      control.updateValueAndValidity({ emitEvent: false });
+    });
+
+    toClear.forEach((name) => {
+      const control = this.editProfileForm.get(name)!;
+      control.clearValidators();
+      control.updateValueAndValidity({ emitEvent: false });
+    });
+  }
+
+  private convertMeasurements(newSystem: MeasurementSystem): void {
+    if (newSystem === MeasurementSystem.MetricSystem) {
+      const metric = EditProfile.imperialToMetric(
+        parseFloat(this.editProfileForm.get('weightLbs')?.value),
+        parseInt(this.editProfileForm.get('heightFeet')?.value, 10),
+        parseInt(this.editProfileForm.get('heightInches')?.value, 10),
+      );
+      this.editProfileForm.patchValue(metric, { emitEvent: false });
+    } else if (newSystem === MeasurementSystem.ImperialSystem) {
+      const imperial = EditProfile.metricToImperial(
+        parseFloat(this.editProfileForm.get('weightKg')?.value),
+        parseInt(this.editProfileForm.get('heightCm')?.value, 10),
+      );
+      this.editProfileForm.patchValue(imperial, { emitEvent: false });
+    }
+  }
+
+  private static imperialToMetric(
+    weightLbs: number,
+    heightFeet: number,
+    heightInches: number,
+  ): { weightKg: number | null; heightCm: number | null } {
+    const weightKg = !isNaN(weightLbs) ? Math.round(weightLbs / 2.20462) : null;
+    const totalInches =
+      !isNaN(heightFeet) && !isNaN(heightInches) ? heightFeet * 12 + heightInches : null;
+    const heightCm = totalInches !== null ? Math.round(totalInches * 2.54) : null;
+    return { weightKg, heightCm };
+  }
+
+  private static metricToImperial(
+    weightKg: number,
+    heightCm: number,
+  ): { weightLbs: number | null; heightFeet: string; heightInches: string } {
+    const weightLbs = !isNaN(weightKg) ? Math.round(weightKg * 2.20462) : null;
+    const totalInches = !isNaN(heightCm) ? heightCm / 2.54 : null;
+    const heightFeet = totalInches !== null ? Math.floor(totalInches / 12).toString() : '';
+    const heightInches = totalInches !== null ? Math.round(totalInches % 12).toString() : '';
+    return { weightLbs, heightFeet, heightInches };
   }
 
   private dateValidator = (control: AbstractControl): ValidationErrors | null => {

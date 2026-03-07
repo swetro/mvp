@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "angular-signals": {
+      "source": "analogjs/angular-skills",
+      "sourceType": "github",
+      "computedHash": "ddedef1232295f200b966778bc36d16fc07d2113ad1dbc73d75d14eb544953bc"
+    }
+  }
+}

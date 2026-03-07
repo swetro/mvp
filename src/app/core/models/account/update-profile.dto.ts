@@ -5,4 +5,8 @@ export interface UpdateProfileDto {
   gender?: string;
   birthDate?: string;
   defaultLanguageCode?: string;
+  phoneNumber?: string;
+  measurementSystem?: string;
+  heightInCentimeters?: number;
+  weightInKilograms?: number;
 }
