@@ -14,6 +14,8 @@ import { FormValidationService } from '../../shared/services/form-validation.ser
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { DatasetService } from '../../shared/services/dataset.service';
 import { MeasurementSystem } from '../../shared/enums/measurement-system.enum';
+import { Router } from '@angular/router';
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -29,6 +31,8 @@ export class EditProfile {
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
   private datasetService = inject(DatasetService);
+  private router = inject(Router);
+  private languageService = inject(LanguageService);
   currentUser = this.authService.currentUser;
   editProfileForm!: FormGroup;
   isLoading = signal(false);
@@ -131,13 +135,16 @@ export class EditProfile {
         defaultLanguageCode: formData.defaultLanguageCode,
       };
 
-      payload.weightInKilograms = 1345;
-      payload.heightInCentimeters = 1230;
-
       this.accountService.updateProfile(payload).subscribe({
         next: () => {
-          this.authService.refreshUserProfile();
           this.isLoading.set(false);
+          const newLang = formData.defaultLanguageCode;
+          if (newLang && newLang !== this.languageService.getCurrentLanguage()) {
+            this.languageService.setLanguage(newLang);
+            this.router.navigate(['/', newLang, 'account', 'profile'], { replaceUrl: true });
+          } else {
+            this.authService.refreshUserProfile();
+          }
         },
         error: (error) => {
           console.log(error);
