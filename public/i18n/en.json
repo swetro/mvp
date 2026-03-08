@@ -66,19 +66,10 @@
       "inches": "Inches",
       "measurementSystem": "Units:",
       "phoneNumber": "Phone Number:",
-      "selectFeet": "ft",
-      "selectInches": "in",
       "weightKg": "Weight (kg):",
       "weightLbs": "Weight (lbs):",
       "saveChanges": "Save Changes",
       "savingChanges": "Saving Changes...",
-      "selectCountry": "Select",
-      "selectDay": "Day",
-      "selectGender": "Select",
-      "selectLanguage": "Select",
-      "selectMeasurementSystem": "Select",
-      "selectMonth": "Month",
-      "selectYear": "Year",
       "year": "Year"
     },
     "saveSuccess": "Profile updated successfully.",
@@ -99,6 +90,14 @@
     "linkTerms": "Terms and Conditions"
   },
   "forms": {
+    "placeholders": {
+      "select": "Select",
+      "day": "Day",
+      "month": "Month",
+      "year": "Year",
+      "feet": "ft",
+      "inches": "in"
+    },
     "validators": {
       "email": "Invalid email.",
       "maxLength": "Maximum {{maxLength}} characters.",

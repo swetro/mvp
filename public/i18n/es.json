@@ -77,19 +77,10 @@
       "inches": "Pulgadas",
       "measurementSystem": "Unidades:",
       "phoneNumber": "Número de teléfono:",
-      "selectFeet": "ft",
-      "selectInches": "in",
       "weightKg": "Peso (kg):",
       "weightLbs": "Peso (lbs):",
       "saveChanges": "Guardar Cambios",
       "savingChanges": "Guardando Cambios...",
-      "selectCountry": "Seleccionar",
-      "selectDay": "Día",
-      "selectGender": "Seleccionar",
-      "selectLanguage": "Seleccionar",
-      "selectMeasurementSystem": "Seleccionar",
-      "selectMonth": "Mes",
-      "selectYear": "Año",
       "year": "Año"
     },
     "saveSuccess": "Perfil actualizado correctamente.",
@@ -110,6 +101,14 @@
     "linkTerms": "Términos y Condiciones"
   },
   "forms": {
+    "placeholders": {
+      "select": "Seleccionar",
+      "day": "Día",
+      "month": "Mes",
+      "year": "Año",
+      "feet": "ft",
+      "inches": "in"
+    },
     "validators": {
       "email": "Correo electrónico no válido.",
       "maxLength": "Máximo {{maxLength}} caracteres.",

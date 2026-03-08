@@ -105,7 +105,7 @@
                   editProfileForm.get('birthDate')?.errors?.['apiErrors']
                 "
               >
-                <option value="">{{ 'editProfile.form.selectDay' | translate }}</option>
+                <option value="">{{ 'forms.placeholders.day' | translate }}</option>
                 @for (day of days; track day.value) {
                   <option [value]="day.value">{{ day.label }}</option>
                 }
@@ -130,7 +130,7 @@
                   editProfileForm.get('birthDate')?.errors?.['apiErrors']
                 "
               >
-                <option value="">{{ 'editProfile.form.selectMonth' | translate }}</option>
+                <option value="">{{ 'forms.placeholders.month' | translate }}</option>
                 @for (month of editProfileDataset?.months; track month.value) {
                   <option [value]="month.value">{{ month.label }}</option>
                 }
@@ -155,7 +155,7 @@
                   editProfileForm.get('birthDate')?.errors?.['apiErrors']
                 "
               >
-                <option value="">{{ 'editProfile.form.selectYear' | translate }}</option>
+                <option value="">{{ 'forms.placeholders.year' | translate }}</option>
                 @for (year of editProfileDataset?.years; track year.value) {
                   <option [value]="year.value">{{ year.label }}</option>
                 }
@@ -210,7 +210,7 @@
               editProfileForm.get('gender')?.invalid && editProfileForm.get('gender')?.touched
             "
           >
-            <option value="">{{ 'editProfile.form.selectGender' | translate }}</option>
+            <option value="">{{ 'forms.placeholders.select' | translate }}</option>
             @for (gender of editProfileDataset?.genders; track gender.value) {
               <option [value]="gender.value">{{ gender.label }}</option>
             }
@@ -243,7 +243,7 @@
               editProfileForm.get('measurementSystem')?.touched
             "
           >
-            <option value="">{{ 'editProfile.form.selectMeasurementSystem' | translate }}</option>
+            <option value="">{{ 'forms.placeholders.select' | translate }}</option>
             @for (system of editProfileDataset?.measurementSystems; track system.value) {
               <option [value]="system.value">{{ system.label }}</option>
             }
@@ -362,7 +362,7 @@
                     editProfileForm.get('heightInCentimeters')?.errors?.['apiErrors']
                   "
                 >
-                  <option value="">{{ 'editProfile.form.selectFeet' | translate }}</option>
+                  <option value="">{{ 'forms.placeholders.feet' | translate }}</option>
                   @for (item of editProfileDataset?.feetForHeight; track item.value) {
                     <option [value]="item.value">{{ item.label }}</option>
                   }
@@ -384,7 +384,7 @@
                     editProfileForm.get('heightInCentimeters')?.errors?.['apiErrors']
                   "
                 >
-                  <option value="">{{ 'editProfile.form.selectInches' | translate }}</option>
+                  <option value="">{{ 'forms.placeholders.inches' | translate }}</option>
                   @for (item of editProfileDataset?.inchesForHeight; track item.value) {
                     <option [value]="item.value">{{ item.label }}</option>
                   }
@@ -461,7 +461,7 @@
               editProfileForm.get('countryCode')?.touched
             "
           >
-            <option value="">{{ 'editProfile.form.selectCountry' | translate }}</option>
+            <option value="">{{ 'forms.placeholders.select' | translate }}</option>
             @for (country of editProfileDataset?.countries; track country.value) {
               <option [value]="country.value">{{ country.label }}</option>
             }
@@ -496,7 +496,7 @@
               editProfileForm.get('defaultLanguageCode')?.touched
             "
           >
-            <option value="">{{ 'editProfile.form.selectLanguage' | translate }}</option>
+            <option value="">{{ 'forms.placeholders.select' | translate }}</option>
             @for (language of editProfileDataset?.languages; track language.value) {
               <option [value]="language.value">{{ language.label }}</option>
             }
