@@ -79,8 +79,6 @@
       "phoneNumber": "Número de teléfono:",
       "weightKg": "Peso (kg):",
       "weightLbs": "Peso (lbs):",
-      "saveChanges": "Guardar Cambios",
-      "savingChanges": "Guardando Cambios...",
       "year": "Año"
     },
     "saveSuccess": "Perfil actualizado correctamente.",
@@ -101,6 +99,15 @@
     "linkTerms": "Términos y Condiciones"
   },
   "forms": {
+    "buttons": {
+      "next": "Siguiente",
+      "saveChanges": "Guardar Cambios",
+      "savingChanges": "Guardando Cambios...",
+      "submit": "Enviar",
+      "submitting": "Enviando...",
+      "verify": "Verificar",
+      "verifying": "Verificando..."
+    },
     "placeholders": {
       "select": "Seleccionar",
       "day": "Día",
@@ -182,9 +189,7 @@
     "description": "Accede de forma segura a tu cuenta para continuar participando, seguir tu progreso y mantenerte conectado con tu comunidad.",
     "linkSignUp": "Regístrate",
     "form": {
-      "email": "Correo electrónico:",
-      "next": "Siguiente",
-      "submitting": "Enviando..."
+      "email": "Correo electrónico:"
     },
     "title": "Iniciar sesión | Accede a tu cuenta"
   },
@@ -197,9 +202,7 @@
     "form": {
       "email": "Correo electrónico:",
       "firstName": "Nombre:",
-      "lastName": "Apellidos:",
-      "next": "Siguiente",
-      "submitting": "Enviando..."
+      "lastName": "Apellidos:"
     },
     "linkSignIn": "Iniciar sesión",
     "title": "Registrarse | Crea tu cuenta"
@@ -232,9 +235,7 @@
     },
     "form": {
       "resend": "Reenviar código",
-      "resendIn": "Reenviar en {{remainingTime}}",
-      "verify": "Verificar",
-      "verifying": "Verificando..."
+      "resendIn": "Reenviar en {{remainingTime}}"
     },
     "description": "Accede de forma segura a tu cuenta para continuar participando, seguir tu progreso y mantenerte conectado con tu comunidad.",
     "title": "Verificación de código | Acceso a tu cuenta"

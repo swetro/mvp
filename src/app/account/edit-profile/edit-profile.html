@@ -521,12 +521,15 @@
           <button
             type="submit"
             [disabled]="editProfileForm.invalid || isLoading()"
-            class="btn-primary w-full"
+            class="btn-primary w-full flex items-center justify-center gap-2"
           >
+            @if (isLoading()) {
+              <app-spinner sizeClasses="w-4 h-4" colorClasses="text-white" />
+            }
             {{
               isLoading()
-                ? ('editProfile.form.savingChanges' | translate)
-                : ('editProfile.form.saveChanges' | translate)
+                ? ('forms.buttons.savingChanges' | translate)
+                : ('forms.buttons.saveChanges' | translate)
             }}
           </button>
         </div>

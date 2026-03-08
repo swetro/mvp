@@ -18,10 +18,11 @@ import { MeasurementSystem } from '../../shared/enums/measurement-system.enum';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../core/services/language.service';
 import { MessageService } from '../../core/services/message.service';
+import { Spinner } from '../../shared/components/spinner/spinner';
 
 @Component({
   selector: 'app-edit-profile',
-  imports: [ReactiveFormsModule, TranslatePipe],
+  imports: [ReactiveFormsModule, TranslatePipe, Spinner],
   templateUrl: './edit-profile.html',
   styles: ``,
 })

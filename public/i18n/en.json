@@ -68,8 +68,6 @@
       "phoneNumber": "Phone Number:",
       "weightKg": "Weight (kg):",
       "weightLbs": "Weight (lbs):",
-      "saveChanges": "Save Changes",
-      "savingChanges": "Saving Changes...",
       "year": "Year"
     },
     "saveSuccess": "Profile updated successfully.",
@@ -90,6 +88,15 @@
     "linkTerms": "Terms and Conditions"
   },
   "forms": {
+    "buttons": {
+      "next": "Next",
+      "saveChanges": "Save Changes",
+      "savingChanges": "Saving Changes...",
+      "submit": "Submit",
+      "submitting": "Submitting...",
+      "verify": "Verify",
+      "verifying": "Verifying..."
+    },
     "placeholders": {
       "select": "Select",
       "day": "Day",
@@ -182,9 +189,7 @@
     "description": "Securely log in to your account to keep participating, track your progress, and stay connected with your community.",
     "linkSignUp": "Sign Up",
     "form": {
-      "email": "Email:",
-      "next": "Next",
-      "submitting": "Submitting..."
+      "email": "Email:"
     },
     "title": "Sign In | Access your account"
   },
@@ -198,9 +203,7 @@
     "form": {
       "firstName": "First Name:",
       "lastName": "Last Name:",
-      "email": "Email:",
-      "next": "Next",
-      "submitting": "Submitting..."
+      "email": "Email:"
     },
     "title": "Sign Up | Create your account"
   },
@@ -232,9 +235,7 @@
     },
     "form": {
       "resend": "Resend Code",
-      "resendIn": "Resend in {{remainingTime}}",
-      "verify": "Verify",
-      "verifying": "Verifying..."
+      "resendIn": "Resend in {{remainingTime}}"
     },
     "title": "Verification Code | Access your account",
     "description": "Securely log in to your account to keep participating, track your progress, and stay connected with your community."
