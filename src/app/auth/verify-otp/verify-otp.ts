@@ -1,6 +1,7 @@
 import { Component, computed, effect, inject, input, signal, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
@@ -78,15 +79,15 @@ export class VerifyOtp implements OnInit {
       const otp = Object.values(this.otpForm.value).join('');
       const verifyOtpDto = { email: this.email(), code: otp };
 
-      this.authService.verifyOtp(verifyOtpDto).subscribe({
+      this.authService.verifyOtp(verifyOtpDto).pipe(
+        finalize(() => this.isLoading.set(false))
+      ).subscribe({
         next: () => {
           this.authService.refreshUserProfile();
           this.router.navigate(['/', this.currentLanguage, 'account', 'profile']);
-          this.isLoading.set(false);
         },
         error: (error) => {
           this.formValidationService.showErrors(this.otpForm, error);
-          this.isLoading.set(false);
         },
       });
     }
@@ -96,16 +97,16 @@ export class VerifyOtp implements OnInit {
     if (this.isLoading()) return;
 
     this.isLoading.set(true);
-    this.authService.resendOtp(this.email()).subscribe({
+    this.authService.resendOtp(this.email()).pipe(
+      finalize(() => this.isLoading.set(false))
+    ).subscribe({
       next: () => {
         this.otpForm.reset();
         this.remainingTime.set(this.initialDuration);
         this.isRunning.set(true);
-        this.isLoading.set(false);
       },
       error: (error) => {
         this.formValidationService.showErrors(this.otpForm, error);
-        this.isLoading.set(false);
       },
     });
   }

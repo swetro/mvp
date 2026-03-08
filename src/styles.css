@@ -80,7 +80,11 @@
   }
   
   .form-error-message {
-    @apply pt-2 pb-3 text-red-600 font-semibold;
+    @apply flex items-start gap-2.5
+           px-4 py-3 mb-6 rounded-lg
+           bg-red-50 border border-red-200
+           text-sm text-red-700 font-medium
+           leading-snug;
   }
   
   .form-help {

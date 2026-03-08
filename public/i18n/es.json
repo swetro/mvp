@@ -92,6 +92,7 @@
       "selectYear": "Año",
       "year": "Año"
     },
+    "saveSuccess": "Perfil actualizado correctamente.",
     "title": "Editar perfil"
   },
   "error": {
@@ -218,6 +219,12 @@
       }
     },
     "showing": "Mostrando {{from}} - {{to}} de {{total}} registros"
+  },
+  "messages": {
+    "genericSuccess": "Operación completada con éxito.",
+    "genericError": "Ocurrió un error inesperado. Por favor, intenta de nuevo.",
+    "genericInfo": "Información.",
+    "genericWarning": "Por favor, revisa antes de continuar."
   },
   "verifyOtp": {
     "body": {

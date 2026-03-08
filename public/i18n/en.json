@@ -81,6 +81,7 @@
       "selectYear": "Year",
       "year": "Year"
     },
+    "saveSuccess": "Profile updated successfully.",
     "title": "Edit profile"
   },
   "error": {
@@ -218,6 +219,12 @@
       }
     },
     "showing": "Showing {{from}} - {{to}} of {{total}} records"
+  },
+  "messages": {
+    "genericSuccess": "Operation completed successfully.",
+    "genericError": "An unexpected error occurred. Please try again.",
+    "genericInfo": "Information.",
+    "genericWarning": "Please review before continuing."
   },
   "verifyOtp": {
     "body": {

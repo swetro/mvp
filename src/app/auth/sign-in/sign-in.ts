@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { finalize } from 'rxjs';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { Router } from '@angular/router';
@@ -40,16 +41,16 @@ export class SignIn {
     if (this.signInForm.valid && !this.isLoading()) {
       this.isLoading.set(true);
       const formData = this.signInForm.value;
-      this.authService.signIn(formData).subscribe({
+      this.authService.signIn(formData).pipe(
+        finalize(() => this.isLoading.set(false))
+      ).subscribe({
         next: () => {
           this.router.navigate(['/', this.currentLanguage, 'auth', 'verify-otp'], {
             queryParams: { email: formData.email },
           });
-          this.isLoading.set(false);
         },
         error: (error) => {
           this.formValidationService.showErrors(this.signInForm, error);
-          this.isLoading.set(false);
         },
       });
     }

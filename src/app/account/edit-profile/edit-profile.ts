@@ -10,12 +10,14 @@ import {
 import { AuthService } from '../../core/services/auth.service';
 import { AccountService } from '../../core/services/account.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { finalize } from 'rxjs';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { DatasetService } from '../../shared/services/dataset.service';
 import { MeasurementSystem } from '../../shared/enums/measurement-system.enum';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../core/services/language.service';
+import { MessageService } from '../../core/services/message.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -33,6 +35,7 @@ export class EditProfile {
   private datasetService = inject(DatasetService);
   private router = inject(Router);
   private languageService = inject(LanguageService);
+  private messageService = inject(MessageService);
   currentUser = this.authService.currentUser;
   editProfileForm!: FormGroup;
   isLoading = signal(false);
@@ -135,23 +138,25 @@ export class EditProfile {
         defaultLanguageCode: formData.defaultLanguageCode,
       };
 
-      this.accountService.updateProfile(payload).subscribe({
-        next: () => {
-          this.isLoading.set(false);
-          const newLang = formData.defaultLanguageCode;
-          if (newLang && newLang !== this.languageService.getCurrentLanguage()) {
-            this.languageService.setLanguage(newLang);
-            this.router.navigate(['/', newLang, 'account', 'profile'], { replaceUrl: true });
-          } else {
-            this.authService.refreshUserProfile();
-          }
-        },
-        error: (error) => {
-          console.log(error);
-          this.formValidationService.showErrors(this.editProfileForm, error);
-          this.isLoading.set(false);
-        },
-      });
+      this.accountService
+        .updateProfile(payload)
+        .pipe(finalize(() => this.isLoading.set(false)))
+        .subscribe({
+          next: () => {
+            this.messageService.showSuccess(this.translate.instant('editProfile.saveSuccess'));
+            const newLang = formData.defaultLanguageCode;
+            if (newLang && newLang !== this.languageService.getCurrentLanguage()) {
+              this.languageService.setLanguage(newLang);
+              this.router.navigate(['/', newLang, 'account', 'profile'], { replaceUrl: true });
+            } else {
+              this.authService.refreshUserProfile();
+            }
+          },
+          error: (error) => {
+            this.formValidationService.showErrors(this.editProfileForm, error);
+            this.messageService.showError(error.error?.message);
+          },
+        });
     }
   }
 
