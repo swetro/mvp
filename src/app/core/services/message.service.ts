@@ -36,9 +36,15 @@ export class MessageService {
     this.toasts.update((toasts) => toasts.filter((t) => t.id !== id));
   }
 
+  private readonly fallbackKeys: Record<Toast['type'], string> = {
+    success: 'forms.messages.saveSuccess',
+    error: 'forms.messages.saveError',
+    info: 'messages.genericInfo',
+    warning: 'messages.genericWarning',
+  };
+
   private addToast(type: Toast['type'], message?: string): void {
-    const fallbackKey = `messages.generic${type.charAt(0).toUpperCase() + type.slice(1)}`;
-    const resolved = message?.trim() || this.translate.instant(fallbackKey);
+    const resolved = message?.trim() || this.translate.instant(this.fallbackKeys[type]);
     const id = this.nextId++;
     this.toasts.update((toasts) => [...toasts, { id, type, message: resolved }]);
     setTimeout(() => this.remove(id), 4000);

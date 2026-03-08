@@ -144,7 +144,7 @@ export class EditProfile {
         .pipe(finalize(() => this.isLoading.set(false)))
         .subscribe({
           next: () => {
-            this.messageService.showSuccess(this.translate.instant('editProfile.saveSuccess'));
+            this.messageService.showSuccess(this.translate.instant('forms.messages.saveSuccess'));
             const newLang = formData.defaultLanguageCode;
             if (newLang && newLang !== this.languageService.getCurrentLanguage()) {
               this.languageService.setLanguage(newLang);

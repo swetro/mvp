@@ -81,7 +81,6 @@
       "weightLbs": "Peso (lbs):",
       "year": "Año"
     },
-    "saveSuccess": "Perfil actualizado correctamente.",
     "title": "Editar perfil"
   },
   "error": {
@@ -99,6 +98,10 @@
     "linkTerms": "Términos y Condiciones"
   },
   "forms": {
+    "messages": {
+      "saveSuccess": "Cambios guardados correctamente.",
+      "saveError": "No se pudieron guardar los cambios. Por favor, intenta de nuevo."
+    },
     "buttons": {
       "next": "Siguiente",
       "saveChanges": "Guardar Cambios",
@@ -223,8 +226,6 @@
     "showing": "Mostrando {{from}} - {{to}} de {{total}} registros"
   },
   "messages": {
-    "genericSuccess": "Operación completada con éxito.",
-    "genericError": "Ocurrió un error inesperado. Por favor, intenta de nuevo.",
     "genericInfo": "Información.",
     "genericWarning": "Por favor, revisa antes de continuar."
   },
