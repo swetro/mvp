@@ -53,8 +53,8 @@ export class EditProfile {
     this.buildForm();
 
     this.metaTagsService.updateMetaTags({
-      title: this.translate.instant('editProfile.body.title'),
-      description: this.translate.instant('editProfile.body.description'),
+      title: this.translate.instant('editProfile.title'),
+      description: this.translate.instant('editProfile.description'),
     });
 
     effect(() => {

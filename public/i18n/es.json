@@ -59,7 +59,7 @@
   "editProfile": {
     "body": {
       "title": "Editar perfil",
-      "description": "Actualiza la información de tu perfil."
+      "description": "Actualiza tu información personal y preferencias."
     },
     "form": {
       "birthDate": "Fecha de nacimiento:",
@@ -91,7 +91,8 @@
       "selectMonth": "Mes",
       "selectYear": "Año",
       "year": "Año"
-    }
+    },
+    "title": "Editar perfil"
   },
   "error": {
     "400": "Algunos campos contienen errores. Corrígelos e intenta nuevamente.",
