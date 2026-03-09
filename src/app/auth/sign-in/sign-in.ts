@@ -8,10 +8,11 @@ import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../core/services/language.service';
 import { AuthService } from '../../core/services/auth.service';
+import { Spinner } from '../../shared/components/spinner/spinner';
 
 @Component({
   selector: 'app-sign-in',
-  imports: [RouterLink, ReactiveFormsModule, TranslatePipe],
+  imports: [RouterLink, ReactiveFormsModule, TranslatePipe, Spinner],
   templateUrl: './sign-in.html',
   styles: ``,
 })
@@ -41,18 +42,19 @@ export class SignIn {
     if (this.signInForm.valid && !this.isLoading()) {
       this.isLoading.set(true);
       const formData = this.signInForm.value;
-      this.authService.signIn(formData).pipe(
-        finalize(() => this.isLoading.set(false))
-      ).subscribe({
-        next: () => {
-          this.router.navigate(['/', this.currentLanguage, 'auth', 'verify-otp'], {
-            queryParams: { email: formData.email },
-          });
-        },
-        error: (error) => {
-          this.formValidationService.showErrors(this.signInForm, error);
-        },
-      });
+      this.authService
+        .signIn(formData)
+        .pipe(finalize(() => this.isLoading.set(false)))
+        .subscribe({
+          next: () => {
+            this.router.navigate(['/', this.currentLanguage, 'auth', 'verify-otp'], {
+              queryParams: { email: formData.email },
+            });
+          },
+          error: (error) => {
+            this.formValidationService.showErrors(this.signInForm, error);
+          },
+        });
     }
   }
 

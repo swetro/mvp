@@ -107,8 +107,11 @@
         <button
           type="submit"
           [disabled]="signUpForm.invalid || isLoading()"
-          class="btn-primary w-full"
+          class="btn-primary w-full flex items-center justify-center gap-2"
         >
+          @if (isLoading()) {
+            <app-spinner sizeClasses="w-4 h-4" colorClasses="text-white" />
+          }
           {{
             isLoading() ? ('forms.buttons.submitting' | translate) : ('forms.buttons.next' | translate)
           }}

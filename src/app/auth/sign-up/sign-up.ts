@@ -8,10 +8,11 @@ import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../core/services/language.service';
+import { Spinner } from '../../shared/components/spinner/spinner';
 
 @Component({
   selector: 'app-sign-up',
-  imports: [RouterLink, ReactiveFormsModule, TranslatePipe],
+  imports: [RouterLink, ReactiveFormsModule, TranslatePipe, Spinner],
   templateUrl: './sign-up.html',
   styles: ``,
 })
@@ -41,18 +42,19 @@ export class SignUp {
     if (this.signUpForm.valid && !this.isLoading()) {
       this.isLoading.set(true);
       const formData = this.signUpForm.value;
-      this.authService.signUp(formData).pipe(
-        finalize(() => this.isLoading.set(false))
-      ).subscribe({
-        next: () => {
-          this.router.navigate(['/', this.currentLanguage, 'auth', 'verify-otp'], {
-            queryParams: { email: formData.email },
-          });
-        },
-        error: (error) => {
-          this.formValidationService.showErrors(this.signUpForm, error);
-        },
-      });
+      this.authService
+        .signUp(formData)
+        .pipe(finalize(() => this.isLoading.set(false)))
+        .subscribe({
+          next: () => {
+            this.router.navigate(['/', this.currentLanguage, 'auth', 'verify-otp'], {
+              queryParams: { email: formData.email },
+            });
+          },
+          error: (error) => {
+            this.formValidationService.showErrors(this.signUpForm, error);
+          },
+        });
     }
   }
 

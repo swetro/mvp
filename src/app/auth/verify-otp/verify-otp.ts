@@ -7,10 +7,11 @@ import { FormValidationService } from '../../shared/services/form-validation.ser
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../core/services/language.service';
+import { Spinner } from '../../shared/components/spinner/spinner';
 
 @Component({
   selector: 'app-verify-otp',
-  imports: [ReactiveFormsModule, TranslatePipe],
+  imports: [ReactiveFormsModule, TranslatePipe, Spinner],
   templateUrl: './verify-otp.html',
   styles: ``,
 })
@@ -79,17 +80,18 @@ export class VerifyOtp implements OnInit {
       const otp = Object.values(this.otpForm.value).join('');
       const verifyOtpDto = { email: this.email(), code: otp };
 
-      this.authService.verifyOtp(verifyOtpDto).pipe(
-        finalize(() => this.isLoading.set(false))
-      ).subscribe({
-        next: () => {
-          this.authService.refreshUserProfile();
-          this.router.navigate(['/', this.currentLanguage, 'account', 'profile']);
-        },
-        error: (error) => {
-          this.formValidationService.showErrors(this.otpForm, error);
-        },
-      });
+      this.authService
+        .verifyOtp(verifyOtpDto)
+        .pipe(finalize(() => this.isLoading.set(false)))
+        .subscribe({
+          next: () => {
+            this.authService.refreshUserProfile();
+            this.router.navigate(['/', this.currentLanguage, 'account', 'profile']);
+          },
+          error: (error) => {
+            this.formValidationService.showErrors(this.otpForm, error);
+          },
+        });
     }
   }
 
@@ -97,18 +99,19 @@ export class VerifyOtp implements OnInit {
     if (this.isLoading()) return;
 
     this.isLoading.set(true);
-    this.authService.resendOtp(this.email()).pipe(
-      finalize(() => this.isLoading.set(false))
-    ).subscribe({
-      next: () => {
-        this.otpForm.reset();
-        this.remainingTime.set(this.initialDuration);
-        this.isRunning.set(true);
-      },
-      error: (error) => {
-        this.formValidationService.showErrors(this.otpForm, error);
-      },
-    });
+    this.authService
+      .resendOtp(this.email())
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe({
+        next: () => {
+          this.otpForm.reset();
+          this.remainingTime.set(this.initialDuration);
+          this.isRunning.set(true);
+        },
+        error: (error) => {
+          this.formValidationService.showErrors(this.otpForm, error);
+        },
+      });
   }
 
   onInput(event: Event, index: number) {

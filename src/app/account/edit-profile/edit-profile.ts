@@ -155,7 +155,6 @@ export class EditProfile {
           },
           error: (error) => {
             this.formValidationService.showErrors(this.editProfileForm, error);
-            this.messageService.showError(error.error?.message);
           },
         });
     }
