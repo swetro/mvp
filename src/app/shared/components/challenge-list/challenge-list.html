@@ -61,7 +61,7 @@
               <div class="pt-3 border-t border-slate-100">
                 <div class="flex items-center justify-between text-xs text-slate-600 mb-1.5">
                   <span>{{ 'challengeParticipant.goalProgress' | translate }}</span>
-                  @if (challenge.currentUser?.isCompleted) {
+                  @if (challenge.currentUser?.isCompleted === true) {
                     <span class="font-semibold text-emerald-600">
                       {{ 'challengeParticipant.completed' | translate }}
                     </span>
@@ -71,9 +71,17 @@
                 </div>
                 <div class="w-full bg-slate-200 rounded-full h-1.5">
                   <div
-                    class="h-1.5 rounded-full transition-all duration-300 {{
-                      getProgressColorClass(challenge)
-                    }}"
+                    class="h-1.5 rounded-full transition-all duration-300"
+                    [ngClass]="{
+                      'bg-emerald-500':
+                        challenge.currentUser?.isCompleted === true && percent === 100,
+                      'bg-orange-500':
+                        !(challenge.currentUser?.isCompleted === true && percent === 100) &&
+                        percent > 70,
+                      'bg-blue-600':
+                        !(challenge.currentUser?.isCompleted === true && percent === 100) &&
+                        percent <= 70,
+                    }"
                     [style.width.%]="percent"
                   ></div>
                 </div>
@@ -82,7 +90,7 @@
 
             <!-- CTA -->
             <div class="pt-3 flex justify-end">
-              @if (isChallengeEnded(challenge)) {
+              @if (challenge.status === challengeStatusEnum.Completed) {
                 <button type="button" class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto">
                   {{ 'challengeList.btnResults' | translate }}
                 </button>

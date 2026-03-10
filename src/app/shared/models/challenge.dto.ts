@@ -1,10 +1,11 @@
+import { ChallengeStatus } from '../enums/challenge-status.enum';
 import { ActivityType } from '../enums/activity-type.enum';
 
 export interface ChallengeDto {
   id: number;
   leagueName: string;
   leagueSlug: string;
-  status: string;
+  status: ChallengeStatus;
   type: string;
   entryFee: number;
   currency: string;

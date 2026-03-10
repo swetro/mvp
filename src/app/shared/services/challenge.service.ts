@@ -1,5 +1,6 @@
 import { inject, Injectable, Signal } from '@angular/core';
 import { ChallengeDto } from '../models/challenge.dto';
+import { ChallengeStatus } from '../enums/challenge-status.enum';
 import { environment } from '../../../environments/environment';
 import { ApiResult } from '../models/api-result.dto';
 import { ParticipantDto } from '../models/participant.dto';
@@ -15,12 +16,14 @@ export class ChallengeService {
 
   getChallenges(
     pageNumber: Signal<number>,
+    status?: Signal<ChallengeStatus | undefined>,
   ): HttpResourceRef<PagedResult<ChallengeDto> | undefined> {
     return httpResource<PagedResult<ChallengeDto>>(
       () => {
         const leagueSlug = this.challengeConfigService.getDefaultLeagueSlug();
         const params = new URLSearchParams();
         if (pageNumber?.()) params.append('page', pageNumber().toString());
+        if (status?.()) params.append('status', status()!);
         const query = params.toString() ? `?${params.toString()}` : '';
 
         return { url: `${environment.apiUrl}/challenges/${leagueSlug}${query}` };

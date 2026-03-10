@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ChallengeService } from '../../shared/services/challenge.service';
+import { ChallengeStatus } from '../../shared/enums/challenge-status.enum';
 import { ChallengeConfigService } from '../../shared/services/challenge-config.service';
 import { LanguageService } from '../../core/services/language.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
@@ -27,8 +28,9 @@ export class ChallengeIndex {
   private route = inject(ActivatedRoute);
 
   currentPage = signal<number>(1);
+  statusFilter = signal<ChallengeStatus | undefined>(ChallengeStatus.Completed);
   currentLanguage = this.languageService.getCurrentLanguage();
-  challengesData = this.challengeService.getChallenges(this.currentPage);
+  challengesData = this.challengeService.getChallenges(this.currentPage, this.statusFilter);
 
   pageMetadata = {
     title: this.translate.instant('challenges.title'),
