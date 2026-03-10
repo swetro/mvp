@@ -23,13 +23,15 @@
     "type": "Type",
     "name": "Name"
   },
-  "challenges": {
+  "challengeIndex": {
     "body": {
       "title": "Challenges",
       "description": "Explore all available challenges, track your progress, and compete with others."
     },
     "title": "Challenges",
-    "description": "Explore all available challenges, track your progress, and compete with others."
+    "description": "Explore all available challenges, track your progress, and compete with others.",
+    "noChallenges": "No challenges available.",
+    "btnLoadMore": "Load more"
   },
   "challengeLeaderboard": {
     "body": {

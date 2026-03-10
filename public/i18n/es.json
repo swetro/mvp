@@ -23,13 +23,15 @@
     "type": "Tipo",
     "name": "Nombre"
   },
-  "challenges": {
+  "challengeIndex": {
     "body": {
       "title": "Retos",
       "description": "Explora todos los retos disponibles, sigue tu progreso y compite con otros."
     },
     "title": "Retos",
-    "description": "Explora todos los retos disponibles, sigue tu progreso y compite con otros."
+    "description": "Explora todos los retos disponibles, sigue tu progreso y compite con otros.",
+    "noChallenges": "No hay retos disponibles.",
+    "btnLoadMore": "Cargar más"
   },
   "challengeLeaderboard": {
     "body": {

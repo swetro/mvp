@@ -1,17 +1,33 @@
 <section>
-  <h2>{{ 'challenges.body.title' | translate }}</h2>
-  <h3 class="text-slate-600 font-normal">{{ 'challenges.body.description' | translate }}</h3>
+  <h2>{{ 'challengeIndex.body.title' | translate }}</h2>
+  <h3 class="text-slate-600 font-normal">{{ 'challengeIndex.body.description' | translate }}</h3>
 
-  @if (challengesData.isLoading()) {
+  @if (challengesData.isLoading() && currentPage() === 1) {
     <div class="flex justify-center py-20">
       <app-spinner></app-spinner>
     </div>
-  } @else if (challengesData.value()?.items; as challenges) {
-    <div class="mt-10 mb-20">
+  } @else if (accumulatedChallenges(); as challenges) {
+    <div class="mt-10 mb-20 space-y-6">
       @if (challenges.length > 0) {
         <app-challenge-list [challengesData]="challenges"></app-challenge-list>
+
+        @if (hasMore()) {
+          <div class="flex justify-center pt-4">
+            <button
+              type="button"
+              class="btn-ghost px-6 py-2 flex items-center gap-2"
+              [disabled]="isLoadingMore()"
+              (click)="loadMore()"
+            >
+              @if (isLoadingMore()) {
+                <app-spinner sizeClasses="w-4 h-4" />
+              }
+              {{ 'challengeIndex.btnLoadMore' | translate }}
+            </button>
+          </div>
+        }
       } @else {
-        <app-no-data-view title="challenges.noChallenges" icon="calendar"></app-no-data-view>
+        <app-no-data-view title="challengeIndex.noChallenges" icon="search"></app-no-data-view>
       }
     </div>
   }
