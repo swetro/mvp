@@ -15,4 +15,8 @@ export class ChallengeConfigService {
     }
     return config;
   }
+
+  getDefaultLeagueSlug(): string {
+    return environment.defaultLeagueSlug;
+  }
 }

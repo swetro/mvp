@@ -13,6 +13,24 @@ import { ChallengeConfigService } from './challenge-config.service';
 export class ChallengeService {
   private readonly challengeConfigService = inject(ChallengeConfigService);
 
+  getChallenges(
+    pageNumber: Signal<number>,
+  ): HttpResourceRef<PagedResult<ChallengeDto> | undefined> {
+    return httpResource<PagedResult<ChallengeDto>>(
+      () => {
+        const leagueSlug = this.challengeConfigService.getDefaultLeagueSlug();
+        const params = new URLSearchParams();
+        if (pageNumber?.()) params.append('page', pageNumber().toString());
+        const query = params.toString() ? `?${params.toString()}` : '';
+
+        return { url: `${environment.apiUrl}/challenges/${leagueSlug}${query}` };
+      },
+      {
+        parse: (raw: unknown) => (raw as ApiResult)?.data as PagedResult<ChallengeDto>,
+      },
+    );
+  }
+
   getChallenge(slug: Signal<string>): HttpResourceRef<ChallengeDto | undefined> {
     return httpResource<ChallengeDto>(
       () => {

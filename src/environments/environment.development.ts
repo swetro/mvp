@@ -14,4 +14,5 @@ export const environment = {
   appUrl: 'http://localhost:4200',
   defaultLanguage: 'en',
   supportedLanguages: ['en', 'es'],
+  defaultLeagueSlug: 'swetro',
 };

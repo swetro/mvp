@@ -2,8 +2,9 @@ import { Routes } from '@angular/router';
 import { PageNotFound } from './shared/components/page-not-found/page-not-found';
 import { DefaultLayout } from './shared/layouts/default-layout/default-layout';
 import { Home } from './home/home';
-import { ChallengeLeaderboard } from './challenge/challenge-leaderboard/challenge-leaderboard';
-import { ChallengeParticipant } from './challenge/challenge-participant/challenge-participant';
+import { ChallengeIndex } from './challenges/challenge-index/challenge-index';
+import { ChallengeLeaderboard } from './challenges/challenge-leaderboard/challenge-leaderboard';
+import { ChallengeParticipant } from './challenges/challenge-participant/challenge-participant';
 import { SignIn } from './auth/sign-in/sign-in';
 import { SignUp } from './auth/sign-up/sign-up';
 import { VerifyOtp } from './auth/verify-otp/verify-otp';
@@ -19,6 +20,7 @@ import { OauthCallback } from './auth/oauth-callback/oauth-callback';
 
 const mainRoutes: Routes = [
   { path: '', component: Home },
+  { path: 'challenges', component: ChallengeIndex },
   { path: 'leaderboard/:slug', component: ChallengeLeaderboard, pathMatch: 'full' },
   {
     path: 'leaderboard/:slug/:participantId',

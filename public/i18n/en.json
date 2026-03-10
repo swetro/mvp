@@ -23,6 +23,14 @@
     "type": "Type",
     "name": "Name"
   },
+  "challenges": {
+    "body": {
+      "title": "Challenges",
+      "description": "Explore all available challenges, track your progress, and compete with others."
+    },
+    "title": "Challenges",
+    "description": "Explore all available challenges, track your progress, and compete with others."
+  },
   "challengeLeaderboard": {
     "body": {
       "title": "Leaderboard"

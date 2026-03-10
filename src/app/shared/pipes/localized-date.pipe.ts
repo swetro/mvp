@@ -16,6 +16,7 @@ export class LocalizedDatePipe implements PipeTransform {
       long: 'MMMM dd yyyy, HH:mm:ss',
       dateOnly: 'MMM dd yyyy',
       timeOnly: 'HH:mm',
+      dayMonth: 'dd MMM',
     },
     'es-CO': {
       default: 'dd MMM yyyy, HH:mm',
@@ -23,6 +24,7 @@ export class LocalizedDatePipe implements PipeTransform {
       long: 'dd MMMM yyyy, HH:mm:ss',
       dateOnly: 'dd MMM yyyy',
       timeOnly: 'HH:mm',
+      dayMonth: 'dd MMM',
     },
   };
 

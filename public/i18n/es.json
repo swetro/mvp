@@ -23,6 +23,14 @@
     "type": "Tipo",
     "name": "Nombre"
   },
+  "challenges": {
+    "body": {
+      "title": "Retos",
+      "description": "Explora todos los retos disponibles, sigue tu progreso y compite con otros."
+    },
+    "title": "Retos",
+    "description": "Explora todos los retos disponibles, sigue tu progreso y compite con otros."
+  },
   "challengeLeaderboard": {
     "body": {
       "title": "Tabla de Clasificación"

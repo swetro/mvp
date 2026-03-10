@@ -1,0 +1,42 @@
+@let challenges = challengesData();
+
+@if (challenges) {
+  <div class="grid grid-cols-1 gap-4">
+    @for (challenge of challenges; track challenge.id) {
+      <article>
+        <div class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden">
+          <!-- Header Section with full-width background -->
+          <div class="bg-slate-200 px-4 py-4">
+            <div class="flex items-center gap-3">
+              <div
+                class="w-[30px] h-[30px] flex items-center justify-center rounded-[4px] shrink-0"
+              >
+                <img
+                  class="w-full h-full"
+                  [src]="getActivityTypeIcon(challenge.goal.activityType)"
+                  alt="Activity type"
+                />
+              </div>
+              <div class="flex flex-col">
+                <p class="text-base font-bold leading-5">
+                  {{ challenge.content.title }}
+                </p>
+                <div class="flex items-center gap-4 text-sm mt-1">
+                  <p class="flex items-center gap-1">
+                    <img class="w-[1em] h-[1em] shrink-0" [src]="calendarIcon" alt="Calendar" />
+                    {{ challenge.startTime | localizedDate: 'dayMonth' }} -
+                    {{ challenge.endTime | localizedDate: 'dayMonth' }}
+                  </p>
+                  <p class="flex items-center gap-1">
+                    <img class="w-[1em] h-[1em] shrink-0" [src]="usersIcon" alt="Users" />
+                    {{ challenge.numberOfParticipants }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+}

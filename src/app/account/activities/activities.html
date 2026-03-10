@@ -9,7 +9,7 @@
   } @else if (weeklyActivitiesData.value(); as weeklyActivities) {
     <div class="mt-10 mb-20">
       @if (weeklyActivities.length > 0) {
-        <app-activities-list [activitiesData]="weeklyActivities"></app-activities-list>
+        <app-activity-list [activitiesData]="weeklyActivities"></app-activity-list>
       } @else {
         <app-no-data-view title="activities.noActivities" icon="calendar"></app-no-data-view>
       }

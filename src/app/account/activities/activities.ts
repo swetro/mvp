@@ -5,13 +5,13 @@ import { LanguageService } from '../../core/services/language.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivitiesList } from '../../shared/components/activities-list/activities-list';
+import { ActivityList } from '../../shared/components/activity-list/activity-list';
 import { Spinner } from '../../shared/components/spinner/spinner';
 import { NoDataView } from '../../shared/components/no-data-view/no-data-view';
 
 @Component({
   selector: 'app-activities',
-  imports: [ActivitiesList, TranslatePipe, Spinner, NoDataView],
+  imports: [ActivityList, TranslatePipe, Spinner, NoDataView],
   templateUrl: './activities.html',
   styles: ``,
 })

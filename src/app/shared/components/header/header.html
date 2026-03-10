@@ -59,7 +59,7 @@
           <div id="user-dropdown" class="user-dropdown" [class.open]="isUserMenuOpen">
             <nav class="py-2">
               <a
-                [routerLink]="['/', currentLanguage]"
+                [routerLink]="['/', currentLanguage, 'challenges']"
                 class="dropdown-item"
                 (click)="closeUserMenu()"
               >
@@ -159,7 +159,7 @@
       <!-- Authenticated user -->
       @if (userIsAuthenticated) {
         <a
-          [routerLink]="['/', currentLanguage]"
+          [routerLink]="['/', currentLanguage, 'challenges']"
           class="mobile-menu-item"
           (click)="closeMobileMenu()"
         >

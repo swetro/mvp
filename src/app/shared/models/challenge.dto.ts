@@ -1,3 +1,5 @@
+import { ActivityType } from "../enums/activity-type.enum";
+
 export interface ChallengeDto {
   id: number;
   leagueName: string;
@@ -14,7 +16,7 @@ export interface ChallengeDto {
 }
 
 export interface ChallengeGoal {
-  activityType: string;
+  activityType: ActivityType;
   variable: string;
   condition: string;
   value: number;

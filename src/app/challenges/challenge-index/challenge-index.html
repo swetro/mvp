@@ -1,0 +1,18 @@
+<section>
+  <h2>{{ 'challenges.body.title' | translate }}</h2>
+  <h3 class="text-slate-600 font-normal">{{ 'challenges.body.description' | translate }}</h3>
+
+  @if (challengesData.isLoading()) {
+    <div class="flex justify-center py-20">
+      <app-spinner></app-spinner>
+    </div>
+  } @else if (challengesData.value()?.items; as challenges) {
+    <div class="mt-10 mb-20">
+      @if (challenges.length > 0) {
+        <app-challenge-list [challengesData]="challenges"></app-challenge-list>
+      } @else {
+        <app-no-data-view title="challenges.noChallenges" icon="calendar"></app-no-data-view>
+      }
+    </div>
+  }
+</section>

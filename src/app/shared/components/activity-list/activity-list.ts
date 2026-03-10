@@ -12,7 +12,7 @@ import { ActivityType } from '../../enums/activity-type.enum';
 import { LocalizedDatePipe } from '../../pipes/localized-date.pipe';
 
 @Component({
-  selector: 'app-activities-list',
+  selector: 'app-activity-list',
   imports: [
     DistancePipe,
     DurationPipe,
@@ -23,10 +23,10 @@ import { LocalizedDatePipe } from '../../pipes/localized-date.pipe';
     LocalizedDatePipe,
     TranslatePipe,
   ],
-  templateUrl: './activities-list.html',
+  templateUrl: './activity-list.html',
   styles: ``,
 })
-export class ActivitiesList {
+export class ActivityList {
   activitiesData = input.required<ActivityDto[]>();
   activityTypeIcons = ACTIVITY_TYPE_ICONS;
   activityTypeEnum = ActivityType;
