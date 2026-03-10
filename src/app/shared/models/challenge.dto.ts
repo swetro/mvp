@@ -1,4 +1,4 @@
-import { ActivityType } from "../enums/activity-type.enum";
+import { ActivityType } from '../enums/activity-type.enum';
 
 export interface ChallengeDto {
   id: number;
@@ -13,6 +13,7 @@ export interface ChallengeDto {
   endTime: string;
   goal: ChallengeGoal;
   content: ChallengeContent;
+  currentUser?: ChallengeCurrentUserDto | null;
 }
 
 export interface ChallengeGoal {
@@ -31,4 +32,11 @@ export interface ChallengeContent {
   goalDescription: string;
   ruleList: string[];
   imageUrl: string;
+}
+
+export interface ChallengeCurrentUserDto {
+  isParticipating: boolean;
+  isCompleted: boolean;
+  position: number;
+  progress: number;
 }

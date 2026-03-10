@@ -52,6 +52,12 @@
   "challengeParticipantsTable": {
     "details": "View Details"
   },
+  "challengeList": {
+    "btnJoin": "Join",
+    "btnLeaderboard": "View progress",
+    "btnResults": "View results",
+    "position": "Position: {{position}} of {{total}}"
+  },
   "editProfile": {
     "body": {
       "title": "Edit profile",

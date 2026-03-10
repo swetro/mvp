@@ -52,6 +52,12 @@
   "challengeParticipantsTable": {
     "details": "Ver Detalles"
   },
+  "challengeList": {
+    "btnJoin": "Unirme",
+    "btnLeaderboard": "Ver progreso",
+    "btnResults": "Ver resultados",
+    "position": "Posición: {{position}} de {{total}}"
+  },
   "devices": {
     "body": {
       "title": "Dispositivos",
