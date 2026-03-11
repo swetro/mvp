@@ -23,6 +23,16 @@
     "type": "Tipo",
     "name": "Nombre"
   },
+  "activityType": {
+    "Running": "Carrera",
+    "Swimming": "Natación",
+    "Cycling": "Ciclismo",
+    "TreadmillRunning": "Cinta",
+    "Walking": "Caminata",
+    "IndoorCycling": "Ciclismo Indoor",
+    "Multisport": "Multideporte",
+    "Other": "Otro"
+  },
   "challengeIndex": {
     "body": {
       "title": "Retos",
@@ -30,6 +40,9 @@
     },
     "title": "Retos",
     "description": "Explora todos los retos disponibles, sigue tu progreso y compite con otros.",
+    "tabActive": "Activos",
+    "tabCompleted": "Finalizados",
+    "filterAll": "Todos",
     "noChallenges": "No hay retos disponibles.",
     "btnLoadMore": "Cargar más"
   },

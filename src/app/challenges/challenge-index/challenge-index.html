@@ -2,32 +2,100 @@
   <h2>{{ 'challengeIndex.body.title' | translate }}</h2>
   <h3 class="text-slate-600 font-normal">{{ 'challengeIndex.body.description' | translate }}</h3>
 
-  @if (challengesData.isLoading() && currentPage() === 1) {
+  <!-- Level 1: Status tabs -->
+  <div class="border-b border-slate-200 mt-8">
+    <nav class="flex" role="tablist">
+      <button
+        type="button"
+        role="tab"
+        [attr.aria-selected]="statusTab() === ChallengeStatus.Active"
+        class="px-5 py-3 text-sm font-medium border-b-2 transition-colors duration-200"
+        [ngClass]="
+          statusTab() === ChallengeStatus.Active
+            ? 'border-blue-600 text-blue-600'
+            : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+        "
+        (click)="setStatusTab(ChallengeStatus.Active)"
+      >
+        {{ 'challengeIndex.tabActive' | translate }}
+      </button>
+      <button
+        type="button"
+        role="tab"
+        [attr.aria-selected]="statusTab() === ChallengeStatus.Completed"
+        class="px-5 py-3 text-sm font-medium border-b-2 transition-colors duration-200"
+        [ngClass]="
+          statusTab() === ChallengeStatus.Completed
+            ? 'border-blue-600 text-blue-600'
+            : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+        "
+        (click)="setStatusTab(ChallengeStatus.Completed)"
+      >
+        {{ 'challengeIndex.tabCompleted' | translate }}
+      </button>
+    </nav>
+  </div>
+
+  <!-- Level 2: Activity type chips -->
+  <div class="flex gap-2 overflow-x-auto pb-2 mt-4">
+    <button
+      type="button"
+      class="shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200"
+      [ngClass]="
+        activityTypeFilter() === null
+          ? 'bg-blue-600 text-white'
+          : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+      "
+      (click)="setActivityType(null)"
+    >
+      {{ 'challengeIndex.filterAll' | translate }}
+    </button>
+
+    @for (type of activityTypes; track type) {
+      <button
+        type="button"
+        class="shrink-0 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200"
+        [ngClass]="
+          activityTypeFilter() === type
+            ? 'bg-blue-600 text-white'
+            : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+        "
+        (click)="setActivityType(type)"
+      >
+        <img class="w-4 h-4" [src]="getActivityTypeIcon(type)" [alt]="type" />
+        {{ 'activityType.' + type | translate }}
+      </button>
+    }
+  </div>
+
+  <!-- Content -->
+  @if (challengesData.isLoading() && accumulatedChallenges().length === 0) {
     <div class="flex justify-center py-20">
       <app-spinner></app-spinner>
     </div>
-  } @else if (accumulatedChallenges(); as challenges) {
-    <div class="mt-10 mb-20 space-y-6">
+  } @else {
+    @let challenges = accumulatedChallenges();
+    <div class="mt-6 mb-20 space-y-6">
       @if (challenges.length > 0) {
         <app-challenge-list [challengesData]="challenges"></app-challenge-list>
-
-        @if (hasMore()) {
-          <div class="flex justify-center pt-4">
-            <button
-              type="button"
-              class="btn-ghost px-6 py-2 flex items-center gap-2"
-              [disabled]="isLoadingMore()"
-              (click)="loadMore()"
-            >
-              @if (isLoadingMore()) {
-                <app-spinner sizeClasses="w-4 h-4" />
-              }
-              {{ 'challengeIndex.btnLoadMore' | translate }}
-            </button>
-          </div>
-        }
-      } @else {
+      } @else if (!challengesData.isLoading()) {
         <app-no-data-view title="challengeIndex.noChallenges" icon="search"></app-no-data-view>
+      }
+
+      @if (hasMore()) {
+        <div class="flex justify-center pt-4">
+          <button
+            type="button"
+            class="btn-ghost px-6 py-2 flex items-center gap-2"
+            [disabled]="isLoadingMore()"
+            (click)="loadMore()"
+          >
+            @if (isLoadingMore()) {
+              <app-spinner sizeClasses="w-4 h-4" />
+            }
+            {{ 'challengeIndex.btnLoadMore' | translate }}
+          </button>
+        </div>
       }
     </div>
   }

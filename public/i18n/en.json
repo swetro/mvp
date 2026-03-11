@@ -23,6 +23,16 @@
     "type": "Type",
     "name": "Name"
   },
+  "activityType": {
+    "Running": "Running",
+    "Swimming": "Swimming",
+    "Cycling": "Cycling",
+    "TreadmillRunning": "Treadmill",
+    "Walking": "Walking",
+    "IndoorCycling": "Indoor Cycling",
+    "Multisport": "Multisport",
+    "Other": "Other"
+  },
   "challengeIndex": {
     "body": {
       "title": "Challenges",
@@ -30,6 +40,9 @@
     },
     "title": "Challenges",
     "description": "Explore all available challenges, track your progress, and compete with others.",
+    "tabActive": "Active",
+    "tabCompleted": "Completed",
+    "filterAll": "All",
     "noChallenges": "No challenges available.",
     "btnLoadMore": "Load more"
   },

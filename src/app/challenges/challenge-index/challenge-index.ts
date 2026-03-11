@@ -1,17 +1,20 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
+import { NgClass } from '@angular/common';
 import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { ChallengeStatus } from '../../shared/enums/challenge-status.enum';
+import { ActivityType } from '../../shared/enums/activity-type.enum';
 import { LanguageService } from '../../core/services/language.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { ChallengeList } from '../../shared/components/challenge-list/challenge-list';
 import { Spinner } from '../../shared/components/spinner/spinner';
 import { NoDataView } from '../../shared/components/no-data-view/no-data-view';
 import { ChallengeDto } from '../../shared/models/challenge.dto';
+import { ACTIVITY_TYPE_ICONS } from '../../shared/constants/activity-type-icons';
 
 @Component({
   selector: 'app-challenge-index',
-  imports: [ChallengeList, TranslatePipe, Spinner, NoDataView],
+  imports: [NgClass, ChallengeList, TranslatePipe, Spinner, NoDataView],
   templateUrl: './challenge-index.html',
   styles: ``,
 })
@@ -21,12 +24,27 @@ export class ChallengeIndex {
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
 
+  readonly ChallengeStatus = ChallengeStatus;
+  readonly ActivityType = ActivityType;
+  readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
+
+  statusTab = signal<ChallengeStatus>(ChallengeStatus.Active);
+  activityTypeFilter = signal<ActivityType | null>(null);
   currentPage = signal<number>(1);
-  statusFilter = signal<ChallengeStatus | undefined>(ChallengeStatus.Completed);
-  currentLanguage = this.languageService.getCurrentLanguage();
-  challengesData = this.challengeService.getChallenges(this.currentPage, this.statusFilter);
+  challengesData = this.challengeService.getChallenges(
+    this.currentPage,
+    this.statusTab,
+    this.activityTypeFilter,
+  );
 
   accumulatedChallenges = signal<ChallengeDto[]>([]);
+
+  readonly activityTypes: ActivityType[] = [
+    ActivityType.Running,
+    ActivityType.Cycling,
+    ActivityType.Walking,
+    ActivityType.Multisport,
+  ];
 
   hasMore = computed(() => {
     const d = this.challengesData.value();
@@ -57,7 +75,29 @@ export class ChallengeIndex {
     });
   }
 
+  setStatusTab(status: ChallengeStatus): void {
+    if (this.statusTab() === status) return;
+    this.accumulatedChallenges.set([]);
+    this.currentPage.set(1);
+    this.statusTab.set(status);
+  }
+
+  setActivityType(type: ActivityType | null): void {
+    if (this.activityTypeFilter() === type) return;
+    this.accumulatedChallenges.set([]);
+    this.currentPage.set(1);
+    this.activityTypeFilter.set(type);
+  }
+
   loadMore(): void {
     this.currentPage.update((p) => p + 1);
+  }
+
+  getActivityTypeIcon(type: ActivityType): string {
+    return (
+      this.activityTypeIcons.find((i) => i.type === type)?.src ||
+      this.activityTypeIcons.find((i) => i.type === ActivityType.Other)?.src ||
+      ''
+    );
   }
 }
