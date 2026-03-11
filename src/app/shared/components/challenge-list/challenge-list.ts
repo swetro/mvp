@@ -16,9 +16,9 @@ import { ChallengeStatus } from '../../enums/challenge-status.enum';
 })
 export class ChallengeList {
   challengesData = input.required<ChallengeDto[]>();
-  activityTypeIcons = ACTIVITY_TYPE_ICONS;
-  activityTypeEnum = ActivityType;
-  challengeStatusEnum = ChallengeStatus;
+  readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
+  readonly activityTypeEnum = ActivityType;
+  readonly challengeStatusEnum = ChallengeStatus;
 
   // Icon paths
   calendarIcon = './images/shared/calendar.svg';

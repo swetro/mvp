@@ -8,28 +8,28 @@
       <button
         type="button"
         role="tab"
-        [attr.aria-selected]="statusTab() === ChallengeStatus.Active"
+        [attr.aria-selected]="statusTab() === challengeStatusEnum.Active"
         class="px-5 py-3 text-sm font-medium border-b-2 transition-colors duration-200"
         [ngClass]="
-          statusTab() === ChallengeStatus.Active
+          statusTab() === challengeStatusEnum.Active
             ? 'border-blue-600 text-blue-600'
             : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
         "
-        (click)="setStatusTab(ChallengeStatus.Active)"
+        (click)="setStatusTab(challengeStatusEnum.Active)"
       >
         {{ 'challengeIndex.tabActive' | translate }}
       </button>
       <button
         type="button"
         role="tab"
-        [attr.aria-selected]="statusTab() === ChallengeStatus.Completed"
+        [attr.aria-selected]="statusTab() === challengeStatusEnum.Completed"
         class="px-5 py-3 text-sm font-medium border-b-2 transition-colors duration-200"
         [ngClass]="
-          statusTab() === ChallengeStatus.Completed
+          statusTab() === challengeStatusEnum.Completed
             ? 'border-blue-600 text-blue-600'
             : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
         "
-        (click)="setStatusTab(ChallengeStatus.Completed)"
+        (click)="setStatusTab(challengeStatusEnum.Completed)"
       >
         {{ 'challengeIndex.tabCompleted' | translate }}
       </button>
@@ -62,7 +62,7 @@
         "
         (click)="setActivityType(type)"
       >
-        <img class="w-4 h-4" [src]="getActivityTypeIcon(type)" [alt]="type" />
+        <img class="w-4 h-4" [src]="getActivityTypeIcon(type, activityTypeFilter() === type)" [alt]="type" />
         {{ 'activityType.' + type | translate }}
       </button>
     }

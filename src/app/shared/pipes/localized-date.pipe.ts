@@ -28,7 +28,7 @@ export class LocalizedDatePipe implements PipeTransform {
     },
   };
 
-  transform(value: string | number | Date, format?: string, timezone?: string): string | null {
+  transform(value: string | number | Date, format?: string, timezone = 'UTC'): string | null {
     const locale = this.getLocaleFromLanguage();
     const localizedFormat = this.getLocalizedFormat(locale, format);
     const datePipe = new DatePipe(locale);

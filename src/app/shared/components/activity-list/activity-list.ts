@@ -28,8 +28,8 @@ import { LocalizedDatePipe } from '../../pipes/localized-date.pipe';
 })
 export class ActivityList {
   activitiesData = input.required<ActivityDto[]>();
-  activityTypeIcons = ACTIVITY_TYPE_ICONS;
-  activityTypeEnum = ActivityType;
+  readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
+  readonly activityTypeEnum = ActivityType;
 
   // Icon paths
   durationIcon = './images/activity/duration.svg';

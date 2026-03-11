@@ -4,7 +4,6 @@ import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { ChallengeStatus } from '../../shared/enums/challenge-status.enum';
 import { ActivityType } from '../../shared/enums/activity-type.enum';
-import { LanguageService } from '../../core/services/language.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { ChallengeList } from '../../shared/components/challenge-list/challenge-list';
 import { Spinner } from '../../shared/components/spinner/spinner';
@@ -20,13 +19,17 @@ import { ACTIVITY_TYPE_ICONS } from '../../shared/constants/activity-type-icons'
 })
 export class ChallengeIndex {
   private challengeService = inject(ChallengeService);
-  private languageService = inject(LanguageService);
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
 
-  readonly ChallengeStatus = ChallengeStatus;
-  readonly ActivityType = ActivityType;
+  readonly challengeStatusEnum = ChallengeStatus;
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
+  readonly activityTypes: ActivityType[] = [
+    ActivityType.Running,
+    ActivityType.Cycling,
+    ActivityType.Walking,
+    ActivityType.Multisport,
+  ];
 
   statusTab = signal<ChallengeStatus>(ChallengeStatus.Active);
   activityTypeFilter = signal<ActivityType | null>(null);
@@ -36,15 +39,7 @@ export class ChallengeIndex {
     this.statusTab,
     this.activityTypeFilter,
   );
-
   accumulatedChallenges = signal<ChallengeDto[]>([]);
-
-  readonly activityTypes: ActivityType[] = [
-    ActivityType.Running,
-    ActivityType.Cycling,
-    ActivityType.Walking,
-    ActivityType.Multisport,
-  ];
 
   hasMore = computed(() => {
     const d = this.challengesData.value();
@@ -93,11 +88,10 @@ export class ChallengeIndex {
     this.currentPage.update((p) => p + 1);
   }
 
-  getActivityTypeIcon(type: ActivityType): string {
-    return (
-      this.activityTypeIcons.find((i) => i.type === type)?.src ||
-      this.activityTypeIcons.find((i) => i.type === ActivityType.Other)?.src ||
-      ''
-    );
+  getActivityTypeIcon(type: ActivityType, white = false): string {
+    const icon =
+      this.activityTypeIcons.find((i) => i.type === type) ||
+      this.activityTypeIcons.find((i) => i.type === ActivityType.Other);
+    return (white ? icon?.srcWhite : undefined) ?? icon?.src ?? '';
   }
 }
