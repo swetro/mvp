@@ -86,7 +86,7 @@ export class VerifyOtp implements OnInit {
         .subscribe({
           next: () => {
             this.authService.refreshUserProfile();
-            this.router.navigate(['/', this.currentLanguage, 'account', 'profile']);
+            this.router.navigate(['/', this.currentLanguage, 'challenges']);
           },
           error: (error) => {
             this.formValidationService.showErrors(this.otpForm, error);

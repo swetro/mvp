@@ -36,7 +36,7 @@
           <div class="order-first sm:order-last flex items-center gap-2 shrink-0">
             @if (currentUser.isCompleted) {
               <span class="bg-emerald-500 text-white text-xs font-medium rounded-full px-3 py-1">
-                ✔ {{ 'challengeParticipant.completed' | translate }}
+                {{ 'challengeParticipant.completed' | translate }}
                 @if (medalEmoji()) {
                   {{ medalEmoji() }}
                 }
@@ -64,7 +64,10 @@
               <div class="flex flex-row items-center gap-1">
                 <img [src]="durationIcon" alt="Duration" class="w-[18px] h-[18px]" />
                 <p class="text-base font-bold leading-5">
-                  {{ currentUser.position }}@if (medalEmoji()) { {{ medalEmoji() }} }
+                  {{ currentUser.position }}
+                  @if (medalEmoji()) {
+                    {{ medalEmoji() }}
+                  }
                 </p>
               </div>
               <p class="text-sm text-slate-600 leading-5">
