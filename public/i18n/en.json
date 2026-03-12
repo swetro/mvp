@@ -18,6 +18,7 @@
     "endDate": "End",
     "heartRate": "Heart Rate",
     "pace": "Pace",
+    "speed": "Speed",
     "startDate": "Start",
     "time": "Time",
     "type": "Type",
@@ -188,8 +189,10 @@
     "elevationLoss": "Elevation Loss",
     "fullname": "Name",
     "gender": "Gender",
+    "numberOfParticipants": "Participants",
     "pace": "Pace",
     "position": "Position",
+    "speed": "Speed",
     "time": "Time"
   },
   "pageNotFound": {

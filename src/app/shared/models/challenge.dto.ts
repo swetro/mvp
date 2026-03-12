@@ -39,5 +39,14 @@ export interface ChallengeCurrentUserDto {
   isParticipating: boolean;
   isCompleted: boolean;
   position: number;
+  positionByAgeCategory: number;
+  numberOfActivities: number;
+  durationInSeconds: number;
+  distanceInMeters: number;
+  steps: number;
+  averageSpeedInMetersPerSecond: number;
+  averagePaceInMinutesPerKilometer: number;
+  elevationGainInMeters: number;
+  calories: number;
   progress: number;
 }

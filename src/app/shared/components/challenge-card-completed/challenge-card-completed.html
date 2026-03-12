@@ -1,4 +1,5 @@
 @let challenge = challengeData();
+@let currentUser = challenge?.currentUser;
 
 <article>
   <div class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden">
@@ -17,26 +18,10 @@
           <div class="flex items-center gap-4 text-sm mt-1">
             <p class="flex items-center gap-1">
               <img class="w-[1em] h-[1em] shrink-0" [src]="calendarIcon" alt="Calendar" />
-              {{ challenge.startTime | localizedDate: 'dayMonth' }} -
-              {{ challenge.endTime | localizedDate: 'dayMonth' }}
+              {{ challenge.startTime | localizedDate: 'short' }} -
+              {{ challenge.endTime | localizedDate: 'short' }}
             </p>
-            <p class="flex items-center gap-1">
-              <img class="w-[1em] h-[1em] shrink-0" [src]="usersIcon" alt="Users" />
-              @if (
-                challenge.currentUser?.isParticipating && (challenge.currentUser?.position ?? 0) > 0
-              ) {
-                {{
-                  'challengeList.position'
-                    | translate
-                      : {
-                          position: challenge.currentUser?.position,
-                          total: challenge.numberOfParticipants,
-                        }
-                }}
-              } @else {
-                {{ challenge.numberOfParticipants }}
-              }
-            </p>
+            <p class="flex items-center gap-1"></p>
           </div>
         </div>
       </div>
@@ -44,34 +29,132 @@
 
     <!-- Body -->
     <div class="px-4 py-4 space-y-3">
-      <p class="text-sm text-slate-600">{{ challenge.content.description | truncate: 120 }}</p>
+      <p class="text-sm text-slate-600">{{ challenge.content.description | truncate: 140 }}</p>
 
-      @if (challenge.currentUser?.isParticipating) {
-        @let percent = getProgressPercent();
-        <div class="pt-3 border-t border-slate-100">
-          <div class="flex items-center justify-between text-xs text-slate-600 mb-1.5">
-            <span>{{ 'challengeParticipant.goalProgress' | translate }}</span>
-            @if (challenge.currentUser?.isCompleted === true) {
-              <span class="font-semibold text-emerald-600">
-                {{ 'challengeParticipant.completed' | translate }}
-              </span>
-            } @else {
-              <span class="font-semibold text-slate-800">{{ percent }}%</span>
-            }
+      @if (currentUser) {
+        <!-- Stats grid -->
+        <div
+          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 pt-3 border-t border-slate-100"
+        >
+          <!-- Position -->
+          <div class="flex flex-col gap-1">
+            <div class="flex flex-row items-center gap-1">
+              <img [src]="durationIcon" alt="Duration" class="w-[18px] h-[18px]" />
+              <p class="text-base font-bold leading-5">
+                {{ currentUser.position }}
+              </p>
+            </div>
+            <p class="text-sm text-slate-600 leading-5">
+              {{ 'participant.position' | translate }}
+            </p>
           </div>
-          <div class="w-full bg-slate-200 rounded-full h-1.5">
-            <div
-              class="h-1.5 rounded-full transition-all duration-300"
-              [ngClass]="{
-                'bg-emerald-500': challenge.currentUser?.isCompleted === true && percent === 100,
-                'bg-orange-500':
-                  !(challenge.currentUser?.isCompleted === true && percent === 100) && percent > 70,
-                'bg-blue-600':
-                  !(challenge.currentUser?.isCompleted === true && percent === 100) &&
-                  percent <= 70,
-              }"
-              [style.width.%]="percent"
-            ></div>
+
+          <!-- Number of participants -->
+          <div class="flex flex-col gap-1">
+            <div class="flex flex-row items-center gap-1">
+              <img [src]="usersIcon" alt="Participants" class="w-[18px] h-[18px]" />
+              <p class="text-base font-bold leading-5">
+                {{ challenge.numberOfParticipants }}
+              </p>
+            </div>
+            <p class="text-sm text-slate-600 leading-5">
+              {{ 'participant.numberOfParticipants' | translate }}
+            </p>
+          </div>
+
+          <!-- Duration -->
+          <div class="flex flex-col gap-1">
+            <div class="flex flex-row items-center gap-1">
+              <img [src]="durationIcon" alt="Duration" class="w-[18px] h-[18px]" />
+              <p class="text-base font-bold leading-5">
+                {{ currentUser.durationInSeconds | duration }}
+              </p>
+            </div>
+            <p class="text-sm text-slate-600 leading-5">
+              {{ 'participant.time' | translate }}
+            </p>
+          </div>
+
+          <!-- Distance -->
+          <div class="flex flex-col gap-1">
+            <div class="flex flex-row items-center gap-1">
+              <img [src]="distanceIcon" alt="Distance" class="w-[18px] h-[18px]" />
+              <p class="text-base font-bold leading-5">
+                {{ currentUser.distanceInMeters | distance }}
+              </p>
+            </div>
+            <p class="text-sm text-slate-600 leading-5">
+              {{ 'participant.distance' | translate }}
+            </p>
+          </div>
+
+          @if (challenge.goal.activityType !== activityTypeEnum.Other) {
+            <!-- Elevation -->
+            <div class="flex flex-col gap-1">
+              <div class="flex flex-row items-center gap-1">
+                <img [src]="elevationIcon" alt="Elevation" class="w-[18px] h-[18px]" />
+                <p class="text-base font-bold leading-5">
+                  {{ currentUser.elevationGainInMeters | elevation }}
+                </p>
+              </div>
+              <p class="text-sm text-slate-600 leading-5">
+                {{ 'participant.elevationGain' | translate }}
+              </p>
+            </div>
+
+            <!-- Pace/Speed -->
+            <div class="flex flex-col gap-1">
+              <div class="flex flex-row items-center gap-1">
+                <img [src]="paceIcon" alt="Pace" class="w-[18px] h-[18px]" />
+                <p class="text-base font-bold leading-5">
+                  @if (
+                    challenge.goal.activityType === activityTypeEnum.Running ||
+                    challenge.goal.activityType === activityTypeEnum.TreadmillRunning ||
+                    challenge.goal.activityType === activityTypeEnum.Walking
+                  ) {
+                    {{ currentUser.averagePaceInMinutesPerKilometer | pace }}
+                  } @else {
+                    {{ currentUser.averageSpeedInMetersPerSecond | speed }}
+                  }
+                </p>
+              </div>
+              <p class="text-sm text-slate-600 leading-5">
+                {{
+                  (challenge.goal.activityType === activityTypeEnum.Running ||
+                  challenge.goal.activityType === activityTypeEnum.TreadmillRunning ||
+                  challenge.goal.activityType === activityTypeEnum.Walking
+                    ? 'participant.pace'
+                    : 'participant.speed'
+                  ) | translate
+                }}
+              </p>
+            </div>
+          }
+
+          <!-- Calories -->
+          <div class="flex flex-col gap-1">
+            <div class="flex flex-row items-center gap-1">
+              <img [src]="caloriesIcon" alt="Calories" class="w-[18px] h-[18px]" />
+              <p class="text-base font-bold leading-5">
+                {{ currentUser.calories | calories }}
+              </p>
+            </div>
+            <p class="text-sm text-slate-600 leading-5">
+              {{ 'participant.calories' | translate }}
+            </p>
+          </div>
+
+          <!-- Number of activities -->
+          <div class="flex flex-col gap-1">
+            <div class="flex flex-row items-center gap-1">
+              <img [src]="durationIcon" alt="Duration" class="w-[18px] h-[18px]" />
+              <p class="text-base font-bold leading-5">
+                {{ currentUser.numberOfActivities }}
+              </p>
+            </div>
+            <p class="text-sm text-slate-600 leading-5">
+              {{ 'participant.activities' | translate }}
+            </p>
           </div>
         </div>
       }

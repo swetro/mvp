@@ -10,6 +10,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { ACTIVITY_TYPE_ICONS } from '../../constants/activity-type-icons';
 import { ActivityType } from '../../enums/activity-type.enum';
 import { LocalizedDatePipe } from '../../pipes/localized-date.pipe';
+import { SpeedPipe } from '../../pipes/speed.pipe';
 
 @Component({
   selector: 'app-activity-list',
@@ -22,6 +23,7 @@ import { LocalizedDatePipe } from '../../pipes/localized-date.pipe';
     CaloriesPipe,
     LocalizedDatePipe,
     TranslatePipe,
+    SpeedPipe,
   ],
   templateUrl: './activity-list.html',
   styles: ``,

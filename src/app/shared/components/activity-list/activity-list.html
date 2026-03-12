@@ -74,7 +74,15 @@
                   <div class="flex flex-row items-center gap-1">
                     <img [src]="paceIcon" alt="Pace" class="w-[18px] h-[18px]" />
                     <p class="text-base font-bold leading-5">
-                      {{ item.averagePaceInMinutesPerKilometer | pace }}
+                      @if (
+                        item.type === activityTypeEnum.Running ||
+                        item.type === activityTypeEnum.TreadmillRunning ||
+                        item.type === activityTypeEnum.Walking
+                      ) {
+                        {{ item.averagePaceInMinutesPerKilometer | pace }}
+                      } @else {
+                        {{ item.averageSpeedInMetersPerSecond | speed }}
+                      }
                     </p>
                   </div>
                   <p class="text-sm text-slate-600 leading-5">
