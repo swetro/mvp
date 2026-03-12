@@ -3,110 +3,11 @@
 @if (challenges) {
   <div class="grid grid-cols-1 gap-4">
     @for (challenge of challenges; track challenge.id) {
-      <article>
-        <div class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden">
-          <!-- Header Section with full-width background -->
-          <div class="bg-slate-200 px-4 py-4">
-            <div class="flex items-center gap-3">
-              <div
-                class="w-[30px] h-[30px] flex items-center justify-center rounded-[4px] shrink-0"
-              >
-                <img
-                  class="w-full h-full"
-                  [src]="getActivityTypeIcon(challenge.goal.activityType)"
-                  alt="Activity type"
-                />
-              </div>
-              <div class="flex flex-col">
-                <p class="text-base font-bold leading-5">
-                  {{ challenge.content.title }}
-                </p>
-                <div class="flex items-center gap-4 text-sm mt-1">
-                  <p class="flex items-center gap-1">
-                    <img class="w-[1em] h-[1em] shrink-0" [src]="calendarIcon" alt="Calendar" />
-                    {{ challenge.startTime | localizedDate: 'dayMonth' }} -
-                    {{ challenge.endTime | localizedDate: 'dayMonth' }}
-                  </p>
-                  <p class="flex items-center gap-1">
-                    <img class="w-[1em] h-[1em] shrink-0" [src]="usersIcon" alt="Users" />
-                    @if (
-                      challenge.currentUser?.isParticipating &&
-                      (challenge.currentUser?.position ?? 0) > 0
-                    ) {
-                      {{
-                        'challengeList.position'
-                          | translate
-                            : {
-                                position: challenge.currentUser?.position,
-                                total: challenge.numberOfParticipants,
-                              }
-                      }}
-                    } @else {
-                      {{ challenge.numberOfParticipants }}
-                    }
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Body -->
-          <div class="px-4 py-4 space-y-3">
-            <p class="text-sm text-slate-600">
-              {{ challenge.content.description | truncate: 120 }}
-            </p>
-
-            @if (challenge.currentUser?.isParticipating) {
-              @let percent = getProgressPercent(challenge);
-              <div class="pt-3 border-t border-slate-100">
-                <div class="flex items-center justify-between text-xs text-slate-600 mb-1.5">
-                  <span>{{ 'challengeParticipant.goalProgress' | translate }}</span>
-                  @if (challenge.currentUser?.isCompleted === true) {
-                    <span class="font-semibold text-emerald-600">
-                      {{ 'challengeParticipant.completed' | translate }}
-                    </span>
-                  } @else {
-                    <span class="font-semibold text-slate-800">{{ percent }}%</span>
-                  }
-                </div>
-                <div class="w-full bg-slate-200 rounded-full h-1.5">
-                  <div
-                    class="h-1.5 rounded-full transition-all duration-300"
-                    [ngClass]="{
-                      'bg-emerald-500':
-                        challenge.currentUser?.isCompleted === true && percent === 100,
-                      'bg-orange-500':
-                        !(challenge.currentUser?.isCompleted === true && percent === 100) &&
-                        percent > 70,
-                      'bg-blue-600':
-                        !(challenge.currentUser?.isCompleted === true && percent === 100) &&
-                        percent <= 70,
-                    }"
-                    [style.width.%]="percent"
-                  ></div>
-                </div>
-              </div>
-            }
-
-            <!-- CTA -->
-            <div class="pt-3 flex justify-end">
-              @if (challenge.status === challengeStatusEnum.Completed) {
-                <button type="button" class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto">
-                  {{ 'challengeList.btnResults' | translate }}
-                </button>
-              } @else if (challenge.currentUser?.isParticipating) {
-                <button type="button" class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto">
-                  {{ 'challengeList.btnLeaderboard' | translate }}
-                </button>
-              } @else {
-                <button type="button" class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto">
-                  {{ 'challengeList.btnJoin' | translate }}
-                </button>
-              }
-            </div>
-          </div>
-        </div>
-      </article>
+      @if (challenge.status === challengeStatusEnum.Completed) {
+        <app-challenge-card-completed [challengeData]="challenge"></app-challenge-card-completed>
+      } @else {
+        <app-challenge-card-active [challengeData]="challenge"></app-challenge-card-active>
+      }
     }
   </div>
 }
