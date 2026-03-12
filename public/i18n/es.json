@@ -57,11 +57,12 @@
     "title": "Resultados: {{challengeTitle}}"
   },
   "challengeParticipant": {
-    "completed": "Completado 🏅",
+    "completed": "Completado",
     "description": "Desempeño de {{participantName}} en {{challengeTitle}}: consulta su posición, categoría y todas sus actividades registradas. Descubre cómo avanzó en el reto y compáralo con otros participantes de su categoría.",
     "goalProgress": "Progreso",
     "inProgress": "En Progreso",
     "linkBack": "Regresar",
+    "notCompleted": "No completado",
     "title": "Resultados de {{participantName}} en {{challengeTitle}}",
     "years": "años"
   },

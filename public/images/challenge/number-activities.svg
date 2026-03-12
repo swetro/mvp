@@ -1,0 +1,50 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Barra 1 (Actividad inicial) -->
+<path
+d="M4 20V16"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+<!-- Barra 2 -->
+<path
+d="M9 20V12"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+<!-- Barra 3 -->
+<path
+d="M14 20V8"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+<path
+d="M19 20V14"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+<path
+d="M17 9L19 11L23 7"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+
+<!-- Línea de base -->
+
+<path
+d="M2 20H22"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+</svg>

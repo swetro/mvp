@@ -1,170 +1,198 @@
 @let challenge = challengeData();
 @let currentUser = challenge?.currentUser;
 
-<article>
-  <div class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden">
-    <!-- Header -->
-    <div class="bg-slate-200 px-4 py-4">
-      <div class="flex items-center gap-3">
-        <div class="w-[30px] h-[30px] flex items-center justify-center rounded-[4px] shrink-0">
-          <img
-            class="w-full h-full"
-            [src]="getActivityTypeIcon(challenge.goal.activityType)"
-            alt="Activity type"
-          />
-        </div>
-        <div class="flex flex-col">
-          <p class="text-base font-bold leading-5">{{ challenge.content.title }}</p>
-          <div class="flex items-center gap-4 text-sm mt-1">
-            <p class="flex items-center gap-1">
-              <img class="w-[1em] h-[1em] shrink-0" [src]="calendarIcon" alt="Calendar" />
-              {{ challenge.startTime | localizedDate: 'short' }} -
-              {{ challenge.endTime | localizedDate: 'short' }}
-            </p>
-            <p class="flex items-center gap-1"></p>
+@if (currentUser) {
+  <article>
+    <div class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden">
+      <!-- Header -->
+      <div
+        class="px-4 py-4"
+        [ngClass]="{
+          'bg-emerald-50': currentUser.isCompleted === true,
+          'bg-slate-200': currentUser.isCompleted === false,
+        }"
+      >
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-[30px] h-[30px] flex items-center justify-center rounded-[4px] shrink-0">
+              <img
+                class="w-full h-full"
+                [src]="getActivityTypeIcon(challenge.goal.activityType)"
+                alt="Activity type"
+              />
+            </div>
+            <div class="flex flex-col min-w-0">
+              <p class="text-base font-bold leading-5">{{ challenge.content.title }}</p>
+              <div class="flex items-center gap-4 text-sm mt-1">
+                <p class="flex items-center gap-1">
+                  <img class="w-[1em] h-[1em] shrink-0" [src]="calendarIcon" alt="Calendar" />
+                  {{ challenge.startTime | localizedDate: 'short' }} -
+                  {{ challenge.endTime | localizedDate: 'short' }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-first sm:order-last flex items-center gap-2 shrink-0">
+            @if (currentUser.isCompleted) {
+              <span class="bg-emerald-500 text-white text-xs font-medium rounded-full px-3 py-1">
+                ✔ {{ 'challengeParticipant.completed' | translate }}
+                @if (medalEmoji()) {
+                  {{ medalEmoji() }}
+                }
+              </span>
+            } @else {
+              <span class="bg-slate-500 text-white text-xs font-medium rounded-full px-3 py-1">
+                {{ 'challengeParticipant.notCompleted' | translate }}
+              </span>
+            }
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Body -->
-    <div class="px-4 py-4 space-y-3">
-      <p class="text-sm text-slate-600">{{ challenge.content.description | truncate: 140 }}</p>
+      <!-- Body -->
+      <div class="px-4 py-4 space-y-3">
+        <p class="text-sm text-slate-600">{{ challenge.content.description | truncate: 140 }}</p>
 
-      @if (currentUser) {
-        <!-- Stats grid -->
-        <div
-          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 pt-3 border-t border-slate-100"
-        >
-          <!-- Position -->
-          <div class="flex flex-col gap-1">
-            <div class="flex flex-row items-center gap-1">
-              <img [src]="durationIcon" alt="Duration" class="w-[18px] h-[18px]" />
-              <p class="text-base font-bold leading-5">
-                {{ currentUser.position }}
-              </p>
-            </div>
-            <p class="text-sm text-slate-600 leading-5">
-              {{ 'participant.position' | translate }}
-            </p>
-          </div>
-
-          <!-- Number of participants -->
-          <div class="flex flex-col gap-1">
-            <div class="flex flex-row items-center gap-1">
-              <img [src]="usersIcon" alt="Participants" class="w-[18px] h-[18px]" />
-              <p class="text-base font-bold leading-5">
-                {{ challenge.numberOfParticipants }}
-              </p>
-            </div>
-            <p class="text-sm text-slate-600 leading-5">
-              {{ 'participant.numberOfParticipants' | translate }}
-            </p>
-          </div>
-
-          <!-- Duration -->
-          <div class="flex flex-col gap-1">
-            <div class="flex flex-row items-center gap-1">
-              <img [src]="durationIcon" alt="Duration" class="w-[18px] h-[18px]" />
-              <p class="text-base font-bold leading-5">
-                {{ currentUser.durationInSeconds | duration }}
-              </p>
-            </div>
-            <p class="text-sm text-slate-600 leading-5">
-              {{ 'participant.time' | translate }}
-            </p>
-          </div>
-
-          <!-- Distance -->
-          <div class="flex flex-col gap-1">
-            <div class="flex flex-row items-center gap-1">
-              <img [src]="distanceIcon" alt="Distance" class="w-[18px] h-[18px]" />
-              <p class="text-base font-bold leading-5">
-                {{ currentUser.distanceInMeters | distance }}
-              </p>
-            </div>
-            <p class="text-sm text-slate-600 leading-5">
-              {{ 'participant.distance' | translate }}
-            </p>
-          </div>
-
-          @if (challenge.goal.activityType !== activityTypeEnum.Other) {
-            <!-- Elevation -->
+        @if (currentUser) {
+          <!-- Stats grid -->
+          <div
+            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 pt-3 border-t border-slate-100"
+          >
+            <!-- Position -->
             <div class="flex flex-col gap-1">
               <div class="flex flex-row items-center gap-1">
-                <img [src]="elevationIcon" alt="Elevation" class="w-[18px] h-[18px]" />
+                <img [src]="durationIcon" alt="Duration" class="w-[18px] h-[18px]" />
                 <p class="text-base font-bold leading-5">
-                  {{ currentUser.elevationGainInMeters | elevation }}
+                  {{ currentUser.position }}@if (medalEmoji()) { {{ medalEmoji() }} }
                 </p>
               </div>
               <p class="text-sm text-slate-600 leading-5">
-                {{ 'participant.elevationGain' | translate }}
+                {{ 'participant.position' | translate }}
               </p>
             </div>
 
-            <!-- Pace/Speed -->
+            <!-- Number of participants -->
             <div class="flex flex-col gap-1">
               <div class="flex flex-row items-center gap-1">
-                <img [src]="paceIcon" alt="Pace" class="w-[18px] h-[18px]" />
+                <img [src]="usersIcon" alt="Participants" class="w-[18px] h-[18px]" />
                 <p class="text-base font-bold leading-5">
-                  @if (
-                    challenge.goal.activityType === activityTypeEnum.Running ||
+                  {{ challenge.numberOfParticipants }}
+                </p>
+              </div>
+              <p class="text-sm text-slate-600 leading-5">
+                {{ 'participant.numberOfParticipants' | translate }}
+              </p>
+            </div>
+
+            <!-- Duration -->
+            <div class="flex flex-col gap-1">
+              <div class="flex flex-row items-center gap-1">
+                <img [src]="durationIcon" alt="Duration" class="w-[18px] h-[18px]" />
+                <p class="text-base font-bold leading-5">
+                  {{ currentUser.durationInSeconds | duration }}
+                </p>
+              </div>
+              <p class="text-sm text-slate-600 leading-5">
+                {{ 'participant.time' | translate }}
+              </p>
+            </div>
+
+            <!-- Distance -->
+            <div class="flex flex-col gap-1">
+              <div class="flex flex-row items-center gap-1">
+                <img [src]="distanceIcon" alt="Distance" class="w-[18px] h-[18px]" />
+                <p class="text-base font-bold leading-5">
+                  {{ currentUser.distanceInMeters | distance }}
+                </p>
+              </div>
+              <p class="text-sm text-slate-600 leading-5">
+                {{ 'participant.distance' | translate }}
+              </p>
+            </div>
+
+            @if (challenge.goal.activityType !== activityTypeEnum.Other) {
+              <!-- Elevation -->
+              <div class="flex flex-col gap-1">
+                <div class="flex flex-row items-center gap-1">
+                  <img [src]="elevationIcon" alt="Elevation" class="w-[18px] h-[18px]" />
+                  <p class="text-base font-bold leading-5">
+                    {{ currentUser.elevationGainInMeters | elevation }}
+                  </p>
+                </div>
+                <p class="text-sm text-slate-600 leading-5">
+                  {{ 'participant.elevationGain' | translate }}
+                </p>
+              </div>
+
+              <!-- Pace/Speed -->
+              <div class="flex flex-col gap-1">
+                <div class="flex flex-row items-center gap-1">
+                  <img [src]="paceIcon" alt="Pace" class="w-[18px] h-[18px]" />
+                  <p class="text-base font-bold leading-5">
+                    @if (
+                      challenge.goal.activityType === activityTypeEnum.Running ||
+                      challenge.goal.activityType === activityTypeEnum.TreadmillRunning ||
+                      challenge.goal.activityType === activityTypeEnum.Walking
+                    ) {
+                      {{ currentUser.averagePaceInMinutesPerKilometer | pace }}
+                    } @else {
+                      {{ currentUser.averageSpeedInMetersPerSecond | speed }}
+                    }
+                  </p>
+                </div>
+                <p class="text-sm text-slate-600 leading-5">
+                  {{
+                    (challenge.goal.activityType === activityTypeEnum.Running ||
                     challenge.goal.activityType === activityTypeEnum.TreadmillRunning ||
                     challenge.goal.activityType === activityTypeEnum.Walking
-                  ) {
-                    {{ currentUser.averagePaceInMinutesPerKilometer | pace }}
-                  } @else {
-                    {{ currentUser.averageSpeedInMetersPerSecond | speed }}
-                  }
+                      ? 'participant.pace'
+                      : 'participant.speed'
+                    ) | translate
+                  }}
+                </p>
+              </div>
+            }
+
+            <!-- Calories -->
+            <div class="flex flex-col gap-1">
+              <div class="flex flex-row items-center gap-1">
+                <img [src]="caloriesIcon" alt="Calories" class="w-[18px] h-[18px]" />
+                <p class="text-base font-bold leading-5">
+                  {{ currentUser.calories | calories }}
                 </p>
               </div>
               <p class="text-sm text-slate-600 leading-5">
-                {{
-                  (challenge.goal.activityType === activityTypeEnum.Running ||
-                  challenge.goal.activityType === activityTypeEnum.TreadmillRunning ||
-                  challenge.goal.activityType === activityTypeEnum.Walking
-                    ? 'participant.pace'
-                    : 'participant.speed'
-                  ) | translate
-                }}
+                {{ 'participant.calories' | translate }}
               </p>
             </div>
-          }
 
-          <!-- Calories -->
-          <div class="flex flex-col gap-1">
-            <div class="flex flex-row items-center gap-1">
-              <img [src]="caloriesIcon" alt="Calories" class="w-[18px] h-[18px]" />
-              <p class="text-base font-bold leading-5">
-                {{ currentUser.calories | calories }}
+            <!-- Number of activities -->
+            <div class="flex flex-col gap-1">
+              <div class="flex flex-row items-center gap-1">
+                <img
+                  [src]="numberActivitiesIcon"
+                  alt="Number of activities"
+                  class="w-[18px] h-[18px]"
+                />
+                <p class="text-base font-bold leading-5">
+                  {{ currentUser.numberOfActivities }}
+                </p>
+              </div>
+              <p class="text-sm text-slate-600 leading-5">
+                {{ 'participant.activities' | translate }}
               </p>
             </div>
-            <p class="text-sm text-slate-600 leading-5">
-              {{ 'participant.calories' | translate }}
-            </p>
           </div>
+        }
 
-          <!-- Number of activities -->
-          <div class="flex flex-col gap-1">
-            <div class="flex flex-row items-center gap-1">
-              <img [src]="durationIcon" alt="Duration" class="w-[18px] h-[18px]" />
-              <p class="text-base font-bold leading-5">
-                {{ currentUser.numberOfActivities }}
-              </p>
-            </div>
-            <p class="text-sm text-slate-600 leading-5">
-              {{ 'participant.activities' | translate }}
-            </p>
-          </div>
+        <!-- CTA -->
+        <div class="pt-3 flex justify-end">
+          <button type="button" class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto">
+            {{ 'challengeList.btnResults' | translate }}
+          </button>
         </div>
-      }
-
-      <!-- CTA -->
-      <div class="pt-3 flex justify-end">
-        <button type="button" class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto">
-          {{ 'challengeList.btnResults' | translate }}
-        </button>
       </div>
     </div>
-  </div>
-</article>
+  </article>
+}

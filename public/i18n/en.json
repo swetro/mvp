@@ -57,11 +57,12 @@
     "title": "Results: {{challengeTitle}}"
   },
   "challengeParticipant": {
-    "completed": "Completed 🏅",
+    "completed": "Completed",
     "description": "{{participantName}}’s performance in {{challengeTitle}}: explore their ranking, age category, and full activity log. See how they progressed through the challenge and compare their results with other participants.",
     "goalProgress": "Progress",
     "inProgress": "In Progress",
     "linkBack": "Back",
+    "notCompleted": "Not completed",
     "title": "{{participantName}} Results in {{challengeTitle}}",
     "years": "years"
   },

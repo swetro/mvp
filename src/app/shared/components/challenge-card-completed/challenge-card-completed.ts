@@ -11,6 +11,7 @@ import { SpeedPipe } from '../../pipes/speed.pipe';
 import { ChallengeDto } from '../../models/challenge.dto';
 import { ACTIVITY_TYPE_ICONS } from '../../constants/activity-type-icons';
 import { ActivityType } from '../../enums/activity-type.enum';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-challenge-card-completed',
@@ -24,7 +25,8 @@ import { ActivityType } from '../../enums/activity-type.enum';
     ElevationPipe,
     CaloriesPipe,
     SpeedPipe,
-  ],
+    NgClass,
+],
   templateUrl: './challenge-card-completed.html',
   styles: ``,
 })
@@ -33,13 +35,24 @@ export class ChallengeCardCompleted {
   readonly activityTypeEnum = ActivityType;
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
 
-  calendarIcon = './images/shared/calendar.svg';
-  usersIcon = './images/shared/users.svg';
-  durationIcon = './images/activity/duration.svg';
-  distanceIcon = './images/activity/distance.svg';
-  elevationIcon = './images/activity/elevation.svg';
-  paceIcon = './images/activity/pace.svg';
-  caloriesIcon = './images/activity/calories.svg';
+  readonly calendarIcon = './images/shared/calendar.svg';
+  readonly usersIcon = './images/shared/users.svg';
+  readonly durationIcon = './images/activity/duration.svg';
+  readonly distanceIcon = './images/activity/distance.svg';
+  readonly elevationIcon = './images/activity/elevation.svg';
+  readonly paceIcon = './images/activity/pace.svg';
+  readonly caloriesIcon = './images/activity/calories.svg';
+  readonly numberActivitiesIcon = './images/challenge/number-activities.svg';
+
+  medalEmoji = computed(() => {
+    const user = this.challengeData().currentUser;
+    if (!user?.isCompleted || !user.position || user.position > 3) {
+      return '';
+    }
+
+    const medals: Record<number, string> = { 1: '🥇', 2: '🥈', 3: '🥉' };
+    return medals[user.position] ?? '';
+  });
 
   getActivityTypeIcon(type: ActivityType): string {
     return (
