@@ -49,6 +49,7 @@ export class ChallengeCardCompleted {
   readonly paceIcon = './images/activity/pace.svg';
   readonly caloriesIcon = './images/activity/calories.svg';
   readonly numberActivitiesIcon = './images/challenge/number-activities.svg';
+  readonly positionIcon = './images/challenge/position.svg';
 
   medalEmoji = computed(() => {
     const user = this.challengeData().currentUser;
