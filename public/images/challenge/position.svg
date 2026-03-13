@@ -2,21 +2,21 @@
 <path
 d="M3 20V14H8V20"
 stroke="#0f172a"
-stroke-width="2"
+stroke-width="1"
 stroke-linecap="round"
 stroke-linejoin="round"
 />
 <path
 d="M8 20V10H16V20"
 stroke="#0f172a"
-stroke-width="2"
+stroke-width="1"
 stroke-linecap="round"
 stroke-linejoin="round"
 />
 <path
 d="M16 20V16H21V20"
 stroke="#0f172a"
-stroke-width="2"
+stroke-width="1"
 stroke-linecap="round"
 stroke-linejoin="round"
 />
@@ -25,14 +25,14 @@ cx="12"
 cy="6"
 r="2"
 stroke="#0f172a"
-stroke-width="2"
+stroke-width="1"
 stroke-linecap="round"
 stroke-linejoin="round"
 />
 <path
 d="M2 20H22"
 stroke="#0f172a"
-stroke-width="2"
+stroke-width="1"
 stroke-linecap="round"
 stroke-linejoin="round"
 />
