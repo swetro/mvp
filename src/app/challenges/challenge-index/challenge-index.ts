@@ -1,6 +1,8 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { ChallengeStatus } from '../../shared/enums/challenge-status.enum';
 import { ActivityType } from '../../shared/enums/activity-type.enum';
@@ -21,6 +23,8 @@ export class ChallengeIndex {
   private challengeService = inject(ChallengeService);
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   readonly challengeStatusEnum = ChallengeStatus;
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
@@ -54,6 +58,39 @@ export class ChallengeIndex {
   };
 
   constructor() {
+    this.route.queryParams.pipe(takeUntilDestroyed()).subscribe((params) => {
+      const status = params['status'];
+      this.statusTab.set(
+        status && Object.values(ChallengeStatus).includes(status as ChallengeStatus)
+          ? (status as ChallengeStatus)
+          : ChallengeStatus.Active,
+      );
+
+      const type = params['type'];
+      this.activityTypeFilter.set(
+        type && Object.values(ActivityType).includes(type as ActivityType)
+          ? (type as ActivityType)
+          : null,
+      );
+
+      const page = Number(params['page']);
+      this.currentPage.set(!isNaN(page) && page > 0 ? page : 1);
+    });
+
+    effect(() => {
+      const queryParams: Params = {
+        status: this.statusTab() !== ChallengeStatus.Active ? this.statusTab() : null,
+        type: this.activityTypeFilter() ?? null,
+        page: this.currentPage() > 1 ? this.currentPage() : null,
+      };
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams,
+        queryParamsHandling: 'merge',
+        replaceUrl: true,
+      });
+    });
+
     effect(() => {
       const meta = this.pageMetadata;
       if (meta) this.metaTagsService.updateMetaTags(meta);
