@@ -191,9 +191,12 @@
 
         <!-- CTA -->
         <div class="pt-3 flex justify-end">
-          <button type="button" class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto">
+          <a
+            [routerLink]="['/', currentLanguage, 'challenges', challenge.id]"
+            class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto"
+          >
             {{ 'challengeList.btnResults' | translate }}
-          </button>
+          </a>
         </div>
       </div>
     </div>

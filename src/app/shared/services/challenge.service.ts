@@ -37,12 +37,12 @@ export class ChallengeService {
     );
   }
 
-  getChallenge(slug: Signal<string>): HttpResourceRef<ChallengeDto | undefined> {
+  getChallenge(challengeId: Signal<number>): HttpResourceRef<ChallengeDto | undefined> {
     return httpResource<ChallengeDto>(
       () => {
-        const { leagueSlug, challengeId } = this.challengeConfigService.getChallengeConfig(slug());
+        const leagueSlug = this.challengeConfigService.getDefaultLeagueSlug();
         return {
-          url: `${environment.apiUrl}/challenges/${leagueSlug}/${challengeId}`,
+          url: `${environment.apiUrl}/challenges/${leagueSlug}/${challengeId()}`,
         };
       },
       {
@@ -52,14 +52,14 @@ export class ChallengeService {
   }
 
   getParticipants(
-    slug: Signal<string>,
+    challengeId: Signal<number>,
     pageNumber: Signal<number>,
     filter?: Signal<string>,
     search?: Signal<string>,
   ): HttpResourceRef<PagedResult<ParticipantDto> | undefined> {
     return httpResource<PagedResult<ParticipantDto>>(
       () => {
-        const { leagueSlug, challengeId } = this.challengeConfigService.getChallengeConfig(slug());
+        const leagueSlug = this.challengeConfigService.getDefaultLeagueSlug();
         const params = new URLSearchParams();
         if (filter?.()) params.append('filter', filter());
         if (search?.()) params.append('search', search());
@@ -67,7 +67,7 @@ export class ChallengeService {
         const query = params.toString() ? `?${params.toString()}` : '';
 
         return {
-          url: `${environment.apiUrl}/challenges/${leagueSlug}/${challengeId}/participants${query}`,
+          url: `${environment.apiUrl}/challenges/${leagueSlug}/${challengeId()}/participants${query}`,
         };
       },
       {
@@ -77,14 +77,14 @@ export class ChallengeService {
   }
 
   getParticipant(
-    slug: Signal<string>,
+    challengeId: Signal<number>,
     participantId: Signal<string>,
   ): HttpResourceRef<ParticipantDto | undefined> {
     return httpResource<ParticipantDto>(
       () => {
-        const { leagueSlug, challengeId } = this.challengeConfigService.getChallengeConfig(slug());
+        const leagueSlug = this.challengeConfigService.getDefaultLeagueSlug();
         return {
-          url: `${environment.apiUrl}/challenges/${leagueSlug}/${challengeId}/participants/${participantId()}`,
+          url: `${environment.apiUrl}/challenges/${leagueSlug}/${challengeId()}/participants/${participantId()}`,
         };
       },
       {

@@ -79,9 +79,12 @@
       <!-- CTA -->
       <div class="pt-3 flex justify-end">
         @if (challenge.currentUser?.isParticipating) {
-          <button type="button" class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto">
+          <a
+            [routerLink]="['/', currentLanguage, 'challenges', challenge.id]"
+            class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto"
+          >
             {{ 'challengeList.btnLeaderboard' | translate }}
-          </button>
+          </a>
         } @else {
           <button type="button" class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto">
             {{ 'challengeList.btnJoin' | translate }}

@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LocalizedDatePipe } from '../../pipes/localized-date.pipe';
 import { TruncatePipe } from '../../pipes/truncate.pipe';
@@ -12,6 +12,8 @@ import { ChallengeDto } from '../../models/challenge.dto';
 import { ACTIVITY_TYPE_ICONS } from '../../constants/activity-type-icons';
 import { ActivityType } from '../../enums/activity-type.enum';
 import { NgClass } from '@angular/common';
+import { LanguageService } from '../../../core/services/language.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-challenge-card-completed',
@@ -26,11 +28,15 @@ import { NgClass } from '@angular/common';
     CaloriesPipe,
     SpeedPipe,
     NgClass,
-],
+    RouterLink,
+  ],
   templateUrl: './challenge-card-completed.html',
   styles: ``,
 })
 export class ChallengeCardCompleted {
+  private languageService = inject(LanguageService);
+
+  currentLanguage = this.languageService.getCurrentLanguage();
   challengeData = input.required<ChallengeDto>();
   readonly activityTypeEnum = ActivityType;
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;

@@ -1,9 +1,11 @@
 @let participant = participantData.value();
 
 <section>
-  <a [routerLink]="['/', currentLanguage, 'leaderboard', slug()]" queryParamsHandling="preserve">{{
-    'challengeParticipant.linkBack' | translate
-  }}</a>
+  <a
+    [routerLink]="['/', currentLanguage, 'leaderboard', challengeId()]"
+    queryParamsHandling="preserve"
+    >{{ 'challengeParticipant.linkBack' | translate }}</a
+  >
 
   @if (participant) {
     <div class="mt-10 mb-20">

@@ -43,7 +43,7 @@
         @if (participants.items.length > 0) {
           <app-challenge-participants-table
             [participantsData]="participants.items"
-            [route]="`/${currentLanguage}/leaderboard/${slug()}`"
+            [route]="`/${currentLanguage}/challenges/${challengeId()}`"
           ></app-challenge-participants-table>
           <div
             class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200 pt-4"

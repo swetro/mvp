@@ -37,12 +37,12 @@ export class ChallengeParticipant {
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
   private languageService = inject(LanguageService);
-  slug = input.required<string>();
+  challengeId = input.required<number>();
   participantId = input.required<string>();
 
   currentLanguage = this.languageService.getCurrentLanguage();
-  challengeData = this.challengeService.getChallenge(this.slug);
-  participantData = this.challengeService.getParticipant(this.slug, this.participantId);
+  challengeData = this.challengeService.getChallenge(this.challengeId);
+  participantData = this.challengeService.getParticipant(this.challengeId, this.participantId);
   pageMetadata = computed<Partial<PageMetadata> | null>(() => {
     const challenge = this.challengeData.value();
     const participant = this.participantData.value();

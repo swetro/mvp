@@ -24,15 +24,15 @@ export class ChallengeLeaderboard implements OnDestroy {
   private route = inject(ActivatedRoute);
   private searchTimer?: number;
 
-  slug = input.required<string>();
+  challengeId = input.required<number>();
   selectedFilter = signal<string>('overall');
   searchTerm = signal<string>('');
   currentPage = signal<number>(1);
 
   currentLanguage = this.languageService.getCurrentLanguage();
-  challengeData = this.challengeService.getChallenge(this.slug);
+  challengeData = this.challengeService.getChallenge(this.challengeId);
   participantsData = this.challengeService.getParticipants(
-    this.slug,
+    this.challengeId,
     this.currentPage,
     this.selectedFilter,
     this.searchTerm,

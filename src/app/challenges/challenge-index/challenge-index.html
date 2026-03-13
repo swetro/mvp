@@ -62,7 +62,11 @@
         "
         (click)="setActivityType(type)"
       >
-        <img class="w-4 h-4" [src]="getActivityTypeIcon(type, activityTypeFilter() === type)" [alt]="type" />
+        <img
+          class="w-4 h-4"
+          [src]="getActivityTypeIcon(type, activityTypeFilter() === type)"
+          [alt]="type"
+        />
         {{ 'activityType.' + type | translate }}
       </button>
     }
