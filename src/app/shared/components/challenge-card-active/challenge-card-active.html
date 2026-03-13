@@ -20,23 +20,12 @@
               {{ challenge.startTime | localizedDate: 'dayMonth' }} -
               {{ challenge.endTime | localizedDate: 'dayMonth' }}
             </p>
-            <p class="flex items-center gap-1">
-              <img class="w-[1em] h-[1em] shrink-0" [src]="usersIcon" alt="Users" />
-              @if (
-                challenge.currentUser?.isParticipating && (challenge.currentUser?.position ?? 0) > 0
-              ) {
-                {{
-                  'challengeList.position'
-                    | translate
-                      : {
-                          position: challenge.currentUser?.position,
-                          total: challenge.numberOfParticipants,
-                        }
-                }}
-              } @else {
+            @if (!challenge.currentUser?.isParticipating) {
+              <p class="flex items-center gap-1">
+                <img class="w-[1em] h-[1em] shrink-0" [src]="usersIcon" alt="Users" />
                 {{ challenge.numberOfParticipants }}
-              }
-            </p>
+              </p>
+            }
           </div>
         </div>
       </div>
