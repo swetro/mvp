@@ -78,7 +78,7 @@
             <!-- Number of participants -->
             <div class="flex flex-col gap-1">
               <div class="flex flex-row items-center gap-1">
-                <img [src]="usersIcon" alt="Participants" class="w-[18px] h-[18px]" />
+                <img [src]="participantsIcon" alt="Participants" class="w-[18px] h-[18px]" />
                 <p class="text-base font-bold leading-5">
                   {{ challenge.numberOfParticipants }}
                 </p>
@@ -190,13 +190,16 @@
         }
 
         <!-- CTA -->
-        <div class="pt-3 flex justify-center sm:justify-end">
+        <div class="pt-3 flex flex-col sm:flex-row gap-2 justify-center sm:justify-end">
           <a
             [routerLink]="['/', currentLanguage, 'challenges', challenge.id]"
-            class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto text-center"
+            class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
           >
             {{ 'challengeList.btnResults' | translate }}
           </a>
+          <button type="button" class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto text-center">
+            {{ 'challengeList.btnDetails' | translate }}
+          </button>
         </div>
       </div>
     </div>

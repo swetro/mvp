@@ -70,10 +70,10 @@
     "details": "Ver Detalles"
   },
   "challengeList": {
+    "btnDetails": "Ver detalles",
     "btnJoin": "Unirme",
-    "btnLeaderboard": "Ver progreso",
-    "btnResults": "Ver resultados",
-    "position": "Posición: {{position}} de {{total}}"
+    "btnLeaderboard": "Ver clasificación",
+    "btnResults": "Ver clasificación"
   },
   "devices": {
     "body": {

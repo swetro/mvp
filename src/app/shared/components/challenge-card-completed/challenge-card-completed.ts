@@ -42,7 +42,6 @@ export class ChallengeCardCompleted {
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
 
   readonly calendarIcon = './images/shared/calendar.svg';
-  readonly usersIcon = './images/shared/users.svg';
   readonly durationIcon = './images/activity/duration.svg';
   readonly distanceIcon = './images/activity/distance.svg';
   readonly elevationIcon = './images/activity/elevation.svg';
@@ -50,6 +49,7 @@ export class ChallengeCardCompleted {
   readonly caloriesIcon = './images/activity/calories.svg';
   readonly numberActivitiesIcon = './images/challenge/number-activities.svg';
   readonly positionIcon = './images/challenge/position.svg';
+  readonly participantsIcon = './images/challenge/participants.svg';
 
   medalEmoji = computed(() => {
     const user = this.challengeData().currentUser;
