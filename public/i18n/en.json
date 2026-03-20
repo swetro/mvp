@@ -34,6 +34,17 @@
     "Multisport": "Multisport",
     "Other": "Other"
   },
+  "challengeDetails": {
+    "activityType": "Activity type",
+    "duration": "Duration",
+    "durationDays": "{{days}} days",
+    "endDateTime": "End date and time",
+    "objective": "Objective",
+    "numberOfParticipants": "Participants",
+    "rules": "Rules",
+    "startDateTime": "Start date and time",
+    "title": "{{challengeTitle}} | Details"
+  },
   "challengeIndex": {
     "body": {
       "title": "Challenges",

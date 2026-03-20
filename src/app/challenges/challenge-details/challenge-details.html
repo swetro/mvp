@@ -1,0 +1,112 @@
+<section>
+  @if (challengeData.isLoading()) {
+    <div class="flex justify-center py-20">
+      <app-spinner></app-spinner>
+    </div>
+  } @else if (challengeData.value(); as challenge) {
+    <h2>{{ challenge.content.title }}</h2>
+    <!-- Activity type -->
+    <div class="mt-2 flex items-center gap-2">
+      <img
+        [src]="getActivityTypeIcon(challenge.goal.activityType)"
+        alt="Activity type"
+        class="w-6 h-6"
+      />
+      <div class="flex flex-col">
+        <span class="text-sm font-semibold text-slate-800">
+          {{ 'activityType.' + challenge.goal.activityType | translate }}
+        </span>
+        <span class="text-xs text-slate-500">{{
+          'challengeDetails.activityType' | translate
+        }}</span>
+      </div>
+    </div>
+
+    <!-- Info grid -->
+    <div class="mt-6 mb-20 space-y-6">
+      <!-- Description -->
+      <div>{{ challenge.content.description }}</div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-3">
+        <!-- Start date -->
+        <div class="flex flex-col gap-1">
+          <div class="flex flex-row items-center gap-1">
+            <img [src]="calendarIcon" alt="Start date" class="w-[18px] h-[18px]" />
+            <p class="text-base font-bold leading-5">
+              {{ challenge.startTime | localizedDate }}
+            </p>
+          </div>
+          <p class="text-sm text-slate-600 leading-5">
+            {{ 'challengeDetails.startDateTime' | translate }}
+          </p>
+        </div>
+
+        <!-- End date -->
+        <div class="flex flex-col gap-1">
+          <div class="flex flex-row items-center gap-1">
+            <img [src]="calendarIcon" alt="End date" class="w-[18px] h-[18px]" />
+            <p class="text-base font-bold leading-5">
+              {{ challenge.endTime | localizedDate }}
+            </p>
+          </div>
+          <p class="text-sm text-slate-600 leading-5">
+            {{ 'challengeDetails.endDateTime' | translate }}
+          </p>
+        </div>
+
+        <!-- Duration -->
+        <div class="flex flex-col gap-1">
+          <div class="flex flex-row items-center gap-1">
+            <img [src]="clockIcon" alt="Duration" class="w-[18px] h-[18px]" />
+            <p class="text-base font-bold leading-5">
+              {{ 'challengeDetails.durationDays' | translate: { days: durationInDays() } }}
+            </p>
+          </div>
+          <p class="text-sm text-slate-600 leading-5">
+            {{ 'challengeDetails.duration' | translate }}
+          </p>
+        </div>
+
+        <!-- Number of participants -->
+        <div class="flex flex-col gap-1">
+          <div class="flex flex-row items-center gap-1">
+            <img [src]="participantsIcon" alt="Participants" class="w-[18px] h-[18px]" />
+            <p class="text-base font-bold leading-5">
+              {{ challenge.numberOfParticipants }}
+            </p>
+          </div>
+          <p class="text-sm text-slate-600 leading-5">
+            {{ 'challengeDetails.numberOfParticipants' | translate }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Objective -->
+      <div class="flex flex-col gap-1">
+        <div class="flex flex-row items-center gap-1">
+          <p class="text-base font-bold leading-5">
+            {{ challenge.content.goalDescription }}
+          </p>
+        </div>
+        <p class="text-sm text-slate-600 leading-5">
+          {{ 'challengeDetails.objective' | translate }}
+        </p>
+      </div>
+      <!-- Rules -->
+      @if (challenge.content.ruleList.length) {
+        <div class="flex flex-col gap-1">
+          <div class="flex flex-row items-center gap-1">
+            <p class="text-base font-bold leading-5">
+              {{ 'challengeDetails.rules' | translate }}
+            </p>
+          </div>
+          <ul class="list-disc list-outside space-y-2 pl-4">
+            @for (rule of challenge.content.ruleList; track $index) {
+              <li class="text-sm text-slate-700">{{ rule }}</li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  }
+</section>

@@ -219,12 +219,12 @@
             {{ 'challengeList.btnJoin' | translate }}
           </button>
         }
-        <button
-          type="button"
+        <a
+          [routerLink]="['/', currentLanguage, 'challenges', challenge.id, 'details']"
           class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
         >
           {{ 'challengeList.btnDetails' | translate }}
-        </button>
+        </a>
       </div>
     </div>
   </div>

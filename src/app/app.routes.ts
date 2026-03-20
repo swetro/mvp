@@ -5,6 +5,7 @@ import { Home } from './home/home';
 import { ChallengeIndex } from './challenges/challenge-index/challenge-index';
 import { ChallengeLeaderboard } from './challenges/challenge-leaderboard/challenge-leaderboard';
 import { ChallengeParticipant } from './challenges/challenge-participant/challenge-participant';
+import { ChallengeDetails } from './challenges/challenge-details/challenge-details';
 import { SignIn } from './auth/sign-in/sign-in';
 import { SignUp } from './auth/sign-up/sign-up';
 import { VerifyOtp } from './auth/verify-otp/verify-otp';
@@ -22,6 +23,7 @@ const mainRoutes: Routes = [
   { path: '', component: Home },
   { path: 'challenges', component: ChallengeIndex },
   { path: 'challenges/:challengeId', component: ChallengeLeaderboard, pathMatch: 'full' },
+  { path: 'challenges/:challengeId/details', component: ChallengeDetails },
   {
     path: 'challenges/:challengeId/:participantId',
     component: ChallengeParticipant,
