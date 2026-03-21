@@ -4,26 +4,19 @@
       <app-spinner></app-spinner>
     </div>
   } @else if (challengeData.value(); as challenge) {
-    <h2>{{ challenge.content.title }}</h2>
-    <!-- Activity type -->
-    <div class="mt-2 flex items-center gap-2">
+    <!-- Activity type badge -->
+    <div class="mb-3 flex items-center gap-1.5 self-start w-fit px-4 py-1.5 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">
       <img
+        class="w-4 h-4"
         [src]="getActivityTypeIcon(challenge.goal.activityType)"
-        alt="Activity type"
-        class="w-6 h-6"
+        [alt]="challenge.goal.activityType"
       />
-      <div class="flex flex-col">
-        <span class="text-sm font-semibold text-slate-800">
-          {{ 'activityType.' + challenge.goal.activityType | translate }}
-        </span>
-        <span class="text-xs text-slate-500">{{
-          'challengeDetails.activityType' | translate
-        }}</span>
-      </div>
+      {{ 'activityType.' + challenge.goal.activityType | translate }}
     </div>
+    <h2>{{ challenge.content.title }}</h2>
 
     <!-- Info grid -->
-    <div class="mt-6 mb-20 space-y-6">
+    <div class="mt-6 mb-28 sm:mb-6 space-y-6">
       <!-- Description -->
       <div>{{ challenge.content.description }}</div>
 
@@ -85,11 +78,11 @@
       <div class="flex flex-col gap-1">
         <div class="flex flex-row items-center gap-1">
           <p class="text-base font-bold leading-5">
-            {{ challenge.content.goalDescription }}
+            {{ 'challengeDetails.objective' | translate }}
           </p>
         </div>
-        <p class="text-sm text-slate-600 leading-5">
-          {{ 'challengeDetails.objective' | translate }}
+        <p class="text-sm leading-5">
+          {{ challenge.content.goalDescription }}
         </p>
       </div>
       <!-- Rules -->
@@ -102,10 +95,30 @@
           </div>
           <ul class="list-disc list-outside space-y-2 pl-4">
             @for (rule of challenge.content.ruleList; track $index) {
-              <li class="text-sm text-slate-700">{{ rule }}</li>
+              <li class="text-sm text-slate-600">{{ rule }}</li>
             }
           </ul>
         </div>
+      }
+
+    </div>
+
+    <!-- CTA: fixed bottom bar on mobile, centered inline on desktop -->
+    <div class="fixed bottom-0 left-0 right-0 z-10 px-4 pb-6 pt-3 bg-white/90 backdrop-blur-sm sm:static sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:flex sm:justify-center sm:mt-6 sm:mb-10">
+      @if (challenge.currentUser?.isParticipating) {
+        <a
+          [routerLink]="['/', currentLanguage, 'challenges', challenge.id]"
+          class="btn-primary text-sm px-4 py-3 w-full sm:w-auto sm:min-w-[140px] sm:py-1.5 text-center block"
+        >
+          {{ 'challengeList.btnLeaderboard' | translate }}
+        </a>
+      } @else {
+        <button
+          type="button"
+          class="btn-primary text-sm px-4 py-3 w-full sm:w-auto sm:min-w-[140px] sm:py-1.5 text-center"
+        >
+          {{ 'challengeList.btnJoin' | translate }}
+        </button>
       }
     </div>
   }

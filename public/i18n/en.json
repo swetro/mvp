@@ -38,11 +38,11 @@
     "activityType": "Activity type",
     "duration": "Duration",
     "durationDays": "{{days}} days",
-    "endDateTime": "End date and time",
+    "endDateTime": "End",
     "objective": "Objective",
     "numberOfParticipants": "Participants",
     "rules": "Rules",
-    "startDateTime": "Start date and time",
+    "startDateTime": "Start",
     "title": "{{challengeTitle}} | Details"
   },
   "challengeIndex": {

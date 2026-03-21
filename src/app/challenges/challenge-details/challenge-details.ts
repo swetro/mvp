@@ -1,5 +1,6 @@
 import { Component, computed, effect, inject, input } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { LanguageService } from '../../core/services/language.service';
 import { LocalizedDatePipe } from '../../shared/pipes/localized-date.pipe';
@@ -10,7 +11,7 @@ import { MetaTagsService } from '../../shared/services/meta-tags.service';
 
 @Component({
   selector: 'app-challenge-details',
-  imports: [TranslatePipe, LocalizedDatePipe, Spinner],
+  imports: [TranslatePipe, LocalizedDatePipe, Spinner, RouterLink],
   templateUrl: './challenge-details.html',
   styles: ``,
 })
