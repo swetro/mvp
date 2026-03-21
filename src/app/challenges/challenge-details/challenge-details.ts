@@ -1,17 +1,19 @@
-import { Component, computed, effect, inject, input } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { LanguageService } from '../../core/services/language.service';
 import { LocalizedDatePipe } from '../../shared/pipes/localized-date.pipe';
 import { ACTIVITY_TYPE_ICONS } from '../../shared/constants/activity-type-icons';
 import { ActivityType } from '../../shared/enums/activity-type.enum';
+import { ChallengeStatus } from '../../shared/enums/challenge-status.enum';
 import { Spinner } from '../../shared/components/spinner/spinner';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 
 @Component({
   selector: 'app-challenge-details',
-  imports: [TranslatePipe, LocalizedDatePipe, Spinner, RouterLink],
+  imports: [TranslatePipe, LocalizedDatePipe, Spinner, RouterLink, NgClass],
   templateUrl: './challenge-details.html',
   styles: ``,
 })
@@ -30,6 +32,17 @@ export class ChallengeDetails {
   readonly calendarIcon = './images/shared/calendar.svg';
   readonly clockIcon = './images/shared/clock.svg';
   readonly participantsIcon = './images/shared/participants.svg';
+
+  readonly participationStatus = computed(() => {
+    const challenge = this.challengeData.value();
+    if (!challenge?.currentUser?.isParticipating) return null;
+    if (challenge.currentUser.isCompleted) return 'completed';
+    if (challenge.status === ChallengeStatus.Completed) return 'notCompleted';
+    return 'inProgress';
+  });
+
+  readonly rulesExpanded = signal(false);
+  readonly RULES_PREVIEW_COUNT = 2;
 
   readonly durationInDays = computed(() => {
     const challenge = this.challengeData.value();

@@ -226,7 +226,9 @@
         "next": "Siguiente",
         "prev": "Anterior"
       }
-    }
+    },
+    "showMore": "Ver más",
+    "showLess": "Ver menos"
   },
   "signIn": {
     "body": {
