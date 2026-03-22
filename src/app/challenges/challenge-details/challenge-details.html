@@ -10,11 +10,7 @@
       <div
         class="flex items-center gap-1.5 w-fit px-4 py-1.5 rounded-full bg-slate-100 text-slate-700 text-sm font-medium"
       >
-        <img
-          class="w-4 h-4"
-          [src]="getActivityTypeIcon(challenge.goal.activityType)"
-          [alt]="challenge.goal.activityType"
-        />
+        <img class="w-4 h-4" [src]="activityIcon()" [alt]="challenge.goal.activityType" />
         {{ 'activityType.' + challenge.goal.activityType | translate }}
       </div>
 

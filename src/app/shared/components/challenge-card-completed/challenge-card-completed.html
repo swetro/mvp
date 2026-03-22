@@ -15,11 +15,7 @@
         <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
           <div class="flex items-center gap-3 min-w-0">
             <div class="w-[30px] h-[30px] flex items-center justify-center rounded-[4px] shrink-0">
-              <img
-                class="w-full h-full"
-                [src]="getActivityTypeIcon(challenge.goal.activityType)"
-                alt="Activity type"
-              />
+              <img class="w-full h-full" [src]="activityIcon()" alt="Activity type" />
             </div>
             <div class="flex flex-col min-w-0">
               <p class="text-base font-bold leading-5">{{ challenge.content.title }}</p>

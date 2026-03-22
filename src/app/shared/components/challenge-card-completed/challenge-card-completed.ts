@@ -34,10 +34,11 @@ import { RouterLink } from '@angular/router';
   styles: ``,
 })
 export class ChallengeCardCompleted {
-  private languageService = inject(LanguageService);
+  private readonly languageService = inject(LanguageService);
 
-  currentLanguage = this.languageService.getCurrentLanguage();
-  challengeData = input.required<ChallengeDto>();
+  readonly currentLanguage = this.languageService.getCurrentLanguage();
+  readonly challengeData = input.required<ChallengeDto>();
+
   readonly activityTypeEnum = ActivityType;
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
 
@@ -51,7 +52,15 @@ export class ChallengeCardCompleted {
   readonly positionIcon = './images/challenge/position.svg';
   readonly participantsIcon = './images/challenge/participants.svg';
 
-  medalEmoji = computed(() => {
+  readonly activityIcon = computed(() => {
+    const type = this.challengeData().goal.activityType;
+    return (
+      this.activityTypeIcons.find((icon) => icon.type === type)?.src ||
+      this.activityTypeIcons[0].src
+    );
+  });
+
+  readonly medalEmoji = computed(() => {
     const user = this.challengeData().currentUser;
     if (!user?.isCompleted || !user.position || user.position > 3) {
       return '';
@@ -60,12 +69,4 @@ export class ChallengeCardCompleted {
     const medals: Record<number, string> = { 1: '🥇', 2: '🥈', 3: '🥉' };
     return medals[user.position] ?? '';
   });
-
-  getActivityTypeIcon(type: ActivityType): string {
-    return (
-      this.activityTypeIcons.find((icon) => icon.type === type)?.src ||
-      this.activityTypeIcons.find((icon) => icon.type === ActivityType.Other)?.src ||
-      ''
-    );
-  }
 }

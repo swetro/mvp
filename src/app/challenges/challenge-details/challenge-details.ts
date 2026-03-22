@@ -18,14 +18,14 @@ import { MetaTagsService } from '../../shared/services/meta-tags.service';
   styles: ``,
 })
 export class ChallengeDetails {
-  private challengeService = inject(ChallengeService);
-  private languageService = inject(LanguageService);
-  private translate = inject(TranslateService);
-  private metaTagsService = inject(MetaTagsService);
+  private readonly challengeService = inject(ChallengeService);
+  private readonly languageService = inject(LanguageService);
+  private readonly translate = inject(TranslateService);
+  private readonly metaTagsService = inject(MetaTagsService);
 
-  challengeId = input.required<number>();
-  currentLanguage = this.languageService.getCurrentLanguage();
-  challengeData = this.challengeService.getChallenge(this.challengeId);
+  readonly challengeId = input.required<number>();
+  readonly currentLanguage = this.languageService.getCurrentLanguage();
+  readonly challengeData = this.challengeService.getChallenge(this.challengeId);
 
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
   readonly activityTypeEnum = ActivityType;
@@ -67,18 +67,20 @@ export class ChallengeDetails {
     };
   });
 
-  constructor() {
-    effect(() => {
-      const meta = this.pageMetadata();
-      if (meta) this.metaTagsService.updateMetaTags(meta);
-    });
-  }
-
-  getActivityTypeIcon(type: ActivityType): string {
+  readonly activityIcon = computed(() => {
+    const type = this.challengeData.value()?.goal.activityType;
+    if (!type) return '';
     return (
       this.activityTypeIcons.find((icon) => icon.type === type)?.src ||
       this.activityTypeIcons.find((icon) => icon.type === ActivityType.Other)?.src ||
       ''
     );
+  });
+
+  constructor() {
+    effect(() => {
+      const meta = this.pageMetadata();
+      if (meta) this.metaTagsService.updateMetaTags(meta);
+    });
   }
 }
