@@ -1,37 +1,44 @@
 @let challenge = challengeData();
+@let percent = progressPercent();
 
 <article>
   <div class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden">
     <!-- Header -->
     <div class="bg-slate-200 px-4 py-4">
-      <div class="flex items-center gap-3">
-        <div class="w-[30px] h-[30px] flex items-center justify-center rounded-[4px] shrink-0">
-          <img
-            class="w-full h-full"
-            [src]="getActivityTypeIcon(challenge.goal.activityType)"
-            alt="Activity type"
-          />
-        </div>
-        <div class="flex flex-col">
-          <p class="text-base font-bold leading-5">{{ challenge.content.title }}</p>
-          <div class="flex items-center gap-4 text-sm mt-1">
-            <p class="flex items-center gap-1">
-              <img class="w-[1em] h-[1em] shrink-0" [src]="calendarIcon" alt="Calendar" />
-              {{ challenge.startTime | localizedDate: 'dayMonth' }} -
-              {{ challenge.endTime | localizedDate: 'dayMonth' }}
-            </p>
-            @if (!challenge.currentUser?.isParticipating) {
+      <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-[30px] h-[30px] flex items-center justify-center rounded-[4px] shrink-0">
+            <img class="w-full h-full" [src]="activityIcon()" alt="Activity type" />
+          </div>
+          <div class="flex flex-col">
+            <p class="text-base font-bold leading-5">{{ challenge.content.title }}</p>
+            <div class="flex items-center gap-4 text-sm mt-1">
               <p class="flex items-center gap-1">
-                <img
-                  class="w-[1em] h-[1em] shrink-0"
-                  [src]="participantsHeaderIcon"
-                  alt="Participants"
-                />
-                {{ challenge.numberOfParticipants }}
+                <img class="w-[1em] h-[1em] shrink-0" [src]="calendarIcon" alt="Calendar" />
+                {{ challenge.startTime | localizedDate: 'dayMonth' }} -
+                {{ challenge.endTime | localizedDate: 'dayMonth' }}
               </p>
-            }
+              @if (!challenge.currentUser?.isParticipating) {
+                <p class="flex items-center gap-1">
+                  <img
+                    class="w-[1em] h-[1em] shrink-0"
+                    [src]="participantsHeaderIcon"
+                    alt="Participants"
+                  />
+                  {{ challenge.numberOfParticipants }}
+                </p>
+              }
+            </div>
           </div>
         </div>
+
+        @if (challenge.currentUser?.isParticipating) {
+          <div class="order-first sm:order-last flex items-center gap-2 shrink-0">
+            <span class="bg-orange-500 text-white text-xs font-medium rounded-full px-3 py-1">
+              {{ 'challengeParticipant.inProgress' | translate }}
+            </span>
+          </div>
+        }
       </div>
     </div>
 
@@ -173,7 +180,6 @@
           </div>
         </div>
 
-        @let percent = getProgressPercent();
         <div class="pt-3">
           <div class="flex items-center justify-between text-xs text-slate-600 mb-1.5">
             <span>{{ 'challengeParticipant.goalProgress' | translate }}</span>

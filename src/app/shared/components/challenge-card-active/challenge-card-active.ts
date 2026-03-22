@@ -34,15 +34,15 @@ import { SpeedPipe } from '../../pipes/speed.pipe';
   styles: ``,
 })
 export class ChallengeCardActive {
-  private languageService = inject(LanguageService);
+  private readonly languageService = inject(LanguageService);
 
-  currentLanguage = this.languageService.getCurrentLanguage();
+  readonly currentLanguage = this.languageService.getCurrentLanguage();
+  readonly challengeData = input.required<ChallengeDto>();
 
-  challengeData = input.required<ChallengeDto>();
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
   readonly activityTypeEnum = ActivityType;
 
-  calendarIcon = './images/shared/calendar.svg';
+  readonly calendarIcon = './images/shared/calendar.svg';
   readonly durationIcon = './images/activity/duration.svg';
   readonly distanceIcon = './images/activity/distance.svg';
   readonly elevationIcon = './images/activity/elevation.svg';
@@ -53,22 +53,24 @@ export class ChallengeCardActive {
   readonly participantsHeaderIcon = './images/shared/participants.svg';
   readonly participantsIcon = './images/challenge/participants.svg';
 
-  medalEmoji = computed(() => {
+  readonly medalEmoji = computed(() => {
     const user = this.challengeData().currentUser;
     if (!user?.isCompleted || !user.position || user.position > 3) return '';
     const medals: Record<number, string> = { 1: '🥇', 2: '🥈', 3: '🥉' };
     return medals[user.position] ?? '';
   });
 
-  getActivityTypeIcon(type: ActivityType): string {
+  readonly activityIcon = computed(() => {
+    const type = this.challengeData().goal.activityType;
     return (
       this.activityTypeIcons.find((icon) => icon.type === type)?.src ||
       this.activityTypeIcons.find((icon) => icon.type === ActivityType.Other)?.src ||
       ''
     );
-  }
+  });
 
-  getProgressPercent(): number {
-    return Math.min(Math.round(this.challengeData().currentUser?.progress ?? 0), 100);
-  }
+  readonly progressPercent = computed(() => {
+    const progress = this.challengeData().currentUser?.progress ?? 0;
+    return Math.min(Math.round(progress), 100);
+  });
 }

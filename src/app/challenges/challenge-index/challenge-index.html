@@ -19,20 +19,22 @@
       >
         {{ 'challengeIndex.tabActive' | translate }}
       </button>
-      <button
-        type="button"
-        role="tab"
-        [attr.aria-selected]="statusTab() === challengeStatusEnum.Completed"
-        class="px-5 py-3 text-sm font-medium border-b-2 transition-colors duration-200"
-        [ngClass]="
-          statusTab() === challengeStatusEnum.Completed
-            ? 'border-blue-600 text-blue-600'
-            : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
-        "
-        (click)="setStatusTab(challengeStatusEnum.Completed)"
-      >
-        {{ 'challengeIndex.tabCompleted' | translate }}
-      </button>
+      @if (isAuthenticated()) {
+        <button
+          type="button"
+          role="tab"
+          [attr.aria-selected]="statusTab() === challengeStatusEnum.Completed"
+          class="px-5 py-3 text-sm font-medium border-b-2 transition-colors duration-200"
+          [ngClass]="
+            statusTab() === challengeStatusEnum.Completed
+              ? 'border-blue-600 text-blue-600'
+              : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+          "
+          (click)="setStatusTab(challengeStatusEnum.Completed)"
+        >
+          {{ 'challengeIndex.tabCompleted' | translate }}
+        </button>
+      }
     </nav>
   </div>
 

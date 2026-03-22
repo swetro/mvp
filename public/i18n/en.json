@@ -35,7 +35,6 @@
     "Other": "Other"
   },
   "challengeDetails": {
-    "activityType": "Activity type",
     "duration": "Duration",
     "durationDays": "{{days}} days",
     "endDateTime": "End",
@@ -71,7 +70,7 @@
     "completed": "Completed",
     "description": "{{participantName}}’s performance in {{challengeTitle}}: explore their ranking, age category, and full activity log. See how they progressed through the challenge and compare their results with other participants.",
     "goalProgress": "Progress",
-    "inProgress": "In Progress",
+    "inProgress": "Competing",
     "linkBack": "Back",
     "notCompleted": "Not completed",
     "title": "{{participantName}} Results in {{challengeTitle}}",

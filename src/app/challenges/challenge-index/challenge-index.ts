@@ -4,6 +4,7 @@ import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ChallengeService } from '../../shared/services/challenge.service';
+import { AuthService } from '../../core/services/auth.service';
 import { ChallengeStatus } from '../../shared/enums/challenge-status.enum';
 import { ActivityType } from '../../shared/enums/activity-type.enum';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
@@ -20,11 +21,14 @@ import { ACTIVITY_TYPE_ICONS } from '../../shared/constants/activity-type-icons'
   styles: ``,
 })
 export class ChallengeIndex {
-  private challengeService = inject(ChallengeService);
-  private metaTagsService = inject(MetaTagsService);
-  private translate = inject(TranslateService);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
+  private readonly challengeService = inject(ChallengeService);
+  private readonly authService = inject(AuthService);
+  private readonly metaTagsService = inject(MetaTagsService);
+
+  readonly isAuthenticated = this.authService.isAuthenticated;
+  private readonly translate = inject(TranslateService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   readonly challengeStatusEnum = ChallengeStatus;
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
@@ -35,24 +39,26 @@ export class ChallengeIndex {
     ActivityType.Multisport,
   ];
 
-  statusTab = signal<ChallengeStatus>(ChallengeStatus.Active);
-  activityTypeFilter = signal<ActivityType | null>(null);
-  currentPage = signal<number>(1);
-  challengesData = this.challengeService.getChallenges(
+  readonly statusTab = signal<ChallengeStatus>(ChallengeStatus.Active);
+  readonly activityTypeFilter = signal<ActivityType | null>(null);
+  readonly currentPage = signal<number>(1);
+  readonly challengesData = this.challengeService.getChallenges(
     this.currentPage,
     this.statusTab,
     this.activityTypeFilter,
   );
-  accumulatedChallenges = signal<ChallengeDto[]>([]);
+  readonly accumulatedChallenges = signal<ChallengeDto[]>([]);
 
-  hasMore = computed(() => {
+  readonly hasMore = computed(() => {
     const d = this.challengesData.value();
     return !!d && d.pageNumber < d.totalPages;
   });
 
-  isLoadingMore = computed(() => this.challengesData.isLoading() && this.currentPage() > 1);
+  readonly isLoadingMore = computed(
+    () => this.challengesData.isLoading() && this.currentPage() > 1,
+  );
 
-  pageMetadata = {
+  readonly pageMetadata = {
     title: this.translate.instant('challengeIndex.title'),
     description: this.translate.instant('challengeIndex.description'),
   };
@@ -60,10 +66,15 @@ export class ChallengeIndex {
   constructor() {
     this.route.queryParams.pipe(takeUntilDestroyed()).subscribe((params) => {
       const status = params['status'];
-      this.statusTab.set(
+      const resolvedStatus =
         status && Object.values(ChallengeStatus).includes(status as ChallengeStatus)
           ? (status as ChallengeStatus)
-          : ChallengeStatus.Active,
+          : ChallengeStatus.Active;
+
+      this.statusTab.set(
+        !this.isAuthenticated() && resolvedStatus === ChallengeStatus.Completed
+          ? ChallengeStatus.Active
+          : resolvedStatus,
       );
 
       const type = params['type'];
@@ -102,33 +113,40 @@ export class ChallengeIndex {
       if (result.pageNumber === 1) {
         this.accumulatedChallenges.set(result.items);
       } else {
-        this.accumulatedChallenges.update((prev) => [...prev, ...result.items]);
+        this.accumulatedChallenges.update((prev) => {
+          const newItems = result.items.filter((item) => !prev.some((p) => p.id === item.id));
+          return [...prev, ...newItems];
+        });
       }
     });
   }
 
   setStatusTab(status: ChallengeStatus): void {
     if (this.statusTab() === status) return;
-    this.accumulatedChallenges.set([]);
-    this.currentPage.set(1);
+    this.resetPagination();
     this.statusTab.set(status);
   }
 
   setActivityType(type: ActivityType | null): void {
     if (this.activityTypeFilter() === type) return;
-    this.accumulatedChallenges.set([]);
-    this.currentPage.set(1);
+    this.resetPagination();
     this.activityTypeFilter.set(type);
   }
 
   loadMore(): void {
-    this.currentPage.update((p) => p + 1);
+    if (!this.isLoadingMore()) {
+      this.currentPage.update((p) => p + 1);
+    }
   }
 
   getActivityTypeIcon(type: ActivityType, white = false): string {
-    const icon =
-      this.activityTypeIcons.find((i) => i.type === type) ||
-      this.activityTypeIcons.find((i) => i.type === ActivityType.Other);
-    return (white ? icon?.srcWhite : undefined) ?? icon?.src ?? '';
+    const icon = this.activityTypeIcons.find((i) => i.type === type);
+    if (!icon) return this.activityTypeIcons[0].src;
+    return white && icon.srcWhite ? icon.srcWhite : icon.src;
+  }
+
+  private resetPagination(): void {
+    this.accumulatedChallenges.set([]);
+    this.currentPage.set(1);
   }
 }
