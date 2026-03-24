@@ -1,11 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LanguageService } from '../../core/services/language.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Spinner } from '../../shared/components/spinner/spinner';
@@ -17,22 +17,28 @@ import { Spinner } from '../../shared/components/spinner/spinner';
   styles: ``,
 })
 export class SignIn {
-  private fb = inject(FormBuilder);
+  private readonly fb = inject(FormBuilder);
   private readonly formValidationService = inject(FormValidationService);
-  private authService = inject(AuthService);
-  private metaTagsService = inject(MetaTagsService);
-  private languageService = inject(LanguageService);
-  private translate = inject(TranslateService);
+  private readonly authService = inject(AuthService);
+  private readonly metaTagsService = inject(MetaTagsService);
+  private readonly languageService = inject(LanguageService);
+  private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+
   signInForm!: FormGroup;
-  isLoading = signal(false);
-  currentLanguage = this.languageService.getCurrentLanguage();
+  readonly isLoading = signal(false);
+  readonly currentLanguage = this.languageService.getCurrentLanguage();
+
+  readonly pageMetadata = {
+    title: this.translate.instant('signIn.title'),
+    description: this.translate.instant('signIn.description'),
+  };
 
   constructor() {
     this.buildForm();
-    this.metaTagsService.updateMetaTags({
-      title: this.translate.instant('signIn.title'),
-      description: this.translate.instant('signIn.description'),
+    effect(() => {
+      this.metaTagsService.updateMetaTags(this.pageMetadata);
     });
   }
 
@@ -47,8 +53,9 @@ export class SignIn {
         .pipe(finalize(() => this.isLoading.set(false)))
         .subscribe({
           next: () => {
+            const returnUrl = this.route.snapshot.queryParams['returnUrl'];
             this.router.navigate(['/', this.currentLanguage, 'auth', 'verify-otp'], {
-              queryParams: { email: formData.email },
+              queryParams: { email: formData.email, ...(returnUrl ? { returnUrl } : {}) },
             });
           },
           error: (error) => {

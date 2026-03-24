@@ -16,27 +16,33 @@ import { Spinner } from '../../shared/components/spinner/spinner';
   styles: ``,
 })
 export class VerifyOtp implements OnInit {
-  private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
-  private languageService = inject(LanguageService);
-  private formValidationService = inject(FormValidationService);
-  private router = inject(Router);
-  private metaTagsService = inject(MetaTagsService);
-  private translate = inject(TranslateService);
+  private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly languageService = inject(LanguageService);
+  private readonly formValidationService = inject(FormValidationService);
+  private readonly router = inject(Router);
+  private readonly metaTagsService = inject(MetaTagsService);
+  private readonly translate = inject(TranslateService);
+  private readonly initialDuration = 6; // seconds
 
-  email = input.required<string>();
-  initialDuration = 6; // seconds
-  remainingTime = signal(this.initialDuration);
-  isRunning = signal(false);
-  isLoading = signal(false);
   otpForm!: FormGroup;
-  currentLanguage = this.languageService.getCurrentLanguage();
+  readonly email = input.required<string>();
+  readonly returnUrl = input<string>('');
+  readonly remainingTime = signal(this.initialDuration);
+  readonly isRunning = signal(false);
+  readonly isLoading = signal(false);
+  readonly currentLanguage = this.languageService.getCurrentLanguage();
 
-  formattedTime = computed(() => {
+  readonly formattedTime = computed(() => {
     const minutes = Math.floor(this.remainingTime() / 60);
     const seconds = this.remainingTime() % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   });
+
+  readonly pageMetadata = {
+    title: this.translate.instant('verifyOtp.title'),
+    description: this.translate.instant('verifyOtp.description'),
+  };
 
   ngOnInit() {
     if (!this.email()) {
@@ -45,10 +51,6 @@ export class VerifyOtp implements OnInit {
   }
 
   constructor() {
-    this.metaTagsService.updateMetaTags({
-      title: this.translate.instant('verifyOtp.title'),
-      description: this.translate.instant('verifyOtp.description'),
-    });
     this.buildForm();
     this.isRunning.set(true);
 
@@ -70,6 +72,10 @@ export class VerifyOtp implements OnInit {
       // Cleanup function: This runs when the effect reruns or the component is destroyed
       return () => clearInterval(intervalId);
     });
+
+    effect(() => {
+      this.metaTagsService.updateMetaTags(this.pageMetadata);
+    });
   }
 
   onSubmit(event: Event) {
@@ -86,7 +92,12 @@ export class VerifyOtp implements OnInit {
         .subscribe({
           next: () => {
             this.authService.refreshUserProfile();
-            this.router.navigate(['/', this.currentLanguage, 'challenges']);
+            const returnUrl = this.returnUrl();
+            if (returnUrl) {
+              this.router.navigateByUrl(returnUrl);
+            } else {
+              this.router.navigate(['/', this.currentLanguage, 'challenges']);
+            }
           },
           error: (error) => {
             this.formValidationService.showErrors(this.otpForm, error);

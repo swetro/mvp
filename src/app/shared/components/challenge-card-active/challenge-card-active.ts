@@ -1,4 +1,5 @@
 import { Component, computed, inject, input, output, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LocalizedDatePipe } from '../../pipes/localized-date.pipe';
@@ -15,6 +16,7 @@ import { ElevationPipe } from '../../pipes/elevation.pipe';
 import { CaloriesPipe } from '../../pipes/calories.pipe';
 import { SpeedPipe } from '../../pipes/speed.pipe';
 import { ChallengeJoin } from '../challenge-join/challenge-join';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-challenge-card-active',
@@ -37,6 +39,8 @@ import { ChallengeJoin } from '../challenge-join/challenge-join';
 })
 export class ChallengeCardActive {
   private readonly languageService = inject(LanguageService);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   readonly currentLanguage = this.languageService.getCurrentLanguage();
   readonly challengeData = input.required<ChallengeDto>();
@@ -45,6 +49,16 @@ export class ChallengeCardActive {
   readonly activityTypeEnum = ActivityType;
   readonly joined = output<void>();
   readonly showJoinModal = signal(false);
+
+  onJoinClick(): void {
+    if (this.authService.isAuthenticated()) {
+      this.showJoinModal.set(true);
+    } else {
+      this.router.navigate(['/', this.currentLanguage, 'auth', 'sign-in'], {
+        queryParams: { returnUrl: this.router.url },
+      });
+    }
+  }
 
   readonly calendarIcon = './images/shared/calendar.svg';
   readonly durationIcon = './images/activity/duration.svg';

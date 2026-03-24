@@ -1,6 +1,6 @@
 import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { LanguageService } from '../../core/services/language.service';
@@ -11,6 +11,7 @@ import { ChallengeStatus } from '../../shared/enums/challenge-status.enum';
 import { Spinner } from '../../shared/components/spinner/spinner';
 import { ChallengeJoin } from '../../shared/components/challenge-join/challenge-join';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-challenge-details',
@@ -21,6 +22,8 @@ import { MetaTagsService } from '../../shared/services/meta-tags.service';
 export class ChallengeDetails {
   private readonly challengeService = inject(ChallengeService);
   private readonly languageService = inject(LanguageService);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
   private readonly translate = inject(TranslateService);
   private readonly metaTagsService = inject(MetaTagsService);
 
@@ -77,6 +80,16 @@ export class ChallengeDetails {
       ''
     );
   });
+
+  onJoinClick(): void {
+    if (this.authService.isAuthenticated()) {
+      this.showJoinModal.set(true);
+    } else {
+      this.router.navigate(['/', this.currentLanguage, 'auth', 'sign-in'], {
+        queryParams: { returnUrl: this.router.url },
+      });
+    }
+  }
 
   constructor() {
     effect(() => {
