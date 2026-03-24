@@ -91,7 +91,7 @@ export class VerifyOtp implements OnInit {
         .pipe(finalize(() => this.isLoading.set(false)))
         .subscribe({
           next: () => {
-            this.authService.refreshUserProfile();
+            this.authService.onLoginSuccess();
             const returnUrl = this.returnUrl();
             if (returnUrl) {
               this.router.navigateByUrl(returnUrl);

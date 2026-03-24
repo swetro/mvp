@@ -48,6 +48,11 @@ export class AuthService {
     );
   }
 
+  onLoginSuccess(): void {
+    this.isAuthenticated.set(true);
+    this.userProfileData.reload();
+  }
+
   refreshUserProfile() {
     this.userProfileData.reload();
   }
