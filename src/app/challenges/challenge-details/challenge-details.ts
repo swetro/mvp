@@ -9,11 +9,12 @@ import { ACTIVITY_TYPE_ICONS } from '../../shared/constants/activity-type-icons'
 import { ActivityType } from '../../shared/enums/activity-type.enum';
 import { ChallengeStatus } from '../../shared/enums/challenge-status.enum';
 import { Spinner } from '../../shared/components/spinner/spinner';
+import { ChallengeJoin } from '../../shared/components/challenge-join/challenge-join';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 
 @Component({
   selector: 'app-challenge-details',
-  imports: [TranslatePipe, LocalizedDatePipe, Spinner, RouterLink, NgClass],
+  imports: [TranslatePipe, LocalizedDatePipe, Spinner, RouterLink, NgClass, ChallengeJoin],
   templateUrl: './challenge-details.html',
   styles: ``,
 })
@@ -33,6 +34,10 @@ export class ChallengeDetails {
   readonly clockIcon = './images/shared/clock.svg';
   readonly participantsIcon = './images/shared/participants.svg';
 
+  readonly rulesExpanded = signal(false);
+  readonly showJoinModal = signal(false);
+  readonly RULES_PREVIEW_COUNT = 2;
+
   readonly participationStatus = computed(() => {
     const challenge = this.challengeData.value();
     if (!challenge?.currentUser?.isParticipating) return null;
@@ -40,9 +45,6 @@ export class ChallengeDetails {
     if (challenge.status === ChallengeStatus.Completed) return 'notCompleted';
     return 'inProgress';
   });
-
-  readonly rulesExpanded = signal(false);
-  readonly RULES_PREVIEW_COUNT = 2;
 
   readonly durationInDays = computed(() => {
     const challenge = this.challengeData.value();
@@ -58,7 +60,6 @@ export class ChallengeDetails {
   readonly pageMetadata = computed(() => {
     const challenge = this.challengeData.value();
     if (!challenge) return null;
-
     return {
       title: this.translate.instant('challengeDetails.title', {
         challengeTitle: challenge.content.title,

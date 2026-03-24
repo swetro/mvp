@@ -1,0 +1,337 @@
+<!-- @let dataset = editProfileDatasetData.value(); -->
+
+<!-- Backdrop -->
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
+  role="presentation"
+  tabindex="0"
+  (click)="onCancel()"
+  (keydown.escape)="onCancel()"
+>
+  <!-- Panel -->
+  <div
+    role="dialog"
+    aria-modal="true"
+    class="bg-white rounded-lg shadow-xl max-w-md w-full p-6"
+    tabindex="-1"
+    (click)="$event.stopPropagation()"
+    (keydown)="$event.stopPropagation()"
+  >
+    <h2 class="text-lg font-semibold text-slate-900 mb-4">
+      {{ 'challengeJoin.title' | translate }}
+    </h2>
+
+    <!-- Loading requirements -->
+    @if (modalState() === 'loading') {
+      <div class="flex justify-center py-6">
+        <app-spinner></app-spinner>
+      </div>
+    }
+
+    <!-- Error loading requirements -->
+    @if (modalState() === 'error') {
+      <div class="form-error-message font-normal">
+        {{ 'challengeJoin.errorLoading' | translate }}
+      </div>
+      <div class="flex justify-end">
+        <button
+          type="button"
+          class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+          (click)="onCancel()"
+        >
+          {{ 'challengeJoin.form.btnClose' | translate }}
+        </button>
+      </div>
+    }
+
+    <!-- Not available -->
+    @if (modalState() === 'notAvailable') {
+      <div class="form-error-message font-normal">
+        {{ 'challengeJoin.notAvailable' | translate }}
+      </div>
+      <div class="flex justify-end">
+        <button
+          type="button"
+          class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+          (click)="onCancel()"
+        >
+          {{ 'challengeJoin.form.btnClose' | translate }}
+        </button>
+      </div>
+    }
+
+    <!-- Challenge ended -->
+    @if (modalState() === 'ended') {
+      <div class="form-error-message font-normal">
+        {{ 'challengeJoin.ended' | translate }}
+      </div>
+      <div class="flex justify-end">
+        <button
+          type="button"
+          class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+          (click)="onCancel()"
+        >
+          {{ 'challengeJoin.form.btnClose' | translate }}
+        </button>
+      </div>
+    }
+
+    <!-- Already joined -->
+    @if (modalState() === 'alreadyJoined') {
+      <div class="form-error-message font-normal">
+        {{ 'challengeJoin.alreadyJoined' | translate }}
+      </div>
+      <div class="flex justify-end">
+        <button
+          type="button"
+          class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+          (click)="onCancel()"
+        >
+          {{ 'challengeJoin.form.btnClose' | translate }}
+        </button>
+      </div>
+    }
+
+    <!-- Profile incomplete — show form for missing fields -->
+    @if (modalState() === 'profileIncomplete') {
+      <p class="mb-6">
+        {{ 'challengeJoin.completeProfile' | translate }}
+      </p>
+
+      @if (editProfileDatasetData.isLoading()) {
+        <div class="flex justify-center py-6">
+          <app-spinner></app-spinner>
+        </div>
+      } @else {
+        @let editProfileDataset = editProfileDatasetData.value();
+        @if (profileForm.errors && profileForm.errors['error-message']) {
+          <div class="form-error-message mb-4">
+            {{ profileForm.errors['error-message'] }}
+          </div>
+        }
+        <form [formGroup]="profileForm" novalidate class="space-y-4 mb-6">
+          <!-- Birth date -->
+          @if (needsBirthDate()) {
+            <div>
+              <div class="form-label">{{ 'challengeJoin.form.birthDate' | translate }}</div>
+              <div class="grid grid-cols-3 gap-4">
+                <div>
+                  <label for="birthDay" class="sr-only">{{
+                    'challengeJoin.form.day' | translate
+                  }}</label>
+                  <select
+                    id="birthDay"
+                    formControlName="birthDay"
+                    class="form-select"
+                    [class.form-input-error]="
+                      (profileForm.get('birthDay')?.invalid &&
+                        profileForm.get('birthDay')?.touched) ||
+                      (profileForm.errors?.['invalidDate'] &&
+                        profileForm.get('birthDay')?.touched &&
+                        profileForm.get('birthMonth')?.touched &&
+                        profileForm.get('birthYear')?.touched) ||
+                      profileForm.get('birthDate')?.errors?.['apiErrors']
+                    "
+                  >
+                    <option value="">{{ 'forms.placeholders.day' | translate }}</option>
+                    @for (day of days; track day.value) {
+                      <option [value]="day.value">{{ day.label }}</option>
+                    }
+                  </select>
+                </div>
+
+                <div>
+                  <label for="birthMonth" class="sr-only">{{
+                    'challengeJoin.form.month' | translate
+                  }}</label>
+                  <select
+                    id="birthMonth"
+                    formControlName="birthMonth"
+                    class="form-select"
+                    [class.form-input-error]="
+                      (profileForm.get('birthMonth')?.invalid &&
+                        profileForm.get('birthMonth')?.touched) ||
+                      (profileForm.errors?.['invalidDate'] &&
+                        profileForm.get('birthDay')?.touched &&
+                        profileForm.get('birthMonth')?.touched &&
+                        profileForm.get('birthYear')?.touched) ||
+                      profileForm.get('birthDate')?.errors?.['apiErrors']
+                    "
+                  >
+                    <option value="">{{ 'forms.placeholders.month' | translate }}</option>
+                    @for (month of editProfileDataset?.months; track month.value) {
+                      <option [value]="month.value">{{ month.label }}</option>
+                    }
+                  </select>
+                </div>
+
+                <div>
+                  <label for="birthYear" class="sr-only">{{
+                    'challengeJoin.form.year' | translate
+                  }}</label>
+                  <select
+                    id="birthYear"
+                    formControlName="birthYear"
+                    class="form-select"
+                    [class.form-input-error]="
+                      (profileForm.get('birthYear')?.invalid &&
+                        profileForm.get('birthYear')?.touched) ||
+                      (profileForm.errors?.['invalidDate'] &&
+                        profileForm.get('birthDay')?.touched &&
+                        profileForm.get('birthMonth')?.touched &&
+                        profileForm.get('birthYear')?.touched) ||
+                      profileForm.get('birthDate')?.errors?.['apiErrors']
+                    "
+                  >
+                    <option value="">{{ 'forms.placeholders.year' | translate }}</option>
+                    @for (year of editProfileDataset?.years; track year.value) {
+                      <option [value]="year.value">{{ year.label }}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+
+              @if (
+                (profileForm.get('birthDay')?.invalid && profileForm.get('birthDay')?.touched) ||
+                (profileForm.get('birthMonth')?.invalid &&
+                  profileForm.get('birthMonth')?.touched) ||
+                (profileForm.get('birthYear')?.invalid && profileForm.get('birthYear')?.touched)
+              ) {
+                <div class="form-error">
+                  @if (
+                    profileForm.get('birthDay')?.errors?.['required'] ||
+                    profileForm.get('birthMonth')?.errors?.['required'] ||
+                    profileForm.get('birthYear')?.errors?.['required']
+                  ) {
+                    <div>{{ 'forms.validators.required' | translate }}</div>
+                  }
+                </div>
+              }
+              @if (
+                profileForm.hasError('invalidDate') &&
+                (profileForm.get('birthDay')?.touched ||
+                  profileForm.get('birthMonth')?.touched ||
+                  profileForm.get('birthYear')?.touched)
+              ) {
+                <div class="form-error">
+                  <div>{{ 'challengeJoin.form.invalidDate' | translate }}</div>
+                </div>
+              }
+              @if (profileForm.get('birthDate')?.errors?.['apiErrors']) {
+                <div class="form-error">
+                  <div>{{ profileForm.get('birthDate')?.errors?.['apiErrors'] }}</div>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Gender -->
+          @if (needsGender()) {
+            <div>
+              <label for="gender" class="form-label">
+                {{ 'challengeJoin.form.gender' | translate }}
+              </label>
+              <select
+                id="gender"
+                formControlName="gender"
+                class="form-select"
+                [class.form-input-error]="
+                  profileForm.get('gender')?.invalid && profileForm.get('gender')?.touched
+                "
+              >
+                <option value="">{{ 'forms.placeholders.select' | translate }}</option>
+                @for (gender of editProfileDataset?.genders; track gender.value) {
+                  <option [value]="gender.value">{{ gender.label }}</option>
+                }
+              </select>
+
+              @if (profileForm.get('gender')?.invalid && profileForm.get('gender')?.touched) {
+                <div class="form-error">
+                  @if (profileForm.get('gender')?.errors?.['required']) {
+                    <div>{{ 'forms.validators.required' | translate }}</div>
+                  }
+                  @if (profileForm.get('gender')?.errors?.['apiErrors']) {
+                    <div>{{ profileForm.get('gender')?.errors?.['apiErrors'] }}</div>
+                  }
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Country -->
+          @if (needsCountry()) {
+            <div>
+              <label for="countryCode" class="form-label">
+                {{ 'challengeJoin.form.countryCode' | translate }}
+              </label>
+              <select
+                id="countryCode"
+                formControlName="countryCode"
+                class="form-select"
+                [class.form-input-error]="
+                  profileForm.get('countryCode')?.invalid && profileForm.get('countryCode')?.touched
+                "
+              >
+                <option value="">{{ 'forms.placeholders.select' | translate }}</option>
+                @for (country of editProfileDataset?.countries; track country.value) {
+                  <option [value]="country.value">{{ country.label }}</option>
+                }
+              </select>
+              @if (
+                profileForm.get('countryCode')?.invalid && profileForm.get('countryCode')?.touched
+              ) {
+                <div class="form-error">
+                  @if (profileForm.get('countryCode')?.errors?.['required']) {
+                    <div>{{ 'forms.validators.required' | translate }}</div>
+                  }
+                  @if (profileForm.get('countryCode')?.errors?.['apiErrors']) {
+                    <div>{{ profileForm.get('countryCode')?.errors?.['apiErrors'] }}</div>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </form>
+      }
+    }
+
+    <!-- Confirm — all requirements met -->
+    @if (modalState() === 'confirm') {
+      <p class="mb-6">
+        {{ 'challengeJoin.description' | translate }}
+      </p>
+    }
+
+    <!-- Actions: profileIncomplete / confirm -->
+    @if (modalState() === 'profileIncomplete' || modalState() === 'confirm') {
+      <div class="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end">
+        <button
+          type="button"
+          class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+          [disabled]="isLoading()"
+          (click)="onCancel()"
+        >
+          {{ 'challengeJoin.form.btnCancel' | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center flex items-center justify-center gap-2"
+          [disabled]="
+            isLoading() ||
+            (modalState() === 'profileIncomplete' &&
+              (editProfileDatasetData.isLoading() || profileForm.invalid))
+          "
+          (click)="onSubmit()"
+        >
+          @if (isLoading()) {
+            <app-spinner sizeClasses="w-4 h-4" colorClasses="text-white"></app-spinner>
+          }
+          {{
+            (isLoading() ? 'challengeJoin.form.btnJoining' : 'challengeJoin.form.btnJoin')
+              | translate
+          }}
+        </button>
+      </div>
+    }
+  </div>
+</div>

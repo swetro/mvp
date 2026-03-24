@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ChallengeDto } from '../../models/challenge.dto';
 import { ChallengeStatus } from '../../enums/challenge-status.enum';
 import { ChallengeCardActive } from '../challenge-card-active/challenge-card-active';
@@ -12,5 +12,6 @@ import { ChallengeCardCompleted } from '../challenge-card-completed/challenge-ca
 })
 export class ChallengeList {
   challengesData = input.required<ChallengeDto[]>();
+  readonly joined = output<void>();
   readonly challengeStatusEnum = ChallengeStatus;
 }

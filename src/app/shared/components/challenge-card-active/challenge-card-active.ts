@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LocalizedDatePipe } from '../../pipes/localized-date.pipe';
@@ -14,6 +14,7 @@ import { PacePipe } from '../../pipes/pace.pipe';
 import { ElevationPipe } from '../../pipes/elevation.pipe';
 import { CaloriesPipe } from '../../pipes/calories.pipe';
 import { SpeedPipe } from '../../pipes/speed.pipe';
+import { ChallengeJoin } from '../challenge-join/challenge-join';
 
 @Component({
   selector: 'app-challenge-card-active',
@@ -29,6 +30,7 @@ import { SpeedPipe } from '../../pipes/speed.pipe';
     ElevationPipe,
     CaloriesPipe,
     SpeedPipe,
+    ChallengeJoin,
   ],
   templateUrl: './challenge-card-active.html',
   styles: ``,
@@ -41,6 +43,8 @@ export class ChallengeCardActive {
 
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
   readonly activityTypeEnum = ActivityType;
+  readonly joined = output<void>();
+  readonly showJoinModal = signal(false);
 
   readonly calendarIcon = './images/shared/calendar.svg';
   readonly durationIcon = './images/activity/duration.svg';

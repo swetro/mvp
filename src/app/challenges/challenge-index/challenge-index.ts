@@ -145,6 +145,15 @@ export class ChallengeIndex {
     return white && icon.srcWhite ? icon.srcWhite : icon.src;
   }
 
+  onChallengeJoined(): void {
+    this.accumulatedChallenges.set([]);
+    if (this.currentPage() === 1) {
+      this.challengesData.reload();
+    } else {
+      this.currentPage.set(1);
+    }
+  }
+
   private resetPagination(): void {
     this.accumulatedChallenges.set([]);
     this.currentPage.set(1);

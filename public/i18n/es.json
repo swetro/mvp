@@ -85,6 +85,28 @@
     "btnLeaderboard": "Ver clasificación",
     "btnResults": "Ver clasificación"
   },
+  "challengeJoin": {
+    "title": "Unirme al reto",
+    "description": "¿Estás seguro de que deseas unirte a este reto?",
+    "errorLoading": "No se pudieron cargar los requisitos. Por favor, intenta nuevamente.",
+    "notAvailable": "Este reto no está disponible",
+    "ended": "Este reto ya finalizó.",
+    "alreadyJoined": "Ya estás inscrito y participando en este reto.",
+    "completeProfile": "Necesitamos algunos datos antes de que puedas participar en este reto.",
+    "form": {
+      "birthDate": "Fecha de nacimiento:",
+      "btnClose": "Cerrar",
+      "btnCancel": "Cancelar",
+      "btnJoin": "Unirme",
+      "btnJoining": "Uniéndome...",
+      "countryCode": "País:",
+      "day": "Día",
+      "gender": "Género:",
+      "invalidDate": "La fecha ingresada no es válida",
+      "month": "Mes",
+      "year": "Año"
+    }
+  },
   "devices": {
     "body": {
       "title": "Dispositivos",

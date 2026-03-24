@@ -48,8 +48,7 @@ export class ChallengeLeaderboard implements OnDestroy {
       }),
       description: this.translate.instant('challengeLeaderboard.description', {
         challengeTitle: challenge.content.title,
-      }),
-      image: challenge.content.imageUrl,
+      })
     };
   });
 

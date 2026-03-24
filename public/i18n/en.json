@@ -85,6 +85,28 @@
     "btnLeaderboard": "View leaderboard",
     "btnResults": "View leaderboard"
   },
+  "challengeJoin": {
+    "title": "Join Challenge",
+    "description": "Are you sure you want to join this challenge?",
+    "errorLoading": "Could not load the requirements. Please try again.",
+    "notAvailable": "This challenge is not available.",
+    "ended": "This challenge has already ended.",
+    "alreadyJoined": "You’re already joined and participating in this challenge.",
+    "completeProfile": "We need some information before you can join this challenge.",
+    "form": {
+      "birthDate": "Date of Birth:",
+      "btnClose": "Close",
+      "btnCancel": "Cancel",
+      "btnJoin": "Join",
+      "btnJoining": "Joining...",
+      "countryCode": "Country:",
+      "day": "Day",
+      "gender": "Gender:",
+      "invalidDate": "The entered date is invalid",
+      "month": "Month",
+      "year": "Year"
+    }
+  },
   "editProfile": {
     "body": {
       "title": "Edit profile",

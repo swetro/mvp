@@ -83,7 +83,10 @@
     @let challenges = accumulatedChallenges();
     <div class="mt-6 mb-20 space-y-6">
       @if (challenges.length > 0) {
-        <app-challenge-list [challengesData]="challenges"></app-challenge-list>
+        <app-challenge-list
+          [challengesData]="challenges"
+          (joined)="onChallengeJoined()"
+        ></app-challenge-list>
       } @else if (!challengesData.isLoading()) {
         <app-no-data-view title="challengeIndex.noChallenges" icon="search"></app-no-data-view>
       }

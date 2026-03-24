@@ -60,7 +60,6 @@ export class ChallengeParticipant {
         participantName,
         challengeTitle: challenge.content.title,
       }),
-      image: challenge.content.imageUrl,
     };
   });
 
