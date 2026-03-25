@@ -212,7 +212,7 @@
       <div class="pt-3 flex flex-col sm:flex-row gap-2 justify-center sm:justify-end">
         @if (challenge.currentUser?.isParticipating) {
           <a
-            [routerLink]="['/', currentLanguage, 'challenges', challenge.id]"
+            [routerLink]="['/', currentLanguage, 'challenges', challenge.id, 'leaderboard']"
             class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
           >
             {{ 'challengeList.btnLeaderboard' | translate }}
@@ -227,7 +227,7 @@
           </button>
         }
         <a
-          [routerLink]="['/', currentLanguage, 'challenges', challenge.id, 'details']"
+          [routerLink]="['/', currentLanguage, 'challenges', challenge.id]"
           class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
         >
           {{ 'challengeList.btnDetails' | translate }}
