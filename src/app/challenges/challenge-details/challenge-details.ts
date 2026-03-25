@@ -64,7 +64,7 @@ export class ChallengeDetails {
     const challenge = this.challengeData.value();
     if (!challenge) return null;
     return {
-      title: this.translate.instant('challengeDetails.title', {
+      title: this.translate.instant('meta.challenges.details.title', {
         challengeTitle: challenge.content.title,
       }),
       description: challenge.content.goalDescription,

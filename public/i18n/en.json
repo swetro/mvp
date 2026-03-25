@@ -2,11 +2,9 @@
   "activities": {
     "body": {
       "title": "Activities",
-      "description": "View all the activities we’ve received from your linked device."
+      "description": "View all the activities we've received from your linked device."
     },
-    "title": "Activities",
-    "description": "View all the activities we’ve received from your linked device.",
-    "noActivities": "We haven’t received any activities this week.",
+    "noActivities": "We haven't received any activities this week.",
     "week": "Week"
   },
   "activity": {
@@ -17,86 +15,53 @@
     "elevationLoss": "Elevation Loss",
     "endDate": "End",
     "heartRate": "Heart Rate",
+    "name": "Name",
     "pace": "Pace",
     "speed": "Speed",
     "startDate": "Start",
     "time": "Time",
-    "type": "Type",
-    "name": "Name"
+    "type": "Type"
   },
   "activityType": {
-    "Running": "Running",
-    "Swimming": "Swimming",
     "Cycling": "Cycling",
-    "TreadmillRunning": "Treadmill",
-    "Walking": "Walking",
     "IndoorCycling": "Indoor Cycling",
     "Multisport": "Multisport",
-    "Other": "Other"
+    "Other": "Other",
+    "Running": "Running",
+    "Swimming": "Swimming",
+    "TreadmillRunning": "Treadmill",
+    "Walking": "Walking"
   },
   "challengeDetails": {
     "duration": "Duration",
     "durationDays": "{{days}} days",
     "endDateTime": "End",
-    "objective": "Objective",
     "numberOfParticipants": "Participants",
+    "objective": "Objective",
     "rules": "Rules",
-    "startDateTime": "Start",
-    "title": "{{challengeTitle}} | Details"
+    "startDateTime": "Start"
   },
   "challengeIndex": {
     "body": {
       "title": "Challenges",
       "description": "Explore all available challenges, track your progress, and compete with others."
     },
-    "title": "Challenges",
-    "description": "Explore all available challenges, track your progress, and compete with others.",
-    "tabActive": "Active",
-    "tabCompleted": "Completed",
+    "btnLoadMore": "Load more",
     "filterAll": "All",
     "noChallenges": "No challenges available.",
-    "btnLoadMore": "Load more"
-  },
-  "challengeLeaderboard": {
-    "body": {
-      "title": "Leaderboard"
-    },
-    "description": "Official leaderboard of {{challengeTitle}}: discover the challenge leaders and explore full results for every participant — including distance, total time, and pace by age and gender.",
-    "searchPlaceholder": "Search participant...",
-    "swipeHint": "← Swipe to view more columns →",
-    "title": "Results: {{challengeTitle}}"
-  },
-  "challengeParticipant": {
-    "completed": "Completed",
-    "description": "{{participantName}}’s performance in {{challengeTitle}}: explore their ranking, age category, and full activity log. See how they progressed through the challenge and compare their results with other participants.",
-    "goalProgress": "Progress",
-    "inProgress": "Competing",
-    "linkBack": "Back",
-    "notCompleted": "Not completed",
-    "title": "{{participantName}} Results in {{challengeTitle}}",
-    "years": "years"
-  },
-  "challengeParticipantsTable": {
-    "details": "View Details"
-  },
-  "challengeList": {
-    "btnDetails": "View details",
-    "btnJoin": "Join",
-    "btnLeaderboard": "View leaderboard",
-    "btnResults": "View leaderboard"
+    "tabActive": "Active",
+    "tabCompleted": "Completed"
   },
   "challengeJoin": {
-    "title": "Join Challenge",
-    "description": "Are you sure you want to join this challenge?",
-    "errorLoading": "Could not load the requirements. Please try again.",
-    "notAvailable": "This challenge is not available.",
-    "ended": "This challenge has already ended.",
-    "alreadyJoined": "You’re already joined and participating in this challenge.",
+    "alreadyJoined": "You're already joined and participating in this challenge.",
     "completeProfile": "We need some information before you can join this challenge.",
+    "description": "Are you sure you want to join this challenge?",
+    "ended": "This challenge has already ended.",
+    "errorLoading": "Could not load the requirements. Please try again.",
     "form": {
       "birthDate": "Date of Birth:",
-      "btnClose": "Close",
       "btnCancel": "Cancel",
+      "btnClose": "Close",
       "btnJoin": "Join",
       "btnJoining": "Joining...",
       "countryCode": "Country:",
@@ -105,7 +70,43 @@
       "invalidDate": "The entered date is invalid",
       "month": "Month",
       "year": "Year"
-    }
+    },
+    "notAvailable": "This challenge is not available.",
+    "title": "Join Challenge"
+  },
+  "challengeLeaderboard": {
+    "body": {
+      "title": "Leaderboard"
+    },
+    "searchPlaceholder": "Search participant...",
+    "swipeHint": "← Swipe to view more columns →"
+  },
+  "challengeList": {
+    "btnDetails": "View details",
+    "btnJoin": "Join",
+    "btnLeaderboard": "View leaderboard",
+    "btnResults": "View leaderboard"
+  },
+  "challengeParticipant": {
+    "completed": "Completed",
+    "goalProgress": "Progress",
+    "inProgress": "Competing",
+    "linkBack": "Back",
+    "notCompleted": "Not completed",
+    "years": "years"
+  },
+  "challengeParticipantsTable": {
+    "details": "View Details"
+  },
+  "devices": {
+    "body": {
+      "title": "Devices",
+      "description": "Link your favorite device to automatically record your workouts."
+    },
+    "btnConnect": "Connect",
+    "btnConnecting": "Connecting...",
+    "btnDisconnect": "Disconnect",
+    "btnDisconnecting": "Disconnecting..."
   },
   "editProfile": {
     "body": {
@@ -115,25 +116,24 @@
     "form": {
       "birthDate": "Date of Birth:",
       "countryCode": "Country:",
-      "defaultLanguageCode": "Preferred language:",
       "day": "Day",
+      "defaultLanguageCode": "Preferred language:",
       "email": "Email:",
+      "feet": "Feet",
       "firstName": "First Name:",
       "gender": "Gender:",
-      "invalidDate": "The entered date is invalid",
-      "lastName": "Last Name:",
-      "month": "Month",
-      "feet": "Feet",
       "heightCm": "Height (cm):",
       "heightImperial": "Height:",
       "inches": "Inches",
+      "invalidDate": "The entered date is invalid",
+      "lastName": "Last Name:",
       "measurementSystem": "Units:",
+      "month": "Month",
       "phoneNumber": "Phone Number:",
       "weightKg": "Weight (kg):",
       "weightLbs": "Weight (lbs):",
       "year": "Year"
-    },
-    "title": "Edit profile"
+    }
   },
   "error": {
     "400": "Some fields contain errors. Please correct them and try again.",
@@ -150,10 +150,6 @@
     "linkTerms": "Terms and Conditions"
   },
   "forms": {
-    "messages": {
-      "saveSuccess": "Changes saved successfully.",
-      "saveError": "Changes could not be saved. Please try again."
-    },
     "buttons": {
       "next": "Next",
       "saveChanges": "Save Changes",
@@ -163,31 +159,23 @@
       "verify": "Verify",
       "verifying": "Verifying..."
     },
+    "messages": {
+      "saveError": "Changes could not be saved. Please try again.",
+      "saveSuccess": "Changes saved successfully."
+    },
     "placeholders": {
-      "select": "Select",
       "day": "Day",
-      "month": "Month",
-      "year": "Year",
       "feet": "ft",
-      "inches": "in"
+      "inches": "in",
+      "month": "Month",
+      "select": "Select",
+      "year": "Year"
     },
     "validators": {
       "email": "Invalid email.",
       "maxLength": "Maximum {{maxLength}} characters.",
       "required": "Required field."
     }
-  },
-  "devices": {
-    "body": {
-      "title": "Devices",
-      "description": "Link your favorite device to automatically record your workouts."
-    },
-    "btnConnect": "Connect",
-    "btnConnecting": "Connecting...",
-    "btnDisconnect": "Disconnect",
-    "btnDisconnecting": "Disconnecting...",
-    "description": "Link your favorite device to automatically record your workouts.",
-    "title": "Devices"
   },
   "header": {
     "linkActivities": "Activities",
@@ -205,10 +193,83 @@
       "description3": "Miss one day… and you're dead.",
       "title": "The Long Walk"
     },
-    "description": "The challenge that rewards discipline and punishes excuses.",
     "linkLeaderboard": "Leaderboard",
-    "linkRegister": "Register Now",
-    "title": "The Long Walk by Cine Colombia & Polar"
+    "linkRegister": "Register Now"
+  },
+  "messages": {
+    "genericInfo": "Information.",
+    "genericWarning": "Please review before continuing."
+  },
+  "meta": {
+    "account": {
+      "activities": {
+        "title": "Activities",
+        "description": "View all the activities we've received from your linked device."
+      },
+      "devices": {
+        "title": "Devices",
+        "description": "Link your favorite device to automatically record your workouts."
+      },
+      "profile": {
+        "title": "Edit profile",
+        "description": "Update your personal information and preferences."
+      }
+    },
+    "auth": {
+      "signIn": {
+        "title": "Sign In | Access your account",
+        "description": "Securely log in to your account to keep participating, track your progress, and stay connected with your community."
+      },
+      "signUp": {
+        "title": "Sign Up | Create your account",
+        "description": "Join our community by creating an account. Participate in challenges, track your progress, and connect with others."
+      },
+      "verifyOtp": {
+        "title": "Verification Code | Access your account",
+        "description": "Securely log in to your account to keep participating, track your progress, and stay connected with your community."
+      }
+    },
+    "challenges": {
+      "title": "Challenges",
+      "description": "Explore all available challenges, track your progress, and compete with others.",
+      "details": {
+        "title": "{{challengeTitle}} | Details"
+      },
+      "leaderboard": {
+        "title": "Results: {{challengeTitle}}",
+        "description": "Official leaderboard of {{challengeTitle}}: discover the challenge leaders and explore full results for every participant — including distance, total time, and pace by age and gender."
+      },
+      "participant": {
+        "title": "{{participantName}} Results in {{challengeTitle}}",
+        "description": "{{participantName}}'s performance in {{challengeTitle}}: explore their ranking, age category, and full activity log. See how they progressed through the challenge and compare their results with other participants."
+      }
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "description": "Learn how we use cookies on our platform."
+    },
+    "home": {
+      "title": "The Long Walk by Cine Colombia & Polar",
+      "description": "The challenge that rewards discipline and punishes excuses."
+    },
+    "notFound": {
+      "title": "404 | Page not found",
+      "description": "The page you are looking for is not available."
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "description": "Read our privacy policy to understand how we handle your data."
+    },
+    "terms": {
+      "title": "Terms and Conditions",
+      "description": "Read our terms and conditions before using our platform."
+    }
+  },
+  "pageNotFound": {
+    "body": {
+      "title": "404 | Page not found"
+    },
+    "linkHome": "Back to home"
   },
   "participant": {
     "activities": "Activities",
@@ -228,14 +289,6 @@
     "speed": "Speed",
     "time": "Time"
   },
-  "pageNotFound": {
-    "body": {
-      "title": "404 | Page not found"
-    },
-    "description": "The page you are looking for is not available.",
-    "linkHome": "Back to home",
-    "title": "404 | Page not found"
-  },
   "shared": {
     "noDataView": {
       "title": "No results found"
@@ -248,39 +301,35 @@
         "prev": "Previous"
       }
     },
-    "showMore": "Show more",
-    "showLess": "Show less"
+    "showLess": "Show less",
+    "showMore": "Show more"
   },
   "signIn": {
     "body": {
-      "title": "Log in",
-      "dontHaveAccount": "Don't have an account?"
+      "dontHaveAccount": "Don't have an account?",
+      "title": "Log in"
     },
-    "description": "Securely log in to your account to keep participating, track your progress, and stay connected with your community.",
-    "linkSignUp": "Sign Up",
     "form": {
       "email": "Email:"
     },
-    "title": "Sign In | Access your account"
+    "linkSignUp": "Sign Up"
   },
   "signUp": {
     "body": {
-      "title": "Create your account",
-      "haveAccount": "Already have an account?"
+      "haveAccount": "Already have an account?",
+      "title": "Create your account"
     },
-    "description": "Join our community by creating an account. Participate in challenges, track your progress, and connect with others.",
-    "linkSignIn": "Sign In",
     "form": {
+      "email": "Email:",
       "firstName": "First Name:",
-      "lastName": "Last Name:",
-      "email": "Email:"
+      "lastName": "Last Name:"
     },
-    "title": "Sign Up | Create your account"
+    "linkSignIn": "Sign In"
   },
   "table": {
     "noResults": {
-      "title": "No results found",
-      "description": "Try adjusting your filters or perform a new search."
+      "description": "Try adjusting your filters or perform a new search.",
+      "title": "No results found"
     },
     "pagination": {
       "button": {
@@ -292,20 +341,14 @@
     },
     "showing": "Showing {{from}} - {{to}} of {{total}} records"
   },
-  "messages": {
-    "genericInfo": "Information.",
-    "genericWarning": "Please review before continuing."
-  },
   "verifyOtp": {
     "body": {
-      "title": "Verification Code",
-      "description": "Enter the verification code we sent to {{emailAddress}}."
+      "description": "Enter the verification code we sent to {{emailAddress}}.",
+      "title": "Verification Code"
     },
     "form": {
       "resend": "Resend Code",
       "resendIn": "Resend in {{remainingTime}}"
-    },
-    "title": "Verification Code | Access your account",
-    "description": "Securely log in to your account to keep participating, track your progress, and stay connected with your community."
+    }
   }
 }

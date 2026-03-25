@@ -18,8 +18,8 @@ export class PageNotFound {
 
   constructor() {
     this.metaTagsService.updateMetaTags({
-      title: this.translate.instant('pageNotFound.title'),
-      description: this.translate.instant('pageNotFound.description'),
+      title: this.translate.instant('meta.notFound.title'),
+      description: this.translate.instant('meta.notFound.description'),
     });
   }
 }

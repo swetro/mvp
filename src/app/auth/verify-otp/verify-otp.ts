@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
 import { FormValidationService } from '../../shared/services/form-validation.service';
-import { MetaTagsService } from '../../shared/services/meta-tags.service';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../core/services/language.service';
 import { Spinner } from '../../shared/components/spinner/spinner';
 
@@ -21,8 +20,6 @@ export class VerifyOtp implements OnInit {
   private readonly languageService = inject(LanguageService);
   private readonly formValidationService = inject(FormValidationService);
   private readonly router = inject(Router);
-  private readonly metaTagsService = inject(MetaTagsService);
-  private readonly translate = inject(TranslateService);
   private readonly initialDuration = 6; // seconds
 
   otpForm!: FormGroup;
@@ -38,11 +35,6 @@ export class VerifyOtp implements OnInit {
     const seconds = this.remainingTime() % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   });
-
-  readonly pageMetadata = {
-    title: this.translate.instant('verifyOtp.title'),
-    description: this.translate.instant('verifyOtp.description'),
-  };
 
   ngOnInit() {
     if (!this.email()) {
@@ -73,9 +65,6 @@ export class VerifyOtp implements OnInit {
       return () => clearInterval(intervalId);
     });
 
-    effect(() => {
-      this.metaTagsService.updateMetaTags(this.pageMetadata);
-    });
   }
 
   onSubmit(event: Event) {

@@ -4,8 +4,6 @@
       "title": "Actividades",
       "description": "Consulta todas las actividades que hemos recibido desde tu dispositivo vinculado."
     },
-    "title": "Actividades",
-    "description": "Consulta todas las actividades que hemos recibido desde tu dispositivo vinculado.",
     "noActivities": "No hemos recibido actividades esta semana.",
     "week": "Semana"
   },
@@ -17,86 +15,53 @@
     "elevationLoss": "Elevación perdida",
     "endDate": "Fin",
     "heartRate": "Frecuencia cardíaca",
+    "name": "Nombre",
     "pace": "Ritmo",
     "speed": "Velocidad",
     "startDate": "Inicio",
     "time": "Tiempo",
-    "type": "Tipo",
-    "name": "Nombre"
+    "type": "Tipo"
   },
   "activityType": {
-    "Running": "Carrera",
-    "Swimming": "Natación",
     "Cycling": "Ciclismo",
-    "TreadmillRunning": "Cinta",
-    "Walking": "Caminata",
     "IndoorCycling": "Ciclismo Indoor",
     "Multisport": "Multideporte",
-    "Other": "Otro"
+    "Other": "Otro",
+    "Running": "Carrera",
+    "Swimming": "Natación",
+    "TreadmillRunning": "Cinta",
+    "Walking": "Caminata"
   },
   "challengeDetails": {
     "duration": "Duración",
     "durationDays": "{{days}} días",
     "endDateTime": "Fin",
-    "objective": "Objetivo",
     "numberOfParticipants": "Participantes",
+    "objective": "Objetivo",
     "rules": "Reglas",
-    "startDateTime": "Inicio",
-    "title": "{{challengeTitle}} | Detalles"
+    "startDateTime": "Inicio"
   },
   "challengeIndex": {
     "body": {
       "title": "Retos",
       "description": "Explora todos los retos disponibles, sigue tu progreso y compite con otros."
     },
-    "title": "Retos",
-    "description": "Explora todos los retos disponibles, sigue tu progreso y compite con otros.",
-    "tabActive": "Activos",
-    "tabCompleted": "Finalizados",
+    "btnLoadMore": "Cargar más",
     "filterAll": "Todos",
     "noChallenges": "No hay retos disponibles.",
-    "btnLoadMore": "Cargar más"
-  },
-  "challengeLeaderboard": {
-    "body": {
-      "title": "Tabla de Clasificación"
-    },
-    "description": "Clasificación oficial de {{challengeTitle}}: descubre quiénes lideran el desafío y consulta los resultados completos de todos los participantes — con sus distancias, tiempos acumulados y ritmos por edad y género.",
-    "searchPlaceholder": "Buscar participante...",
-    "swipeHint": "← Desliza para ver más columnas →",
-    "title": "Resultados: {{challengeTitle}}"
-  },
-  "challengeParticipant": {
-    "completed": "Completado",
-    "description": "Desempeño de {{participantName}} en {{challengeTitle}}: consulta su posición, categoría y todas sus actividades registradas. Descubre cómo avanzó en el reto y compáralo con otros participantes de su categoría.",
-    "goalProgress": "Progreso",
-    "inProgress": "Compitiendo",
-    "linkBack": "Regresar",
-    "notCompleted": "No completado",
-    "title": "Resultados de {{participantName}} en {{challengeTitle}}",
-    "years": "años"
-  },
-  "challengeParticipantsTable": {
-    "details": "Ver Detalles"
-  },
-  "challengeList": {
-    "btnDetails": "Ver detalles",
-    "btnJoin": "Unirme",
-    "btnLeaderboard": "Ver clasificación",
-    "btnResults": "Ver clasificación"
+    "tabActive": "Activos",
+    "tabCompleted": "Finalizados"
   },
   "challengeJoin": {
-    "title": "Unirme al reto",
-    "description": "¿Estás seguro de que deseas unirte a este reto?",
-    "errorLoading": "No se pudieron cargar los requisitos. Por favor, intenta nuevamente.",
-    "notAvailable": "Este reto no está disponible",
-    "ended": "Este reto ya finalizó.",
     "alreadyJoined": "Ya estás inscrito y participando en este reto.",
     "completeProfile": "Necesitamos algunos datos antes de que puedas participar en este reto.",
+    "description": "¿Estás seguro de que deseas unirte a este reto?",
+    "ended": "Este reto ya finalizó.",
+    "errorLoading": "No se pudieron cargar los requisitos. Por favor, intenta nuevamente.",
     "form": {
       "birthDate": "Fecha de nacimiento:",
-      "btnClose": "Cerrar",
       "btnCancel": "Cancelar",
+      "btnClose": "Cerrar",
       "btnJoin": "Unirme",
       "btnJoining": "Uniéndome...",
       "countryCode": "País:",
@@ -105,7 +70,33 @@
       "invalidDate": "La fecha ingresada no es válida",
       "month": "Mes",
       "year": "Año"
-    }
+    },
+    "notAvailable": "Este reto no está disponible",
+    "title": "Unirme al reto"
+  },
+  "challengeLeaderboard": {
+    "body": {
+      "title": "Tabla de Clasificación"
+    },
+    "searchPlaceholder": "Buscar participante...",
+    "swipeHint": "← Desliza para ver más columnas →"
+  },
+  "challengeList": {
+    "btnDetails": "Ver detalles",
+    "btnJoin": "Unirme",
+    "btnLeaderboard": "Ver clasificación",
+    "btnResults": "Ver clasificación"
+  },
+  "challengeParticipant": {
+    "completed": "Completado",
+    "goalProgress": "Progreso",
+    "inProgress": "Compitiendo",
+    "linkBack": "Regresar",
+    "notCompleted": "No completado",
+    "years": "años"
+  },
+  "challengeParticipantsTable": {
+    "details": "Ver Detalles"
   },
   "devices": {
     "body": {
@@ -115,9 +106,7 @@
     "btnConnect": "Conectar",
     "btnConnecting": "Conectando...",
     "btnDisconnect": "Desconectar",
-    "btnDisconnecting": "Desconectando...",
-    "description": "Vincula tu dispositivo favorito para registrar tus entrenamientos de forma automática",
-    "title": "Dispositivos"
+    "btnDisconnecting": "Desconectando..."
   },
   "editProfile": {
     "body": {
@@ -127,24 +116,23 @@
     "form": {
       "birthDate": "Fecha de nacimiento:",
       "countryCode": "País:",
-      "defaultLanguageCode": "Idioma preferido:",
       "day": "Día",
+      "defaultLanguageCode": "Idioma preferido:",
+      "feet": "Pies",
       "firstName": "Nombre:",
       "gender": "Género:",
-      "invalidDate": "La fecha ingresada no es válida",
-      "lastName": "Apellidos:",
-      "month": "Mes",
-      "feet": "Pies",
       "heightCm": "Estatura (cm):",
       "heightImperial": "Estatura:",
       "inches": "Pulgadas",
+      "invalidDate": "La fecha ingresada no es válida",
+      "lastName": "Apellidos:",
       "measurementSystem": "Unidades:",
+      "month": "Mes",
       "phoneNumber": "Número de teléfono:",
       "weightKg": "Peso (kg):",
       "weightLbs": "Peso (lbs):",
       "year": "Año"
-    },
-    "title": "Editar perfil"
+    }
   },
   "error": {
     "400": "Algunos campos contienen errores. Corrígelos e intenta nuevamente.",
@@ -161,10 +149,6 @@
     "linkTerms": "Términos y Condiciones"
   },
   "forms": {
-    "messages": {
-      "saveSuccess": "Cambios guardados correctamente.",
-      "saveError": "No se pudieron guardar los cambios. Por favor, intenta de nuevo."
-    },
     "buttons": {
       "next": "Siguiente",
       "saveChanges": "Guardar Cambios",
@@ -174,13 +158,17 @@
       "verify": "Verificar",
       "verifying": "Verificando..."
     },
+    "messages": {
+      "saveError": "No se pudieron guardar los cambios. Por favor, intenta de nuevo.",
+      "saveSuccess": "Cambios guardados correctamente."
+    },
     "placeholders": {
-      "select": "Seleccionar",
       "day": "Día",
-      "month": "Mes",
-      "year": "Año",
       "feet": "ft",
-      "inches": "in"
+      "inches": "in",
+      "month": "Mes",
+      "select": "Seleccionar",
+      "year": "Año"
     },
     "validators": {
       "email": "Correo electrónico no válido.",
@@ -204,18 +192,91 @@
       "description3": "Fallas un día… estás muerto.",
       "title": "Camina o Muere"
     },
-    "description": "El desafío que premia la disciplina y castiga las excusas.",
     "linkLeaderboard": "Tabla de Clasificación",
-    "linkRegister": "Regístrate Ahora",
-    "title": "Camina o Muere by Cine Colombia & Polar"
+    "linkRegister": "Regístrate Ahora"
+  },
+  "messages": {
+    "genericInfo": "Información.",
+    "genericWarning": "Por favor, revisa antes de continuar."
+  },
+  "meta": {
+    "account": {
+      "activities": {
+        "title": "Actividades",
+        "description": "Consulta todas las actividades que hemos recibido desde tu dispositivo vinculado."
+      },
+      "devices": {
+        "title": "Dispositivos",
+        "description": "Vincula tu dispositivo favorito para registrar tus entrenamientos de forma automática."
+      },
+      "profile": {
+        "title": "Editar perfil",
+        "description": "Actualiza tu información personal y preferencias."
+      }
+    },
+    "auth": {
+      "signIn": {
+        "title": "Iniciar sesión | Accede a tu cuenta",
+        "description": "Accede de forma segura a tu cuenta para continuar participando, seguir tu progreso y mantenerte conectado con tu comunidad."
+      },
+      "signUp": {
+        "title": "Registrarse | Crea tu cuenta",
+        "description": "Regístrate para participar en desafíos, seguir tu progreso y mantenerte conectado con tu comunidad."
+      },
+      "verifyOtp": {
+        "title": "Verificación de código | Acceso a tu cuenta",
+        "description": "Accede de forma segura a tu cuenta para continuar participando, seguir tu progreso y mantenerte conectado con tu comunidad."
+      }
+    },
+    "challenges": {
+      "title": "Retos",
+      "description": "Explora todos los retos disponibles, sigue tu progreso y compite con otros.",
+      "details": {
+        "title": "{{challengeTitle}} | Detalles"
+      },
+      "leaderboard": {
+        "title": "Resultados: {{challengeTitle}}",
+        "description": "Clasificación oficial de {{challengeTitle}}: descubre quiénes lideran el desafío y consulta los resultados completos de todos los participantes — con sus distancias, tiempos acumulados y ritmos por edad y género."
+      },
+      "participant": {
+        "title": "Resultados de {{participantName}} en {{challengeTitle}}",
+        "description": "Desempeño de {{participantName}} en {{challengeTitle}}: consulta su posición, categoría y todas sus actividades registradas. Descubre cómo avanzó en el reto y compáralo con otros participantes de su categoría."
+      }
+    },
+    "cookies": {
+      "title": "Política de Cookies",
+      "description": "Conoce cómo usamos las cookies en nuestra plataforma."
+    },
+    "home": {
+      "title": "Camina o Muere by Cine Colombia & Polar",
+      "description": "El desafío que premia la disciplina y castiga las excusas."
+    },
+    "notFound": {
+      "title": "404 | Página no encontrada",
+      "description": "La página que estás buscando no se encuentra disponible."
+    },
+    "privacyPolicy": {
+      "title": "Política de Privacidad",
+      "description": "Lee nuestra política de privacidad para entender cómo manejamos tus datos."
+    },
+    "terms": {
+      "title": "Términos y Condiciones",
+      "description": "Lee nuestros términos y condiciones antes de usar nuestra plataforma."
+    }
+  },
+  "pageNotFound": {
+    "body": {
+      "title": "404 | Página no encontrada"
+    },
+    "linkHome": "Regresar al inicio"
   },
   "participant": {
     "activities": "Actividades",
     "age": "Edad",
     "ageCategory": "Categoría Edad",
     "ageCategoryPosition": "Posición Cat. Edad",
-    "country": "País",
     "calories": "Calorías",
+    "country": "País",
     "distance": "Distancia",
     "elevationGain": "Elevación ganada",
     "elevationLoss": "Elevación perdida",
@@ -227,14 +288,6 @@
     "position": "Posición",
     "speed": "Velocidad",
     "time": "Tiempo"
-  },
-  "pageNotFound": {
-    "body": {
-      "title": "404 | Página no encontrada"
-    },
-    "description": "La página que estás buscando no se encuentra disponible.",
-    "linkHome": "Regresar al inicio",
-    "title": "404 | Página no encontrada"
   },
   "shared": {
     "noDataView": {
@@ -248,39 +301,35 @@
         "prev": "Anterior"
       }
     },
-    "showMore": "Ver más",
-    "showLess": "Ver menos"
+    "showLess": "Ver menos",
+    "showMore": "Ver más"
   },
   "signIn": {
     "body": {
-      "title": "Inicia sesión",
-      "dontHaveAccount": "¿No tienes una cuenta?"
+      "dontHaveAccount": "¿No tienes una cuenta?",
+      "title": "Inicia sesión"
     },
-    "description": "Accede de forma segura a tu cuenta para continuar participando, seguir tu progreso y mantenerte conectado con tu comunidad.",
-    "linkSignUp": "Regístrate",
     "form": {
       "email": "Correo electrónico:"
     },
-    "title": "Iniciar sesión | Accede a tu cuenta"
+    "linkSignUp": "Regístrate"
   },
   "signUp": {
     "body": {
-      "title": "Crea tu cuenta",
-      "haveAccount": "¿Ya tienes una cuenta?"
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "title": "Crea tu cuenta"
     },
-    "description": "Regístrate para participar en desafíos, seguir tu progreso y mantenerte conectado con tu comunidad.",
     "form": {
       "email": "Correo electrónico:",
       "firstName": "Nombre:",
       "lastName": "Apellidos:"
     },
-    "linkSignIn": "Iniciar sesión",
-    "title": "Registrarse | Crea tu cuenta"
+    "linkSignIn": "Iniciar sesión"
   },
   "table": {
     "noResults": {
-      "title": "No se encontraron resultados",
-      "description": "Intenta ajustar los filtros o realiza una nueva búsqueda."
+      "description": "Intenta ajustar los filtros o realiza una nueva búsqueda.",
+      "title": "No se encontraron resultados"
     },
     "pagination": {
       "button": {
@@ -292,20 +341,14 @@
     },
     "showing": "Mostrando {{from}} - {{to}} de {{total}} registros"
   },
-  "messages": {
-    "genericInfo": "Información.",
-    "genericWarning": "Por favor, revisa antes de continuar."
-  },
   "verifyOtp": {
     "body": {
-      "title": "Verificación de código",
-      "description": "Ingresa el código de verificación que enviamos a {{emailAddress}}."
+      "description": "Ingresa el código de verificación que enviamos a {{emailAddress}}.",
+      "title": "Verificación de código"
     },
     "form": {
       "resend": "Reenviar código",
       "resendIn": "Reenviar en {{remainingTime}}"
-    },
-    "description": "Accede de forma segura a tu cuenta para continuar participando, seguir tu progreso y mantenerte conectado con tu comunidad.",
-    "title": "Verificación de código | Acceso a tu cuenta"
+    }
   }
 }

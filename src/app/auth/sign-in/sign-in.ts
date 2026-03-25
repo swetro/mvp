@@ -1,10 +1,9 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { FormValidationService } from '../../shared/services/form-validation.service';
-import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LanguageService } from '../../core/services/language.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -20,9 +19,7 @@ export class SignIn {
   private readonly fb = inject(FormBuilder);
   private readonly formValidationService = inject(FormValidationService);
   private readonly authService = inject(AuthService);
-  private readonly metaTagsService = inject(MetaTagsService);
   private readonly languageService = inject(LanguageService);
-  private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
@@ -30,16 +27,8 @@ export class SignIn {
   readonly isLoading = signal(false);
   readonly currentLanguage = this.languageService.getCurrentLanguage();
 
-  readonly pageMetadata = {
-    title: this.translate.instant('signIn.title'),
-    description: this.translate.instant('signIn.description'),
-  };
-
   constructor() {
     this.buildForm();
-    effect(() => {
-      this.metaTagsService.updateMetaTags(this.pageMetadata);
-    });
   }
 
   onSubmit(event: Event) {

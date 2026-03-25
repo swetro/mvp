@@ -43,12 +43,12 @@ export class ChallengeLeaderboard implements OnDestroy {
     if (!challenge) return null;
 
     return {
-      title: this.translate.instant('challengeLeaderboard.title', {
+      title: this.translate.instant('meta.challenges.leaderboard.title', {
         challengeTitle: challenge.content.title,
       }),
-      description: this.translate.instant('challengeLeaderboard.description', {
+      description: this.translate.instant('meta.challenges.leaderboard.description', {
         challengeTitle: challenge.content.title,
-      })
+      }),
     };
   });
 

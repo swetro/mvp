@@ -1,13 +1,12 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ChallengeStatus } from '../../shared/enums/challenge-status.enum';
 import { ActivityType } from '../../shared/enums/activity-type.enum';
-import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { ChallengeList } from '../../shared/components/challenge-list/challenge-list';
 import { Spinner } from '../../shared/components/spinner/spinner';
 import { NoDataView } from '../../shared/components/no-data-view/no-data-view';
@@ -23,10 +22,8 @@ import { ACTIVITY_TYPE_ICONS } from '../../shared/constants/activity-type-icons'
 export class ChallengeIndex {
   private readonly challengeService = inject(ChallengeService);
   private readonly authService = inject(AuthService);
-  private readonly metaTagsService = inject(MetaTagsService);
 
   readonly isAuthenticated = this.authService.isAuthenticated;
-  private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
@@ -57,11 +54,6 @@ export class ChallengeIndex {
   readonly isLoadingMore = computed(
     () => this.challengesData.isLoading() && this.currentPage() > 1,
   );
-
-  readonly pageMetadata = {
-    title: this.translate.instant('challengeIndex.title'),
-    description: this.translate.instant('challengeIndex.description'),
-  };
 
   constructor() {
     this.route.queryParams.pipe(takeUntilDestroyed()).subscribe((params) => {
@@ -100,11 +92,6 @@ export class ChallengeIndex {
         queryParamsHandling: 'merge',
         replaceUrl: true,
       });
-    });
-
-    effect(() => {
-      const meta = this.pageMetadata;
-      if (meta) this.metaTagsService.updateMetaTags(meta);
     });
 
     effect(() => {

@@ -52,11 +52,11 @@ export class ChallengeParticipant {
     const participantName = `${participant.firstName} ${participant.lastName}`;
 
     return {
-      title: this.translate.instant('challengeParticipant.title', {
+      title: this.translate.instant('meta.challenges.participant.title', {
         participantName,
         challengeTitle: challenge.content.title,
       }),
-      description: this.translate.instant('challengeParticipant.description', {
+      description: this.translate.instant('meta.challenges.participant.description', {
         participantName,
         challengeTitle: challenge.content.title,
       }),

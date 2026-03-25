@@ -2,7 +2,6 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivityService } from '../../shared/services/activity.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../core/services/language.service';
-import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivityList } from '../../shared/components/activity-list/activity-list';
@@ -17,7 +16,6 @@ import { NoDataView } from '../../shared/components/no-data-view/no-data-view';
 })
 export class Activities {
   private activityService = inject(ActivityService);
-  private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
   private languageService = inject(LanguageService);
   private router = inject(Router);
@@ -28,11 +26,6 @@ export class Activities {
 
   currentLanguage = this.languageService.getCurrentLanguage();
   weeklyActivitiesData = this.activityService.getWeeklyActivities(this.year, this.weekOfYear);
-
-  pageMetadata = {
-    title: this.translate.instant('activities.title'),
-    description: this.translate.instant('activities.description'),
-  };
 
   weekLabel = computed(() => {
     const y = this.year();
@@ -70,11 +63,6 @@ export class Activities {
 
       this.year.set(y);
       this.weekOfYear.set(w);
-    });
-
-    effect(() => {
-      const meta = this.pageMetadata;
-      if (meta) this.metaTagsService.updateMetaTags(meta);
     });
 
     effect(() => {

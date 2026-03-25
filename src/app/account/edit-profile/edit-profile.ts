@@ -12,7 +12,6 @@ import { AccountService } from '../../core/services/account.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { FormValidationService } from '../../shared/services/form-validation.service';
-import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { DatasetService } from '../../shared/services/dataset.service';
 import { MeasurementSystem } from '../../shared/enums/measurement-system.enum';
 import { Router } from '@angular/router';
@@ -31,7 +30,6 @@ export class EditProfile {
   private authService = inject(AuthService);
   private accountService = inject(AccountService);
   private readonly formValidationService = inject(FormValidationService);
-  private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
   private datasetService = inject(DatasetService);
   private router = inject(Router);
@@ -55,11 +53,6 @@ export class EditProfile {
 
   constructor() {
     this.buildForm();
-
-    this.metaTagsService.updateMetaTags({
-      title: this.translate.instant('editProfile.title'),
-      description: this.translate.instant('editProfile.description'),
-    });
 
     effect(() => {
       const user = this.currentUser();
