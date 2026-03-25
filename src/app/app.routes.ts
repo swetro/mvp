@@ -21,7 +21,7 @@ import { OauthCallback } from './auth/oauth-callback/oauth-callback';
 
 const mainRoutes: Routes = [
   { path: '', component: Home },
-  { path: 'challenges', component: ChallengeIndex },
+  { path: 'challenges', component: ChallengeIndex, canActivate: [authGuard] },
   { path: 'challenges/:challengeId', component: ChallengeLeaderboard, pathMatch: 'full' },
   { path: 'challenges/:challengeId/details', component: ChallengeDetails },
   {
