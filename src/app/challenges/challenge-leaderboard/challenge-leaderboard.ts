@@ -7,6 +7,7 @@ import { DatasetService } from '../../shared/services/dataset.service';
 import { ChallengeParticipantsTable } from '../../shared/components/challenge-participants-table/challenge-participants-table';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-challenge-leaderboard',
@@ -59,6 +60,13 @@ export class ChallengeLeaderboard implements OnDestroy {
       if (params['page']) {
         const page = Number(params['page']);
         if (!isNaN(page) && page > 0) this.currentPage.set(page);
+      }
+    });
+
+    effect(() => {
+      const error = this.challengeData.error();
+      if (error instanceof HttpErrorResponse && error.status === 404) {
+        this.router.navigate(['/', this.currentLanguage, '404'], { replaceUrl: true });
       }
     });
 

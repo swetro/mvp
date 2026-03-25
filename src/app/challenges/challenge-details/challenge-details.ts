@@ -1,4 +1,5 @@
 import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
@@ -92,6 +93,13 @@ export class ChallengeDetails {
   }
 
   constructor() {
+    effect(() => {
+      const error = this.challengeData.error();
+      if (error instanceof HttpErrorResponse && error.status === 404) {
+        this.router.navigate(['/', this.currentLanguage, '404'], { replaceUrl: true });
+      }
+    });
+
     effect(() => {
       const meta = this.pageMetadata();
       if (meta) this.metaTagsService.updateMetaTags(meta);

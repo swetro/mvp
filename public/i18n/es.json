@@ -232,7 +232,7 @@
       "title": "Retos",
       "description": "Explora todos los retos disponibles, sigue tu progreso y compite con otros.",
       "details": {
-        "title": "{{challengeTitle}} | Detalles"
+        "title": "{{challengeTitle}}"
       },
       "leaderboard": {
         "title": "Resultados: {{challengeTitle}}",

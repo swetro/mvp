@@ -1,6 +1,6 @@
 import { Component, computed, effect, inject, input } from '@angular/core';
 import { ChallengeService } from '../../shared/services/challenge.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CountryFlagPipe } from '../../shared/pipes/country-flag.pipe';
 import { CompletedChallengePipe } from '../../shared/pipes/completed-challenge.pipe';
 import { ParticipantActivitiesTable } from '../../shared/components/participant-activities-table/participant-activities-table';
@@ -13,6 +13,7 @@ import { CaloriesPipe } from '../../shared/pipes/calories.pipe';
 import { MetaTagsService, PageMetadata } from '../../shared/services/meta-tags.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../core/services/language.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-challenge-participant',
@@ -37,6 +38,7 @@ export class ChallengeParticipant {
   private metaTagsService = inject(MetaTagsService);
   private translate = inject(TranslateService);
   private languageService = inject(LanguageService);
+  private router = inject(Router);
   challengeId = input.required<number>();
   participantId = input.required<string>();
 
@@ -64,6 +66,13 @@ export class ChallengeParticipant {
   });
 
   constructor() {
+    effect(() => {
+      const error = this.challengeData.error() ?? this.participantData.error();
+      if (error instanceof HttpErrorResponse && error.status === 404) {
+        this.router.navigate(['/', this.currentLanguage, '404'], { replaceUrl: true });
+      }
+    });
+
     effect(() => {
       const metadata = this.pageMetadata();
       if (metadata) {

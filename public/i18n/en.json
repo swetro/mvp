@@ -233,7 +233,7 @@
       "title": "Challenges",
       "description": "Explore all available challenges, track your progress, and compete with others.",
       "details": {
-        "title": "{{challengeTitle}} | Details"
+        "title": "{{challengeTitle}}"
       },
       "leaderboard": {
         "title": "Results: {{challengeTitle}}",
