@@ -10,7 +10,7 @@ export const environment = {
   appName: 'OpenSwetro',
   appDescription: 'OpenSwetro - Your Ultimate Coding Challenge Platform',
   appImageUrl: '/images/open-graph/swetro.png',
-  appUrl: 'http://localhost:4200',
+  appUrl: 'https://mvp-seven-khaki.vercel.app',
   defaultLanguage: 'en',
   supportedLanguages: ['en', 'es'],
   defaultLeagueSlug: 'swetro',
