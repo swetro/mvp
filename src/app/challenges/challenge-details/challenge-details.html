@@ -38,7 +38,7 @@
     <h2>{{ challenge.content.title }}</h2>
 
     <!-- Info grid -->
-    <div class="mt-6 sm:mb-6 space-y-6" [ngClass]="isCtaFixed() ? 'mb-28' : 'mb-6'">
+    <div class="mt-6 mb-6 sm:mb-6 space-y-6">
       <!-- Description -->
       <div>{{ challenge.content.description }}</div>
 
@@ -152,28 +152,21 @@
       }
     </div>
 
-    <!-- Sentinel: when visible, CTA switches from fixed to inline -->
-    <div #ctaSentinel></div>
-
     <!-- CTA -->
     <div
-      [ngClass]="
-        isCtaFixed()
-          ? 'fixed bottom-0 left-0 right-0 z-10 px-4 pb-6 pt-3 bg-white/90 backdrop-blur-sm sm:static sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:flex sm:justify-center sm:mt-6 sm:mb-10'
-          : 'flex justify-center mt-6 mb-10'
-      "
+      class="sticky bottom-0 z-10 px-4 pb-6 pt-3 bg-white/90 backdrop-blur-sm sm:static sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:flex sm:justify-center sm:mt-6 sm:mb-10"
     >
       @if (challenge.currentUser?.isParticipating) {
         <a
           [routerLink]="['/', currentLanguage, 'challenges', challenge.id, 'leaderboard']"
-          class="btn-primary text-sm px-4 py-3 w-full sm:w-auto sm:min-w-[140px] sm:py-1.5 text-center block"
+          class="btn-primary text-sm px-4 py-3 w-full sm:w-auto sm:min-w-35 sm:py-1.5 text-center block"
         >
           {{ 'challengeList.btnLeaderboard' | translate }}
         </a>
       } @else {
         <button
           type="button"
-          class="btn-primary text-sm px-4 py-3 w-full sm:w-auto sm:min-w-[140px] sm:py-1.5 text-center"
+          class="btn-primary text-sm px-4 py-3 w-full sm:w-auto sm:min-w-35 sm:py-1.5 text-center"
           (click)="onJoinClick()"
         >
           {{ 'challengeList.btnJoin' | translate }}
