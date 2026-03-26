@@ -4,4 +4,5 @@ export interface ActivityTypeIcon {
   type: ActivityType;
   src: string;
   srcWhite?: string;
+  ogImage?: string;
 }

@@ -68,11 +68,15 @@ export class MetaTagsService {
   }
 
   private generateMetaDefinitions(metadata: PageMetadata): MetaDefinition[] {
+    const imageUrl = metadata.image.startsWith('/')
+      ? `${environment.appUrl}${metadata.image}`
+      : metadata.image;
+
     return [
       { name: 'description', content: metadata.description },
       { property: 'og:title', content: metadata.title },
       { property: 'og:description', content: metadata.description },
-      { property: 'og:image', content: metadata.image },
+      { property: 'og:image', content: imageUrl },
       { property: 'og:url', content: metadata.url },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: environment.appName },

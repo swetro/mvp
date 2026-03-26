@@ -9,8 +9,7 @@ export const environment = {
   } as Record<string, { leagueSlug: string; challengeId: number }>,
   appName: 'OpenSwetro',
   appDescription: 'OpenSwetro - Your Ultimate Coding Challenge Platform',
-  appImageUrl:
-    'https://stgswetro.blob.core.windows.net/images/leagues/b5c0096f-45d1-47f4-9e0f-eb685dbfec02/638698933192772194_profile.webp',
+  appImageUrl: '/images/open-graph/swetro.png',
   appUrl: 'http://localhost:4200',
   defaultLanguage: 'en',
   supportedLanguages: ['en', 'es'],

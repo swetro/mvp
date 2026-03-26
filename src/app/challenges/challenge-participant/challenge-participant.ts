@@ -11,6 +11,7 @@ import { ElevationPipe } from '../../shared/pipes/elevation.pipe';
 import { HeartRatePipe } from '../../shared/pipes/heart-rate.pipe';
 import { CaloriesPipe } from '../../shared/pipes/calories.pipe';
 import { MetaTagsService, PageMetadata } from '../../shared/services/meta-tags.service';
+import { ACTIVITY_TYPE_ICONS } from '../../shared/constants/activity-type-icons';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../core/services/language.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -39,6 +40,7 @@ export class ChallengeParticipant {
   private translate = inject(TranslateService);
   private languageService = inject(LanguageService);
   private router = inject(Router);
+  readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
   challengeId = input.required<number>();
   participantId = input.required<string>();
 
@@ -52,6 +54,9 @@ export class ChallengeParticipant {
     if (!challenge || !participant) return null;
 
     const participantName = `${participant.firstName} ${participant.lastName}`;
+    const ogImage = this.activityTypeIcons.find(
+      (icon) => icon.type === challenge.goal.activityType,
+    )?.ogImage;
 
     return {
       title: this.translate.instant('meta.challenges.participant.title', {
@@ -62,6 +67,7 @@ export class ChallengeParticipant {
         participantName,
         challengeTitle: challenge.content.title,
       }),
+      ...(ogImage && { image: ogImage }),
     };
   });
 

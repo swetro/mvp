@@ -64,11 +64,15 @@ export class ChallengeDetails {
   readonly pageMetadata = computed(() => {
     const challenge = this.challengeData.value();
     if (!challenge) return null;
+    const ogImage = this.activityTypeIcons.find(
+      (icon) => icon.type === challenge.goal.activityType,
+    )?.ogImage;
     return {
       title: this.translate.instant('meta.challenges.details.title', {
         challengeTitle: challenge.content.title,
       }),
       description: challenge.content.goalDescription,
+      ...(ogImage && { image: ogImage }),
     };
   });
 

@@ -8,6 +8,7 @@ import { ChallengeParticipantsTable } from '../../shared/components/challenge-pa
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ACTIVITY_TYPE_ICONS } from '../../shared/constants/activity-type-icons';
 
 @Component({
   selector: 'app-challenge-leaderboard',
@@ -25,6 +26,7 @@ export class ChallengeLeaderboard implements OnDestroy {
   private route = inject(ActivatedRoute);
   private searchTimer?: number;
 
+  readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
   challengeId = input.required<number>();
   selectedFilter = signal<string>('overall');
   searchTerm = signal<string>('');
@@ -43,6 +45,10 @@ export class ChallengeLeaderboard implements OnDestroy {
     const challenge = this.challengeData.value();
     if (!challenge) return null;
 
+    const ogImage = this.activityTypeIcons.find(
+      (icon) => icon.type === challenge.goal.activityType,
+    )?.ogImage;
+
     return {
       title: this.translate.instant('meta.challenges.leaderboard.title', {
         challengeTitle: challenge.content.title,
@@ -50,6 +56,7 @@ export class ChallengeLeaderboard implements OnDestroy {
       description: this.translate.instant('meta.challenges.leaderboard.description', {
         challengeTitle: challenge.content.title,
       }),
+      ...(ogImage && { image: ogImage }),
     };
   });
 
