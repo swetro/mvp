@@ -23,6 +23,10 @@
       }
     ]
   },
+  "overrides": {
+    "picomatch": "^4.0.4",
+    "undici": "^7.24.4"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "^21.0.8",
