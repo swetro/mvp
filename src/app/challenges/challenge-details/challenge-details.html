@@ -38,7 +38,7 @@
     <h2>{{ challenge.content.title }}</h2>
 
     <!-- Info grid -->
-    <div class="mt-6 mb-28 sm:mb-6 space-y-6">
+    <div class="mt-6 sm:mb-6 space-y-6" [ngClass]="isCtaFixed() ? 'mb-28' : 'mb-6'">
       <!-- Description -->
       <div>{{ challenge.content.description }}</div>
 
@@ -113,7 +113,7 @@
           <p class="text-base font-bold leading-5">
             {{ 'challengeDetails.rules' | translate }}
           </p>
-          <ul class="list-disc list-outside space-y-2 pl-4">
+          <ul id="rules-list" class="list-disc list-outside space-y-2 pl-4">
             @for (rule of challenge.content.ruleList; track $index) {
               @if (rulesExpanded() || $index < RULES_PREVIEW_COUNT) {
                 <li class="text-sm text-slate-600">
@@ -126,6 +126,8 @@
                     <button
                       type="button"
                       class="font-medium text-blue-600 hover:text-blue-700"
+                      aria-controls="rules-list"
+                      [attr.aria-expanded]="rulesExpanded()"
                       (click)="rulesExpanded.set(true)"
                     >
                       {{ 'shared.showMore' | translate }}
@@ -139,6 +141,8 @@
             <button
               type="button"
               class="mt-1 self-start text-sm font-medium text-blue-600 hover:text-blue-700"
+              aria-controls="rules-list"
+              [attr.aria-expanded]="rulesExpanded()"
               (click)="rulesExpanded.set(false)"
             >
               {{ 'shared.showLess' | translate }}
@@ -148,9 +152,16 @@
       }
     </div>
 
-    <!-- CTA: fixed bottom bar on mobile, centered inline on desktop -->
+    <!-- Sentinel: when visible, CTA switches from fixed to inline -->
+    <div #ctaSentinel></div>
+
+    <!-- CTA -->
     <div
-      class="fixed bottom-0 left-0 right-0 z-10 px-4 pb-6 pt-3 bg-white/90 backdrop-blur-sm sm:static sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:flex sm:justify-center sm:mt-6 sm:mb-10"
+      [ngClass]="
+        isCtaFixed()
+          ? 'fixed bottom-0 left-0 right-0 z-10 px-4 pb-6 pt-3 bg-white/90 backdrop-blur-sm sm:static sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:flex sm:justify-center sm:mt-6 sm:mb-10'
+          : 'flex justify-center mt-6 mb-10'
+      "
     >
       @if (challenge.currentUser?.isParticipating) {
         <a

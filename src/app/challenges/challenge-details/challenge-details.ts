@@ -1,4 +1,15 @@
-import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  input,
+  PLATFORM_ID,
+  signal,
+  viewChild,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Router, RouterLink } from '@angular/router';
@@ -40,7 +51,11 @@ export class ChallengeDetails {
 
   readonly rulesExpanded = signal(false);
   readonly showJoinModal = signal(false);
+  readonly isCtaFixed = signal(true);
   readonly RULES_PREVIEW_COUNT = 2;
+
+  private readonly ctaSentinel = viewChild<ElementRef>('ctaSentinel');
+  private readonly platformId = inject(PLATFORM_ID);
 
   readonly participationStatus = computed(() => {
     const challenge = this.challengeData.value();
@@ -103,6 +118,19 @@ export class ChallengeDetails {
     effect(() => {
       const meta = this.pageMetadata();
       if (meta) this.metaTagsService.updateMetaTags(meta);
+    });
+
+    effect((onCleanup) => {
+      if (!isPlatformBrowser(this.platformId)) return;
+      const el = this.ctaSentinel()?.nativeElement;
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => this.isCtaFixed.set(!entry.isIntersecting),
+        { threshold: 0 },
+      );
+      observer.observe(el);
+      onCleanup(() => observer.disconnect());
     });
   }
 }
