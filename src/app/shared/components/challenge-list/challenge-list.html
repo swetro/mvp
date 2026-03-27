@@ -6,7 +6,10 @@
       @if (challenge.status === challengeStatusEnum.Completed) {
         <app-challenge-card-completed [challengeData]="challenge"></app-challenge-card-completed>
       } @else {
-        <app-challenge-card-active [challengeData]="challenge" (joined)="joined.emit()"></app-challenge-card-active>
+        <app-challenge-card-active
+          [challengeData]="challenge"
+          (joined)="joined.emit()"
+        ></app-challenge-card-active>
       }
     }
   </div>

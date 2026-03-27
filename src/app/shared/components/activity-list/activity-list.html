@@ -8,9 +8,7 @@
           <!-- Header Section with full-width background -->
           <div class="bg-slate-200 px-4 py-4">
             <div class="flex items-center gap-3">
-              <div
-                class="w-[30px] h-[30px] flex items-center justify-center rounded-[4px] shrink-0"
-              >
+              <div class="w-7.5 h-7.5 flex items-center justify-center rounded-sm shrink-0">
                 <img
                   class="w-full h-full"
                   [src]="getActivityTypeIcon(item.type)"
@@ -32,7 +30,7 @@
               <!-- Duration -->
               <div class="flex flex-col gap-1">
                 <div class="flex flex-row items-center gap-1">
-                  <img [src]="durationIcon" alt="Duration" class="w-[18px] h-[18px]" />
+                  <img [src]="durationIcon" alt="Duration" class="w-4.5 h-4.5" />
                   <p class="text-base font-bold leading-5">
                     {{ item.durationInSeconds | duration }}
                   </p>
@@ -46,7 +44,7 @@
                 <!-- Distance -->
                 <div class="flex flex-col gap-1">
                   <div class="flex flex-row items-center gap-1">
-                    <img [src]="distanceIcon" alt="Distance" class="w-[18px] h-[18px]" />
+                    <img [src]="distanceIcon" alt="Distance" class="w-4.5 h-4.5" />
                     <p class="text-base font-bold leading-5">
                       {{ item.distanceInMeters | distance }}
                     </p>
@@ -59,7 +57,7 @@
                 <!-- Elevation -->
                 <div class="flex flex-col gap-1">
                   <div class="flex flex-row items-center gap-1">
-                    <img [src]="elevationIcon" alt="Elevation" class="w-[18px] h-[18px]" />
+                    <img [src]="elevationIcon" alt="Elevation" class="w-4.5 h-4.5" />
                     <p class="text-base font-bold leading-5">
                       {{ item.totalElevationGainInMeters | elevation }}
                     </p>
@@ -72,7 +70,7 @@
                 <!-- Pace/Speed -->
                 <div class="flex flex-col gap-1">
                   <div class="flex flex-row items-center gap-1">
-                    <img [src]="paceIcon" alt="Pace" class="w-[18px] h-[18px]" />
+                    <img [src]="paceIcon" alt="Pace" class="w-4.5 h-4.5" />
                     <p class="text-base font-bold leading-5">
                       @if (
                         item.type === activityTypeEnum.Running ||
@@ -102,7 +100,7 @@
               @if (item.averageHeartRateInBeatsPerMinute) {
                 <div class="flex flex-col gap-1">
                   <div class="flex flex-row items-center gap-1">
-                    <img [src]="heartRateIcon" alt="Heart Rate" class="w-[18px] h-[18px]" />
+                    <img [src]="heartRateIcon" alt="Heart Rate" class="w-4.5 h-4.5" />
                     <p class="text-base font-bold leading-5">
                       {{ item.averageHeartRateInBeatsPerMinute | heartRate }}
                     </p>
@@ -117,7 +115,7 @@
               @if (item.activeKilocalories) {
                 <div class="flex flex-col gap-1">
                   <div class="flex flex-row items-center gap-1">
-                    <img [src]="caloriesIcon" alt="Calories" class="w-[18px] h-[18px]" />
+                    <img [src]="caloriesIcon" alt="Calories" class="w-4.5 h-4.5" />
                     <p class="text-base font-bold leading-5">
                       {{ item.activeKilocalories | calories }}
                     </p>
@@ -132,7 +130,7 @@
             <!-- Device Info -->
             @if (item.deviceName) {
               <div class="flex flex-row gap-1 items-center mt-3 pt-3 border-t border-gray-100">
-                <img [src]="deviceIcon" alt="Device" class="w-[16px] h-[16px]" />
+                <img [src]="deviceIcon" alt="Device" class="w-4 h-4" />
                 <p class="text-sm text-slate-600 leading-4 overflow-ellipsis opacity-50">
                   {{ item.deviceName }}
                 </p>

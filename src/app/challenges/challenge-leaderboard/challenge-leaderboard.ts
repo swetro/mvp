@@ -1,10 +1,14 @@
-import { Component, effect, inject, input, signal, OnDestroy, computed } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { ChallengeService } from '../../shared/services/challenge.service';
 import { MetaTagsService } from '../../shared/services/meta-tags.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../core/services/language.service';
 import { DatasetService } from '../../shared/services/dataset.service';
 import { ChallengeParticipantsTable } from '../../shared/components/challenge-participants-table/challenge-participants-table';
+import { Spinner } from '../../shared/components/spinner/spinner';
+import { NoDataView } from '../../shared/components/no-data-view/no-data-view';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -12,36 +16,37 @@ import { ACTIVITY_TYPE_ICONS } from '../../shared/constants/activity-type-icons'
 
 @Component({
   selector: 'app-challenge-leaderboard',
-  imports: [TranslatePipe, ChallengeParticipantsTable],
+  imports: [TranslatePipe, ChallengeParticipantsTable, Spinner, NoDataView],
   templateUrl: './challenge-leaderboard.html',
   styles: ``,
 })
-export class ChallengeLeaderboard implements OnDestroy {
-  private challengeService = inject(ChallengeService);
-  private metaTagsService = inject(MetaTagsService);
-  private translate = inject(TranslateService);
-  private languageService = inject(LanguageService);
-  private datasetService = inject(DatasetService);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private searchTimer?: number;
+export class ChallengeLeaderboard {
+  private readonly challengeService = inject(ChallengeService);
+  private readonly metaTagsService = inject(MetaTagsService);
+  private readonly translate = inject(TranslateService);
+  private readonly languageService = inject(LanguageService);
+  private readonly datasetService = inject(DatasetService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly searchInput$ = new Subject<string>();
 
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
-  challengeId = input.required<number>();
-  selectedFilter = signal<string>('overall');
-  searchTerm = signal<string>('');
-  currentPage = signal<number>(1);
+  readonly challengeId = input.required<number>();
+  readonly selectedFilter = signal<string>('overall');
+  readonly searchTerm = signal<string>('');
+  readonly currentPage = signal<number>(1);
 
-  currentLanguage = this.languageService.getCurrentLanguage();
-  challengeData = this.challengeService.getChallenge(this.challengeId);
-  participantsData = this.challengeService.getParticipants(
+  readonly currentLanguage = this.languageService.getCurrentLanguage();
+  readonly challengeData = this.challengeService.getChallenge(this.challengeId);
+  readonly participantsData = this.challengeService.getParticipants(
     this.challengeId,
     this.currentPage,
     this.selectedFilter,
     this.searchTerm,
   );
-  participantFiltersData = this.datasetService.getParticipantFilters();
-  pageMetadata = computed(() => {
+  readonly participantFiltersData = this.datasetService.getParticipantFilters();
+
+  readonly pageMetadata = computed(() => {
     const challenge = this.challengeData.value();
     if (!challenge) return null;
 
@@ -60,6 +65,17 @@ export class ChallengeLeaderboard implements OnDestroy {
     };
   });
 
+  readonly paginationText = computed(() => {
+    const participants = this.participantsData.value();
+    if (!participants?.totalCount) return '';
+
+    const { pageNumber, pageSize, totalCount } = participants;
+    const start = (pageNumber - 1) * pageSize + 1;
+    const end = Math.min(pageNumber * pageSize, totalCount);
+
+    return this.translate.instant('table.showing', { from: start, to: end, total: totalCount });
+  });
+
   constructor() {
     this.route.queryParams.pipe(takeUntilDestroyed()).subscribe((params) => {
       this.selectedFilter.set(params['filter'] || 'overall');
@@ -68,6 +84,11 @@ export class ChallengeLeaderboard implements OnDestroy {
         const page = Number(params['page']);
         if (!isNaN(page) && page > 0) this.currentPage.set(page);
       }
+    });
+
+    this.searchInput$.pipe(debounceTime(300), takeUntilDestroyed()).subscribe((value) => {
+      this.searchTerm.set(value.length > 2 ? value : '');
+      this.currentPage.set(1);
     });
 
     effect(() => {
@@ -102,12 +123,6 @@ export class ChallengeLeaderboard implements OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    if (this.searchTimer) {
-      clearTimeout(this.searchTimer);
-    }
-  }
-
   participantFilterChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     this.selectedFilter.set(selectElement.value);
@@ -115,19 +130,12 @@ export class ChallengeLeaderboard implements OnDestroy {
   }
 
   participantSearchInput(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
-    clearTimeout(this.searchTimer);
-    this.searchTimer = window.setTimeout(() => {
-      this.searchTerm.set(value.length > 2 ? value : '');
-      this.currentPage.set(1);
-    }, 300);
+    this.searchInput$.next((event.target as HTMLInputElement).value);
   }
 
   participantSearchEnter(event: Event) {
     const value = (event.target as HTMLInputElement).value;
-    clearTimeout(this.searchTimer);
-    this.searchTerm.set(value.length > 2 ? value : '');
-    this.currentPage.set(1);
+    this.searchInput$.next(value);
   }
 
   goNextPage(event: Event) {
@@ -147,18 +155,5 @@ export class ChallengeLeaderboard implements OnDestroy {
     if (page > 0) {
       this.currentPage.set(page);
     }
-  }
-
-  getPaginationText(pageNumber: number, pageSize: number, totalCount: number) {
-    if (!totalCount) return '';
-
-    const start = (pageNumber - 1) * pageSize + 1;
-    const end = Math.min(pageNumber * pageSize, totalCount);
-
-    return this.translate.instant('table.showing', {
-      from: start,
-      to: end,
-      total: totalCount,
-    });
   }
 }
