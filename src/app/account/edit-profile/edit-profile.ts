@@ -26,30 +26,35 @@ import { Spinner } from '../../shared/components/spinner/spinner';
   styles: ``,
 })
 export class EditProfile {
-  private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
-  private accountService = inject(AccountService);
+  private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly accountService = inject(AccountService);
   private readonly formValidationService = inject(FormValidationService);
-  private translate = inject(TranslateService);
-  private datasetService = inject(DatasetService);
-  private router = inject(Router);
-  private languageService = inject(LanguageService);
-  private messageService = inject(MessageService);
-  currentUser = this.authService.currentUser;
-  editProfileForm!: FormGroup;
-  isLoading = signal(false);
-  measurementSystem = signal('');
-  isMetric = computed(() => this.measurementSystem() === MeasurementSystem.MetricSystem);
-  isImperial = computed(() => this.measurementSystem() === MeasurementSystem.ImperialSystem);
+  private readonly translate = inject(TranslateService);
+  private readonly datasetService = inject(DatasetService);
+  private readonly router = inject(Router);
+  private readonly languageService = inject(LanguageService);
+  private readonly messageService = inject(MessageService);
 
-  days = Array.from({ length: 31 }, (_, i) => {
+  readonly currentUser = this.authService.currentUser;
+  editProfileForm!: FormGroup;
+
+  readonly isLoading = signal(false);
+  readonly measurementSystem = signal('');
+
+  readonly isMetric = computed(() => this.measurementSystem() === MeasurementSystem.MetricSystem);
+  readonly isImperial = computed(
+    () => this.measurementSystem() === MeasurementSystem.ImperialSystem,
+  );
+
+  readonly days = Array.from({ length: 31 }, (_, i) => {
     const dayNumber = i + 1;
     return {
       value: dayNumber.toString(), // "1", "2", ... "31"
       label: dayNumber.toString().padStart(2, '0'), // "01", "02", ... "31"
     };
   });
-  editProfileDatasetData = this.datasetService.getEditProfileDataset();
+  readonly editProfileDatasetData = this.datasetService.getEditProfileDataset();
 
   constructor() {
     this.buildForm();

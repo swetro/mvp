@@ -15,19 +15,22 @@ import { NoDataView } from '../../shared/components/no-data-view/no-data-view';
   styles: ``,
 })
 export class Activities {
-  private activityService = inject(ActivityService);
-  private translate = inject(TranslateService);
-  private languageService = inject(LanguageService);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
+  private readonly activityService = inject(ActivityService);
+  private readonly translate = inject(TranslateService);
+  private readonly languageService = inject(LanguageService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
-  year = signal<number>(0);
-  weekOfYear = signal<number>(0);
+  readonly year = signal<number>(0);
+  readonly weekOfYear = signal<number>(0);
 
-  currentLanguage = this.languageService.getCurrentLanguage();
-  weeklyActivitiesData = this.activityService.getWeeklyActivities(this.year, this.weekOfYear);
+  readonly currentLanguage = this.languageService.getCurrentLanguage();
+  readonly weeklyActivitiesData = this.activityService.getWeeklyActivities(
+    this.year,
+    this.weekOfYear,
+  );
 
-  weekLabel = computed(() => {
+  readonly weekLabel = computed(() => {
     const y = this.year();
     const w = this.weekOfYear();
     if (!y || !w) return '';
@@ -42,7 +45,7 @@ export class Activities {
     return `${this.translate.instant('activities.week')} ${String(w).padStart(2, '0')} · ${y} (${fmt(start)} – ${fmt(end)})`;
   });
 
-  isCurrentWeek = computed(() => {
+  readonly isCurrentWeek = computed(() => {
     const now = this.getISOWeekYearAndWeek(new Date());
     const currentYear = this.year();
     const currentWeek = this.weekOfYear();

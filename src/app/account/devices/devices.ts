@@ -1,27 +1,27 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { DeviceService } from '../../shared/services/device.service';
-import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
 import { DeviceBrand } from '../../shared/enums/device-brand.enum';
 import { DEVICE_PROVIDERS } from '../../shared/constants/device-providers';
 
 @Component({
   selector: 'app-devices',
-  imports: [TranslateModule, TranslatePipe],
+  imports: [TranslatePipe],
   templateUrl: './devices.html',
   styles: ``,
 })
 export class Devices {
-  private deviceService = inject(DeviceService);
-  private authService = inject(AuthService);
-  private currentSlug = signal<string | undefined>(undefined);
+  private readonly deviceService = inject(DeviceService);
+  private readonly authService = inject(AuthService);
+  private readonly currentSlug = signal<string | undefined>(undefined);
 
-  devices = DEVICE_PROVIDERS;
-  selectedBrand = signal<DeviceBrand | null>(null);
-  isDisconnecting = signal(false);
+  readonly devices = DEVICE_PROVIDERS;
+  readonly selectedBrand = signal<DeviceBrand | null>(null);
+  readonly isDisconnecting = signal(false);
 
-  currentUser = this.authService.currentUser;
-  providerUrlData = this.deviceService.addDeviceStep1(this.selectedBrand, this.currentSlug);
+  readonly currentUser = this.authService.currentUser;
+  readonly providerUrlData = this.deviceService.addDeviceStep1(this.selectedBrand, this.currentSlug);
 
   constructor() {
     effect(() => {
