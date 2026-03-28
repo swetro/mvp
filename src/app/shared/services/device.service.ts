@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DeviceService {
   private readonly challengeConfigService = inject(ChallengeConfigService);
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
   addDeviceStep1(
     brand: Signal<DeviceBrand | null>,

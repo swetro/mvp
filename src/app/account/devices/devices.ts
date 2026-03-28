@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { DeviceService } from '../../shared/services/device.service';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
@@ -21,17 +21,19 @@ export class Devices {
   readonly isDisconnecting = signal(false);
 
   readonly currentUser = this.authService.currentUser;
-  readonly providerUrlData = this.deviceService.addDeviceStep1(this.selectedBrand, this.currentSlug);
+  readonly connectedBrands = computed(
+    () => new Set(this.currentUser()?.devices?.map((d) => d.brand) ?? []),
+  );
+  readonly providerUrlData = this.deviceService.addDeviceStep1(
+    this.selectedBrand,
+    this.currentSlug,
+  );
 
   constructor() {
     effect(() => {
       const url = this.providerUrlData.value();
       if (url) window.location.href = url;
     });
-  }
-
-  hasDeviceConnected(brand: DeviceBrand) {
-    return this.currentUser()?.devices?.some((d) => d.brand === brand) ?? false;
   }
 
   connect(brand: DeviceBrand) {

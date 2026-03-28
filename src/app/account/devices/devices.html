@@ -5,24 +5,25 @@
   <div class="mt-10 mb-20">
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       @for (d of devices; track d.brand) {
+        @let isConnecting = providerUrlData.isLoading();
         <article>
           <div class="flex flex-col gap-4">
             <div
-              class="w-full h-[150px] flex items-center justify-center p-m bg-white border border-slate-300 rounded-lg"
+              class="w-full h-37.5 flex items-center justify-center p-m bg-white border border-slate-300 rounded-lg"
             >
               <img
-                class="max-w-[120px]"
+                class="max-w-30"
                 [src]="d.logoSrc"
                 [alt]="d.label + ' logo'"
                 loading="lazy"
                 decoding="async"
               />
             </div>
-            @if (hasDeviceConnected(d.brand)) {
+            @if (connectedBrands().has(d.brand)) {
               <button
                 (click)="disconnect(d.brand)"
                 class="btn-danger"
-                [disabled]="providerUrlData.isLoading() || isDisconnecting()"
+                [disabled]="isConnecting || isDisconnecting()"
               >
                 @if (isDisconnecting()) {
                   {{ 'devices.btnDisconnecting' | translate }}
@@ -31,12 +32,8 @@
                 }
               </button>
             } @else {
-              <button
-                (click)="connect(d.brand)"
-                class="btn-primary"
-                [disabled]="providerUrlData.isLoading()"
-              >
-                @if (providerUrlData.isLoading() && selectedBrand() === d.brand) {
+              <button (click)="connect(d.brand)" class="btn-primary" [disabled]="isConnecting">
+                @if (isConnecting && selectedBrand() === d.brand) {
                   <span>{{ 'devices.btnConnecting' | translate }}</span>
                 } @else {
                   {{ 'devices.btnConnect' | translate }}
