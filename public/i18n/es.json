@@ -89,6 +89,7 @@
   },
   "challengeParticipant": {
     "completed": "Completado",
+    "ended": "Finalizado",
     "goalProgress": "Progreso",
     "inProgress": "Compitiendo",
     "linkBack": "Regresar",

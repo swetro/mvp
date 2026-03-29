@@ -34,6 +34,7 @@ export class ChallengeDetails {
 
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
   readonly activityTypeEnum = ActivityType;
+  readonly challengeStatusEnum = ChallengeStatus;
   readonly calendarIcon = './images/shared/calendar.svg';
   readonly clockIcon = './images/shared/clock.svg';
   readonly participantsIcon = './images/shared/participants.svg';
@@ -44,7 +45,9 @@ export class ChallengeDetails {
 
   readonly participationStatus = computed(() => {
     const challenge = this.challengeData.value();
-    if (!challenge?.currentUser?.isParticipating) return null;
+    if (!challenge?.currentUser?.isParticipating) {
+      return challenge?.status === ChallengeStatus.Completed ? 'ended' : null;
+    }
     if (challenge.currentUser.isCompleted) return 'completed';
     if (challenge.status === ChallengeStatus.Completed) return 'notCompleted';
     return 'inProgress';

@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -12,11 +13,13 @@ import { NoDataView } from '../../shared/components/no-data-view/no-data-view';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActivityType } from '../../shared/enums/activity-type.enum';
+import { ChallengeStatus } from '../../shared/enums/challenge-status.enum';
 import { ACTIVITY_TYPE_ICONS } from '../../shared/constants/activity-type-icons';
 
 @Component({
   selector: 'app-challenge-leaderboard',
-  imports: [TranslatePipe, ChallengeParticipantsTable, Spinner, NoDataView],
+  imports: [NgClass, TranslatePipe, ChallengeParticipantsTable, Spinner, NoDataView],
   templateUrl: './challenge-leaderboard.html',
   styles: ``,
 })
@@ -63,6 +66,26 @@ export class ChallengeLeaderboard {
       }),
       ...(ogImage && { image: ogImage }),
     };
+  });
+
+  readonly activityIcon = computed(() => {
+    const type = this.challengeData.value()?.goal.activityType;
+    if (!type) return '';
+    return (
+      this.activityTypeIcons.find((icon) => icon.type === type)?.src ||
+      this.activityTypeIcons.find((icon) => icon.type === ActivityType.Other)?.src ||
+      ''
+    );
+  });
+
+  readonly participationStatus = computed(() => {
+    const challenge = this.challengeData.value();
+    if (!challenge?.currentUser?.isParticipating) {
+      return challenge?.status === ChallengeStatus.Completed ? 'ended' : null;
+    }
+    if (challenge.currentUser.isCompleted) return 'completed';
+    if (challenge.status === ChallengeStatus.Completed) return 'notCompleted';
+    return 'inProgress';
   });
 
   readonly paginationText = computed(() => {

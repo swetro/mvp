@@ -6,6 +6,40 @@
       <app-spinner />
     </div>
   } @else if (challengeData.value(); as challenge) {
+    <!-- Badges row -->
+    <div class="mb-3 flex flex-row flex-wrap items-start gap-2">
+      <!-- Activity type badge -->
+      <div
+        class="flex items-center gap-1.5 w-fit px-4 py-1.5 rounded-full bg-slate-100 text-slate-700 text-sm font-medium"
+      >
+        <img class="w-4 h-4" [src]="activityIcon()" [alt]="challenge.goal.activityType" />
+        {{ 'activityType.' + challenge.goal.activityType | translate }}
+      </div>
+
+      <!-- Status badge -->
+      @if (participationStatus(); as status) {
+        <div
+          class="flex items-center w-fit px-4 py-1.5 rounded-full text-sm font-medium text-white"
+          [ngClass]="{
+            'bg-orange-500': status === 'inProgress',
+            'bg-emerald-500': status === 'completed',
+            'bg-slate-500': status === 'notCompleted' || status === 'ended',
+          }"
+        >
+          {{
+            (status === 'completed'
+              ? 'challengeParticipant.completed'
+              : status === 'notCompleted'
+                ? 'challengeParticipant.notCompleted'
+                : status === 'ended'
+                  ? 'challengeParticipant.ended'
+                  : 'challengeParticipant.inProgress'
+            ) | translate
+          }}
+        </div>
+      }
+    </div>
+
     <h2>{{ challenge.content.title }}</h2>
     <h3 class="text-slate-600 font-normal">{{ 'challengeLeaderboard.body.title' | translate }}</h3>
     <div class="mt-10 mb-20">
