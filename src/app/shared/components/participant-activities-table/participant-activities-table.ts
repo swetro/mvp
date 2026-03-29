@@ -6,8 +6,8 @@ import { PacePipe } from '../../pipes/pace.pipe';
 import { ElevationPipe } from '../../pipes/elevation.pipe';
 import { HeartRatePipe } from '../../pipes/heart-rate.pipe';
 import { CaloriesPipe } from '../../pipes/calories.pipe';
-import { DatePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LocalizedDatePipe } from '../../pipes/localized-date.pipe';
 
 @Component({
   selector: 'app-participant-activities-table',
@@ -18,12 +18,12 @@ import { TranslatePipe } from '@ngx-translate/core';
     ElevationPipe,
     HeartRatePipe,
     CaloriesPipe,
-    DatePipe,
     TranslatePipe,
+    LocalizedDatePipe,
   ],
   templateUrl: './participant-activities-table.html',
   styles: ``,
 })
 export class ParticipantActivitiesTable {
-  activitiesData = input.required<ActivityDto[]>();
+  readonly activitiesData = input.required<ActivityDto[]>();
 }

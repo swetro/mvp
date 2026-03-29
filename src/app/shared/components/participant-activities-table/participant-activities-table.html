@@ -21,10 +21,10 @@
           @for (item of activities; track item.id) {
             <tr class="hover:bg-slate-200 transition-colors even:bg-slate-100">
               <td class="whitespace-nowrap py-1.5 pl-3 pr-3">
-                {{ item.startTime | date: 'short' }}
+                {{ item.startTime | localizedDate }}
               </td>
               <td class="whitespace-nowrap py-1.5 px-3">
-                {{ item.endTime | date: 'short' }}
+                {{ item.endTime | localizedDate }}
               </td>
               <td class="whitespace-nowrap py-1.5 px-3">
                 {{ item.distanceInMeters | distance }}
