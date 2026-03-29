@@ -42,6 +42,100 @@
 
     <h2>{{ challenge.content.title }}</h2>
     <h3 class="text-slate-600 font-normal">{{ 'challengeLeaderboard.body.title' | translate }}</h3>
+
+    <!-- Info grid -->
+    <div class="mt-6 mb-6 sm:mb-6">
+      @if (!descriptionExpanded()) {
+        <!-- Collapsed: first 100 chars + show more -->
+        <p>
+          {{ challenge.content.description | truncate: DESCRIPTION_PREVIEW_LENGTH }}
+          @if (challenge.content.description.length > DESCRIPTION_PREVIEW_LENGTH) {
+            <button
+              type="button"
+              class="font-medium text-blue-600 hover:text-blue-700"
+              (click)="descriptionExpanded.set(true)"
+            >
+              {{ 'shared.showMore' | translate }}
+            </button>
+          }
+        </p>
+      } @else {
+        <!-- Expanded: full section -->
+        <div class="space-y-6">
+          <div>{{ challenge.content.description }}</div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-3">
+            <!-- Start date -->
+            <div class="flex flex-col gap-1">
+              <div class="flex flex-row items-center gap-1">
+                <img [src]="calendarIcon" alt="Start date" class="w-4.5 h-4.5" />
+                <p class="text-base font-bold leading-5">
+                  {{ challenge.startTime | localizedDate }}
+                </p>
+              </div>
+              <p class="text-sm text-slate-600 leading-5">
+                {{ 'challengeDetails.startDateTime' | translate }}
+              </p>
+            </div>
+
+            <!-- End date -->
+            <div class="flex flex-col gap-1">
+              <div class="flex flex-row items-center gap-1">
+                <img [src]="calendarIcon" alt="End date" class="w-4.5 h-4.5" />
+                <p class="text-base font-bold leading-5">
+                  {{ challenge.endTime | localizedDate }}
+                </p>
+              </div>
+              <p class="text-sm text-slate-600 leading-5">
+                {{ 'challengeDetails.endDateTime' | translate }}
+              </p>
+            </div>
+
+            <!-- Duration -->
+            <div class="flex flex-col gap-1">
+              <div class="flex flex-row items-center gap-1">
+                <img [src]="clockIcon" alt="Duration" class="w-4.5 h-4.5" />
+                <p class="text-base font-bold leading-5">
+                  {{ 'challengeDetails.durationDays' | translate: { days: durationInDays() } }}
+                </p>
+              </div>
+              <p class="text-sm text-slate-600 leading-5">
+                {{ 'challengeDetails.duration' | translate }}
+              </p>
+            </div>
+
+            <!-- Number of participants -->
+            <div class="flex flex-col gap-1">
+              <div class="flex flex-row items-center gap-1">
+                <img [src]="participantsIcon" alt="Participants" class="w-4.5 h-4.5" />
+                <p class="text-base font-bold leading-5">{{ challenge.numberOfParticipants }}</p>
+              </div>
+              <p class="text-sm text-slate-600 leading-5">
+                {{ 'challengeDetails.numberOfParticipants' | translate }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Objective -->
+          <div class="flex flex-col gap-1">
+            <p class="text-base font-bold leading-5">
+              {{ 'challengeDetails.objective' | translate }}
+            </p>
+            <p class="text-sm leading-5">
+              {{ challenge.content.goalDescription }}
+              <button
+                type="button"
+                class="font-medium text-blue-600 hover:text-blue-700"
+                (click)="descriptionExpanded.set(false)"
+              >
+                {{ 'shared.showLess' | translate }}
+              </button>
+            </p>
+          </div>
+        </div>
+      }
+    </div>
+
     <div class="mt-10 mb-20">
       @if (participantFilters) {
         <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2 pb-2">

@@ -16,10 +16,20 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ActivityType } from '../../shared/enums/activity-type.enum';
 import { ChallengeStatus } from '../../shared/enums/challenge-status.enum';
 import { ACTIVITY_TYPE_ICONS } from '../../shared/constants/activity-type-icons';
+import { LocalizedDatePipe } from '../../shared/pipes/localized-date.pipe';
+import { TruncatePipe } from '../../shared/pipes/truncate.pipe';
 
 @Component({
   selector: 'app-challenge-leaderboard',
-  imports: [NgClass, TranslatePipe, ChallengeParticipantsTable, Spinner, NoDataView],
+  imports: [
+    NgClass,
+    LocalizedDatePipe,
+    TruncatePipe,
+    TranslatePipe,
+    ChallengeParticipantsTable,
+    Spinner,
+    NoDataView,
+  ],
   templateUrl: './challenge-leaderboard.html',
   styles: ``,
 })
@@ -34,8 +44,13 @@ export class ChallengeLeaderboard {
   private readonly searchInput$ = new Subject<string>();
 
   readonly activityTypeIcons = ACTIVITY_TYPE_ICONS;
+  readonly calendarIcon = './images/shared/calendar.svg';
+  readonly clockIcon = './images/shared/clock.svg';
+  readonly participantsIcon = './images/shared/participants.svg';
   readonly challengeId = input.required<number>();
   readonly selectedFilter = signal<string>('overall');
+  readonly descriptionExpanded = signal(false);
+  readonly DESCRIPTION_PREVIEW_LENGTH = 120;
   readonly searchTerm = signal<string>('');
   readonly currentPage = signal<number>(1);
 
@@ -86,6 +101,14 @@ export class ChallengeLeaderboard {
     if (challenge.currentUser.isCompleted) return 'completed';
     if (challenge.status === ChallengeStatus.Completed) return 'notCompleted';
     return 'inProgress';
+  });
+
+  readonly durationInDays = computed(() => {
+    const challenge = this.challengeData.value();
+    if (!challenge) return 0;
+    const start = new Date(challenge.startTime).getTime();
+    const end = new Date(challenge.endTime).getTime();
+    return Math.max(0, Math.round((end - start) / (1000 * 60 * 60 * 24)));
   });
 
   readonly paginationText = computed(() => {
