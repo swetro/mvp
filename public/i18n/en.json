@@ -92,6 +92,7 @@
     "goalProgress": "Progress",
     "inProgress": "Competing",
     "linkBack": "Back",
+    "noActivities": "No activities found for this challenge.",
     "notCompleted": "Not completed",
     "years": "years"
   },
@@ -143,6 +144,11 @@
     "500": "An error occurred while processing the request. Please try again later.",
     "default": "An unexpected error occurred. Please try again later.",
     "noInternet": "No internet connection. Please check your connection and try again."
+  },
+  "gender": {
+    "Female": "Female",
+    "Male": "Male",
+    "Other": "Other"
   },
   "footer": {
     "linkCookies": "Cookie Policy",
@@ -283,10 +289,12 @@
     "elevationLoss": "Elevation Loss",
     "fullname": "Name",
     "gender": "Gender",
+    "highlights": "Highlights",
     "numberOfParticipants": "Participants",
     "pace": "Pace",
     "position": "Position",
     "speed": "Speed",
+    "stats": "Stats",
     "time": "Time"
   },
   "shared": {

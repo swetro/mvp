@@ -7,7 +7,7 @@
     <div class="bg-slate-200 px-4 py-4">
       <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
         <div class="flex items-center gap-3">
-          <div class="w-[30px] h-[30px] flex items-center justify-center rounded-[4px] shrink-0">
+          <div class="w-7.5 h-7.5 flex items-center justify-center rounded-sm shrink-0">
             <img class="w-full h-full" [src]="activityIcon()" alt="Activity type" />
           </div>
           <div class="flex flex-col">
@@ -54,7 +54,7 @@
           <!-- Position -->
           <div class="flex flex-col gap-1">
             <div class="flex flex-row items-center gap-1">
-              <img [src]="positionIcon" alt="Position" class="w-[18px] h-[18px]" />
+              <img [src]="positionIcon" alt="Position" class="w-4.5 h-4.5" />
               <p class="text-base font-bold leading-5">
                 {{ challenge.currentUser?.position }}
                 @if (medalEmoji()) {
@@ -70,7 +70,7 @@
           <!-- Number of participants -->
           <div class="flex flex-col gap-1">
             <div class="flex flex-row items-center gap-1">
-              <img [src]="participantsIcon" alt="Participants" class="w-[18px] h-[18px]" />
+              <img [src]="participantsIcon" alt="Participants" class="w-4.5 h-4.5" />
               <p class="text-base font-bold leading-5">
                 {{ challenge.numberOfParticipants }}
               </p>
@@ -83,7 +83,7 @@
           <!-- Duration -->
           <div class="flex flex-col gap-1">
             <div class="flex flex-row items-center gap-1">
-              <img [src]="durationIcon" alt="Duration" class="w-[18px] h-[18px]" />
+              <img [src]="durationIcon" alt="Duration" class="w-4.5 h-4.5" />
               <p class="text-base font-bold leading-5">
                 {{ challenge.currentUser?.durationInSeconds ?? 0 | duration }}
               </p>
@@ -96,7 +96,7 @@
           <!-- Distance -->
           <div class="flex flex-col gap-1">
             <div class="flex flex-row items-center gap-1">
-              <img [src]="distanceIcon" alt="Distance" class="w-[18px] h-[18px]" />
+              <img [src]="distanceIcon" alt="Distance" class="w-4.5 h-4.5" />
               <p class="text-base font-bold leading-5">
                 {{ challenge.currentUser?.distanceInMeters ?? 0 | distance }}
               </p>
@@ -110,7 +110,7 @@
             <!-- Elevation -->
             <div class="flex flex-col gap-1">
               <div class="flex flex-row items-center gap-1">
-                <img [src]="elevationIcon" alt="Elevation" class="w-[18px] h-[18px]" />
+                <img [src]="elevationIcon" alt="Elevation" class="w-4.5 h-4.5" />
                 <p class="text-base font-bold leading-5">
                   {{ challenge.currentUser?.elevationGainInMeters ?? 0 | elevation }}
                 </p>
@@ -123,7 +123,7 @@
             <!-- Pace/Speed -->
             <div class="flex flex-col gap-1">
               <div class="flex flex-row items-center gap-1">
-                <img [src]="paceIcon" alt="Pace" class="w-[18px] h-[18px]" />
+                <img [src]="paceIcon" alt="Pace" class="w-4.5 h-4.5" />
                 <p class="text-base font-bold leading-5">
                   @if (
                     challenge.goal.activityType === activityTypeEnum.Running ||
@@ -152,7 +152,7 @@
           <!-- Calories -->
           <div class="flex flex-col gap-1">
             <div class="flex flex-row items-center gap-1">
-              <img [src]="caloriesIcon" alt="Calories" class="w-[18px] h-[18px]" />
+              <img [src]="caloriesIcon" alt="Calories" class="w-4.5 h-4.5" />
               <p class="text-base font-bold leading-5">
                 {{ challenge.currentUser?.calories ?? 0 | calories }}
               </p>
@@ -165,11 +165,7 @@
           <!-- Number of activities -->
           <div class="flex flex-col gap-1">
             <div class="flex flex-row items-center gap-1">
-              <img
-                [src]="numberActivitiesIcon"
-                alt="Number of activities"
-                class="w-[18px] h-[18px]"
-              />
+              <img [src]="numberActivitiesIcon" alt="Number of activities" class="w-4.5 h-4.5" />
               <p class="text-base font-bold leading-5">
                 {{ challenge.currentUser?.numberOfActivities }}
               </p>
@@ -213,14 +209,14 @@
         @if (challenge.currentUser?.isParticipating) {
           <a
             [routerLink]="['/', currentLanguage, 'challenges', challenge.id, 'leaderboard']"
-            class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+            class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-35 text-center"
           >
             {{ 'challengeList.btnLeaderboard' | translate }}
           </a>
         } @else {
           <button
             type="button"
-            class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+            class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-35 text-center"
             (click)="onJoinClick()"
           >
             {{ 'challengeList.btnJoin' | translate }}
@@ -228,7 +224,7 @@
         }
         <a
           [routerLink]="['/', currentLanguage, 'challenges', challenge.id]"
-          class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+          class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-35 text-center"
         >
           {{ 'challengeList.btnDetails' | translate }}
         </a>

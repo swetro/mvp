@@ -1,100 +1,235 @@
 @let participant = participantData.value();
+@let challenge = challengeData.value();
+@let percent = progressPercent();
 
 <section>
   <a
-    [routerLink]="['/', currentLanguage, 'leaderboard', challengeId()]"
+    [routerLink]="['/', currentLanguage, 'challenges', challengeId(), 'leaderboard']"
     queryParamsHandling="preserve"
-    >{{ 'challengeParticipant.linkBack' | translate }}</a
+    class="flex items-center gap-1"
   >
+    <img [src]="backIcon" alt="Back" class="w-4 h-4" />
+    {{ 'challengeParticipant.linkBack' | translate }}
+  </a>
 
-  @if (participant) {
-    <div class="mt-10 mb-20">
-      <div>
-        <h2>
-          {{ participant.isCompleted | completedChallenge }} {{ participant.firstName }}
-          {{ participant.lastName }}
-        </h2>
-        <div style="margin-top: 10px; margin-bottom: 10px">
-          <div>{{ 'participant.position' | translate }}: {{ participant.position }}</div>
-          <div>
-            {{ 'participant.ageCategoryPosition' | translate }}:
-            {{ participant.positionByAgeCategory }}
-          </div>
-          <div>
-            {{ 'challengeParticipant.goalProgress' | translate }}: {{ participant.progress }}% -
-            {{
-              participant.isCompleted === true
-                ? ('challengeParticipant.completed' | translate)
-                : ('challengeParticipant.inProgress' | translate)
-            }}
-          </div>
-        </div>
-        <div>
-          <img
-            [src]="participant.countryAlpha2Code | countryFlag"
-            alt="{{ participant.country }}"
-          />
-          &nbsp; {{ participant.country }}
-        </div>
-        <div>
-          {{ participant.gender }} - {{ participant.age }}
-          {{ 'challengeParticipant.years' | translate }}
-        </div>
-        <div>{{ 'participant.ageCategory' | translate }}: {{ participant.ageCategory }}</div>
-      </div>
-      <div style="margin-top: 10px; margin-bottom: 10px">
-        <div>
-          {{ 'activity.distance' | translate }}:
-          {{ participant.distanceInMeters | distance }}
-        </div>
-        <div>
-          {{ 'participant.time' | translate }}: {{ participant.durationInSeconds | duration }}
-        </div>
-        <div>
-          {{ 'participant.pace' | translate }}:
-          {{ participant.averagePaceInMinutesPerKilometer | pace }}
-        </div>
-        <div>
-          {{ 'participant.elevationGain' | translate }}:
-          {{ participant.elevationGainInMeters | elevation }}
-        </div>
-        <div>
-          {{ 'participant.elevationLoss' | translate }}:
-          {{ participant.elevationLossInMeters | elevation }}
-        </div>
-        <div>
-          {{ 'participant.heartRate' | translate }}:
-          {{ participant.averageHeartRateInBeatsPerMinute | heartRate }}
-        </div>
-        <div>{{ 'participant.calories' | translate }}: {{ participant.calories | calories }}</div>
-        <div>{{ 'participant.activities' | translate }}: {{ participant.numberOfActivities }}</div>
-      </div>
-
-      @if (participant.activities.length > 0) {
-        <app-participant-activities-table
-          [activitiesData]="participant.activities"
-        ></app-participant-activities-table>
-      } @else {
-        <div class="text-center py-12 rounded-lg border border-slate-300">
-          <svg
-            class="mx-auto h-16 w-16 text-slate-400 mb-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+  @if (participantData.isLoading() || challengeData.isLoading()) {
+    <div class="flex justify-center py-20">
+      <app-spinner />
+    </div>
+  } @else if (participant && challenge) {
+    <div class="mt-6 mb-20 space-y-6">
+      <!-- Profile header -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Left: avatar + basic info -->
+        <div class="flex flex-row md:flex-col items-center md:items-start gap-4">
+          @if (participant.profilePictureUrl) {
+            <img
+              [src]="participant.profilePictureUrl"
+              [alt]="participant.firstName + ' ' + participant.lastName"
+              class="w-30 h-30 rounded-full object-cover shrink-0"
+              loading="lazy"
+              decoding="async"
             />
-          </svg>
-          <h3 class="mt-2 text-sm font-medium text-slate-900">No activities found</h3>
-          <p class="mt-1 text-sm text-slate-500">
-            {{ 'challengeParticipant.noActivities' | translate }}
+          } @else {
+            <div
+              class="w-30 h-30 rounded-full bg-slate-200 flex items-center justify-center shrink-0"
+            >
+              <span class="text-2xl font-semibold text-slate-500">
+                {{ participant.firstName + ' ' + participant.lastName | nameInitials }}
+              </span>
+            </div>
+          }
+          <div class="flex flex-col gap-1">
+            <h2>{{ participant.firstName }} {{ participant.lastName }}</h2>
+            <div class="flex items-center gap-1.5 text-slate-600">
+              <img
+                [src]="participant.countryAlpha2Code | countryFlag"
+                [alt]="participant.country"
+                class="w-5 h-3.5 object-cover rounded-sm"
+              />
+              {{ participant.country }}
+            </div>
+            <p class="text-sm text-slate-600">
+              {{ 'gender.' + participant.gender | translate }} · {{ participant.age }}
+              {{ 'challengeParticipant.years' | translate }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: position + challenge info + progress -->
+        <div class="flex flex-col gap-4">
+          <!-- Challenge name + dates -->
+          <div>
+            <p class="text-xl font-bold leading-tight">{{ challenge.content.title }}</p>
+            <p class="text-sm text-slate-600 mt-1">
+              {{ challenge.startTime | localizedDate }} – {{ challenge.endTime | localizedDate }}
+            </p>
+          </div>
+
+          <!-- Position -->
+          <div>
+            <p class="font-semibold">
+              {{ medalEmoji() }} #{{ participant.position }} ·
+              {{ challenge.numberOfParticipants }}
+              {{ 'participant.numberOfParticipants' | translate }}
+            </p>
+            <p class="font-semibold">
+              {{ medalEmojiByAgeCategory() }} #{{ participant.positionByAgeCategory }} ·
+              {{ participant.ageCategory }}
+            </p>
+          </div>
+
+          <!-- Progress bar -->
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-600 mb-1.5">
+              <span>{{ 'challengeParticipant.goalProgress' | translate }}</span>
+              @if (participant.isCompleted === true) {
+                <span class="font-semibold text-emerald-600">
+                  {{ 'challengeParticipant.completed' | translate }}
+                </span>
+              } @else {
+                <span class="font-semibold text-slate-800">{{ percent }}%</span>
+              }
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-1.5">
+              <div
+                class="h-1.5 rounded-full transition-all duration-300"
+                [ngClass]="{
+                  'bg-emerald-500': participant.isCompleted === true && percent === 100,
+                  'bg-orange-500':
+                    !(participant.isCompleted === true && percent === 100) && percent > 70,
+                  'bg-blue-600':
+                    !(participant.isCompleted === true && percent === 100) && percent <= 70,
+                }"
+                [style.width.%]="percent"
+              ></div>
+            </div>
+            <p class="text-sm text-slate-600 mt-1">{{ challenge.content.goalDescription }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats row: 4 cols -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-slate-200">
+        <!-- Duration -->
+        <div class="flex flex-col gap-1">
+          <p class="text-base font-bold leading-5">
+            {{ participant.durationInSeconds | duration }}
+          </p>
+          <p class="text-sm text-slate-600 leading-5">{{ 'participant.time' | translate }}</p>
+        </div>
+
+        <!-- Distance -->
+        <div class="flex flex-col gap-1">
+          <p class="text-base font-bold leading-5">{{ participant.distanceInMeters | distance }}</p>
+          <p class="text-sm text-slate-600 leading-5">{{ 'participant.distance' | translate }}</p>
+        </div>
+
+        <!-- Pace/Speed -->
+        <div class="flex flex-col gap-1">
+          <p class="text-base font-bold leading-5">
+            @if (
+              challenge.goal.activityType === activityTypeEnum.Running ||
+              challenge.goal.activityType === activityTypeEnum.TreadmillRunning ||
+              challenge.goal.activityType === activityTypeEnum.Walking
+            ) {
+              {{ participant.averagePaceInMinutesPerKilometer | pace }}
+            } @else {
+              {{ participant.averageSpeedInMetersPerSecond | speed }}
+            }
+          </p>
+          <p class="text-sm text-slate-600 leading-5">
+            {{
+              (challenge.goal.activityType === activityTypeEnum.Running ||
+              challenge.goal.activityType === activityTypeEnum.TreadmillRunning ||
+              challenge.goal.activityType === activityTypeEnum.Walking
+                ? 'participant.pace'
+                : 'participant.speed'
+              ) | translate
+            }}
           </p>
         </div>
-      }
+
+        <!-- Number of activities -->
+        <div class="flex flex-col gap-1">
+          <p class="text-base font-bold leading-5">{{ participant.numberOfActivities }}</p>
+          <p class="text-sm text-slate-600 leading-5">{{ 'participant.activities' | translate }}</p>
+        </div>
+      </div>
+
+      <!-- Highlights + Stats: 2 cols -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-slate-200">
+        <!-- Highlights -->
+        <div>
+          <p class="text-base font-bold mb-3">⚡ {{ 'participant.highlights' | translate }}</p>
+          <ul class="space-y-2">
+            @if (participant.elevationGainInMeters) {
+              <li class="flex justify-between text-sm">
+                <span class="text-slate-600">{{ 'participant.elevationGain' | translate }}</span>
+                <span class="font-medium">{{ participant.elevationGainInMeters | elevation }}</span>
+              </li>
+            }
+            @if (participant.elevationLossInMeters) {
+              <li class="flex justify-between text-sm">
+                <span class="text-slate-600">{{ 'participant.elevationLoss' | translate }}</span>
+                <span class="font-medium">{{ participant.elevationLossInMeters | elevation }}</span>
+              </li>
+            }
+            @if (participant.averageHeartRateInBeatsPerMinute) {
+              <li class="flex justify-between text-sm">
+                <span class="text-slate-600">{{ 'activity.heartRate' | translate }}</span>
+                <span class="font-medium">{{
+                  participant.averageHeartRateInBeatsPerMinute | heartRate
+                }}</span>
+              </li>
+            }
+            @if (participant.calories) {
+              <li class="flex justify-between text-sm">
+                <span class="text-slate-600">{{ 'participant.calories' | translate }}</span>
+                <span class="font-medium">{{ participant.calories | calories }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <!-- Stats -->
+        <div>
+          <p class="text-base font-bold mb-3">📊 {{ 'participant.stats' | translate }}</p>
+          <ul class="space-y-2">
+            <li class="flex justify-between text-sm">
+              <span class="text-slate-600">{{ 'participant.position' | translate }}</span>
+              <span class="font-medium">#{{ participant.position }}</span>
+            </li>
+            <li class="flex justify-between text-sm">
+              <span class="text-slate-600">{{
+                'participant.ageCategoryPosition' | translate
+              }}</span>
+              <span class="font-medium">#{{ participant.positionByAgeCategory }}</span>
+            </li>
+            <li class="flex justify-between text-sm">
+              <span class="text-slate-600">{{ 'participant.ageCategory' | translate }}</span>
+              <span class="font-medium">{{ participant.ageCategory }}</span>
+            </li>
+            <li class="flex justify-between text-sm">
+              <span class="text-slate-600">{{
+                'challengeParticipant.goalProgress' | translate
+              }}</span>
+              <span class="font-medium">{{ percent }}%</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Activities -->
+      <div class="pt-6 border-t border-slate-200">
+        @if (participant.activities.length > 0) {
+          <app-participant-activities-table
+            [activitiesData]="participant.activities"
+          ></app-participant-activities-table>
+        } @else {
+          <app-no-data-view icon="calendar" title="challengeParticipant.noActivities" />
+        }
+      </div>
     </div>
   }
 </section>

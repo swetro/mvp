@@ -92,6 +92,7 @@
     "goalProgress": "Progreso",
     "inProgress": "Compitiendo",
     "linkBack": "Regresar",
+    "noActivities": "No se encontraron actividades para este reto.",
     "notCompleted": "No completado",
     "years": "años"
   },
@@ -142,6 +143,11 @@
     "500": "Ocurrió un error al procesar la solicitud. Por favor, intenta nuevamente más tarde.",
     "default": "Ocurrió un error inesperado. Por favor, intenta nuevamente más tarde.",
     "noInternet": "No hay conexión a internet. Por favor, verifica tu conexión e intenta nuevamente."
+  },
+  "gender": {
+    "Female": "Femenino",
+    "Male": "Masculino",
+    "Other": "Otro"
   },
   "footer": {
     "linkCookies": "Política de Cookies",
@@ -283,10 +289,12 @@
     "fullname": "Nombre",
     "gender": "Género",
     "heartRate": "Frecuencia cardíaca",
+    "highlights": "Destacados",
     "numberOfParticipants": "Participantes",
     "pace": "Ritmo",
     "position": "Posición",
     "speed": "Velocidad",
+    "stats": "Estadísticas",
     "time": "Tiempo"
   },
   "shared": {
