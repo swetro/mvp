@@ -27,4 +27,14 @@ export class AccountService {
   updateProfile(data: UpdateProfileDto) {
     return this.http.put<void>(`${environment.apiUrl}/account/profile`, data);
   }
+
+  uploadProfilePicture(file: File) {
+    const form = new FormData();
+    form.append('file', file);
+    return this.http.post<void>(`${environment.apiUrl}/account/profile/picture`, form);
+  }
+
+  deleteProfilePicture() {
+    return this.http.delete<void>(`${environment.apiUrl}/account/profile/picture`);
+  }
 }

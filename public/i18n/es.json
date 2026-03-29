@@ -134,6 +134,12 @@
       "weightKg": "Peso (kg):",
       "weightLbs": "Peso (lbs):",
       "year": "Año"
+    },
+    "photo": {
+      "change": "Cambiar foto",
+      "errorSize": "La imagen debe pesar menos de 5 MB",
+      "errorType": "Solo se permiten imágenes JPEG, PNG, WebP y HEIC",
+      "remove": "Eliminar foto"
     }
   },
   "error": {

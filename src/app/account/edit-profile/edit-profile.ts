@@ -18,10 +18,14 @@ import { Router } from '@angular/router';
 import { LanguageService } from '../../core/services/language.service';
 import { MessageService } from '../../core/services/message.service';
 import { Spinner } from '../../shared/components/spinner/spinner';
+import { NameInitialsPipe } from '../../shared/pipes/name-initials.pipe';
+
+const MAX_PHOTO_SIZE_BYTES = 5 * 1024 * 1024;
+const ALLOWED_PHOTO_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
 
 @Component({
   selector: 'app-edit-profile',
-  imports: [ReactiveFormsModule, TranslatePipe, Spinner],
+  imports: [ReactiveFormsModule, TranslatePipe, Spinner, NameInitialsPipe],
   templateUrl: './edit-profile.html',
   styles: ``,
 })
@@ -40,7 +44,13 @@ export class EditProfile {
   editProfileForm!: FormGroup;
 
   readonly isLoading = signal(false);
+  readonly isPhotoLoading = signal(false);
   readonly measurementSystem = signal('');
+  readonly photoPreview = signal<string | null>(null);
+
+  readonly hasPhoto = computed(
+    () => !!(this.photoPreview() ?? this.currentUser()?.profilePictureUrl),
+  );
 
   readonly isMetric = computed(() => this.measurementSystem() === MeasurementSystem.MetricSystem);
   readonly isImperial = computed(
@@ -151,11 +161,61 @@ export class EditProfile {
               this.authService.refreshUserProfile();
             }
           },
-          error: (error) => {
+          error: (error: unknown) => {
             this.formValidationService.showErrors(this.editProfileForm, error);
           },
         });
     }
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+
+    if (!ALLOWED_PHOTO_TYPES.includes(file.type)) {
+      this.messageService.showError(this.translate.instant('editProfile.photo.errorType'));
+      input.value = '';
+      return;
+    }
+
+    if (file.size > MAX_PHOTO_SIZE_BYTES) {
+      this.messageService.showError(this.translate.instant('editProfile.photo.errorSize'));
+      input.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => this.photoPreview.set(reader.result as string);
+    reader.readAsDataURL(file);
+
+    this.isPhotoLoading.set(true);
+    this.accountService
+      .uploadProfilePicture(file)
+      .pipe(finalize(() => this.isPhotoLoading.set(false)))
+      .subscribe({
+        next: () => this.authService.refreshUserProfile(),
+        error: () => {
+          this.photoPreview.set(null);
+          this.messageService.showError(this.translate.instant('forms.messages.saveError'));
+          input.value = '';
+        },
+      });
+  }
+
+  onRemovePhoto(): void {
+    this.isPhotoLoading.set(true);
+    this.accountService
+      .deleteProfilePicture()
+      .pipe(finalize(() => this.isPhotoLoading.set(false)))
+      .subscribe({
+        next: () => {
+          this.photoPreview.set(null);
+          this.authService.refreshUserProfile();
+        },
+        error: () =>
+          this.messageService.showError(this.translate.instant('forms.messages.saveError')),
+      });
   }
 
   private buildForm(): void {

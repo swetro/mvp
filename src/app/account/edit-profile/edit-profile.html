@@ -17,6 +17,76 @@
         novalidate
         class="space-y-6"
       >
+        <!-- Profile Photo -->
+        <div class="flex flex-col items-center gap-3 pb-2">
+          <div class="relative inline-block">
+            <div
+              class="w-24 h-24 rounded-full overflow-hidden bg-blue-600 flex items-center justify-center shrink-0"
+            >
+              @if (isPhotoLoading()) {
+                <app-spinner sizeClasses="w-6 h-6" colorClasses="text-white" />
+              } @else if (hasPhoto()) {
+                <img
+                  [src]="photoPreview() ?? currentUser()!.profilePictureUrl"
+                  alt="Profile photo"
+                  class="w-full h-full object-cover"
+                />
+              } @else {
+                <span class="text-white font-semibold text-2xl">
+                  {{ currentUser()?.firstName + ' ' + currentUser()?.lastName | nameInitials }}
+                </span>
+              }
+            </div>
+            <button
+              type="button"
+              (click)="photoInput.click()"
+              [disabled]="isPhotoLoading()"
+              class="absolute bottom-0 right-0 w-7 h-7 bg-blue-600 hover:bg-blue-700 rounded-full border-2 border-white flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              [attr.aria-label]="'editProfile.photo.change' | translate"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                class="w-3.5 h-3.5 text-white"
+              >
+                <path
+                  d="M1 8a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.664-.89l.812-1.22A2 2 0 0 1 8.07 3h3.86a2 2 0 0 1 1.664.89l.812 1.22A2 2 0 0 0 16.07 6H17a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8Zm13.5 3a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM10 14a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          @if (hasPhoto()) {
+            <div class="flex items-center gap-4">
+              <button
+                type="button"
+                (click)="photoInput.click()"
+                [disabled]="isPhotoLoading()"
+                class="btn-ghost text-sm py-1 px-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {{ 'editProfile.photo.change' | translate }}
+              </button>
+              <button
+                type="button"
+                (click)="onRemovePhoto()"
+                [disabled]="isPhotoLoading()"
+                class="text-sm font-medium text-red-600 hover:text-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {{ 'editProfile.photo.remove' | translate }}
+              </button>
+            </div>
+          }
+
+          <input
+            #photoInput
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
+            class="hidden"
+            (change)="onFileSelected($event)"
+          />
+        </div>
+
         <div>
           <label for="firstName" class="form-label">
             {{ 'editProfile.form.firstName' | translate }}
