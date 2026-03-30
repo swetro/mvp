@@ -156,21 +156,21 @@
 
     <!-- CTA -->
     <div
-      class="sticky bottom-0 z-10 px-4 pb-6 pt-3 bg-white/90 backdrop-blur-sm sm:static sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:flex sm:justify-center sm:mt-6 sm:mb-10"
+      class="sticky bottom-0 z-10 pb-6 pt-3 bg-white/90 backdrop-blur-sm sm:static sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:flex sm:justify-center sm:mt-6 sm:mb-10"
     >
       @if (
         challenge.status === challengeStatusEnum.Completed || challenge.currentUser?.isParticipating
       ) {
         <a
           [routerLink]="['/', currentLanguage, 'challenges', challenge.id, 'leaderboard']"
-          class="btn-primary text-sm px-4 py-3 w-full sm:w-auto sm:min-w-35 sm:py-1.5 text-center block"
+          class="btn-primary w-full sm:w-auto sm:min-w-40 flex items-center justify-center"
         >
           {{ 'challengeList.btnLeaderboard' | translate }}
         </a>
       } @else {
         <button
           type="button"
-          class="btn-primary text-sm px-4 py-3 w-full sm:w-auto sm:min-w-35 sm:py-1.5 text-center"
+          class="btn-primary w-full sm:w-auto sm:min-w-40 flex items-center justify-center"
           (click)="onJoinClick()"
         >
           {{ 'challengeList.btnJoin' | translate }}

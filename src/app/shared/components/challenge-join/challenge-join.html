@@ -36,7 +36,7 @@
       <div class="flex justify-end">
         <button
           type="button"
-          class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+          class="btn-primary text-sm w-full sm:w-auto sm:min-w-45 flex items-center justify-center"
           (click)="onCancel()"
         >
           {{ 'challengeJoin.form.btnClose' | translate }}
@@ -52,7 +52,7 @@
       <div class="flex justify-end">
         <button
           type="button"
-          class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+          class="btn-primary text-sm w-full sm:w-auto sm:min-w-45 flex items-center justify-center"
           (click)="onCancel()"
         >
           {{ 'challengeJoin.form.btnClose' | translate }}
@@ -68,7 +68,7 @@
       <div class="flex justify-end">
         <button
           type="button"
-          class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+          class="btn-primary text-sm w-full sm:w-auto sm:min-w-45 flex items-center justify-center"
           (click)="onCancel()"
         >
           {{ 'challengeJoin.form.btnClose' | translate }}
@@ -84,7 +84,7 @@
       <div class="flex justify-end">
         <button
           type="button"
-          class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+          class="btn-primary text-sm w-full sm:w-auto sm:min-w-45 flex items-center justify-center"
           (click)="onCancel()"
         >
           {{ 'challengeJoin.form.btnClose' | translate }}
@@ -307,7 +307,7 @@
       <div class="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end">
         <button
           type="button"
-          class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center"
+          class="btn-secondary text-sm w-full sm:w-auto sm:min-w-45 flex items-center justify-center gap-2"
           [disabled]="isLoading()"
           (click)="onCancel()"
         >
@@ -315,7 +315,7 @@
         </button>
         <button
           type="button"
-          class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-[140px] text-center flex items-center justify-center gap-2"
+          class="btn-primary text-sm w-full sm:w-auto sm:min-w-45 flex items-center justify-center gap-2"
           [disabled]="
             isLoading() ||
             (modalState() === 'profileIncomplete' &&

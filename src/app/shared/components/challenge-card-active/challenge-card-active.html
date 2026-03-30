@@ -44,7 +44,7 @@
 
     <!-- Body -->
     <div class="px-4 py-4 space-y-3">
-      <p class="text-sm text-slate-600">{{ challenge.content.description | truncate: 120 }}</p>
+      <p class="text-sm text-slate-600">{{ challenge.content.description | truncate: 250 }}</p>
 
       @if (challenge.currentUser?.isParticipating) {
         <!-- Stats grid -->
@@ -209,14 +209,14 @@
         @if (challenge.currentUser?.isParticipating) {
           <a
             [routerLink]="['/', currentLanguage, 'challenges', challenge.id, 'leaderboard']"
-            class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-35 text-center"
+            class="btn-primary text-sm w-full sm:w-auto sm:min-w-40 flex items-center justify-center"
           >
             {{ 'challengeList.btnLeaderboard' | translate }}
           </a>
         } @else {
           <button
             type="button"
-            class="btn-primary text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-35 text-center"
+            class="btn-primary text-sm w-full sm:w-auto sm:min-w-40 flex items-center justify-center"
             (click)="onJoinClick()"
           >
             {{ 'challengeList.btnJoin' | translate }}
@@ -224,7 +224,7 @@
         }
         <a
           [routerLink]="['/', currentLanguage, 'challenges', challenge.id]"
-          class="btn-ghost text-sm px-4 py-1.5 w-full sm:w-auto sm:min-w-35 text-center"
+          class="btn-ghost text-sm w-full sm:w-auto sm:min-w-40 flex items-center justify-center"
         >
           {{ 'challengeList.btnDetails' | translate }}
         </a>
