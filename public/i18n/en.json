@@ -164,6 +164,7 @@
   },
   "forms": {
     "buttons": {
+      "continue": "Continue",
       "next": "Next",
       "saveChanges": "Save Changes",
       "savingChanges": "Saving Changes...",
@@ -327,6 +328,10 @@
     "form": {
       "email": "Email:"
     },
+    "google": {
+      "button": "Continue with Google",
+      "or": "or"
+    },
     "linkSignUp": "Sign Up"
   },
   "signUp": {
@@ -338,6 +343,10 @@
       "email": "Email:",
       "firstName": "First Name:",
       "lastName": "Last Name:"
+    },
+    "google": {
+      "button": "Continue with Google",
+      "or": "or"
     },
     "linkSignIn": "Sign In"
   },

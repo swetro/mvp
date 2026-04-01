@@ -10,4 +10,5 @@ export const environment = {
   defaultLanguage: 'en',
   supportedLanguages: ['en', 'es'],
   defaultLeagueSlug: 'swetro',
+  googleClientId: '926555311627-qp6s9dge9tomv0ce6k3gos73tpldkhd5.apps.googleusercontent.com',
 };

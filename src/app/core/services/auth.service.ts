@@ -37,6 +37,16 @@ export class AuthService {
     );
   }
 
+  loginWithGoogle(
+    googleAccessToken: string,
+    defaultLanguageCode: string,
+  ): Observable<AuthenticationResultDto> {
+    return this.http.post<AuthenticationResultDto>(`${environment.apiUrl}/auth/google`, {
+      googleAccessToken,
+      defaultLanguageCode,
+    });
+  }
+
   logout(): Observable<void> {
     return this.http.post<void>(`${environment.apiUrl}/auth/logout`, {}).pipe(
       tap(() => this.isAuthenticated.set(false)),

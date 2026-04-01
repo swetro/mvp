@@ -163,6 +163,7 @@
   },
   "forms": {
     "buttons": {
+      "continue": "Continuar",
       "next": "Siguiente",
       "saveChanges": "Guardar Cambios",
       "savingChanges": "Guardando Cambios...",
@@ -327,6 +328,10 @@
     "form": {
       "email": "Correo electrónico:"
     },
+    "google": {
+      "button": "Continuar con Google",
+      "or": "o"
+    },
     "linkSignUp": "Regístrate"
   },
   "signUp": {
@@ -338,6 +343,10 @@
       "email": "Correo electrónico:",
       "firstName": "Nombre:",
       "lastName": "Apellidos:"
+    },
+    "google": {
+      "button": "Continuar con Google",
+      "or": "o"
     },
     "linkSignIn": "Iniciar sesión"
   },
