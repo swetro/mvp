@@ -124,12 +124,17 @@ export class SignIn implements AfterViewInit {
   private handleGoogleCredential(idToken: string): void {
     this.isGoogleLoading.set(true);
     const returnUrl = this.route.snapshot.queryParams['returnUrl'];
-
     this.authService
       .loginWithGoogle(idToken, this.currentLanguage)
       .pipe(finalize(() => this.isGoogleLoading.set(false)))
       .subscribe({
-        next: () => {
+        next: (result) => {
+          if (result?.code) {
+            this.router.navigate(['/', this.currentLanguage, 'auth', 'verify-otp'], {
+              queryParams: { email: result.details, ...(returnUrl ? { returnUrl } : {}) },
+            });
+            return;
+          }
           this.authService.onLoginSuccess();
           this.router.navigate(returnUrl ? [returnUrl] : ['/', this.currentLanguage, 'challenges']);
         },

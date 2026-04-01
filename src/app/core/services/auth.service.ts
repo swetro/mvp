@@ -8,6 +8,7 @@ import { SignInDto } from '../models/auth/sign-in.dto';
 import { SignUpDto } from '../models/auth/sign-up.dto';
 import { VerifyOtpDto } from '../models/auth/verify-otp.dto';
 import { AuthenticationResultDto } from '../models/auth/authentication-result.dto';
+import { GoogleLoginResultDto } from '../models/auth/google-login-result.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -40,8 +41,8 @@ export class AuthService {
   loginWithGoogle(
     googleAccessToken: string,
     defaultLanguageCode: string,
-  ): Observable<AuthenticationResultDto> {
-    return this.http.post<AuthenticationResultDto>(`${environment.apiUrl}/auth/google`, {
+  ): Observable<GoogleLoginResultDto> {
+    return this.http.post<GoogleLoginResultDto>(`${environment.apiUrl}/auth/google`, {
       googleAccessToken,
       defaultLanguageCode,
     });
