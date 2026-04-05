@@ -1,21 +1,35 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
+import { LanguageService } from '../../core/services/language.service';
 
 @Pipe({
   name: 'speed',
   standalone: true,
+  pure: false,
 })
 export class SpeedPipe implements PipeTransform {
+  private readonly languageService = inject(LanguageService);
+
   transform(value: number, measurementSystem = 'MetricSystem'): string {
     if (value == null || isNaN(value) || value === 0) {
-      return measurementSystem === 'MetricSystem' ? '0.00 km/h' : '0.00 mph';
+      const zero = (0).toLocaleString(this.getLocale(), {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      return measurementSystem === 'MetricSystem' ? `${zero} km/h` : `${zero} mph`;
     }
 
+    const locale = this.getLocale();
+    const opts: Intl.NumberFormatOptions = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+
     if (measurementSystem === 'MetricSystem') {
-      const kmh = value * 3.6;
-      return `${kmh.toFixed(2)} km/h`;
+      return `${(value * 3.6).toLocaleString(locale, opts)} km/h`;
     } else {
-      const mph = value * 2.23694;
-      return `${mph.toFixed(2)} mph`;
+      return `${(value * 2.23694).toLocaleString(locale, opts)} mph`;
     }
+  }
+
+  private getLocale(): string {
+    const localeMap: Record<string, string> = { en: 'en-US', es: 'es-CO' };
+    return localeMap[this.languageService.getCurrentLanguage()] ?? 'en-US';
   }
 }

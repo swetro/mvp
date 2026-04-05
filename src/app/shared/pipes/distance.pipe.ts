@@ -1,10 +1,14 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
+import { LanguageService } from '../../core/services/language.service';
 
 @Pipe({
   name: 'distance',
   standalone: true,
+  pure: false,
 })
 export class DistancePipe implements PipeTransform {
+  private readonly languageService = inject(LanguageService);
+
   transform(value: number, measurementSystem = 'MetricSystem'): string {
     if (value == null || isNaN(value)) {
       return '';
@@ -21,6 +25,11 @@ export class DistancePipe implements PipeTransform {
       unitLabel = 'mi';
     }
 
-    return `${convertedValue.toFixed(2)} ${unitLabel}`;
+    return `${convertedValue.toLocaleString(this.getLocale(), { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${unitLabel}`;
+  }
+
+  private getLocale(): string {
+    const localeMap: Record<string, string> = { en: 'en-US', es: 'es-CO' };
+    return localeMap[this.languageService.getCurrentLanguage()] ?? 'en-US';
   }
 }
