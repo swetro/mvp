@@ -136,7 +136,11 @@ export class SignIn implements AfterViewInit {
             return;
           }
           this.authService.onLoginSuccess();
-          this.router.navigate(returnUrl ? [returnUrl] : ['/', this.currentLanguage, 'challenges']);
+          if (returnUrl) {
+            this.router.navigateByUrl(returnUrl);
+          } else {
+            this.router.navigate(['/', this.currentLanguage, 'challenges']);
+          }
         },
         error: (error) => {
           this.messageService.showError(
