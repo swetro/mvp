@@ -1,27 +1,35 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TranslatePipe } from '@ngx-translate/core';
-import { LanguageService } from '../../core/services/language.service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { StatsService } from '../../shared/services/stats.service';
 import { ActivityType } from '../../shared/enums/activity-type.enum';
 import { DurationPipe } from '../../shared/pipes/duration.pipe';
 import { DistancePipe } from '../../shared/pipes/distance.pipe';
 import { ElevationPipe } from '../../shared/pipes/elevation.pipe';
 import { CaloriesPipe } from '../../shared/pipes/calories.pipe';
+import { LocalizedDecimalPipe } from '../../shared/pipes/localized-decimal.pipe';
 import { Spinner } from '../../shared/components/spinner/spinner';
 import { DatasetService } from '../../shared/services/dataset.service';
 
 @Component({
   selector: 'app-stats',
-  imports: [TranslatePipe, DurationPipe, DistancePipe, ElevationPipe, CaloriesPipe, Spinner],
+  imports: [
+    TranslatePipe,
+    DurationPipe,
+    DistancePipe,
+    ElevationPipe,
+    CaloriesPipe,
+    LocalizedDecimalPipe,
+    Spinner,
+  ],
   templateUrl: './stats.html',
   styles: ``,
 })
 export class Stats {
   private readonly statsService = inject(StatsService);
+  private readonly translate = inject(TranslateService);
   private readonly datasetService = inject(DatasetService);
-  private readonly languageService = inject(LanguageService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
@@ -36,6 +44,8 @@ export class Stats {
     this.activityTypeFilter,
   );
   readonly statsFiltersData = this.datasetService.getStatsFilters();
+  readonly Math = Math;
+
   private readonly currentYear = new Date().getFullYear();
   private readonly currentMonth = new Date().getMonth() + 1;
 
@@ -45,6 +55,29 @@ export class Stats {
       return months.filter((m) => Number(m.value) <= this.currentMonth);
     }
     return months;
+  });
+
+  readonly activeVariations = computed(() => {
+    const stats = this.activityVolumeStatsData.value();
+    if (!stats) return null;
+    if (this.monthFilter() !== undefined) {
+      return {
+        activities: stats.moMChangeNumberActivities,
+        duration: stats.moMChangeDurationInSeconds,
+        distance: stats.moMChangeDistanceInMeters,
+        calories: stats.moMChangeActiveKilocalories,
+        elevation: stats.moMChangeElevationGainInMeters,
+        labelKey: 'stats.volume.vsPrevMonth',
+      };
+    }
+    return {
+      activities: stats.yoYChangeNumberActivities,
+      duration: stats.yoYChangeDurationInSeconds,
+      distance: stats.yoYChangeDistanceInMeters,
+      calories: stats.yoYChangeActiveKilocalories,
+      elevation: stats.yoYChangeElevationGainInMeters,
+      labelKey: 'stats.volume.vsPrevYear',
+    };
   });
 
   constructor() {

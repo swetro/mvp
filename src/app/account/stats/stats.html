@@ -67,61 +67,205 @@
         <app-spinner></app-spinner>
       </div>
     } @else if (activityVolumeStatsData.value(); as stats) {
+      @let variations = activeVariations();
       <!-- Volume section -->
       <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <!-- Activities -->
         <div
           class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden px-4 py-4 flex flex-col items-center gap-1"
         >
-          <p class="text-2xl font-bold leading-tight">
-            {{ stats.totalNumberActivities }}
-          </p>
-          <p class="text-sm text-slate-600 leading-5">
+          <p class="text-2xl font-bold leading-tight">{{ stats.totalNumberActivities }}</p>
+          <p class="text-sm text-slate-600 font-semibold leading-5">
             {{ 'stats.volume.totalActivities' | translate }}
           </p>
+          @if (variations !== null) {
+            @let change = variations.activities;
+            @if (change !== null && change !== undefined) {
+              <span
+                [class]="change >= 0 ? 'text-emerald-600' : 'text-rose-600'"
+                class="text-sm flex items-center gap-0.5"
+              >
+                <svg
+                  class="w-3 h-3 shrink-0"
+                  [class.rotate-180]="change < 0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 10l7-7m0 0l7 7m-7-7v18"
+                  />
+                </svg>
+                {{ Math.abs(change) | localizedDecimal }}%
+              </span>
+              <span class="text-xs text-slate-600 leading-tight text-center">
+                {{ variations.labelKey | translate }}
+              </span>
+            }
+          }
         </div>
 
+        <!-- Duration -->
         <div
           class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden px-4 py-4 flex flex-col items-center gap-1"
         >
           <p class="text-2xl font-bold leading-tight">
             {{ stats.totalDurationInSeconds | duration }}
           </p>
-          <p class="text-sm text-slate-600 leading-5">
+          <p class="text-sm text-slate-600 font-semibold leading-5">
             {{ 'stats.volume.totalDuration' | translate }}
           </p>
+          @if (variations !== null) {
+            @let change = variations.duration;
+            @if (change !== null && change !== undefined) {
+              <span
+                [class]="change >= 0 ? 'text-emerald-600' : 'text-rose-600'"
+                class="text-sm flex items-center gap-0.5"
+              >
+                <svg
+                  class="w-3 h-3 shrink-0"
+                  [class.rotate-180]="change < 0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 10l7-7m0 0l7 7m-7-7v18"
+                  />
+                </svg>
+                {{ Math.abs(change) | localizedDecimal }}%
+              </span>
+              <span class="text-xs text-slate-600 leading-tight text-center">
+                {{ variations.labelKey | translate }}
+              </span>
+            }
+          }
         </div>
 
+        <!-- Distance -->
         <div
           class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden px-4 py-4 flex flex-col items-center gap-1"
         >
           <p class="text-2xl font-bold leading-tight">
             {{ stats.totalDistanceInMeters | distance }}
           </p>
-          <p class="text-sm text-slate-600 leading-5">
+          <p class="text-sm text-slate-600 font-semibold leading-5">
             {{ 'stats.volume.totalDistance' | translate }}
           </p>
+          @if (variations !== null) {
+            @let change = variations.distance;
+            @if (change !== null && change !== undefined) {
+              <span
+                [class]="change >= 0 ? 'text-emerald-600' : 'text-rose-600'"
+                class="text-sm flex items-center gap-0.5"
+              >
+                <svg
+                  class="w-3 h-3 shrink-0"
+                  [class.rotate-180]="change < 0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 10l7-7m0 0l7 7m-7-7v18"
+                  />
+                </svg>
+                {{ Math.abs(change) | localizedDecimal }}%
+              </span>
+              <span class="text-xs text-slate-600 leading-tight text-center">
+                {{ variations.labelKey | translate }}
+              </span>
+            }
+          }
         </div>
 
+        <!-- Calories -->
         <div
           class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden px-4 py-4 flex flex-col items-center gap-1"
         >
           <p class="text-2xl font-bold leading-tight">
             {{ stats.totalActiveKilocalories | calories }}
           </p>
-          <p class="text-sm text-slate-600 leading-5">
+          <p class="text-sm text-slate-600 font-semibold leading-5">
             {{ 'stats.volume.totalCalories' | translate }}
           </p>
+          @if (variations !== null) {
+            @let change = variations.calories;
+            @if (change !== null && change !== undefined) {
+              <span
+                [class]="change >= 0 ? 'text-emerald-600' : 'text-rose-600'"
+                class="text-sm flex items-center gap-0.5"
+              >
+                <svg
+                  class="w-3 h-3 shrink-0"
+                  [class.rotate-180]="change < 0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 10l7-7m0 0l7 7m-7-7v18"
+                  />
+                </svg>
+                {{ Math.abs(change) | localizedDecimal }}%
+              </span>
+              <span class="text-xs text-slate-600 leading-tight text-center">
+                {{ variations.labelKey | translate }}
+              </span>
+            }
+          }
         </div>
 
+        <!-- Elevation -->
         <div
           class="col-span-2 md:col-span-1 w-full bg-white border border-slate-300 rounded-lg overflow-hidden px-4 py-4 flex flex-col items-center gap-1"
         >
           <p class="text-2xl font-bold leading-tight">
             {{ stats.totalElevationGainInMeters | elevation }}
           </p>
-          <p class="text-sm text-slate-600 leading-5">
+          <p class="text-sm text-slate-600 font-semibold leading-5">
             {{ 'stats.volume.totalElevationGain' | translate }}
           </p>
+          @if (variations !== null) {
+            @let change = variations.elevation;
+            @if (change !== null && change !== undefined) {
+              <span
+                [class]="change >= 0 ? 'text-emerald-600' : 'text-rose-600'"
+                class="text-sm flex items-center gap-0.5"
+              >
+                <svg
+                  class="w-3 h-3 shrink-0"
+                  [class.rotate-180]="change < 0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 10l7-7m0 0l7 7m-7-7v18"
+                  />
+                </svg>
+                {{ Math.abs(change) | localizedDecimal }}%
+              </span>
+              <span class="text-xs text-slate-600 leading-tight text-center">
+                {{ variations.labelKey | translate }}
+              </span>
+            }
+          }
         </div>
       </div>
     }

@@ -64,7 +64,6 @@ export class VerifyOtp implements OnInit {
       // Cleanup function: This runs when the effect reruns or the component is destroyed
       return () => clearInterval(intervalId);
     });
-
   }
 
   onSubmit(event: Event) {

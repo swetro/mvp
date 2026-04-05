@@ -386,7 +386,9 @@
       "totalCalories": "Calories",
       "totalDistance": "Distance",
       "totalDuration": "Duration",
-      "totalElevationGain": "Elevation"
+      "totalElevationGain": "Elevation",
+      "vsPrevMonth": "vs prev. month",
+      "vsPrevYear": "vs prev. year"
     }
   },
   "table": {
