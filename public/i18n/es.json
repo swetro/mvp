@@ -197,7 +197,8 @@
     "linkProfile": "Perfil",
     "linkSignIn": "Iniciar sesión",
     "linkSignOut": "Cerrar sesión",
-    "linkSignUp": "Registrarse"
+    "linkSignUp": "Registrarse",
+    "linkStats": "Estadísticas"
   },
   "home": {
     "body": {
@@ -226,6 +227,10 @@
       "profile": {
         "title": "Editar perfil",
         "description": "Actualiza tu información personal y preferencias."
+      },
+      "stats": {
+        "title": "Estadísticas",
+        "description": "Consulta tu volumen de entrenamiento acumulado y tu consistencia a lo largo del tiempo."
       }
     },
     "auth": {
@@ -349,6 +354,40 @@
       "or": "o"
     },
     "linkSignIn": "Iniciar sesión"
+  },
+  "stats": {
+    "body": {
+      "title": "Estadísticas",
+      "description": "Consulta tu volumen de entrenamiento acumulado y tu consistencia a lo largo del tiempo."
+    },
+    "challenges": {
+      "completionRate": "Tasa de completación de retos",
+      "sectionTitle": "Retos",
+      "totalCompleted": "Retos completados",
+      "totalParticipated": "Retos participados"
+    },
+    "consistency": {
+      "currentStreak": "Racha actual de semanas activas",
+      "goalCompletionRate": "Tasa de cumplimiento de meta semanal",
+      "longestStreak": "Racha máxima de semanas activas",
+      "sectionTitle": "Consistencia",
+      "weeksWithGoal": "Semanas con meta semanal alcanzada"
+    },
+    "filters": {
+      "activityType": "Actividad:",
+      "allTypes": "Todas las actividades",
+      "month": "Mes:",
+      "wholeYear": "Todo el año",
+      "year": "Año:"
+    },
+    "volume": {
+      "sectionTitle": "Volumen acumulado",
+      "totalActivities": "Actividades",
+      "totalCalories": "Calorías",
+      "totalDistance": "Distancia",
+      "totalDuration": "Tiempo",
+      "totalElevationGain": "Elevación"
+    }
   },
   "table": {
     "noResults": {

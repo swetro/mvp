@@ -16,17 +16,17 @@
   h1 {
     @apply text-4xl md:text-5xl font-bold leading-tight;
   }
-  
+
   h2 {
     @apply text-2xl md:text-3xl font-bold;
   }
-  
+
   h3 {
-    @apply text-xl md:text-2xl font-semibold;
+    @apply text-xl md:text-xl font-semibold;
   }
 
   a {
-    @apply text-blue-600 no-underline hover:underline hover:text-blue-700
+    @apply text-blue-600 no-underline hover:underline hover:text-blue-700;
   }
 }
 
@@ -43,7 +43,7 @@
            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
            disabled:bg-slate-300 disabled:text-slate-500 disabled:hover:bg-slate-300;
   }
-  
+
   .btn-secondary {
     @apply border border-blue-600 text-blue-600 hover:bg-blue-50 active:bg-blue-100
            font-semibold px-6 py-2 rounded-lg
@@ -51,7 +51,7 @@
            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
            disabled:border-slate-300 disabled:text-slate-400 disabled:hover:bg-transparent disabled:cursor-not-allowed;
   }
-  
+
   .btn-ghost {
     @apply text-blue-600 hover:bg-blue-50
            font-medium px-6 py-3 rounded-lg
@@ -76,11 +76,11 @@
   .form-label {
     @apply block text-sm font-semibold text-slate-900 mb-2;
   }
-  
+
   .form-error {
     @apply mt-2 text-sm text-red-600;
   }
-  
+
   .form-error-message {
     @apply flex items-start gap-2.5
            px-4 py-3 mb-6 rounded-lg
@@ -88,11 +88,11 @@
            text-sm text-red-700 font-medium
            leading-snug;
   }
-  
+
   .form-help {
     @apply mt-2 text-sm text-slate-500;
   }
-  
+
   .form-select {
     @apply w-full px-2 py-1 border border-slate-300 rounded-lg text-slate-900
            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
@@ -110,14 +110,14 @@
   .form-input-success {
     @apply border-2 border-emerald-500 focus:ring-emerald-500;
   }
-  
+
   .form-checkbox,
   .form-radio {
     @apply w-5 h-5 border-slate-300 text-blue-600 rounded
            focus:ring-2 focus:ring-blue-500 focus:ring-offset-0
            transition-colors cursor-pointer;
   }
-  
+
   .form-radio {
     @apply rounded-full;
   }
@@ -128,7 +128,7 @@
     max-height: 0;
     opacity: 0;
   }
-  
+
   .mobile-menu.open {
     max-height: 500px;
     opacity: 1;

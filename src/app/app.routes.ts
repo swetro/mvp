@@ -18,6 +18,7 @@ import { Activities } from './account/activities/activities';
 import { Devices } from './account/devices/devices';
 import { EditProfile } from './account/edit-profile/edit-profile';
 import { OauthCallback } from './auth/oauth-callback/oauth-callback';
+import { Stats } from './account/stats/stats';
 
 const mainRoutes: Routes = [
   { path: '', component: Home },
@@ -46,6 +47,7 @@ const mainRoutes: Routes = [
       { path: 'profile', component: EditProfile },
       { path: 'activities', component: Activities },
       { path: 'devices', component: Devices },
+      { path: 'stats', component: Stats },
     ],
   },
   { path: 'privacy-policy', component: PrivacyPolicy },

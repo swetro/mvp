@@ -198,7 +198,8 @@
     "linkProfile": "Profile",
     "linkSignIn": "Sign In",
     "linkSignOut": "Sign Out",
-    "linkSignUp": "Sign Up"
+    "linkSignUp": "Sign Up",
+    "linkStats": "Statistics"
   },
   "home": {
     "body": {
@@ -227,6 +228,10 @@
       "profile": {
         "title": "Edit profile",
         "description": "Update your personal information and preferences."
+      },
+      "stats": {
+        "title": "Statistics",
+        "description": "View your accumulated training volume and consistency over time."
       }
     },
     "auth": {
@@ -349,6 +354,40 @@
       "or": "or"
     },
     "linkSignIn": "Sign In"
+  },
+  "stats": {
+    "body": {
+      "title": "Statistics",
+      "description": "View your accumulated training volume and consistency over time."
+    },
+    "challenges": {
+      "completionRate": "Challenge completion rate",
+      "sectionTitle": "Challenges",
+      "totalCompleted": "Challenges completed",
+      "totalParticipated": "Challenges participated"
+    },
+    "consistency": {
+      "currentStreak": "Current active weeks streak",
+      "goalCompletionRate": "Weekly goal completion rate",
+      "longestStreak": "Longest active weeks streak",
+      "sectionTitle": "Consistency",
+      "weeksWithGoal": "Weeks with goal met"
+    },
+    "filters": {
+      "activityType": "Activity:",
+      "allTypes": "All activities",
+      "month": "Month:",
+      "wholeYear": "Whole year",
+      "year": "Year:"
+    },
+    "volume": {
+      "sectionTitle": "Accumulated Volume",
+      "totalActivities": "Activities",
+      "totalCalories": "Calories",
+      "totalDistance": "Distance",
+      "totalDuration": "Duration",
+      "totalElevationGain": "Elevation"
+    }
   },
   "table": {
     "noResults": {

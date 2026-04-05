@@ -73,6 +73,13 @@
                 {{ 'header.linkActivities' | translate }}</a
               >
               <a
+                [routerLink]="['/', currentLanguage, 'account', 'stats']"
+                class="dropdown-item"
+                (click)="closeUserMenu()"
+              >
+                {{ 'header.linkStats' | translate }}</a
+              >
+              <a
                 [routerLink]="['/', currentLanguage, 'account', 'devices']"
                 class="dropdown-item"
                 (click)="closeUserMenu()"
@@ -171,6 +178,13 @@
           (click)="closeMobileMenu()"
         >
           {{ 'header.linkActivities' | translate }}
+        </a>
+        <a
+          [routerLink]="['/', currentLanguage, 'account', 'stats']"
+          class="mobile-menu-item"
+          (click)="closeMobileMenu()"
+        >
+          {{ 'header.linkStats' | translate }}
         </a>
         <a
           [routerLink]="['/', currentLanguage, 'account', 'devices']"

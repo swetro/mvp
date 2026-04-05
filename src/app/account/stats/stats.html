@@ -1,0 +1,129 @@
+<section>
+  <h2>{{ 'stats.body.title' | translate }}</h2>
+  <p class="text-slate-600">{{ 'stats.body.description' | translate }}</p>
+
+  <div class="mt-6 mb-20 space-y-6">
+    @if (statsFiltersData.isLoading()) {
+      <div class="flex justify-center py-20">
+        <app-spinner></app-spinner>
+      </div>
+    } @else if (statsFiltersData.value(); as filters) {
+      <!-- Filters -->
+      <div class="flex flex-col md:flex-row md:items-end gap-4 pb-2">
+        <div class="w-full md:w-56">
+          <label for="filterYear" class="form-label">{{ 'stats.filters.year' | translate }}</label>
+          <select id="filterYear" class="form-select" (change)="onYearChange($event)">
+            @for (item of filters.years; track item) {
+              <option [value]="item.value" [selected]="item.value === yearFilter().toString()">
+                {{ item.value }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="w-full md:w-56">
+          <label for="filterMonth" class="form-label">
+            {{ 'stats.filters.month' | translate }}
+          </label>
+          <select id="filterMonth" class="form-select" (change)="onMonthChange($event)">
+            <option value="">{{ 'stats.filters.wholeYear' | translate }}</option>
+            @for (item of availableMonths(); track item) {
+              <option [value]="item.value" [selected]="item.value === monthFilter()?.toString()">
+                {{ item.label }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="w-full md:w-56">
+          <label for="filterActivityType" class="form-label">
+            {{ 'stats.filters.activityType' | translate }}
+          </label>
+          <select
+            id="filterActivityType"
+            class="form-select"
+            (change)="onActivityTypeChange($event)"
+          >
+            <option value="">{{ 'stats.filters.allTypes' | translate }}</option>
+            @for (item of filters.activityTypes; track item) {
+              <option
+                [value]="item.value"
+                [selected]="item.value === activityTypeFilter()?.toString()"
+              >
+                {{ item.label }}
+              </option>
+            }
+          </select>
+        </div>
+      </div>
+    }
+
+    <h3>
+      {{ 'stats.volume.sectionTitle' | translate }}
+    </h3>
+
+    @if (activityVolumeStatsData.isLoading()) {
+      <div class="flex justify-center py-20">
+        <app-spinner></app-spinner>
+      </div>
+    } @else if (activityVolumeStatsData.value(); as stats) {
+      <!-- Volume section -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <div
+          class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden px-4 py-4 flex flex-col items-center gap-1"
+        >
+          <p class="text-2xl font-bold leading-tight">
+            {{ stats.totalNumberActivities }}
+          </p>
+          <p class="text-sm text-slate-600 leading-5">
+            {{ 'stats.volume.totalActivities' | translate }}
+          </p>
+        </div>
+
+        <div
+          class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden px-4 py-4 flex flex-col items-center gap-1"
+        >
+          <p class="text-2xl font-bold leading-tight">
+            {{ stats.totalDurationInSeconds | duration }}
+          </p>
+          <p class="text-sm text-slate-600 leading-5">
+            {{ 'stats.volume.totalDuration' | translate }}
+          </p>
+        </div>
+
+        <div
+          class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden px-4 py-4 flex flex-col items-center gap-1"
+        >
+          <p class="text-2xl font-bold leading-tight">
+            {{ stats.totalDistanceInMeters | distance }}
+          </p>
+          <p class="text-sm text-slate-600 leading-5">
+            {{ 'stats.volume.totalDistance' | translate }}
+          </p>
+        </div>
+
+        <div
+          class="w-full bg-white border border-slate-300 rounded-lg overflow-hidden px-4 py-4 flex flex-col items-center gap-1"
+        >
+          <p class="text-2xl font-bold leading-tight">
+            {{ stats.totalActiveKilocalories | calories }}
+          </p>
+          <p class="text-sm text-slate-600 leading-5">
+            {{ 'stats.volume.totalCalories' | translate }}
+          </p>
+        </div>
+
+        <div
+          class="col-span-2 md:col-span-1 w-full bg-white border border-slate-300 rounded-lg overflow-hidden px-4 py-4 flex flex-col items-center gap-1"
+        >
+          <p class="text-2xl font-bold leading-tight">
+            {{ stats.totalElevationGainInMeters | elevation }}
+          </p>
+          <p class="text-sm text-slate-600 leading-5">
+            {{ 'stats.volume.totalElevationGain' | translate }}
+          </p>
+        </div>
+      </div>
+    }
+  </div>
+</section>
